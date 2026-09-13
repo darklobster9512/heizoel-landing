@@ -6,6 +6,7 @@ import {
   FileText,
   Lock,
   MapPin,
+  Pencil,
   ShieldCheck,
   Truck,
   Users,
@@ -106,6 +107,7 @@ const ADVANTAGES = [
 
 const fmtEuro = (v: number) =>
   v.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 
 const fieldClass =
   "mt-1.5 w-full rounded-md border border-line bg-background px-3 py-3 text-[14px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:px-4";
@@ -122,135 +124,25 @@ function Stars({ className = "size-4" }: { className?: string }) {
   );
 }
 
-function OfferTile({
-  variant,
-  liters,
-}: {
-  variant: "standard" | "premium";
-  liters: number;
-}) {
-  const isPremium = variant === "premium";
-  const price = isPremium ? PRICE_PREMIUM : PRICE_STANDARD;
-  const total = (liters / 100) * price;
-  const [deliveryDate, setDeliveryDate] = useState("");
-
-  useEffect(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 7);
-    setDeliveryDate(d.toLocaleDateString("de-DE"));
-  }, []);
-
-  return (
-    <article
-      className={`flex flex-col rounded-xl border border-line bg-background shadow-card ${
-        isPremium ? "border-t-4 border-t-brand" : "border-t-4 border-t-line"
-      }`}
-    >
-      <div className="flex items-start justify-between gap-3 border-b border-line px-6 py-5">
-        <h2 className="text-[17px] font-bold leading-tight text-conditions md:text-[19px]">
-          {isPremium ? "Premium – Das Sparsame" : "Standard – Das Günstige"}
-        </h2>
-        {isPremium ? (
-          <span className="shrink-0 rounded-full bg-brand px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
-            Empfohlen
-          </span>
-        ) : null}
-      </div>
-
-      <div className="flex flex-1 flex-col px-6 py-5">
-        <p className="text-[13px] leading-[1.7] text-muted-custom">
-          {isPremium
-            ? "Heizöl Premium mit Additiven — für ca. 5 % niedrigeren Verbrauch und längere Lagerfähigkeit."
-            : "Heizöl Standard (DIN 51603-1) — geeignet für alle Ölheizungen."}
-        </p>
-
-        <div className="mt-5 rounded-lg bg-surface px-4 py-4">
-          <p className="text-[12px] uppercase tracking-wide text-muted-custom">
-            Preis pro 100 Liter
-          </p>
-          <p className="mt-1 text-[26px] font-bold leading-none text-conditions">
-            {fmtEuro(price)} €
-          </p>
-          <p className="mt-4 text-[12px] uppercase tracking-wide text-muted-custom">
-            Gesamtpreis inkl. Lieferung
-          </p>
-          <p className="mt-1 text-[30px] font-bold leading-none text-brand md:text-[34px]">
-            {fmtEuro(total)} €
-          </p>
-          <p className="mt-1.5 text-[12px] text-muted-custom">inkl. 19 % MwSt.</p>
-        </div>
-
-        <p className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand">
-          <BadgePercent className="h-4 w-4" aria-hidden="true" />
-          Direktpreis ohne Zwischenhändler — inkl. Lieferung
-        </p>
-
-        <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4">
-          <div>
-            <p className="text-[12px] uppercase tracking-wide text-muted-custom">Lieferung</p>
-            <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
-              <CalendarCheck className="h-4 w-4 text-brand" aria-hidden="true" />
-              ab {deliveryDate || "—"}
-            </p>
-          </div>
-          <div>
-            <p className="text-[12px] uppercase tracking-wide text-muted-custom">Liefergebiet</p>
-            <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
-              <MapPin className="h-4 w-4 text-brand" aria-hidden="true" />
-              Deutschlandweit
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-5 border-t border-line pt-4">
-          <p className="text-[12px] uppercase tracking-wide text-muted-custom">Zahlungsarten</p>
-          <ul className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {PAYMENTS.map((p) => (
-              <li
-                key={p.label}
-                className="flex flex-col items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2.5"
-              >
-                {p.img ? (
-                  <img
-                    src={p.img}
-                    alt={p.label}
-                    className="h-6 w-auto object-contain"
-                    loading="lazy"
-                  />
-                ) : (
-                  <FileText className="h-6 w-6 text-brand" aria-hidden="true" />
-                )}
-                <span className="text-[11px] font-medium text-muted-custom">{p.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-auto pt-6">
-          <Link
-            to="/antrag/schritt-1"
-            search={{}}
-            className="inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-3.5 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-          >
-            Zur Bestellung
-          </Link>
-          <p className="mt-2.5 inline-flex w-full items-center justify-center gap-1.5 text-[12px] text-muted-custom">
-            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-            100 % sicher &amp; SSL-verschlüsselt
-          </p>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 function ErgebnisPage() {
   const search = Route.useSearch();
+
+  // Confirmed values (drive pricing)
   const [plz, setPlz] = useState(search.plz);
   const [liters, setLiters] = useState(search.menge);
   const [points, setPoints] = useState(search.abladestellen);
   const [hose, setHose] = useState(HOSE_OPTIONS[0]!);
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
+
+  // Draft values while editing
+  const [editing, setEditing] = useState(false);
+  const [dPlz, setDPlz] = useState(plz);
+  const [dLiters, setDLiters] = useState(liters);
+  const [dPoints, setDPoints] = useState(points);
+  const [dHose, setDHose] = useState(hose);
+  const [dTruck, setDTruck] = useState(truck);
+
+  const [variant, setVariant] = useState<"standard" | "premium">("premium");
   const [stand, setStand] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
 
@@ -267,7 +159,36 @@ function ErgebnisPage() {
     setDeliveryDate(d.toLocaleDateString("de-DE"));
   }, []);
 
-  const effectiveLiters = useMemo(() => (liters && liters >= 1500 ? liters : 1500), [liters]);
+  const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
+  const total = useMemo(() => (liters / 100) * price, [liters, price]);
+
+  const startEditing = () => {
+    setDPlz(plz);
+    setDLiters(liters);
+    setDPoints(points);
+    setDHose(hose);
+    setDTruck(truck);
+    setEditing(true);
+  };
+
+  const applyDraft = () => {
+    setPlz(dPlz);
+    setLiters(dLiters >= 1500 ? dLiters : 1500);
+    setPoints(dPoints);
+    setHose(dHose);
+    setTruck(dTruck);
+    setEditing(false);
+  };
+
+  const summary = [
+    plz ? `PLZ ${plz}` : null,
+    `${fmtLiters(liters)} Liter`,
+    `${points} ${points === 1 ? "Abladestelle" : "Abladestellen"}`,
+    `Schlauch ${hose}`,
+    `Tankwagen: ${truck}`,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <div className="min-h-screen bg-background font-body text-ink">
@@ -284,161 +205,298 @@ function ErgebnisPage() {
           </div>
         </section>
 
-        <section className="bg-background" aria-labelledby="lieferdaten-title">
+        <section className="bg-background">
           <div className="mx-auto max-w-6xl px-5 py-8 md:py-10">
-            <div className="rounded-xl border border-line border-t-4 border-t-brand bg-background p-6 shadow-card md:p-8">
-              <h2
-                id="lieferdaten-title"
-                className="text-[17px] font-bold text-conditions md:text-[19px]"
-              >
-                Ihre Lieferdaten
-              </h2>
-              <p className="mt-1 text-[13px] text-muted-custom">
-                Sie können Ihre Angaben jederzeit anpassen — der Preis wird sofort neu berechnet.
-              </p>
-
-              <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {/* Lieferdaten: summary + edit-on-click */}
+            <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-card md:px-6">
+              {editing ? (
                 <div>
-                  <label htmlFor="e-plz" className="text-[13px] font-medium text-hero-text">
-                    Postleitzahl
-                  </label>
-                  <input
-                    id="e-plz"
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={5}
-                    placeholder="z. B. 10115"
-                    value={plz}
-                    onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                    className={`${fieldClass} tabular`}
-                  />
+                  <h2 className="text-[15px] font-bold text-conditions">Ihre Lieferdaten</h2>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div>
+                      <label htmlFor="e-plz" className="text-[13px] font-medium text-hero-text">
+                        Postleitzahl
+                      </label>
+                      <input
+                        id="e-plz"
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={5}
+                        placeholder="z. B. 10115"
+                        value={dPlz}
+                        onChange={(e) => setDPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                        className={`${fieldClass} tabular`}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="e-menge" className="text-[13px] font-medium text-hero-text">
+                        Liefermenge in Liter
+                      </label>
+                      <input
+                        id="e-menge"
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="z. B. 3000"
+                        value={dLiters || ""}
+                        onChange={(e) => {
+                          const digits = e.target.value.replace(/\D/g, "");
+                          setDLiters(digits ? Number(digits) : 0);
+                        }}
+                        onBlur={() => {
+                          if (!dLiters || dLiters < 1500) setDLiters(1500);
+                          else if (dLiters > 32000) setDLiters(32000);
+                        }}
+                        className={`${fieldClass} tabular`}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="e-abladestellen"
+                        className="text-[13px] font-medium text-hero-text"
+                      >
+                        Abladestellen
+                      </label>
+                      <Select value={String(dPoints)} onValueChange={(v) => setDPoints(Number(v))}>
+                        <SelectTrigger id="e-abladestellen" className={`${fieldClass} focus:ring-0`}>
+                          <SelectValue placeholder="Abladestellen wählen" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {DELIVERY_POINTS.map((n) => (
+                            <SelectItem key={n} value={String(n)}>
+                              {n}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label htmlFor="e-schlauch" className="text-[13px] font-medium text-hero-text">
+                        Schlauch
+                      </label>
+                      <Select value={dHose} onValueChange={setDHose}>
+                        <SelectTrigger id="e-schlauch" className={`${fieldClass} focus:ring-0`}>
+                          <SelectValue placeholder="Schlauchlänge wählen" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {HOSE_OPTIONS.map((o) => (
+                            <SelectItem key={o} value={o}>
+                              {o}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label htmlFor="e-tankwagen" className="text-[13px] font-medium text-hero-text">
+                        Tankwagen
+                      </label>
+                      <Select value={dTruck} onValueChange={setDTruck}>
+                        <SelectTrigger id="e-tankwagen" className={`${fieldClass} focus:ring-0`}>
+                          <SelectValue placeholder="Tankwagen wählen" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {TRUCK_OPTIONS.map((o) => (
+                            <SelectItem key={o} value={o}>
+                              {o}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-medium text-hero-text">Lieferdatum</span>
+                      <p className="mt-1.5 flex w-full items-center gap-2 rounded-md border border-line bg-background px-3 py-3 text-[14px] text-muted-custom md:px-4">
+                        <CalendarCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+                        ab {deliveryDate || "—"} (fest)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setEditing(false)}
+                      className="inline-flex items-center justify-center rounded-[4px] border border-line bg-background px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:bg-surface"
+                    >
+                      Abbrechen
+                    </button>
+                    <button
+                      type="button"
+                      onClick={applyDraft}
+                      className="inline-flex items-center justify-center rounded-[4px] bg-brand px-5 py-3 text-[14px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                    >
+                      Preis neu berechnen
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <p className="text-[14px] text-ink">
+                    <span className="font-semibold">Ihre Lieferdaten:</span>{" "}
+                    <span className="text-muted-custom">{summary}</span>
+                  </p>
+                  <button
+                    type="button"
+                    onClick={startEditing}
+                    className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[4px] border border-line bg-background px-4 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-brand/10 hover:text-brand"
+                  >
+                    <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+                    Ändern
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Offer card with tabs */}
+            <div className="mt-6 rounded-xl border border-line bg-background shadow-card">
+              {/* Tabs */}
+              <div className="grid grid-cols-2 border-b border-line">
+                {(
+                  [
+                    { id: "standard", label: "Standard – Das Günstige" },
+                    { id: "premium", label: "Premium – Das Sparsame" },
+                  ] as const
+                ).map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setVariant(t.id)}
+                    aria-pressed={variant === t.id}
+                    className={`flex items-center justify-center gap-2 px-3 py-4 text-center text-[13px] font-bold leading-tight transition-colors md:text-[15px] ${
+                      variant === t.id
+                        ? "border-b-[3px] border-b-brand bg-brand/10 text-conditions"
+                        : "border-b-[3px] border-b-transparent bg-surface text-muted-custom hover:text-ink"
+                    }`}
+                  >
+                    {t.label}
+                    {t.id === "premium" ? (
+                      <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white md:text-[10px]">
+                        Empfohlen
+                      </span>
+                    ) : null}
+                  </button>
+                ))}
+              </div>
+
+              <div className="px-6 py-6 md:px-8 md:py-7">
+                <p className="text-[13px] leading-[1.7] text-muted-custom">
+                  {variant === "premium"
+                    ? "Heizöl Premium mit Additiven — für ca. 5 % niedrigeren Verbrauch und längere Lagerfähigkeit."
+                    : "Heizöl Standard (DIN 51603-1) — geeignet für alle Ölheizungen."}
+                </p>
+
+                <div className="mt-5 grid gap-4 rounded-lg bg-surface px-5 py-5 sm:grid-cols-2">
+                  <div>
+                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
+                      Preis pro 100 Liter
+                    </p>
+                    <p className="mt-1 text-[26px] font-bold leading-none text-conditions">
+                      {fmtEuro(price)} €
+                    </p>
+                  </div>
+                  <div className="sm:border-l sm:border-line sm:pl-4">
+                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
+                      Gesamtpreis inkl. Lieferung
+                    </p>
+                    <p className="mt-1 text-[30px] font-bold leading-none text-brand md:text-[34px]">
+                      {fmtEuro(total)} €
+                    </p>
+                    <p className="mt-1.5 text-[12px] text-muted-custom">inkl. 19 % MwSt.</p>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="e-menge" className="text-[13px] font-medium text-hero-text">
-                    Liefermenge in Liter
-                  </label>
-                  <input
-                    id="e-menge"
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="z. B. 3000"
-                    value={liters || ""}
-                    onChange={(e) => {
-                      const digits = e.target.value.replace(/\D/g, "");
-                      setLiters(digits ? Number(digits) : 0);
-                    }}
-                    onBlur={() => {
-                      if (!liters || liters < 1500) setLiters(1500);
-                      else if (liters > 32000) setLiters(32000);
-                    }}
-                    className={`${fieldClass} tabular`}
-                  />
+                <p className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand">
+                  <BadgePercent className="h-4 w-4" aria-hidden="true" />
+                  Direktpreis ohne Zwischenhändler — inkl. Lieferung
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4">
+                  <div>
+                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">Lieferung</p>
+                    <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
+                      <CalendarCheck className="h-4 w-4 text-brand" aria-hidden="true" />
+                      ab {deliveryDate || "—"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
+                      Liefergebiet
+                    </p>
+                    <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
+                      <MapPin className="h-4 w-4 text-brand" aria-hidden="true" />
+                      Deutschlandweit
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="e-abladestellen" className="text-[13px] font-medium text-hero-text">
-                    Abladestellen
-                  </label>
-                  <Select value={String(points)} onValueChange={(v) => setPoints(Number(v))}>
-                    <SelectTrigger id="e-abladestellen" className={`${fieldClass} focus:ring-0`}>
-                      <SelectValue placeholder="Abladestellen wählen" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {DELIVERY_POINTS.map((n) => (
-                        <SelectItem key={n} value={String(n)}>
-                          {n}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <div className="mt-5 border-t border-line pt-4">
+                  <p className="text-[12px] uppercase tracking-wide text-muted-custom">
+                    Zahlungsarten
+                  </p>
+                  <ul className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {PAYMENTS.map((p) => (
+                      <li
+                        key={p.label}
+                        className="flex flex-col items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2.5"
+                      >
+                        {p.img ? (
+                          <img
+                            src={p.img}
+                            alt={p.label}
+                            className="h-6 w-auto object-contain"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <FileText className="h-6 w-6 text-brand" aria-hidden="true" />
+                        )}
+                        <span className="text-[11px] font-medium text-muted-custom">{p.label}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <div>
-                  <label htmlFor="e-schlauch" className="text-[13px] font-medium text-hero-text">
-                    Schlauch
-                  </label>
-                  <Select value={hose} onValueChange={setHose}>
-                    <SelectTrigger id="e-schlauch" className={`${fieldClass} focus:ring-0`}>
-                      <SelectValue placeholder="Schlauchlänge wählen" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {HOSE_OPTIONS.map((o) => (
-                        <SelectItem key={o} value={o}>
-                          {o}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label htmlFor="e-tankwagen" className="text-[13px] font-medium text-hero-text">
-                    Tankwagen
-                  </label>
-                  <Select value={truck} onValueChange={setTruck}>
-                    <SelectTrigger id="e-tankwagen" className={`${fieldClass} focus:ring-0`}>
-                      <SelectValue placeholder="Tankwagen wählen" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TRUCK_OPTIONS.map((o) => (
-                        <SelectItem key={o} value={o}>
-                          {o}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <span className="text-[13px] font-medium text-hero-text">Lieferdatum</span>
-                  <p className="mt-1.5 flex w-full items-center gap-2 rounded-md border border-line bg-surface px-3 py-3 text-[14px] text-muted-custom md:px-4">
-                    <CalendarCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
-                    ab {deliveryDate || "—"}
+                <div className="mt-6">
+                  <Link
+                    to="/antrag/schritt-1"
+                    search={{}}
+                    className="inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-3.5 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:w-auto sm:min-w-[280px]"
+                  >
+                    Zur Bestellung
+                  </Link>
+                  <p className="mt-2.5 inline-flex w-full items-center gap-1.5 text-[12px] text-muted-custom sm:w-auto sm:pl-4">
+                    <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+                    100 % sicher &amp; SSL-verschlüsselt
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="bg-background" aria-label="Heizölsorten">
-          <div className="mx-auto max-w-6xl px-5 pb-4">
-            <div className="grid gap-6 lg:grid-cols-2">
-              <OfferTile variant="standard" liters={effectiveLiters} />
-              <OfferTile variant="premium" liters={effectiveLiters} />
-            </div>
-
-            <div className="mt-5 text-center">
-              <Link
-                to="/heizoel-wissen"
-                hash="sorten"
-                className="text-[13px] font-semibold text-brand underline-offset-4 hover:underline"
-              >
-                Sorten im Detail vergleichen
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-background" aria-label="Vertrauen">
-          <div className="mx-auto max-w-6xl px-5 py-8">
-            <div className="flex flex-col items-center gap-4 rounded-xl border border-line bg-surface px-6 py-6 text-center md:flex-row md:justify-between md:text-left">
-              <div className="flex items-center gap-4">
-                <img
-                  src={ekomi.url}
-                  alt="eKomi Gold Siegel"
-                  className="h-12 w-auto object-contain"
-                  loading="lazy"
-                />
-                <div>
-                  <Stars />
-                  <p className="mt-1 text-[13px] font-semibold text-ink">25.000+ Bewertungen</p>
+                <div className="mt-4">
+                  <Link
+                    to="/heizoel-wissen"
+                    hash="sorten"
+                    className="text-[13px] font-semibold text-brand underline-offset-4 hover:underline"
+                  >
+                    Sorten im Detail vergleichen
+                  </Link>
                 </div>
               </div>
-              <div className="text-[12px] leading-[1.7] text-muted-custom">
-                <p>Lieferung durch Klaro oder regionalen Partnerhändler</p>
-                <p>Preis ist bindend bei Bestellung. Es entstehen keine weiteren Kosten!</p>
+
+              {/* Trust strip inside the card */}
+              <div className="flex flex-col items-center gap-4 border-t border-line bg-surface px-6 py-5 text-center md:flex-row md:justify-between md:text-left">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={ekomi.url}
+                    alt="eKomi Gold Siegel"
+                    className="h-12 w-auto object-contain"
+                    loading="lazy"
+                  />
+                  <div>
+                    <Stars />
+                    <p className="mt-1 text-[13px] font-semibold text-ink">25.000+ Bewertungen</p>
+                  </div>
+                </div>
+                <div className="text-[12px] leading-[1.7] text-muted-custom">
+                  <p>Lieferung durch Klaro oder regionalen Partnerhändler</p>
+                  <p>Preis ist bindend bei Bestellung. Es entstehen keine weiteren Kosten!</p>
+                </div>
               </div>
             </div>
           </div>
