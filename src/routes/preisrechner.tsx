@@ -171,7 +171,14 @@ function PreisrechnerPage() {
 
             <div className="overflow-hidden rounded-xl border border-line bg-background shadow-card">
               <div className="grid lg:grid-cols-2">
-                <div className="p-6 md:p-10">
+                <div className="relative p-6 md:p-10">
+                  <img
+                    src={guarantee.url}
+                    alt="Günstiger-geht-nicht-Garantie"
+                    width={88}
+                    height={88}
+                    className="pointer-events-none absolute -left-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
+                  />
                   <OfferCard bordered={false} />
                 </div>
                 <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-l">
