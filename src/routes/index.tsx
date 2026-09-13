@@ -9,6 +9,7 @@ import {
   HeizoelSorten,
   MatchingOffers,
   PersonalDataInfo,
+  RegionalSeo,
   SiteFooter,
   Steps,
   ReferralBanner,
@@ -54,6 +55,7 @@ function Index() {
         <HeizoelSorten />
         <ReferralBanner />
         <HeizoelServiceIntro />
+        <RegionalSeo />
         <TrustLinks />
       </main>
       <SiteFooter />

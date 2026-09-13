@@ -1201,3 +1201,56 @@ export function HeizoelServiceIntro() {
     </section>
   );
 }
+
+const REGIONAL_BUTTONS = [
+  "Heizölpreise Baden-Württemberg",
+  "Heizöl Bayern kaufen",
+  "Heizölpreise Berlin",
+  "Heizöl Brandenburg bestellen",
+  "Heizölpreise Bremen",
+  "Heizöl Hamburg kaufen",
+  "Heizölpreise Hessen",
+  "Heizöl Meckl.-Vorpommern",
+  "Heizölpreise Niedersachsen",
+  "Heizöl NRW kaufen",
+  "Heizölpreise Rheinland-Pfalz",
+  "Heizöl Saarland bestellen",
+  "Heizölpreise Sachsen",
+  "Heizöl Sachsen-Anhalt",
+  "Heizölpreise Schleswig-Holstein",
+  "Heizöl Thüringen bestellen",
+];
+
+export function RegionalSeo() {
+  return (
+    <section className="bg-white" aria-labelledby="regional-seo-title">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+        <div className="text-center">
+          <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted-custom">
+            Heizölpreise nach Region
+          </p>
+          <h2
+            id="regional-seo-title"
+            className="mt-2 text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+          >
+            Heizöl in Ihrem Bundesland bestellen
+          </h2>
+          <p className="mx-auto mt-4 max-w-[720px] text-[15px] leading-[1.7] text-muted-custom">
+            Tagesaktuelle Heizölpreise für alle 16 Bundesländer — Lieferung deutschlandweit, Festpreisgarantie.
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {REGIONAL_BUTTONS.map((label) => (
+            <button
+              key={label}
+              type="button"
+              className="rounded-lg border border-line bg-card px-4 py-3 text-left text-[14px] font-medium leading-snug text-conditions transition-colors hover:border-brand hover:text-brand"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
