@@ -59,13 +59,13 @@ export function TrustBar() {
 }
 
 const CONDITIONS_LEFT = [
-  ["Literpreis:", "ca. 78,90 € bis 96,50 € je 100 Liter (Heizöl EL)"],
-  ["Liefermenge:", "Min. 500 bis Max. 30.000 Liter"],
+  ["Literpreis:", "ca. 128,78 € bis 163,15 € je 100 Liter (Heizöl EL)"],
+  ["Liefermenge:", "Min. 1500 bis Max. 32.000 Liter"],
 ];
 
 const CONDITIONS_RIGHT = [
-  ["Lieferzeit:", "ca. 3 bis 10 Werktage, Express möglich"],
-  ["Zahlungsarten:", "Vorkasse, Lastschrift, Rechnung oder Karte"],
+  ["Lieferzeit:", "ca. 4 bis 10 Werktage, Express möglich"],
+  ["Zahlungsarten:", "Vorkasse, Bar, EC-Karte, Rechnung"],
 ];
 
 function ConditionsList({ items }: { items: string[][] }) {
