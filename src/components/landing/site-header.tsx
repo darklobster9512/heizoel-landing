@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Calculator, ChevronDown, Fuel, TrendingUp } from "lucide-react";
+import { Calculator, ChevronDown, Fuel, HelpCircle, TrendingUp } from "lucide-react";
 
 import { Logo } from "./logo";
 import { RatingBadge } from "./rating-badge";
@@ -24,7 +24,13 @@ const HEIZOEL_LINKS = [
     description: "PLZ eingeben, Preis sofort berechnen",
     icon: Calculator,
   },
-];
+  {
+    to: "/faq",
+    title: "Heizöl FAQ",
+    description: "Antworten auf häufige Fragen",
+    icon: HelpCircle,
+  },
+] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
