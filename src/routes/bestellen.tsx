@@ -395,8 +395,6 @@ function BestellenPage() {
           </button>
         </div>
       </div>
-
-      <SiteFooter />
     </div>
   );
 }
