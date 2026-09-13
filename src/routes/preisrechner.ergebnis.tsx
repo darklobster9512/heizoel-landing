@@ -441,16 +441,12 @@ function ErgebnisPage() {
                       key={p.label}
                       className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-1"
                     >
-                      {p.img ? (
-                        <img
-                          src={p.img}
-                          alt={p.label}
-                          className="h-4 w-auto object-contain"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <FileText className="h-4 w-4 text-brand" aria-hidden="true" />
-                      )}
+                      <img
+                        src={p.img}
+                        alt={p.label}
+                        className="h-4 w-auto object-contain"
+                        loading="lazy"
+                      />
                       <span className="text-[11px] font-medium text-ink">{p.label}</span>
                     </li>
                   ))}
