@@ -744,6 +744,39 @@ const TRUST_CARDS = [
   },
 ];
 
+export function CtaCard() {
+  return (
+    <section aria-label="Jetzt Heizöl günstiger bestellen" className="bg-brand">
+      <div className="mx-auto max-w-6xl px-5 py-16 text-center md:py-20">
+        <h2 className="text-[26px] font-bold leading-[1.25] text-hero-text md:text-[38px]">
+          Jetzt Heizöl günstiger bestellen!
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-hero-text/90 md:text-[18px]">
+          Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+        </p>
+        <p className="mx-auto mt-3 max-w-xl text-[13px] leading-[1.5] text-hero-text/80 md:text-[14px]">
+          Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button
+            asChild
+            className="h-12 w-full max-w-[260px] bg-hero-text text-[15px] font-bold text-white hover:bg-hero-text/90"
+          >
+            <Link to="/" hash="rechner">Heizölpreis berechnen</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-12 w-full max-w-[260px] border-hero-text bg-transparent text-[15px] font-bold text-hero-text hover:bg-hero-text/10"
+          >
+            <Link to="/" hash="bewertungen">Bewertungen lesen</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function TrustLinks() {
   return (
     <section aria-label="Weitere Heizöl-Themen" className="bg-surface">
