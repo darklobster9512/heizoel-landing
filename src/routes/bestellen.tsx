@@ -2,8 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Check, ChevronRight, Lock, Phone } from "lucide-react";
 
-import { SiteHeader } from "@/components/landing/site-header";
-import { SiteFooter } from "@/components/landing/sections";
 import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
@@ -101,11 +99,10 @@ function BestellenPage() {
     while (cur.getDay() === 0 || cur.getDay() === 6) cur = nextWorkday(cur);
     const list = [cur];
     for (let i = 0; i < 2; i++) list.push(nextWorkday(list[list.length - 1]!));
-    return list.map((d, i) => ({
+    return list.map((d) => ({
       iso: toIso(d),
       weekday: d.toLocaleDateString("de-DE", { weekday: "long" }),
       date: d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }),
-      morningBooked: i > 0,
     }));
   }, [draft]);
 
@@ -123,7 +120,6 @@ function BestellenPage() {
   if (!loaded) {
     return (
       <div className="min-h-screen bg-surface font-body text-ink">
-        <SiteHeader />
       </div>
     );
   }
@@ -131,7 +127,6 @@ function BestellenPage() {
   if (!draft) {
     return (
       <div className="flex min-h-screen flex-col bg-surface font-body text-ink">
-        <SiteHeader />
         <main className="flex-1 px-4 py-14">
           <div className="mx-auto max-w-md rounded-xl border border-line bg-background px-6 py-8 text-center shadow-card">
             <h1 className="text-[20px] font-bold text-conditions">Keine Auswahl gefunden</h1>
@@ -147,7 +142,6 @@ function BestellenPage() {
             </Link>
           </div>
         </main>
-        <SiteFooter />
       </div>
     );
   }
@@ -162,10 +156,8 @@ function BestellenPage() {
 
   return (
     <div className="min-h-screen bg-surface font-body text-ink">
-      <SiteHeader />
-
       {/* Sticky Zusammenfassung */}
-      <div className="sticky top-[52px] z-30 border-b-2 border-b-brand bg-background md:top-16">
+      <div className="sticky top-0 z-30 border-b-2 border-b-brand bg-background">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-2.5">
           <div className="min-w-0">
             <p className="truncate text-[14px] font-bold text-conditions md:text-[15px]">
@@ -278,25 +270,15 @@ function BestellenPage() {
                     <p className="text-[14px] font-bold text-conditions">{d.date}</p>
                   </div>
                   <div className="flex flex-col gap-2 p-3 sm:flex-row">
-                    {d.morningBooked ? (
-                      <div className="relative flex-1 rounded-lg border border-line bg-surface px-3 py-3 text-center">
-                        <p className="text-[14px] font-bold text-muted-custom line-through">Vormittag</p>
-                        <p className="text-[12px] text-muted-custom line-through">8:00 - 12:00 Uhr</p>
-                        <span className="absolute right-2 top-2 rounded border border-[#e4b4b4] px-1.5 py-0.5 text-[10px] font-medium text-[#c06767]">
-                          soeben gebucht
-                        </span>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => select(d.iso, "vormittag")}
-                        aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
-                        className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
-                      >
-                        <p className="text-[14px] font-bold text-conditions">Vormittag</p>
-                        <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => select(d.iso, "vormittag")}
+                      aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
+                      className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
+                    >
+                      <p className="text-[14px] font-bold text-conditions">Vormittag</p>
+                      <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
+                    </button>
                     <button
                       type="button"
                       onClick={() => select(d.iso, "nachmittag")}
@@ -413,8 +395,6 @@ function BestellenPage() {
           </button>
         </div>
       </div>
-
-      <SiteFooter />
     </div>
   );
 }
