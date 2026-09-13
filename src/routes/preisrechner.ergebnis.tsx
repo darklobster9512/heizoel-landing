@@ -6,8 +6,6 @@ import {
   Check,
   CheckCircle2,
   ChevronDown,
-  FileText,
-  Flame,
   Lock,
   ShieldCheck,
   ThumbsUp,
@@ -29,6 +27,7 @@ import ekomi from "@/assets/ekomi.webp.asset.json";
 import vorauskasse from "@/assets/vorauskasse.png.asset.json";
 import barzahlung from "@/assets/barzahlung.png.asset.json";
 import ecKarte from "@/assets/ec-karte.png.asset.json";
+import dropGreen from "@/assets/drop-green.png.asset.json";
 
 const TITLE = "Ihr persönliches Heizölangebot | Klaro";
 const DESCRIPTION =
@@ -87,7 +86,7 @@ const PAYMENTS = [
   { label: "Vorkasse", img: vorauskasse.url },
   { label: "Bar", img: barzahlung.url },
   { label: "EC-Karte", img: ecKarte.url },
-  { label: "Rechnung", img: null },
+  { label: "Rechnung", img: vorauskasse.url },
 ];
 
 const ADVANTAGES = [
@@ -371,8 +370,12 @@ function ErgebnisPage() {
                       : "border-b-[3px] border-b-transparent bg-surface text-muted-custom hover:text-ink"
                   }`}
                 >
-                  <Flame
-                    className={`h-4 w-4 shrink-0 ${variant === t.id ? "text-brand" : "text-muted-custom"}`}
+                  <img
+                    src={dropGreen.url}
+                    alt=""
+                    className={`h-4 w-4 shrink-0 object-contain transition-all ${
+                      variant === t.id ? "" : "grayscale opacity-60"
+                    }`}
                     aria-hidden="true"
                   />
                   <span className="text-[14px] font-bold leading-tight">{t.label}</span>
@@ -438,16 +441,12 @@ function ErgebnisPage() {
                       key={p.label}
                       className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-1"
                     >
-                      {p.img ? (
-                        <img
-                          src={p.img}
-                          alt={p.label}
-                          className="h-4 w-auto object-contain"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <FileText className="h-4 w-4 text-brand" aria-hidden="true" />
-                      )}
+                      <img
+                        src={p.img}
+                        alt={p.label}
+                        className="h-4 w-auto object-contain"
+                        loading="lazy"
+                      />
                       <span className="text-[11px] font-medium text-ink">{p.label}</span>
                     </li>
                   ))}
