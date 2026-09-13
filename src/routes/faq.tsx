@@ -430,7 +430,7 @@ const SECTIONS: FaqSection[] = [
         ),
       },
       {
-        q: "Was bedeutet „Heizöl klimaneutral"?",
+        q: "Was bedeutet „Heizöl klimaneutral“?",
         a: (
           <P>
             Beim klimaneutralen Heizöl werden die bei Produktion und Verbrennung entstehenden
