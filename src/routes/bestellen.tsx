@@ -621,42 +621,6 @@ function BestellenPage() {
 
       <main className="px-4 py-5">
         <div className="mx-auto max-w-3xl">
-          {submitted ? (
-            /* Bestätigung */
-            <div className="rounded-xl border border-line bg-background px-6 py-10 text-center shadow-card">
-              <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-brand/10 text-brand">
-                <CheckCircle2 className="size-8" aria-hidden="true" />
-              </span>
-              <h1 className="mt-4 text-[24px] font-bold text-conditions md:text-[28px]">
-                Vielen Dank für Ihre Bestellung!
-              </h1>
-              <p className="mt-2 text-[14px] text-muted-custom">
-                Ihre Bestellnummer: <span className="font-bold text-conditions">KL-2026-48213</span>
-              </p>
-              <div className="mx-auto mt-5 max-w-md rounded-lg border border-line bg-surface px-4 py-4 text-left">
-                <p className="text-[14px] font-bold text-conditions">
-                  {fmtLiters(draft.liters)} L {sortLabel} — {fmtEuro(draft.total)} €
-                </p>
-                <p className="mt-1 text-[13px] text-muted-custom">{slotLabel}</p>
-                <p className="mt-1 text-[13px] text-muted-custom">
-                  {delivery.street} {delivery.streetNo}, {delivery.plz} {delivery.city}
-                </p>
-                <p className="mt-1 text-[13px] text-muted-custom">
-                  Zahlungsart: {PAYMENT_OPTIONS.find((p) => p.id === payment)?.label}
-                </p>
-              </div>
-              <p className="mt-4 text-[13px] text-muted-custom">
-                Eine Bestätigung wurde an <span className="font-semibold text-ink">{email}</span>{" "}
-                gesendet.
-              </p>
-              <Link
-                to="/"
-                className="mt-6 inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
-              >
-                Zur Startseite
-              </Link>
-            </div>
-          ) : (
             <>
               {/* Vertrauenszeile */}
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
@@ -1049,13 +1013,11 @@ function BestellenPage() {
                 </>
               )}
             </>
-          )}
         </div>
       </main>
 
       {/* Sticky Preisleiste */}
-      {!submitted ? (
-        <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
+      <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
             <div>
               <p className="text-[17px] font-bold leading-tight text-conditions">
