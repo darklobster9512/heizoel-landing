@@ -407,7 +407,7 @@ function BestellenPage() {
                   </span>
                 ) : (
                   <span
-                    className="size-6 shrink-0 rounded-full border-2 border-brand bg-background"
+                    className="size-6 shrink-0 rounded-full border-2 border-line bg-background"
                     aria-hidden="true"
                   />
                 )}
