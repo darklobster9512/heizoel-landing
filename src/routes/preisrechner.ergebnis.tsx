@@ -411,13 +411,14 @@ function ErgebnisPage() {
 
             {/* CTA */}
             <div className="border-b border-line px-5 py-5">
-              <Link
-                to="/antrag/schritt-1"
-                search={{}}
+              <button
+                type="button"
+                onClick={goToOrder}
                 className="flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Zur Bestellung »
-              </Link>
+              </button>
+
               <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-muted-custom">
                 <Lock className="h-3.5 w-3.5" aria-hidden="true" />
                 100 % sicher &amp; SSL-verschlüsselt
