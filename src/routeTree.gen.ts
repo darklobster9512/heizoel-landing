@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AngeboteRouteImport } from './routes/angebote'
 import { Route as AntragRouteRouteImport } from './routes/antrag/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BestellenRouteImport } from './routes/bestellen'
 import { Route as BewertungenRouteImport } from './routes/bewertungen'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HeizoelWissenRouteImport } from './routes/heizoel-wissen'
@@ -67,6 +68,11 @@ const AntragRouteRoute = AntragRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestellenRoute = BestellenRouteImport.update({
+  id: '/bestellen',
+  path: '/bestellen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BewertungenRoute = BewertungenRouteImport.update({
@@ -227,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
@@ -301,6 +309,7 @@ export interface FileRoutesById {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
@@ -339,6 +348,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestellen'
     | '/bewertungen'
     | '/faq'
     | '/heizoel-wissen'
@@ -375,6 +385,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestellen'
     | '/bewertungen'
     | '/faq'
     | '/heizoel-wissen'
@@ -412,6 +423,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestellen'
     | '/bewertungen'
     | '/faq'
     | '/heizoel-wissen'
@@ -450,6 +462,7 @@ export interface RootRouteChildren {
   AntragRouteRoute: typeof AntragRouteRouteWithChildren
   AngeboteRoute: typeof AngeboteRoute
   AuthRoute: typeof AuthRoute
+  BestellenRoute: typeof BestellenRoute
   BewertungenRoute: typeof BewertungenRoute
   FaqRoute: typeof FaqRoute
   HeizoelWissenRoute: typeof HeizoelWissenRoute
@@ -495,6 +508,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bestellen': {
+      id: '/bestellen'
+      path: '/bestellen'
+      fullPath: '/bestellen'
+      preLoaderRoute: typeof BestellenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bewertungen': {
@@ -789,6 +809,7 @@ const rootRouteChildren: RootRouteChildren = {
   AntragRouteRoute: AntragRouteRouteWithChildren,
   AngeboteRoute: AngeboteRoute,
   AuthRoute: AuthRoute,
+  BestellenRoute: BestellenRoute,
   BewertungenRoute: BewertungenRoute,
   FaqRoute: FaqRoute,
   HeizoelWissenRoute: HeizoelWissenRoute,

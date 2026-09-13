@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   BadgePercent,
@@ -28,6 +28,8 @@ import barzahlung from "@/assets/barzahlung.png.asset.json";
 import ecKarte from "@/assets/ec-karte.png.asset.json";
 import dropGreen from "@/assets/drop-green.png.asset.json";
 import { lookupPlzCity } from "@/lib/plz-city";
+import { saveOrderDraft } from "@/lib/order-draft";
+
 
 const TITLE = "Ihr persönliches Heizölangebot | Klaro";
 const DESCRIPTION =
@@ -166,6 +168,7 @@ function ErgebnisPage() {
   const [compareOpen, setCompareOpen] = useState(false);
   const [stand, setStand] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
+  const [deliveryIso, setDeliveryIso] = useState("");
 
   useEffect(() => {
     const now = new Date();
@@ -178,12 +181,35 @@ function ErgebnisPage() {
     const d = new Date();
     d.setDate(d.getDate() + 7);
     setDeliveryDate(d.toLocaleDateString("de-DE"));
+    setDeliveryIso(
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`,
+    );
   }, []);
+
 
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
   const toggleEditing = () => setEditing((v) => !v);
+
+  const navigate = useNavigate();
+
+  const goToOrder = () => {
+    saveOrderDraft({
+      plz,
+      city,
+      liters,
+      points,
+      hose,
+      truck,
+      earliestDate: deliveryIso,
+      variant,
+      pricePer100: price,
+      total,
+    });
+    void navigate({ to: "/bestellen" });
+  };
+
 
 
   return (
@@ -406,13 +432,14 @@ function ErgebnisPage() {
 
             {/* CTA */}
             <div className="border-b border-line px-5 py-5">
-              <Link
-                to="/antrag/schritt-1"
-                search={{}}
+              <button
+                type="button"
+                onClick={goToOrder}
                 className="flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Zur Bestellung »
-              </Link>
+              </button>
+
               <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-muted-custom">
                 <Lock className="h-3.5 w-3.5" aria-hidden="true" />
                 100 % sicher &amp; SSL-verschlüsselt
