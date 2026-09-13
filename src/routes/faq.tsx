@@ -116,7 +116,7 @@ const SECTIONS: FaqSection[] = [
               Ölgesellschaften wie Aral, Esso, OMV, Shell oder Total.
             </P>
             <P>
-              Auch sogenannte „freie Händler" beliefern Sie ausnahmslos mit genormter, deutscher
+              Auch sogenannte „freie Händler“ beliefern Sie ausnahmslos mit genormter, deutscher
               Qualitätsware der großen Raffineriegesellschaften. Das Qualitätsmanagement unserer
               Händler — von der Produktqualität bis zum Lieferservice — spielt bei unserer
               Partnerauswahl eine sehr große Rolle.
