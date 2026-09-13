@@ -922,7 +922,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-y border-line bg-background">
+      <div className="border-y border-line bg-surface">
         <div className="mx-auto max-w-[1283px] px-5 py-8 md:px-[66px]">
           <h4 className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-footer-text">
             Auszeichnungen &amp; Vertrauen
