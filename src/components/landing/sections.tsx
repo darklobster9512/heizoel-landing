@@ -764,12 +764,13 @@ export function TrustLinks() {
             <div key={card.title} className="rounded-sm bg-background px-6 py-6">
               <p className="text-[15px] leading-[1.45] text-footer-text">{card.title}</p>
               <ul className="mt-5 space-y-3">
-                {card.links.map((l) => (
+                {card.links.map((l) => {
+                  const [path, hash] = l.href.split("#");
+                  return (
                   <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to={path}
+                      hash={hash}
                       className="group flex items-start gap-3 text-[15px] font-semibold text-brand-deep hover:underline"
                     >
                       <svg
