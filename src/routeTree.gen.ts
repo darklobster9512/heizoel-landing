@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AngeboteRouteImport } from './routes/angebote'
 import { Route as AntragRouteRouteImport } from './routes/antrag/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PreisrechnerRouteImport } from './routes/preisrechner'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AntragFertigRouteImport } from './routes/antrag/fertig'
@@ -60,6 +61,11 @@ const AntragRouteRoute = AntragRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreisrechnerRoute = PreisrechnerRouteImport.update({
+  id: '/preisrechner',
+  path: '/preisrechner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/preisrechner': typeof PreisrechnerRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -214,6 +221,7 @@ export interface FileRoutesByTo {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/preisrechner': typeof PreisrechnerRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -245,6 +253,7 @@ export interface FileRoutesById {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/preisrechner': typeof PreisrechnerRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -276,6 +285,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/preisrechner'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -305,6 +315,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/preisrechner'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -335,6 +346,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/preisrechner'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/antrag/fertig'
@@ -366,6 +378,7 @@ export interface RootRouteChildren {
   AntragRouteRoute: typeof AntragRouteRouteWithChildren
   AngeboteRoute: typeof AngeboteRoute
   AuthRoute: typeof AuthRoute
+  PreisrechnerRoute: typeof PreisrechnerRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
 }
 
@@ -404,6 +417,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preisrechner': {
+      id: '/preisrechner'
+      path: '/preisrechner'
+      fullPath: '/preisrechner'
+      preLoaderRoute: typeof PreisrechnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -649,6 +669,7 @@ const rootRouteChildren: RootRouteChildren = {
   AntragRouteRoute: AntragRouteRouteWithChildren,
   AngeboteRoute: AngeboteRoute,
   AuthRoute: AuthRoute,
+  PreisrechnerRoute: PreisrechnerRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
 }
 export const routeTree = rootRouteImport
