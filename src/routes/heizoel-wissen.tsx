@@ -110,7 +110,7 @@ const SECTIONS: WissenSection[] = [
     points: [
       {
         heading: "Heizöl EL",
-        text: "„Extra leichtflüssiges" Heizöl — die Standard-Heizölsorte in Deutschland nach DIN 51603-1.",
+        text: "„Extra leichtflüssiges" Heizöl — die Standard-Heizölsorte in Deutschland nach DIN 51603-1." ,
       },
       {
         heading: "Schwefelarm",
