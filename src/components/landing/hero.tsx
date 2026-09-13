@@ -4,6 +4,7 @@ import welt from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgv from "@/assets/dtgv-testsieger.png.asset.json";
 import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
+import type { PriceSearchValues } from "./price-search-loading";
 
 const CHECKS = [
   { prefix: "Bis zu ", bold: "20% günstiger", suffix: " als der Marktdurchschnitt" },
@@ -26,7 +27,7 @@ function Check() {
   );
 }
 
-export function Hero() {
+export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => void }) {
   const trustBadges = (
     <div className="flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 md:justify-start md:gap-3">
       <img
@@ -118,7 +119,7 @@ export function Hero() {
             height={88}
             className="pointer-events-none absolute -right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
           />
-          <OfferCard mobileTrust={trustBadges} />
+          <OfferCard mobileTrust={trustBadges} onSearch={onSearch} />
         </div>
       </div>
     </section>

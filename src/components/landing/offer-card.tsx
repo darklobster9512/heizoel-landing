@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
 import { Check, Shield } from "lucide-react";
 
 
@@ -10,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import type { PriceSearchValues } from "./price-search-loading";
 
 const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -23,10 +24,12 @@ export function OfferCard({
   mobileTrust,
   bordered = true,
   initialPlz = "",
+  onSearch,
 }: {
   mobileTrust?: ReactNode;
   bordered?: boolean;
   initialPlz?: string;
+  onSearch: (values: PriceSearchValues) => void;
 }) {
   const [plz, setPlz] = useState(initialPlz);
   const [quantity, setQuantity] = useState(3000);
@@ -116,17 +119,20 @@ export function OfferCard({
         </div>
       </div>
 
-      <Link
-        to="/preisrechner/ergebnis"
-        search={{
-          plz,
-          menge: quantity,
-          abladestellen: deliveryPoints,
-        }}
+      <Button
+        type="button"
+        disabled={!/^\d{5}$/.test(plz) || quantity < 1500 || quantity > 32000}
+        onClick={() =>
+          onSearch({
+            plz,
+            menge: quantity,
+            abladestellen: deliveryPoints,
+          })
+        }
         className="mt-4 inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-4 text-xs font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-7 md:shadow-none md:py-3.5 md:text-[15px]"
       >
         Jetzt Heizölpreise vergleichen
-      </Link>
+      </Button>
 
       <div className="mt-3 flex flex-nowrap items-center justify-center gap-2 text-[11px] text-hero-text/70 md:mt-4 md:text-xs">
         <span className="inline-flex items-center gap-1">
