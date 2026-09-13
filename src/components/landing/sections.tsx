@@ -293,7 +293,7 @@ import neutralIcon from "@/assets/neutral.svg.asset.json";
 import freeIcon from "@/assets/free.svg.asset.json";
 import dataSafetyIcon from "@/assets/data-safety.svg.asset.json";
 
-const STEPS = [
+export const STEPS = [
   {
     icon: freeInquiry.url,
     iconAlt: "Monitor-Symbol, Schritt 1",
