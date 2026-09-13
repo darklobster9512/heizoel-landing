@@ -6,9 +6,9 @@ import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
 
 const CHECKS = [
-  "Aktuelle Angebote von über 300 Heizölhändlern",
-  "Kostenlos und 100 % unverbindlich",
-  "Täglich aktuelle Preise aus Ihrer Region**",
+  { prefix: "Bis zu ", bold: "20% günstiger", suffix: " als der Marktdurchschnitt" },
+  { prefix: "Über ", bold: "500 zertifizierte Händler", suffix: " deutschlandweit" },
+  { prefix: "", bold: "Festpreis-Garantie", suffix: " — auch bei steigenden Ölpreisen" },
 ];
 
 function Check() {
