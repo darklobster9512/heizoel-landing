@@ -9,6 +9,7 @@ import {
   HeizoelSorten,
   MatchingOffers,
   PersonalDataInfo,
+  RegionalSeo,
   SiteFooter,
   Steps,
   ReferralBanner,
