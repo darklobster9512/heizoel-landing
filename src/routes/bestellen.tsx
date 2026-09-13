@@ -270,25 +270,15 @@ function BestellenPage() {
                     <p className="text-[14px] font-bold text-conditions">{d.date}</p>
                   </div>
                   <div className="flex flex-col gap-2 p-3 sm:flex-row">
-                    {d.morningBooked ? (
-                      <div className="relative flex-1 rounded-lg border border-line bg-surface px-3 py-3 text-center">
-                        <p className="text-[14px] font-bold text-muted-custom line-through">Vormittag</p>
-                        <p className="text-[12px] text-muted-custom line-through">8:00 - 12:00 Uhr</p>
-                        <span className="absolute right-2 top-2 rounded border border-[#e4b4b4] px-1.5 py-0.5 text-[10px] font-medium text-[#c06767]">
-                          soeben gebucht
-                        </span>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => select(d.iso, "vormittag")}
-                        aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
-                        className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
-                      >
-                        <p className="text-[14px] font-bold text-conditions">Vormittag</p>
-                        <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => select(d.iso, "vormittag")}
+                      aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
+                      className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
+                    >
+                      <p className="text-[14px] font-bold text-conditions">Vormittag</p>
+                      <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
+                    </button>
                     <button
                       type="button"
                       onClick={() => select(d.iso, "nachmittag")}
