@@ -280,7 +280,7 @@
 }
 
 .partner-marquee-track {
-  animation: partner-marquee 28s linear infinite;
+  animation: partner-marquee 55s linear infinite;
   will-change: transform;
 }
 
