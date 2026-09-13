@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 import { useEffect, useRef, useState } from "react";
 
 import { SiteHeader } from "@/components/landing/site-header";
@@ -20,6 +21,7 @@ const DESCRIPTION =
 const TITLE = "Heizölpreis berechnen — Klaro";
 
 export const Route = createFileRoute("/preisrechner/")({
+  validateSearch: z.object({ plz: z.string().regex(/^\d{5}$/).optional() }),
   head: () => ({
     meta: [
       { title: TITLE },
@@ -228,6 +230,7 @@ function CompactSteps() {
 }
 
 function PreisrechnerPage() {
+  const { plz = "" } = Route.useSearch();
   return (
     <div className="min-h-screen bg-background font-body text-ink">
       <SiteHeader />
@@ -268,7 +271,7 @@ function PreisrechnerPage() {
                     height={88}
                     className="pointer-events-none absolute right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
                   />
-                  <OfferCard bordered={false} />
+                  <OfferCard bordered={false} initialPlz={plz} />
                 </div>
                 <div className="rounded-b-xl border-t border-line bg-surface/50 p-6 md:p-10 lg:rounded-bl-none lg:rounded-r-xl lg:border-t-0 lg:border-l">
                   <CompactSteps />
