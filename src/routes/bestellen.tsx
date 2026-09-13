@@ -14,6 +14,13 @@ import {
   Truck,
 } from "lucide-react";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
