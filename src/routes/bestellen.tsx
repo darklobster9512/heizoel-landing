@@ -95,7 +95,7 @@ function ReviewCarousel() {
     const interval = setInterval(() => {
       if (animating) return;
       setAnimating(true);
-      const newItem = REVIEWS[nextIndex % REVIEWS.length];
+      const newItem = REVIEWS[nextIndex % REVIEWS.length]!;
       setNextIndex((i) => i + 1);
       setItems((prev) => [newItem, ...prev]);
       setTransitionEnabled(false);
