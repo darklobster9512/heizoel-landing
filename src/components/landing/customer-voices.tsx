@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import eKomiLogo from "@/assets/ekomi.webp.asset.json";
 import avatarAsset from "@/assets/avatar.svg.asset.json";
+import googleIcon from "@/assets/google-icon.webp.asset.json";
+import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
 
 type Voice = {
   text: string;
@@ -10,47 +12,70 @@ type Voice = {
 const VOICES: Voice[] = [
   {
     text: "Super einfache Preisanfrage und die günstigsten Angebote aus meiner Region. Bestellung war in wenigen Minuten erledigt.",
-    author: "Gisela S., 58",
+    author: "Gisela Schmidt",
   },
   {
     text: "Ich habe über 200 € gegenüber dem letzten Jahr gespart. Der Vergleich lohnt sich wirklich, danke!",
-    author: "Sabrina G., 36",
+    author: "Sabrina Gärtner",
   },
   {
     text: "Unkompliziert und transparent. Die Lieferung kam sogar zwei Tage früher als angegeben.",
-    author: "Mario T., 44",
+    author: "Mario Tiedemann",
   },
   {
     text: "Sehr übersichtliche Angebote. Ich konnte Preise, Lieferzeit und Zahlungsart direkt vergleichen.",
-    author: "Jessica M., 31",
+    author: "Jessica Meyer",
   },
   {
     text: "Alles online erledigt, ohne Telefonate. Beim nächsten Tanken bestelle ich wieder über Klaro.",
-    author: "Renate H., 66",
+    author: "Renate Hoffmann",
   },
   {
     text: "Guter Preis, schnelle Lieferung, freundlicher Fahrer. Besser geht es nicht.",
-    author: "Tobias W., 41",
+    author: "Tobias Wagner",
   },
   {
     text: "Endlich muss ich nicht mehr fünf Händler einzeln anrufen. Ein Vergleich, ein Klick, fertig.",
-    author: "Monika L., 61",
+    author: "Monika Lorenz",
   },
   {
     text: "Schnelle Antwort auf meine Frage zur Lieferung. Sehr kundenfreundlicher Service.",
-    author: "Heike R., 47",
+    author: "Heike Richter",
   },
   {
     text: "Klare Empfehlung für alle, die Heizöl günstig und stressfrei bestellen wollen.",
-    author: "Claudia V., 45",
+    author: "Claudia Vogt",
+  },
+  {
+    text: "Der Preisvergleich hat mir bei meinem neuen Haus wirklich geholfen. Übersichtlich und fair.",
+    author: "Stefan Berger",
+  },
+  {
+    text: "Ich habe innerhalb von zwei Tagen das beste Angebot für meine Region bekommen. Top Service!",
+    author: "Petra Schäfer",
+  },
+  {
+    text: "Die Abwicklung war unkompliziert und der Fahrer sehr freundlich. Gerne wieder.",
+    author: "Andreas Klein",
+  },
+  {
+    text: "Endlich mal eine Plattform, die transparent ist und keine versteckten Kosten hat.",
+    author: "Susanne Neumann",
+  },
+  {
+    text: "Ich habe über 150 € gegenüber meinem Stammlieferanten gespart. Absolut empfehlenswert.",
+    author: "Frank Müller",
+  },
+  {
+    text: "Alles lief reibungslos von der Anfrage bis zur Lieferung. Daumen hoch für Klaro.",
+    author: "Birgit Keller",
   },
 ];
 
 const RATINGS = [
-  { label: "eKomi", sub: null as string | null, value: 4.6, count: "18.400", isEkomi: true },
-  { label: "Trustpilot", sub: null, value: 4.5, count: "2.140", isEkomi: false },
-  { label: "Google", sub: null, value: 4.5, count: "860", isEkomi: false },
-  { label: null as string | null, sub: "Kundenbewertung", value: 4.6, count: null as string | null, isEkomi: false },
+  { label: "eKomi", sub: null as string | null, value: 4.6, count: "18.400", isEkomi: true, icon: null as string | null },
+  { label: "Trusted Shops", sub: null, value: 4.5, count: "2.140", isEkomi: false, icon: trustedShopsIcon.url },
+  { label: "Google", sub: null, value: 4.5, count: "860", isEkomi: false, icon: googleIcon.url },
 ];
 
 function Stars({ rating, className = "" }: { rating: number; className?: string }) {
@@ -72,12 +97,13 @@ function Stars({ rating, className = "" }: { rating: number; className?: string 
 
 function VoiceCard({ voice }: { voice: Voice }) {
   return (
-    <figure className="rounded-[4px] border border-line bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+    <figure className="relative overflow-hidden rounded-lg border border-line bg-white p-7 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+      <span className="absolute left-0 right-0 top-0 h-[2px] bg-brand" aria-hidden="true" />
       <span className="flex items-center gap-2">
         <Stars rating={5} />
         <span className="text-[13px] font-semibold text-muted-custom">5/5</span>
       </span>
-      <blockquote className="mt-4 min-h-[110px] text-[15px] leading-[1.6] text-conditions">
+      <blockquote className="mt-4 min-h-[100px] text-[15px] leading-[1.6] text-conditions">
         „{voice.text}"
       </blockquote>
       <figcaption className="mt-5 flex items-center gap-3">
@@ -95,7 +121,13 @@ function VoiceCard({ voice }: { voice: Voice }) {
   );
 }
 
-const PAGES: Voice[][] = [VOICES.slice(0, 3), VOICES.slice(3, 6), VOICES.slice(6, 9)];
+const PAGES: Voice[][] = [
+  VOICES.slice(0, 3),
+  VOICES.slice(3, 6),
+  VOICES.slice(6, 9),
+  VOICES.slice(9, 12),
+  VOICES.slice(12, 15),
+];
 
 export function CustomerVoices() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -164,17 +196,16 @@ export function CustomerVoices() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-y-8 px-5 md:grid-cols-4">
+      <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-y-8 px-5 md:grid-cols-3">
         {RATINGS.map((r) => (
-          <div key={r.label ?? "kunden"} className="flex flex-col items-center gap-1 text-center">
-            <span className="flex items-center gap-2 text-[15px] font-bold text-ink">
+          <div key={r.label} className="flex flex-col items-center gap-1.5 text-center">
+            <span className="flex h-[26px] items-center justify-center">
               {r.isEkomi ? (
-                <img src={eKomiLogo.url} alt="eKomi" width={62} height={18} className="h-[18px] w-auto" loading="lazy" />
+                <img src={eKomiLogo.url} alt="eKomi" width={90} height={26} className="h-[26px] w-auto" loading="lazy" />
+              ) : r.icon ? (
+                <img src={r.icon} alt={r.label} width={26} height={26} className="size-[26px] object-contain" loading="lazy" />
               ) : (
-                <span>
-                  {r.label}
-                  {r.sub ? <span className="block text-[12px] font-medium text-muted-custom">{r.sub}</span> : null}
-                </span>
+                <span className="text-[15px] font-bold text-ink">{r.label}</span>
               )}
             </span>
             <Stars rating={r.value} />
