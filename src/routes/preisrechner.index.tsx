@@ -4,6 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
+import {
+  PriceSearchLoading,
+  type PriceSearchValues,
+} from "@/components/landing/price-search-loading";
 import { SiteFooter, STEPS } from "@/components/landing/sections";
 import { Logo } from "@/components/landing/logo";
 import guarantee from "@/assets/guarantee.svg.asset.json";
@@ -231,9 +235,14 @@ function CompactSteps() {
 
 function PreisrechnerPage() {
   const { plz = "" } = Route.useSearch();
+  const [searchValues, setSearchValues] = useState<PriceSearchValues | null>(null);
   return (
     <div className="min-h-screen bg-background font-body text-ink">
       <SiteHeader />
+      {searchValues ? (
+        <PriceSearchLoading values={searchValues} />
+      ) : (
+        <>
       <main>
         {/* Hero / Rechner + Schritte */}
         <section className="relative bg-surface">
@@ -271,7 +280,7 @@ function PreisrechnerPage() {
                     height={88}
                     className="pointer-events-none absolute right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
                   />
-                  <OfferCard bordered={false} initialPlz={plz} />
+                  <OfferCard bordered={false} initialPlz={plz} onSearch={setSearchValues} />
                 </div>
                 <div className="rounded-b-xl border-t border-line bg-surface/50 p-6 md:p-10 lg:rounded-bl-none lg:rounded-r-xl lg:border-t-0 lg:border-l">
                   <CompactSteps />
@@ -409,6 +418,8 @@ function PreisrechnerPage() {
         </section>
       </main>
       <SiteFooter />
+        </>
+      )}
     </div>
   );
 }
