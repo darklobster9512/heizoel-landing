@@ -139,8 +139,8 @@ function BewertungenPage() {
             </div>
           </div>
 
-          {/* Goldene Trennlinie */}
-          <div className="h-1 bg-[#f1a319]" aria-hidden="true" />
+          {/* Grüne Trennlinie */}
+          <div className="h-1 bg-brand" aria-hidden="true" />
 
           {/* Kennzahlen-Band */}
           <div className="bg-background">
