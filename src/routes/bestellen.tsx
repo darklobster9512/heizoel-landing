@@ -250,7 +250,7 @@ function Field({
   className = "",
 }: {
   label: string;
-  required?: boolean;
+  required?: boolean | undefined;
   error?: string | undefined;
   children: React.ReactNode;
   className?: string;
