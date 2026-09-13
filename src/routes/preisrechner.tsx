@@ -182,7 +182,7 @@ function LiveOrders() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg border border-line bg-background"
+      className="relative overflow-hidden rounded-lg border border-line bg-surface/50"
       aria-live="off"
     >
       <div
@@ -206,7 +206,7 @@ function LiveOrders() {
               ({order.plz})
             </span>
           </p>
-          <Flame className="size-4 shrink-0 text-brand" strokeWidth={2.2} />
+          <Logo className="h-auto w-[60px] shrink-0 text-ink" />
         </div>
         <p className="mt-1 text-sm text-ink">
           {order.liters.toLocaleString("de-DE")} Liter —{" "}
