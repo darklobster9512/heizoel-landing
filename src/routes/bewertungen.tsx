@@ -6,7 +6,7 @@ import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 
 const TITLE = "Kundenbewertungen | Klaro";
 const DESCRIPTION =
-  "Über 33.000 zufriedene Kunden bewerten Klaro mit 4,99 von 5 Sternen. Lesen Sie echte Erfahrungen zu Preisen, Lieferung und Service beim Heizöl-Kauf.";
+  "Über 25.000 zufriedene Kunden bewerten Klaro mit 4,9 von 5 Sternen. Lesen Sie echte Erfahrungen zu Preisen, Lieferung und Service beim Heizöl-Kauf.";
 
 export const Route = createFileRoute("/bewertungen")({
   head: () => ({
@@ -25,8 +25,8 @@ export const Route = createFileRoute("/bewertungen")({
 });
 
 const STATS = [
-  { value: "33.429", label: "Kunden" },
-  { value: "4,99/5", label: "Bewertung" },
+  { value: "25.000", label: "Kunden" },
+  { value: "4,9/5", label: "Bewertung" },
   { value: "98,9 %", label: "Zufriedenheit" },
   { value: "500+", label: "Händler" },
   { value: "10+", label: "Jahre Erfahrung" },
@@ -119,21 +119,21 @@ function BewertungenPage() {
               </h1>
               <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-custom md:text-[16px]">
                 Über{" "}
-                <strong className="font-bold text-conditions">33.000 zufriedene Kunden</strong>{" "}
+                <strong className="font-bold text-conditions">25.000 zufriedene Kunden</strong>{" "}
                 bewerten uns mit{" "}
-                <strong className="font-bold text-conditions">4,99 von 5 Sternen</strong>
+                <strong className="font-bold text-conditions">4,9 von 5 Sternen</strong>
               </p>
 
               <div className="mt-7 flex flex-col items-center">
                 <Stars className="size-7 md:size-8" />
                 <p className="mt-3 text-[34px] font-bold leading-none text-conditions md:text-[42px]">
-                  4,99{" "}
+                  4,9{" "}
                   <span className="text-[20px] font-semibold text-muted-custom md:text-[26px]">
                     / 5
                   </span>
                 </p>
                 <p className="mt-2.5 text-[13px] text-muted-custom md:text-[14px]">
-                  Basierend auf 33.429 verifizierten Bewertungen
+                  Basierend auf 25.000 verifizierten Bewertungen
                 </p>
               </div>
             </div>

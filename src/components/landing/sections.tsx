@@ -39,7 +39,7 @@ import smavaHero from "@/assets/smava-hero.webp.asset.json";
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
-  { value: "4.99/5", label: "KUNDENBEWERTUNG" },
+  { value: "4.9/5", label: "KUNDENBEWERTUNG" },
   { value: "10+", label: "JAHRE ERFAHRUNG" },
   { value: "500+", label: "PARTNER-HÄNDLER" },
   { value: "€247", label: "Ø ERSPARNIS" },
@@ -876,7 +876,7 @@ export function SiteFooter() {
             </a>
             <p className="mt-3 max-w-[280px] text-[13px] leading-[1.5] text-footer-text">
               Heizöl online günstig bestellen. Tagesaktuelle Preise, deutschlandweite Lieferung,
-              über 33.000 zufriedene Kunden.
+              über 25.000 zufriedene Kunden.
             </p>
             <div className="mt-4 flex items-center gap-5">
               <img
@@ -944,7 +944,7 @@ export function SiteFooter() {
             <p className="mt-2 flex items-center gap-2 text-[13px] text-footer-text">
               <FooterStars />
               <span>
-                <strong className="font-semibold text-ink">4,99</strong>/5 – 33.000+ Bewertungen
+                <strong className="font-semibold text-ink">4,9</strong>/5 – 25.000+ Bewertungen
               </span>
             </p>
           </div>
@@ -1072,8 +1072,8 @@ export function HeizoelServiceIntro() {
             Bestellzeitpunkt für maximale Ersparnis.
           </p>
           <p>
-            Über <strong>33.000 zufriedene Kunden</strong> bewerten unseren Service mit durchschnittlich{" "}
-            <strong>4,99 von 5 Sternen</strong>. Die Kundenzufriedenheit liegt bei <strong>98,9%</strong>.
+            Über <strong>25.000 zufriedene Kunden</strong> bewerten unseren Service mit durchschnittlich{" "}
+            <strong>4,9 von 5 Sternen</strong>. Die Kundenzufriedenheit liegt bei <strong>98,9%</strong>.
             Kunden sparen durchschnittlich <strong>€247</strong> pro Heizöl-Bestellung gegenüber dem
             Marktdurchschnitt. Wir bieten eine <strong>Festpreisgarantie</strong> — Ihr Heizölpreis pro Liter
             bleibt auch bei steigenden Ölpreisen fixiert bis zur Lieferung.
