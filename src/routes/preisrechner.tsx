@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
@@ -10,6 +11,7 @@ import {
   Truck,
   Clock,
   ShieldCheck,
+  Flame,
 } from "lucide-react";
 
 const DESCRIPTION =
