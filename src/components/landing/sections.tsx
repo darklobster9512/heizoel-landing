@@ -605,40 +605,40 @@ export function Testimonials() {
 
 export const FAQS = [
   {
-    q: "Was ist smava?",
-    a: "smava ist Deutschlands bekanntestes Online-Vergleichsportal für Kredite mit Sitz in Berlin. Als unabhängiger Finanzdienstleister helfen wir Ihnen, die besten Kreditangebote zu finden – transparent, sicher und einfach online.",
+    q: "Was ist Klaro?",
+    a: "Klaro ist ein Online-Preisvergleich für Heizöl in Deutschland. Wir helfen Ihnen, die günstigsten Heizöl-Angebote von Händlern aus Ihrer Region zu finden – transparent, sicher und einfach online.",
   },
   {
-    q: "Wie funktioniert smava?",
-    a: "Sie stellen eine unverbindliche Anfrage für Ihren Wunschkredit. Anschließend vergleichen wir die Konditionen von über 20 Banken und Kreditpartnern – inklusive effektiver Jahreszinsen, Laufzeiten und monatlicher Raten. Der gesamte Vergleich ist unverbindlich und wirkt sich nicht negativ auf Ihre SCHUFA aus.",
+    q: "Wie funktioniert der Heizöl-Preisvergleich?",
+    a: "Sie geben Postleitzahl, gewünschte Menge und Sorte ein. Anschließend vergleichen wir die aktuellen Preise von über 300 Heizölhändlern und zeigen Ihnen die besten Angebote für Ihre Region. Der gesamte Vergleich ist kostenlos und unverbindlich.",
   },
   {
-    q: "Ist smava eine Bank?",
-    a: "Nein, smava ist keine Bank und verleiht selbst kein Geld. Wir vermitteln Kredite als unabhängiges Vergleichsportal zwischen Verbrauchern und über 20 Partnerbanken. Für erfolgreiche Vermittlungen erhalten wir von der Bank eine Provision – für Sie entstehen keine Kosten.",
+    q: "Ist Klaro ein Heizölhändler?",
+    a: "Nein, Klaro verkauft selbst kein Heizöl. Wir sind ein unabhängiges Vergleichsportal und vermitteln zwischen Verbrauchern und über 300 Händlern. Für erfolgreiche Vermittlungen erhalten wir vom Händler eine Provision – für Sie entstehen keine Kosten.",
   },
   {
-    q: "Kostet der Kreditvergleich bei smava etwas?",
-    a: "Nein, der smava-Kreditvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen. So gewinnen Sie ganz unverbindlich den bestmöglichen Überblick über den Kreditmarkt.",
+    q: "Kostet der Heizölvergleich bei Klaro etwas?",
+    a: "Nein, der Klaro-Preisvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen.",
   },
   {
-    q: "Welchen Vorteil habe ich durch smava?",
-    a: "Sie sparen Zeit, Geld und Aufwand. Mit nur einer Anfrage erhalten Sie personalisierte Angebote von über 20 Banken und Kreditpartnern – inklusive Sofortentscheidung und Online-Abschluss. Oft sind die Zinsen deutlich günstiger als bei Ihrer Hausbank.",
+    q: "Welche Mindestbestellmenge gibt es?",
+    a: "Die meisten Händler liefern ab 500 Litern. Größere Mengen sind meist pro Liter günstiger – ein Sammelauftrag mit Nachbarn kann sich daher lohnen.",
+  },
+  {
+    q: "Wie schnell wird geliefert?",
+    a: "Die Lieferzeit liegt je nach Händler und Region bei etwa 3 bis 10 Werktagen. Viele Händler bieten gegen Aufpreis auch eine Expresslieferung innerhalb weniger Tage an.",
+  },
+  {
+    q: "Welche Zahlungsarten werden angeboten?",
+    a: "Je nach Händler können Sie per Vorkasse, Lastschrift, Rechnung oder Kreditkarte zahlen. Die verfügbaren Zahlungsarten sehen Sie direkt am jeweiligen Angebot.",
   },
   {
     q: 'Was bedeutet die "Günstiger-Geht-Nicht-Garantie"?',
-    a: 'Wenn Sie ein über smava vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
+    a: 'Wenn Sie ein über Klaro vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
   },
   {
-    q: "Bietet smava eine persönliche Beratung an?",
-    a: "Ja. Unsere Kreditspezialisten beraten Sie kostenlos und unverbindlich. Sie erreichen uns telefonisch montags bis freitags von 8:00 – 20:00 Uhr und samstags von 10:00 – 15:00 Uhr. Alternativ können Sie jederzeit online eine Anfrage stellen.",
-  },
-  {
-    q: "Ist smava seriös und sicher?",
-    a: "Ja, smava ist ein TÜV-geprüftes Vergleichsportal mit über 300.000 zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
-  },
-  {
-    q: "Beeinflusst eine Kreditanfrage über smava meine SCHUFA?",
-    a: "Nein, die erste Anfrage erfolgt als SCHUFA-neutrale Konditionsanfrage und hat keinen Einfluss auf Ihre Bonität.",
+    q: "Ist Klaro seriös und sicher?",
+    a: "Ja, Klaro ist ein TÜV-geprüftes Vergleichsportal mit tausenden zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
   },
 ];
 
@@ -647,7 +647,7 @@ export function Faq() {
     <section id="faq" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-[920px] px-5 py-16 md:py-20">
         <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
-          Die häufigsten Fragen zum Kreditvergleich
+          Die häufigsten Fragen zum Heizölvergleich
         </h2>
 
         <Accordion type="multiple" className="mt-10 w-full">
