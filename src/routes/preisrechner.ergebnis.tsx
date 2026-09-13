@@ -169,23 +169,8 @@ function ErgebnisPage() {
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
-  const startEditing = () => {
-    setDPlz(plz);
-    setDLiters(liters);
-    setDPoints(points);
-    setDHose(hose);
-    setDTruck(truck);
-    setEditing(true);
-  };
+  const toggleEditing = () => setEditing((v) => !v);
 
-  const applyDraft = () => {
-    setPlz(dPlz);
-    setLiters(dLiters >= 1500 ? dLiters : 1500);
-    setPoints(dPoints);
-    setHose(dHose);
-    setTruck(dTruck);
-    setEditing(false);
-  };
 
   return (
     <div className="min-h-screen bg-background font-body text-ink">
