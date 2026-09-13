@@ -14,6 +14,13 @@ import {
   Truck,
 } from "lucide-react";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
@@ -127,13 +134,14 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     id: "rechnung",
     label: "Rechnung",
     desc: "Zahlung nach Lieferung.",
-    hint: "Neukunden: 50 % Anzahlung",
+    hint: "Nur für Bestandskunden",
     icon: vorauskasse,
   },
 ];
 
 interface AddressForm {
   salutation: Salutation;
+  company?: string;
   firstName: string;
   lastName: string;
   street: string;
@@ -144,6 +152,7 @@ interface AddressForm {
 
 const emptyAddress = (plz = "", city = ""): AddressForm => ({
   salutation: "Herr",
+  company: "",
   firstName: "",
   lastName: "",
   street: "",
@@ -249,7 +258,7 @@ function Field({
   children,
   className = "",
 }: {
-  label: string;
+  label: React.ReactNode;
   required?: boolean | undefined;
   error?: string | undefined;
   children: React.ReactNode;
@@ -336,19 +345,31 @@ function AddressFields({
         </div>
       ) : (
         <Field label="Anrede">
-          <select
-            value={value.salutation}
-            onChange={(e) => set({ salutation: e.target.value as Salutation })}
-            className={fieldClass()}
-          >
-            {SALUTATIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
+          <Select value={value.salutation} onValueChange={(v) => set({ salutation: v as Salutation })}>
+            <SelectTrigger className="h-11 w-full rounded-md border border-line bg-background px-3 text-[14px] text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 [&>span]:line-clamp-1">
+              <SelectValue placeholder="Anrede wählen" />
+            </SelectTrigger>
+            <SelectContent>
+              {SALUTATIONS.map((s) => (
+                <SelectItem key={s} value={s}>
+                  {s}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </Field>
       )}
+      {value.salutation === "Firma" ? (
+        <Field label="Firmenname" required={withSalutationButtons} error={errors["company"]}>
+          <input
+            value={value.company ?? ""}
+            onChange={(e) => set({ company: e.target.value })}
+            placeholder="Firmenname"
+            className={fieldClass(!!errors["company"])}
+            autoComplete="organization"
+          />
+        </Field>
+      ) : null}
       <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Vorname" required={withSalutationButtons} error={errors["firstName"]}>
           <input
@@ -479,15 +500,23 @@ function BestellenPage() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()))
       next["email"] = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
     if (phone.trim().length < 5) next["phone"] = "Bitte geben Sie Ihre Telefonnummer ein.";
-    if (!delivery.firstName.trim()) next["firstName"] = "Bitte ausfüllen.";
-    if (!delivery.lastName.trim()) next["lastName"] = "Bitte ausfüllen.";
+    if (delivery.salutation === "Firma") {
+      if (!delivery.company?.trim()) next["company"] = "Bitte ausfüllen.";
+    } else {
+      if (!delivery.firstName.trim()) next["firstName"] = "Bitte ausfüllen.";
+      if (!delivery.lastName.trim()) next["lastName"] = "Bitte ausfüllen.";
+    }
     if (!delivery.street.trim()) next["street"] = "Bitte ausfüllen.";
     if (!delivery.streetNo.trim()) next["streetNo"] = "Bitte ausfüllen.";
     if (!/^\d{5}$/.test(delivery.plz)) next["plz"] = "5-stellige PLZ eingeben.";
     if (!delivery.city.trim()) next["city"] = "Bitte ausfüllen.";
     if (billingDifferent) {
-      if (!billing.firstName.trim()) next["b_firstName"] = "Bitte ausfüllen.";
-      if (!billing.lastName.trim()) next["b_lastName"] = "Bitte ausfüllen.";
+      if (billing.salutation === "Firma") {
+        if (!billing.company?.trim()) next["b_company"] = "Bitte ausfüllen.";
+      } else {
+        if (!billing.firstName.trim()) next["b_firstName"] = "Bitte ausfüllen.";
+        if (!billing.lastName.trim()) next["b_lastName"] = "Bitte ausfüllen.";
+      }
       if (!billing.street.trim()) next["b_street"] = "Bitte ausfüllen.";
       if (!billing.streetNo.trim()) next["b_streetNo"] = "Bitte ausfüllen.";
       if (!/^\d{5}$/.test(billing.plz)) next["b_plz"] = "5-stellige PLZ eingeben.";
@@ -759,7 +788,7 @@ function BestellenPage() {
                         className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
                           slot?.period === "telefon"
                             ? "border-brand bg-brand/5 ring-1 ring-brand"
-                            : "border-line bg-background hover:border-brand/60"
+                            : "border-line bg-brand/5 hover:border-brand/60"
                         }`}
                       >
                         <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
@@ -823,7 +852,7 @@ function BestellenPage() {
                       setStep(1);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-line bg-background px-3 py-2 text-[13px] font-semibold text-conditions transition-colors hover:border-brand/60"
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-3 py-2 text-[13px] font-semibold text-conditions transition-colors hover:border-brand/60"
                   >
                     <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                     Zurück zum Termin
@@ -907,7 +936,14 @@ function BestellenPage() {
                       ) : null}
 
                       <div className="mt-3">
-                        <Field label="Hinweise zur Lieferung">
+                        <Field
+                          label={
+                            <>
+                              Hinweise zur Lieferung{" "}
+                              <span className="text-muted-custom">(optional)</span>
+                            </>
+                          }
+                        >
                           <textarea
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
@@ -960,7 +996,7 @@ function BestellenPage() {
                                 </span>
                                 <span className="block text-[12px] text-muted-custom">{p.desc}</span>
                                 {p.hint ? (
-                                  <span className="mt-1 inline-block rounded bg-surface px-1.5 py-0.5 text-[11px] font-semibold text-muted-custom">
+                                  <span className="mt-1 inline-block rounded bg-[#fff7ed] px-1.5 py-0.5 text-[11px] font-semibold text-[#c2410c]">
                                     {p.hint}
                                   </span>
                                 ) : null}
@@ -991,10 +1027,6 @@ function BestellenPage() {
                     Jetzt verbindlich bestellen
                     <ChevronRight className="h-4 w-4" aria-hidden="true" />
                   </button>
-                  <p className="mt-2 text-center text-[12px] text-muted-custom">
-                    Mit Klick auf „Jetzt verbindlich bestellen" geben Sie eine verbindliche Bestellung
-                    ab.
-                  </p>
                 </>
               )}
             </>
