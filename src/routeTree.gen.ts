@@ -21,6 +21,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HeizoelWissenRouteImport } from './routes/heizoel-wissen'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LieferungZahlungRouteImport } from './routes/lieferung-zahlung'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AntragFertigRouteImport } from './routes/antrag/fertig'
@@ -107,6 +108,11 @@ const KontaktRoute = KontaktRouteImport.update({
 const LieferungZahlungRoute = LieferungZahlungRouteImport.update({
   id: '/lieferung-zahlung',
   path: '/lieferung-zahlung',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -265,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -306,6 +313,7 @@ export interface FileRoutesByTo {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -349,6 +357,7 @@ export interface FileRoutesById {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -392,6 +401,7 @@ export interface FileRouteTypes {
     | '/heizoel-wissen'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap.xml'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -433,6 +443,7 @@ export interface FileRouteTypes {
     | '/heizoel-wissen'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap.xml'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -475,6 +486,7 @@ export interface FileRouteTypes {
     | '/heizoel-wissen'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap.xml'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/antrag/fertig'
@@ -518,6 +530,7 @@ export interface RootRouteChildren {
   HeizoelWissenRoute: typeof HeizoelWissenRoute
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   HeizoelpreiseCityRoute: typeof HeizoelpreiseCityRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
   PreisrechnerErgebnisRoute: typeof PreisrechnerErgebnisRoute
@@ -610,6 +623,13 @@ declare module '@tanstack/react-router' {
       path: '/lieferung-zahlung'
       fullPath: '/lieferung-zahlung'
       preLoaderRoute: typeof LieferungZahlungRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -897,6 +917,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeizoelWissenRoute: HeizoelWissenRoute,
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   HeizoelpreiseCityRoute: HeizoelpreiseCityRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
   PreisrechnerErgebnisRoute: PreisrechnerErgebnisRoute,
