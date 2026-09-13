@@ -5,6 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Check, Droplet, Flame, Info, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
@@ -523,72 +525,133 @@ export function Testimonials() {
   );
 }
 
-export const FAQS = [
+const HEIZOEL_ROWS: { label: string; info: string; standard: boolean; premium: boolean }[] = [
   {
-    q: "Was ist Klaro?",
-    a: "Klaro ist ein Online-Preisvergleich für Heizöl in Deutschland. Wir helfen Ihnen, die günstigsten Heizöl-Angebote von Händlern aus Ihrer Region zu finden – transparent, sicher und einfach online.",
+    label: "mit anderen Heizölsorten mischbar",
+    info: "Mit anderen Ölsorten mischbar: Heizöl Standard und Premium lassen sich auch bei Restbeständen im Tank untereinander mischen. Mischbarkeit von Bioheizöl mit Heizöl Standard und Premium ist abhängig von Ihrer Heizanlage. Fragen Sie im Zweifelsfall den Hersteller Ihres Heizgerätes.",
+    standard: true,
+    premium: true,
   },
   {
-    q: "Wie funktioniert der Heizöl-Preisvergleich?",
-    a: "Sie geben Postleitzahl, gewünschte Menge und Sorte ein. Anschließend vergleichen wir die aktuellen Preise von über 300 Heizölhändlern und zeigen Ihnen die besten Angebote für Ihre Region. Der gesamte Vergleich ist kostenlos und unverbindlich.",
+    label: "für alle Ölheizungen geeignet",
+    info: "Für alle Ölheizungen geeignet: Einsatz für alle Ölheizungen inkl. Brennwerttechnik.",
+    standard: true,
+    premium: true,
   },
   {
-    q: "Ist Klaro ein Heizölhändler?",
-    a: "Nein, Klaro verkauft selbst kein Heizöl. Wir sind ein unabhängiges Vergleichsportal und vermitteln zwischen Verbrauchern und über 300 Händlern. Für erfolgreiche Vermittlungen erhalten wir vom Händler eine Provision – für Sie entstehen keine Kosten.",
+    label: "geringerer Verbrauch",
+    info: "Reduzierter Verbrauch: Nahezu rückstandfreie Verbrennung führt zu höherer Effizienz und dadurch Reduzierung des Ölverbrauchs, verhindert Ablagerungen und sorgt so für eine bessere Wärme- bzw. Energieausbeute. Es bildet sich weniger Ruß und somit werden die Umwelt-Emissionen gesenkt.",
+    standard: false,
+    premium: true,
   },
   {
-    q: "Kostet der Heizölvergleich bei Klaro etwas?",
-    a: "Nein, der Klaro-Preisvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen.",
+    label: "angenehmer Geruch",
+    info: "Angenehmer Geruch: Geruchszusätze neutralisieren den typischen Ölgeruch und sorgen für angenehmen Duft, sowohl während der Betankung als auch im Regelbetrieb der Heizung.",
+    standard: false,
+    premium: true,
   },
   {
-    q: "Welche Mindestbestellmenge gibt es?",
-    a: "Die meisten Händler liefern ab 500 Litern. Größere Mengen sind meist pro Liter günstiger – ein Sammelauftrag mit Nachbarn kann sich daher lohnen.",
+    label: "verbesserte Lagerfähigkeit",
+    info: "Höhere Lagerstabilität des Heizöls: Stabilitätsverbesserer verhindern die Bildung von Sedimenten, Ablagerungen und Schlamm und verlangsamen somit die natürliche Alterung des Öls und machen es länger lagerfähig.",
+    standard: false,
+    premium: true,
   },
   {
-    q: "Wie schnell wird geliefert?",
-    a: "Die Lieferzeit liegt je nach Händler und Region bei etwa 3 bis 10 Werktagen. Viele Händler bieten gegen Aufpreis auch eine Expresslieferung innerhalb weniger Tage an.",
+    label: "höhere Betriebssicherheit & Lebenszeit der Heizungsanlage",
+    info: "Höhere Betriebssicherheit & Lebenszeit der Heizung: Die Minimierung von Ablagerungen und Ruß reduziert nicht nur den Verbrauch, sondern schützt auch vor störungsbedingten Ausfällen. Spezielle Additive unterbinden beispielsweise die Rostbildung im Brennersystem. Eine erhöhte Schmierfähigkeit schützt die Förderpumpe. Insgesamt erhöht dies die Nutzungsdauer, schützt vor teuren Reparaturen und senkt den Wartungsaufwand.",
+    standard: false,
+    premium: true,
   },
   {
-    q: "Welche Zahlungsarten werden angeboten?",
-    a: "Je nach Händler können Sie per Vorkasse, Lastschrift, Rechnung oder Kreditkarte zahlen. Die verfügbaren Zahlungsarten sehen Sie direkt am jeweiligen Angebot.",
-  },
-  {
-    q: 'Was bedeutet die "Günstiger-Geht-Nicht-Garantie"?',
-    a: 'Wenn Sie ein über Klaro vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
-  },
-  {
-    q: "Ist Klaro seriös und sicher?",
-    a: "Ja, Klaro ist ein TÜV-geprüftes Vergleichsportal mit tausenden zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
+    label: "umweltschonende Biokomponenten",
+    info: "Schwefelarmes Heizöl: Enthält Komponenten aus nachwachsenden Rohstoffen, meist durch Beimischung von Rapsöl oder anderen veresterten Pflanzenölen. Hierdurch wird eine Reduzierung der CO2-Emissionen erreicht.",
+    standard: false,
+    premium: false,
   },
 ];
 
-export function Faq() {
+function Mark({ yes }: { yes: boolean }) {
+  return yes ? (
+    <Check className="h-5 w-5 text-brand" strokeWidth={3} aria-label="Ja" />
+  ) : (
+    <X className="h-5 w-5 text-destructive" strokeWidth={3} aria-label="Nein" />
+  );
+}
+
+export function HeizoelSorten() {
   return (
-    <section id="faq" className="scroll-mt-20 bg-background">
-      <div className="mx-auto max-w-[920px] px-5 py-16 md:py-20">
-        <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
-          Die häufigsten Fragen zum Heizölvergleich
-        </h2>
+    <section id="heizoelsorten" className="scroll-mt-20 bg-background">
+      <TooltipProvider delayDuration={150}>
+        <div className="mx-auto max-w-[980px] px-5 py-16 md:py-20">
+          <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
+            Heizölsorten im Überblick
+          </h2>
 
-        <Accordion type="multiple" className="mt-10 w-full">
-          {FAQS.map((f, i) => (
-            <AccordionItem key={f.q} value={`item-${i}`} className="border-b border-line">
-              <AccordionTrigger className="py-5 text-left text-[15px] font-normal text-brand hover:no-underline [&>svg]:text-brand">
-                {f.q}
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 pr-6 text-[15px] leading-[1.7] text-conditions">
-                {f.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+          <div className="mt-10 overflow-hidden rounded-xl border border-line bg-card shadow-sm">
+            {/* Kopfzeile */}
+            <div className="grid grid-cols-[1fr_92px_92px] items-end gap-2 border-b border-line bg-muted/40 px-5 py-4 md:grid-cols-[1fr_220px_220px] md:px-8 md:py-5">
+              <div />
+              <div className="text-center">
+                <p className="text-[13px] font-bold leading-tight text-conditions md:text-[15px]">
+                  Heizöl Standard
+                </p>
+                <p className="mt-1 flex items-center justify-center gap-1 text-[11px] text-brand md:text-xs">
+                  <Droplet className="h-3.5 w-3.5" /> Das Günstige
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-[13px] font-bold leading-tight text-conditions md:text-[15px]">
+                  Heizöl Premium
+                </p>
+                <p className="mt-1 flex items-center justify-center gap-1 text-[11px] text-muted-foreground md:text-xs">
+                  <Flame className="h-3.5 w-3.5" /> Das Sparsame
+                </p>
+              </div>
+            </div>
 
-        <div className="mt-12 flex justify-center">
-          <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-            <a href="#rechner">Zum Hilfe Center</a>
-          </Button>
+            {HEIZOEL_ROWS.map((row, i) => (
+              <div
+                key={row.label}
+                className={`grid grid-cols-[1fr_92px_92px] items-center gap-2 px-5 py-4 md:grid-cols-[1fr_220px_220px] md:px-8 md:py-5 ${
+                  i > 0 ? "border-t border-line" : ""
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        aria-label={`Info: ${row.label}`}
+                        className="shrink-0 rounded-full text-muted-foreground transition-colors hover:text-conditions"
+                      >
+                        <Info className="h-[18px] w-[18px]" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[300px] text-left leading-relaxed">
+                      {row.info}
+                    </TooltipContent>
+                  </Tooltip>
+                  <p className="text-[13px] font-semibold leading-snug text-conditions md:text-[15px]">
+                    {row.label}
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <Mark yes={row.standard} />
+                </div>
+                <div className="flex justify-center">
+                  <Mark yes={row.premium} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
+              <a href="#rechner">Jetzt Preis berechnen</a>
+            </Button>
+          </div>
         </div>
-      </div>
+      </TooltipProvider>
     </section>
   );
 }

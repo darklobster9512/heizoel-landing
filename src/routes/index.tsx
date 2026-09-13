@@ -5,8 +5,7 @@ import { Hero } from "@/components/landing/hero";
 import { CustomerVoices } from "@/components/landing/customer-voices";
 import {
   ConditionsBox,
-  Faq,
-  FAQS,
+  HeizoelSorten,
   MatchingOffers,
   PersonalDataInfo,
   SiteFooter,
@@ -34,20 +33,6 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQS.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }),
-      },
-    ],
   }),
   component: Index,
 });
@@ -65,7 +50,7 @@ function Index() {
         <Steps />
         <PersonalDataInfo />
         <MatchingOffers />
-        <Faq />
+        <HeizoelSorten />
         <TrustLinks />
         <ReferralBanner />
       </main>
