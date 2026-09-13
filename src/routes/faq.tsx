@@ -465,8 +465,8 @@ function FaqPage() {
 
         {/* Schnellnavigation */}
         <section className="bg-background" aria-label="Themen">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-5 py-8 md:grid-cols-4 md:gap-4">
-            {SECTIONS.filter((s) => s.id !== "sonstiges" && s.id !== "preise").map((section) => (
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-5 py-8 md:grid-cols-5 md:gap-4">
+            {SECTIONS.filter((s) => s.id !== "sonstiges").map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
@@ -478,15 +478,6 @@ function FaqPage() {
                 <span className="text-sm font-semibold text-ink">{section.nav}</span>
               </a>
             ))}
-            <a
-              href="#preise"
-              className="flex flex-col items-center gap-2 rounded-xl border border-line bg-card p-4 text-center shadow-sm transition-colors hover:border-brand/50 hover:bg-brand/5"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
-                <Calculator className="h-[18px] w-[18px]" aria-hidden="true" />
-              </span>
-              <span className="text-sm font-semibold text-ink">Preise</span>
-            </a>
           </div>
         </section>
 
