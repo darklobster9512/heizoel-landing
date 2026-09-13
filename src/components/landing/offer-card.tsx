@@ -17,7 +17,7 @@ const fieldClass =
   "mt-1 w-full rounded-md border border-line bg-background px-3 py-3.5 text-[13px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-2 md:px-4 md:py-3 md:text-[15px]";
 
 const selectTriggerClass =
-  "mt-1 h-[43px] w-full rounded-none border border-line bg-background px-3 py-2.5 text-[13px] text-hero-text focus:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-2 md:h-9 md:px-4 md:py-3 md:text-[15px]";
+  "mt-1 w-full rounded-md border border-line bg-background px-3 py-3.5 text-[13px] text-hero-text focus:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-2 md:px-4 md:py-3 md:text-[15px]";
 
 export function OfferCard({
   mobileTrust,
