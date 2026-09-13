@@ -270,30 +270,6 @@
   display: none;
 }
 
-.partner-marquee-track {
-  animation: partner-marquee 55s linear infinite;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .partner-marquee {
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .partner-marquee::-webkit-scrollbar {
-    display: none;
-  }
-
-  .partner-marquee-track {
-    animation: none !important;
-  }
-
-  .partner-marquee-track > ul[aria-hidden="true"] {
-    display: none;
-  }
-}
-
 .voices-text {
   font-family:
     "Inter",
