@@ -119,7 +119,9 @@ function BewertungenPage() {
         <section className="bg-background" aria-label="Gesamtbewertung">
           <div className="mx-auto max-w-6xl px-5 pt-10 md:pt-12">
             <div className="rounded-xl border border-line border-t-4 border-t-brand bg-card p-6 text-center shadow-sm md:p-8">
-              <Stars className="h-6 w-6" />
+              <div className="flex justify-center">
+                <Stars className="h-6 w-6" />
+              </div>
               <p className="mt-3 text-[32px] font-bold leading-none text-conditions md:text-[40px]">
                 4,9 <span className="text-[20px] font-semibold text-muted-custom md:text-[24px]">/ 5</span>
               </p>
