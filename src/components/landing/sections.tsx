@@ -624,6 +624,7 @@ function InfoCell({ info, label }: { info: string; label: string }) {
         }}
         className="max-w-[320px] text-left text-[13px] leading-relaxed text-conditions"
       >
+        <p className="mb-1.5 text-[14px] font-semibold text-ink">{label}</p>
         {info}
       </PopoverContent>
     </Popover>
