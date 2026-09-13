@@ -27,6 +27,7 @@ import vorauskasse from "@/assets/vorauskasse.png.asset.json";
 import barzahlung from "@/assets/barzahlung.png.asset.json";
 import ecKarte from "@/assets/ec-karte.png.asset.json";
 import dropGreen from "@/assets/drop-green.png.asset.json";
+import { lookupPlzCity } from "@/lib/plz-city";
 
 const TITLE = "Ihr persönliches Heizölangebot | Klaro";
 const DESCRIPTION =
@@ -146,6 +147,20 @@ function ErgebnisPage() {
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
   const [editing, setEditing] = useState(false);
+  const [city, setCity] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    setCity(null);
+    void lookupPlzCity(plz).then((c) => {
+      if (active) setCity(c);
+    });
+    return () => {
+      active = false;
+    };
+  }, [plz]);
+
+  const plzLabel = plz ? (city ? `${plz} ${city}` : plz) : "—";
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
@@ -190,7 +205,7 @@ function ErgebnisPage() {
           <div className="mt-5 rounded-xl border border-line bg-background px-4 py-3.5 shadow-card md:px-5">
             <div className="flex items-center justify-between gap-3">
               <p className="text-[14px] font-bold text-ink md:text-[15px]">
-                {plz || "—"}
+                {plzLabel}
                 <span className="mx-2 font-normal text-muted-custom">·</span>
                 {fmtLiters(liters)} L
                 <span className="mx-2 font-normal text-muted-custom">·</span>
@@ -210,7 +225,7 @@ function ErgebnisPage() {
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">PLZ</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-[13px] font-bold text-ink">{plz || "—"}</span>
+                    <span className="text-[13px] font-bold text-ink">{plzLabel}</span>
                     <Link
                       to="/preisrechner"
                       className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
