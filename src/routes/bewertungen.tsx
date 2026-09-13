@@ -178,7 +178,7 @@ function BewertungenPage() {
                   key={cert.title}
                   className="rounded-xl border border-line bg-card p-5 text-center shadow-sm md:p-6"
                 >
-                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-brand">
+                  <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-surface text-conditions">
                     <cert.icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <h3 className="mt-4 text-[15px] font-bold text-ink md:text-[16px]">
