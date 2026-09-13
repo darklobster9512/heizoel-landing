@@ -1,4 +1,7 @@
-import tuev from "@/assets/tuev.svg.asset.json";
+import ntv from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
+import bild from "@/assets/bild-empfehlung-2026.png.asset.json";
+import welt from "@/assets/die-welt-service-champion-2025.png.asset.json";
+import dtgv from "@/assets/dtgv-testsieger.png.asset.json";
 import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
 
@@ -25,13 +28,34 @@ function Check() {
 
 export function Hero() {
   const trustBadges = (
-    <div className="flex items-center justify-center gap-2.5 md:justify-start md:gap-5">
+    <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start md:gap-4">
       <img
-        src={tuev.url}
-        alt="TÜV Saarland — Geprüfter Datenschutz"
-        width={113}
-        height={60}
-        className="h-[53px] w-auto rounded-sm md:h-[58px]"
+        src={ntv.url}
+        alt="ntv Gesamtsieger Heizöl-Preisvergleich 2025"
+        width={124}
+        height={124}
+        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+      />
+      <img
+        src={bild.url}
+        alt="Bild Höchste Empfehlung 2026"
+        width={330}
+        height={227}
+        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+      />
+      <img
+        src={welt.url}
+        alt="Die Welt Service-Champion 2025"
+        width={124}
+        height={154}
+        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+      />
+      <img
+        src={dtgv.url}
+        alt="DtGV Testsieger Heizölportale"
+        width={330}
+        height={161}
+        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
       />
     </div>
   );
