@@ -146,6 +146,7 @@ function ErgebnisPage() {
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
   const [editing, setEditing] = useState(false);
+  const [editPlzMenge, setEditPlzMenge] = useState(false);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
