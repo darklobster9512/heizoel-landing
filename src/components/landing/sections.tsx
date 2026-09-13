@@ -675,64 +675,64 @@ export function Faq() {
 
 const TRUST_CARDS = [
   {
-    title: "Flexible Ratenkredite für Ihre Wünsche und Pläne",
+    title: "Heizöl günstig bestellen – so einfach geht's",
     links: [
-      { label: "Online Kredit", href: "https://www.smava.de/kredit/" },
-      { label: "Schnellkredit", href: "https://www.smava.de/autokredit/schnellkredit/" },
-      { label: "Kleinkredit", href: "https://www.smava.de/kredit/kleinkredit/" },
-      { label: "30.000 Euro Kredit", href: "https://www.smava.de/kredit/30000-euro-kredit/" },
+      { label: "Heizöl Preisvergleich", href: "#rechner" },
+      { label: "Aktuelle Heizölpreise", href: "#konditionen" },
+      { label: "Heizöl EL Standard", href: "#rechner" },
+      { label: "Premium-Heizöl", href: "#rechner" },
     ],
   },
   {
-    title: "Ihr neues Auto schnell und einfach finanzieren",
+    title: "Der richtige Zeitpunkt für Ihre Bestellung",
     links: [
-      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
-      { label: "3-Wege-Finanzierung", href: "https://www.smava.de/autokredit/3-wege-finanzierung/" },
-      { label: "Neuwagen-Finanzierung", href: "https://www.smava.de/autokredit/neuwagen-finanzierung/" },
-      { label: "Gebrauchtwagen-Finanzierung", href: "https://www.smava.de/autokredit/gebrauchtwagen-finanzierung/" },
+      { label: "Preisentwicklung", href: "#konditionen" },
+      { label: "Heizöl im Sommer kaufen", href: "#faq" },
+      { label: "Sammelbestellungen", href: "#faq" },
+      { label: "Preisgarantie", href: "#faq" },
     ],
   },
   {
-    title: "Mit einer Umschuldung Übersicht gewinnen und sparen",
+    title: "Lieferung und Zahlung im Überblick",
     links: [
-      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
-      { label: "Kredit ablösen", href: "https://www.smava.de/umschuldung/kredit-abloesen/" },
-      { label: "Darlehen umschulden", href: "https://www.smava.de/umschuldung/darlehen/" },
-      { label: "Überziehungskredit", href: "https://www.smava.de/umschuldung/ueberziehungskredit/" },
+      { label: "Lieferzeiten", href: "#faq" },
+      { label: "Expresslieferung", href: "#faq" },
+      { label: "Zahlungsarten", href: "#faq" },
+      { label: "Mindestbestellmenge", href: "#faq" },
     ],
   },
   {
-    title: "Den Traum vom Eigenheim sicher finanzieren",
+    title: "Heizöl-Wissen für Ihr Zuhause",
     links: [
-      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
-      { label: "Grundstück finanzieren", href: "https://www.smava.de/baufinanzierung/grundstueck-finanzieren/" },
-      { label: "Immobiliendarlehen", href: "https://www.smava.de/baufinanzierung/immobiliendarlehen/" },
-      { label: "Vollfinanzierung", href: "https://www.smava.de/baufinanzierung/vollfinanzierung/" },
+      { label: "Sorten im Vergleich", href: "#konditionen" },
+      { label: "Tank richtig pflegen", href: "#faq" },
+      { label: "Verbrauch senken", href: "#faq" },
+      { label: "Heizöl-Glossar", href: "#faq" },
     ],
   },
   {
-    title: "Ihr Wegweiser zu Krediten, Zinsen und Beratung",
+    title: "Ihr Wegweiser zu Preisen, Händlern und Beratung",
     links: [
-      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
-      { label: "Kreditzinsen", href: "https://www.smava.de/kredit/zinsen/" },
-      { label: "Kreditberatung", href: "https://www.smava.de/kredit/beratung/" },
-      { label: "Kreditglossar", href: "https://www.smava.de/kredit/glossar/" },
+      { label: "Preisrechner", href: "#rechner" },
+      { label: "Händler in Ihrer Region", href: "#rechner" },
+      { label: "Beratung", href: "#faq" },
+      { label: "Häufige Fragen", href: "#faq" },
     ],
   },
 ];
 
 export function TrustLinks() {
   return (
-    <section aria-label="Weitere Kreditarten" className="bg-surface">
+    <section aria-label="Weitere Heizöl-Themen" className="bg-surface">
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="pr-4">
             <h2 className="text-[26px] font-bold leading-[1.25] text-conditions">
-              Vertrauen Sie auf smava – Deutschlands bekanntes Kreditportal
+              Vertrauen Sie auf Klaro – Ihr Heizöl-Preisvergleich
             </h2>
             <p className="mt-5 text-[15px] leading-[1.6] text-conditions">
-              Entdecken Sie jetzt weitere Kreditarten und Vergleichsmöglichkeiten, die zu
-              Ihrem Leben, Ihren Plänen und Ihrem Budget passen.
+              Entdecken Sie jetzt weitere Themen und Vergleichsmöglichkeiten rund um
+              Heizöl, Lieferung und den besten Preis für Ihre Region.
             </p>
           </div>
 
@@ -771,19 +771,13 @@ export function TrustLinks() {
 
         <div className="mt-12 space-y-5 text-[12px] leading-[1.6] text-muted-custom">
           <p>
-            <strong className="font-bold">Sparen Sie über 35% mit smava:</strong> Vgl. der
-            eff. Jahreszinssätze neuer (lt. Bundesbank) mit den über smava vermittelten
-            Krediten 2020.{" "}
+            <strong className="font-bold">Preisbeispiel:</strong> Alle genannten Literpreise
+            sind regionale Beispielwerte und werden laufend aktualisiert. Angaben ohne
+            Gewähr, kein Angebot im Rechtssinne.{" "}
             <a href="#faq" className="text-brand-deep hover:underline">
               Mehr Infos
             </a>
             .
-          </p>
-          <p>
-            0,68 % Zinsen: 2/3 aller Kunden erhalten: Nettodarlehensbetrag 50.000,00 €, 60
-            Monate Laufzeit, 8,70 % effektiver Jahreszins, 8,37 % p.a. gebundener Sollzins,
-            60 mtl. Raten zu je 1.022,73 €, 61.363,57 € Gesamtbetrag, Vereinigte Volksbank
-            Raiffeisenbank eG, Darmstädter Str. 62, 64354 Reinheim.(§17 PAngV)
           </p>
           <div className="space-y-1.5">
             <p>
@@ -795,10 +789,6 @@ export function TrustLinks() {
               <a href="#faq" className="text-brand-deep hover:underline">
                 ** Mehr Infos
               </a>
-            </p>
-            <p>
-              *** ARD: Morgenmagazin (02.02.2023); ZDF: Morgenmagazin (02.02.2023); NTV:
-              Telebörse (25.10.2023); RTL: Punkt 12 (04.03.2024).
             </p>
           </div>
         </div>
