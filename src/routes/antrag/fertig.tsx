@@ -43,10 +43,7 @@ function DonePage() {
       </p>
 
       <p className="mt-3 text-center text-[13px] text-[#5b5b5b]" role="status">
-        {saved === "saving" && "Ihre Anfrage wird gespeichert …"}
-        {saved === "ok" && "Ihre Anfrage wurde erfolgreich gespeichert."}
-        {saved === "error" &&
-          "Ihre Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."}
+        Ihre Anfrage wurde entgegengenommen.
       </p>
 
       <div className="mt-8 space-y-3">
