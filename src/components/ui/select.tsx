@@ -35,15 +35,24 @@ const SelectTrigger = React.forwardRef<
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 
+function countSelectNodes(children: React.ReactNode): number {
+  return React.Children.toArray(children).reduce((count, child) => {
+    if (React.isValidElement(child) && child.props.children) {
+      return count + 1 + countSelectNodes(child.props.children);
+    }
+    return count + 1;
+  }, 0);
+}
+
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => {
   const viewportRef = React.useRef<HTMLDivElement | null>(null);
   const dragStartRef = React.useRef({ pointerY: 0, scrollTop: 0 });
-  const itemCount = React.Children.count(children);
+  const itemCount = countSelectNodes(children);
   const [scrollState, setScrollState] = React.useState({
-    visible: false,
+    visible: true,
     thumbHeight: 0,
     thumbTop: 0,
   });
