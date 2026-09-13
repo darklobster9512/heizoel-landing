@@ -77,8 +77,9 @@ export function SiteHeader() {
             </button>
 
             {open && (
-              <div className="absolute left-0 top-full z-50 w-[420px] pt-1.5">
+              <div className="absolute left-0 top-full z-50 w-max pt-1.5">
                 <div className="overflow-hidden rounded-lg border border-line bg-background shadow-card">
+                  <div className="h-[3px] w-full bg-brand" aria-hidden="true" />
                   <ul className="grid gap-1 p-2">
                     {HEIZOEL_LINKS.map((item) => {
                       const Icon = item.icon;
