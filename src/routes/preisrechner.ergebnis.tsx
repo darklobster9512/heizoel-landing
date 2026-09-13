@@ -209,59 +209,27 @@ function ErgebnisPage() {
               <div className="mt-3 border-t border-line pt-2.5">
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">PLZ</span>
-                  {editPlzMenge ? (
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      maxLength={5}
-                      placeholder="z. B. 10115"
-                      value={plz}
-                      onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                      className={`${fieldClass} w-20 py-2 text-right tabular`}
-                    />
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[13px] font-bold text-ink">{plz || "—"}</span>
-                      <button
-                        type="button"
-                        onClick={() => setEditPlzMenge(true)}
-                        className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
-                      >
-                        ändern
-                      </button>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] font-bold text-ink">{plz || "—"}</span>
+                    <Link
+                      to="/preisrechner"
+                      className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
+                    >
+                      ändern
+                    </Link>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Liefermenge</span>
-                  {editPlzMenge ? (
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="z. B. 3000"
-                      value={liters || ""}
-                      onChange={(e) => {
-                        const digits = e.target.value.replace(/\D/g, "");
-                        setLiters(digits ? Number(digits) : 0);
-                      }}
-                      onBlur={() => {
-                        if (!liters || liters < 1500) setLiters(1500);
-                        else if (liters > 32000) setLiters(32000);
-                      }}
-                      className={`${fieldClass} w-24 py-2 text-right tabular`}
-                    />
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[13px] font-bold text-ink">{fmtLiters(liters)} Liter</span>
-                      <button
-                        type="button"
-                        onClick={() => setEditPlzMenge(true)}
-                        className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
-                      >
-                        ändern
-                      </button>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] font-bold text-ink">{fmtLiters(liters)} Liter</span>
+                    <Link
+                      to="/preisrechner"
+                      className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
+                    >
+                      ändern
+                    </Link>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Lieferstellen</span>
