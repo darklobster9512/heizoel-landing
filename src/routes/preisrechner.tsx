@@ -177,7 +177,7 @@ function PreisrechnerPage() {
                     alt="Günstiger-geht-nicht-Garantie"
                     width={88}
                     height={88}
-                    className="pointer-events-none absolute -left-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
+                    className="pointer-events-none absolute right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
                   />
                   <OfferCard bordered={false} />
                 </div>
