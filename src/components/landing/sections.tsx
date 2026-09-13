@@ -5,8 +5,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Check, Droplet, Flame, Info, X } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Check, Info, X } from "lucide-react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
@@ -574,84 +575,119 @@ function Mark({ yes }: { yes: boolean }) {
   return yes ? (
     <Check className="h-5 w-5 text-brand" strokeWidth={3} aria-label="Ja" />
   ) : (
-    <X className="h-5 w-5 text-destructive" strokeWidth={3} aria-label="Nein" />
+    <X className="h-5 w-5 text-muted-foreground" strokeWidth={3} aria-label="Nein" />
   );
 }
+
+import dropGreen from "@/assets/drop-green.png.asset.json";
+import dropBrown from "@/assets/drop-brown.png.asset.json";
+
+function InfoCell({ info, label }: { info: string; label: string }) {
+  const [open, setOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  return (
+    <Popover
+      open={open}
+      onOpenChange={(next) => {
+        setOpen(next);
+        if (!next) setPinned(false);
+      }}
+    >
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={`Info: ${label}`}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => {
+            if (!pinned) setOpen(false);
+          }}
+          onClick={(e) => {
+            e.preventDefault();
+            if (pinned) {
+              setPinned(false);
+              setOpen(false);
+            } else {
+              setPinned(true);
+              setOpen(true);
+            }
+          }}
+          className="mx-auto flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-conditions"
+        >
+          <Info className="h-[18px] w-[18px]" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        side="top"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => {
+          if (!pinned) setOpen(false);
+        }}
+        className="max-w-[320px] text-left text-[13px] leading-relaxed text-conditions"
+      >
+        {info}
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+const GRID = "grid grid-cols-[1fr_40px_76px_76px] gap-2 md:grid-cols-[1fr_60px_220px_220px]";
 
 export function HeizoelSorten() {
   return (
     <section id="heizoelsorten" className="scroll-mt-20 bg-background">
-      <TooltipProvider delayDuration={150}>
-        <div className="mx-auto max-w-[980px] px-5 py-16 md:py-20">
-          <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
-            Heizölsorten im Überblick
-          </h2>
+      <div className="mx-auto max-w-[1283px] px-5 py-16 md:py-20">
+        <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
+          Heizölsorten im Überblick
+        </h2>
 
-          <div className="mt-10 overflow-hidden rounded-xl border border-line bg-card shadow-sm">
-            {/* Kopfzeile */}
-            <div className="grid grid-cols-[1fr_92px_92px] items-end gap-2 border-b border-line bg-muted/40 px-5 py-4 md:grid-cols-[1fr_220px_220px] md:px-8 md:py-5">
-              <div />
-              <div className="text-center">
-                <p className="text-[13px] font-bold leading-tight text-conditions md:text-[15px]">
-                  Heizöl Standard
-                </p>
-                <p className="mt-1 flex items-center justify-center gap-1 text-[11px] text-brand md:text-xs">
-                  <Droplet className="h-3.5 w-3.5" /> Das Günstige
-                </p>
+        <div className="mt-10 overflow-hidden rounded-xl border border-line bg-card shadow-sm">
+          {/* Kopfzeile */}
+          <div className={`${GRID} items-end border-b border-line bg-muted/40 px-5 py-4 md:px-8 md:py-5`}>
+            <div />
+            <div />
+            <div className="text-center">
+              <p className="text-[12px] font-bold leading-tight text-conditions md:text-[15px]">
+                Heizöl Standard
+              </p>
+              <p className="mt-1 flex items-center justify-center gap-1.5 text-[11px] md:text-xs" style={{ color: "#7AB616" }}>
+                <img src={dropGreen.url} alt="" className="h-3.5 w-3.5 object-contain" /> Das Günstige
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-[12px] font-bold leading-tight text-conditions md:text-[15px]">
+                Heizöl Premium
+              </p>
+              <p className="mt-1 flex items-center justify-center gap-1.5 text-[11px] md:text-xs" style={{ color: "#A0522D" }}>
+                <img src={dropBrown.url} alt="" className="h-3.5 w-3.5 object-contain" /> Das Sparsame
+              </p>
+            </div>
+          </div>
+
+          {HEIZOEL_ROWS.map((row, i) => (
+            <div
+              key={row.label}
+              className={`${GRID} items-center px-5 py-4 md:px-8 md:py-5 ${i > 0 ? "border-t border-line" : ""}`}
+            >
+              <p className="text-[13px] font-semibold leading-snug text-conditions md:text-[15px]">
+                {row.label}
+              </p>
+              <InfoCell info={row.info} label={row.label} />
+              <div className="flex justify-center">
+                <Mark yes={row.standard} />
               </div>
-              <div className="text-center">
-                <p className="text-[13px] font-bold leading-tight text-conditions md:text-[15px]">
-                  Heizöl Premium
-                </p>
-                <p className="mt-1 flex items-center justify-center gap-1 text-[11px] text-muted-foreground md:text-xs">
-                  <Flame className="h-3.5 w-3.5" /> Das Sparsame
-                </p>
+              <div className="flex justify-center">
+                <Mark yes={row.premium} />
               </div>
             </div>
-
-            {HEIZOEL_ROWS.map((row, i) => (
-              <div
-                key={row.label}
-                className={`grid grid-cols-[1fr_92px_92px] items-center gap-2 px-5 py-4 md:grid-cols-[1fr_220px_220px] md:px-8 md:py-5 ${
-                  i > 0 ? "border-t border-line" : ""
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        aria-label={`Info: ${row.label}`}
-                        className="shrink-0 rounded-full text-muted-foreground transition-colors hover:text-conditions"
-                      >
-                        <Info className="h-[18px] w-[18px]" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-[300px] text-left leading-relaxed">
-                      {row.info}
-                    </TooltipContent>
-                  </Tooltip>
-                  <p className="text-[13px] font-semibold leading-snug text-conditions md:text-[15px]">
-                    {row.label}
-                  </p>
-                </div>
-                <div className="flex justify-center">
-                  <Mark yes={row.standard} />
-                </div>
-                <div className="flex justify-center">
-                  <Mark yes={row.premium} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 flex justify-center">
-            <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-              <a href="#rechner">Jetzt Preis berechnen</a>
-            </Button>
-          </div>
+          ))}
         </div>
-      </TooltipProvider>
+
+        <div className="mt-12 flex justify-center">
+          <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
+            <a href="#rechner">Jetzt Preis berechnen</a>
+          </Button>
+        </div>
+      </div>
     </section>
   );
 }
