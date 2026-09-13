@@ -28,34 +28,34 @@ function Check() {
 
 export function Hero() {
   const trustBadges = (
-    <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start md:gap-4">
+    <div className="flex flex-wrap items-center justify-center gap-4 md:justify-start md:gap-5">
       <img
         src={ntv.url}
         alt="ntv Gesamtsieger Heizöl-Preisvergleich 2025"
         width={124}
         height={124}
-        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+        className="h-20 w-auto max-w-[180px] object-contain md:h-24 md:max-w-[220px]"
       />
       <img
         src={bild.url}
         alt="Bild Höchste Empfehlung 2026"
         width={330}
         height={227}
-        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+        className="h-20 w-auto max-w-[180px] object-contain md:h-24 md:max-w-[220px]"
       />
       <img
         src={welt.url}
         alt="Die Welt Service-Champion 2025"
         width={124}
         height={154}
-        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+        className="h-20 w-auto max-w-[180px] object-contain md:h-24 md:max-w-[220px]"
       />
       <img
         src={dtgv.url}
         alt="DtGV Testsieger Heizölportale"
         width={330}
         height={161}
-        className="h-12 w-auto max-w-[110px] object-contain md:h-14 md:max-w-[130px]"
+        className="h-20 w-auto max-w-[180px] object-contain md:h-24 md:max-w-[220px]"
       />
     </div>
   );
