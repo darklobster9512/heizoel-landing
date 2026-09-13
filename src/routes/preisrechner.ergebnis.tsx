@@ -3,7 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   BadgePercent,
   CalendarCheck,
+  Check,
   CheckCircle2,
+  ChevronDown,
   FileText,
   Flame,
   Lock,
@@ -11,6 +13,7 @@ import {
   ThumbsUp,
   Truck,
   Users,
+  X,
 } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
@@ -144,6 +147,7 @@ function ErgebnisPage() {
   const [dTruck, setDTruck] = useState(truck);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
+  const [compareOpen, setCompareOpen] = useState(false);
   const [stand, setStand] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
 
