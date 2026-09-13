@@ -3,11 +3,12 @@ import { useEffect, useMemo, useState } from "react";
 import {
   BadgePercent,
   CalendarCheck,
+  CheckCircle2,
   FileText,
+  Flame,
   Lock,
-  MapPin,
-  Pencil,
   ShieldCheck,
+  ThumbsUp,
   Truck,
   Users,
 } from "lucide-react";
@@ -142,7 +143,7 @@ function ErgebnisPage() {
   const [dHose, setDHose] = useState(hose);
   const [dTruck, setDTruck] = useState(truck);
 
-  const [variant, setVariant] = useState<"standard" | "premium">("premium");
+  const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [stand, setStand] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
 
@@ -180,357 +181,344 @@ function ErgebnisPage() {
     setEditing(false);
   };
 
-  const summary = [
-    plz ? `PLZ ${plz}` : null,
-    `${fmtLiters(liters)} Liter`,
-    `${points} ${points === 1 ? "Abladestelle" : "Abladestellen"}`,
-    `Schlauch ${hose}`,
-    `Tankwagen: ${truck}`,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-
   return (
     <div className="min-h-screen bg-background font-body text-ink">
       <SiteHeader />
-      <main>
-        <section className="border-b-[3px] border-b-brand bg-surface">
-          <div className="mx-auto max-w-2xl px-5 py-8 md:py-10">
-            <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-              <h1 className="text-[26px] font-bold leading-[1.25] text-conditions md:text-[36px]">
-                Ihr persönliches Heizölangebot
-              </h1>
-              <p className="text-[13px] text-muted-custom">Stand: {stand || "—"}</p>
-            </div>
+      <main className="py-6 md:py-8">
+        <div className="mx-auto max-w-xl px-4">
+          {/* Kopf: Titel + Stand-Badge */}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <h1 className="text-[24px] font-bold leading-[1.25] text-conditions md:text-[28px]">
+              Ihr persönliches Heizölangebot
+            </h1>
+            <p className="inline-flex shrink-0 items-center self-start rounded-md bg-ink px-2.5 py-1.5 text-[12px] font-semibold text-white sm:self-auto">
+              Stand: {stand || "—"}
+            </p>
           </div>
-        </section>
 
-        <section className="bg-background">
-          <div className="mx-auto max-w-2xl px-5 py-6 md:py-8">
-            {/* Lieferdaten: summary + edit-on-click */}
-            <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-card md:px-6">
-              {editing ? (
-                <div>
-                  <h2 className="text-[15px] font-bold text-conditions">Ihre Lieferdaten</h2>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div>
-                      <label htmlFor="e-plz" className="text-[13px] font-medium text-hero-text">
-                        Postleitzahl
-                      </label>
-                      <input
-                        id="e-plz"
-                        type="text"
-                        inputMode="numeric"
-                        maxLength={5}
-                        placeholder="z. B. 10115"
-                        value={dPlz}
-                        onChange={(e) => setDPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                        className={`${fieldClass} tabular`}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="e-menge" className="text-[13px] font-medium text-hero-text">
-                        Liefermenge in Liter
-                      </label>
-                      <input
-                        id="e-menge"
-                        type="text"
-                        inputMode="numeric"
-                        placeholder="z. B. 3000"
-                        value={dLiters || ""}
-                        onChange={(e) => {
-                          const digits = e.target.value.replace(/\D/g, "");
-                          setDLiters(digits ? Number(digits) : 0);
-                        }}
-                        onBlur={() => {
-                          if (!dLiters || dLiters < 1500) setDLiters(1500);
-                          else if (dLiters > 32000) setDLiters(32000);
-                        }}
-                        className={`${fieldClass} tabular`}
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="e-abladestellen"
-                        className="text-[13px] font-medium text-hero-text"
-                      >
-                        Abladestellen
-                      </label>
-                      <Select value={String(dPoints)} onValueChange={(v) => setDPoints(Number(v))}>
-                        <SelectTrigger id="e-abladestellen" className={`${fieldClass} focus:ring-0`}>
-                          <SelectValue placeholder="Abladestellen wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {DELIVERY_POINTS.map((n) => (
-                            <SelectItem key={n} value={String(n)}>
-                              {n}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label htmlFor="e-schlauch" className="text-[13px] font-medium text-hero-text">
-                        Schlauch
-                      </label>
-                      <Select value={dHose} onValueChange={setDHose}>
-                        <SelectTrigger id="e-schlauch" className={`${fieldClass} focus:ring-0`}>
-                          <SelectValue placeholder="Schlauchlänge wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {HOSE_OPTIONS.map((o) => (
-                            <SelectItem key={o} value={o}>
-                              {o}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label htmlFor="e-tankwagen" className="text-[13px] font-medium text-hero-text">
-                        Tankwagen
-                      </label>
-                      <Select value={dTruck} onValueChange={setDTruck}>
-                        <SelectTrigger id="e-tankwagen" className={`${fieldClass} focus:ring-0`}>
-                          <SelectValue placeholder="Tankwagen wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {TRUCK_OPTIONS.map((o) => (
-                            <SelectItem key={o} value={o}>
-                              {o}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <span className="text-[13px] font-medium text-hero-text">Lieferdatum</span>
-                      <p className="mt-1.5 flex w-full items-center gap-2 rounded-md border border-line bg-background px-3 py-3 text-[14px] text-muted-custom md:px-4">
-                        <CalendarCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
-                        ab {deliveryDate || "—"} (fest)
-                      </p>
-                    </div>
+          {/* Lieferdaten */}
+          <div className="mt-5 rounded-xl border border-line bg-background px-4 py-3.5 shadow-card md:px-5">
+            {editing ? (
+              <div>
+                <h2 className="text-[15px] font-bold text-conditions">Ihre Lieferdaten</h2>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="e-plz" className="text-[13px] font-medium text-hero-text">
+                      Postleitzahl
+                    </label>
+                    <input
+                      id="e-plz"
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={5}
+                      placeholder="z. B. 10115"
+                      value={dPlz}
+                      onChange={(e) => setDPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                      className={`${fieldClass} tabular`}
+                    />
                   </div>
-                  <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-                    <button
-                      type="button"
-                      onClick={() => setEditing(false)}
-                      className="inline-flex items-center justify-center rounded-[4px] border border-line bg-background px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:bg-surface"
+                  <div>
+                    <label htmlFor="e-menge" className="text-[13px] font-medium text-hero-text">
+                      Liefermenge in Liter
+                    </label>
+                    <input
+                      id="e-menge"
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="z. B. 3000"
+                      value={dLiters || ""}
+                      onChange={(e) => {
+                        const digits = e.target.value.replace(/\D/g, "");
+                        setDLiters(digits ? Number(digits) : 0);
+                      }}
+                      onBlur={() => {
+                        if (!dLiters || dLiters < 1500) setDLiters(1500);
+                        else if (dLiters > 32000) setDLiters(32000);
+                      }}
+                      className={`${fieldClass} tabular`}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="e-abladestellen"
+                      className="text-[13px] font-medium text-hero-text"
                     >
-                      Abbrechen
-                    </button>
-                    <button
-                      type="button"
-                      onClick={applyDraft}
-                      className="inline-flex items-center justify-center rounded-[4px] bg-brand px-5 py-3 text-[14px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover"
-                    >
-                      Preis neu berechnen
-                    </button>
+                      Abladestellen
+                    </label>
+                    <Select value={String(dPoints)} onValueChange={(v) => setDPoints(Number(v))}>
+                      <SelectTrigger id="e-abladestellen" className={`${fieldClass} focus:ring-0`}>
+                        <SelectValue placeholder="Abladestellen wählen" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {DELIVERY_POINTS.map((n) => (
+                          <SelectItem key={n} value={String(n)}>
+                            {n}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label htmlFor="e-schlauch" className="text-[13px] font-medium text-hero-text">
+                      Schlauch
+                    </label>
+                    <Select value={dHose} onValueChange={setDHose}>
+                      <SelectTrigger id="e-schlauch" className={`${fieldClass} focus:ring-0`}>
+                        <SelectValue placeholder="Schlauchlänge wählen" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {HOSE_OPTIONS.map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="e-tankwagen" className="text-[13px] font-medium text-hero-text">
+                      Tankwagen
+                    </label>
+                    <Select value={dTruck} onValueChange={setDTruck}>
+                      <SelectTrigger id="e-tankwagen" className={`${fieldClass} focus:ring-0`}>
+                        <SelectValue placeholder="Tankwagen wählen" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TRUCK_OPTIONS.map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <span className="text-[13px] font-medium text-hero-text">Lieferdatum</span>
+                    <p className="mt-1.5 flex w-full items-center gap-2 rounded-md border border-line bg-surface px-3 py-3 text-[14px] text-muted-custom md:px-4">
+                      <CalendarCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+                      ab {deliveryDate || "—"} (fest)
+                    </p>
                   </div>
                 </div>
-              ) : (
-                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                  <p className="text-[14px] text-ink">
-                    <span className="font-semibold">Ihre Lieferdaten:</span>{" "}
-                    <span className="text-muted-custom">{summary}</span>
-                  </p>
+                <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                   <button
                     type="button"
-                    onClick={startEditing}
-                    className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[4px] border border-line bg-background px-4 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-brand/10 hover:text-brand"
+                    onClick={() => setEditing(false)}
+                    className="inline-flex items-center justify-center rounded-[4px] border border-line bg-background px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:bg-surface"
                   >
-                    <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
-                    Ändern
+                    Abbrechen
                   </button>
-                </div>
-              )}
-            </div>
-
-            {/* Offer card with tabs */}
-            <div className="mt-5 rounded-xl border border-line bg-background shadow-card">
-              {/* Tabs */}
-              <div className="grid grid-cols-2 border-b border-line">
-                {(
-                  [
-                    { id: "standard", label: "Standard – Das Günstige" },
-                    { id: "premium", label: "Premium – Das Sparsame" },
-                  ] as const
-                ).map((t) => (
                   <button
-                    key={t.id}
                     type="button"
-                    onClick={() => setVariant(t.id)}
-                    aria-pressed={variant === t.id}
-                    className={`flex items-center justify-center gap-2 px-3 py-4 text-center text-[13px] font-bold leading-tight transition-colors md:text-[15px] ${
-                      variant === t.id
-                        ? "border-b-[3px] border-b-brand bg-brand/10 text-conditions"
-                        : "border-b-[3px] border-b-transparent bg-surface text-muted-custom hover:text-ink"
-                    }`}
+                    onClick={applyDraft}
+                    className="inline-flex items-center justify-center rounded-[4px] bg-brand px-5 py-3 text-[14px] font-semibold text-ink shadow-cta transition-colors hover:bg-brand-hover"
                   >
-                    {t.label}
-                    {t.id === "premium" ? (
-                      <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white md:text-[10px]">
-                        Empfohlen
-                      </span>
-                    ) : null}
+                    Preis neu berechnen
                   </button>
-                ))}
-              </div>
-
-              <div className="px-5 py-5 md:px-6 md:py-6">
-                <p className="text-[13px] leading-[1.7] text-muted-custom">
-                  {variant === "premium"
-                    ? "Heizöl Premium mit Additiven — für ca. 5 % niedrigeren Verbrauch und längere Lagerfähigkeit."
-                    : "Heizöl Standard (DIN 51603-1) — geeignet für alle Ölheizungen."}
-                </p>
-
-                <div className="mt-5 grid gap-4 rounded-lg bg-surface px-5 py-5 sm:grid-cols-2">
-                  <div>
-                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
-                      Preis pro 100 Liter
-                    </p>
-                    <p className="mt-1 text-[26px] font-bold leading-none text-conditions">
-                      {fmtEuro(price)} €
-                    </p>
-                  </div>
-                  <div className="sm:border-l sm:border-line sm:pl-4">
-                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
-                      Gesamtpreis inkl. Lieferung
-                    </p>
-                    <p className="mt-1 text-[30px] font-bold leading-none text-brand md:text-[34px]">
-                      {fmtEuro(total)} €
-                    </p>
-                    <p className="mt-1.5 text-[12px] text-muted-custom">inkl. 19 % MwSt.</p>
-                  </div>
-                </div>
-
-                <p className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand">
-                  <BadgePercent className="h-4 w-4" aria-hidden="true" />
-                  Direktpreis ohne Zwischenhändler — inkl. Lieferung
-                </p>
-
-                <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4">
-                  <div>
-                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">Lieferung</p>
-                    <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
-                      <CalendarCheck className="h-4 w-4 text-brand" aria-hidden="true" />
-                      ab {deliveryDate || "—"}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-[12px] uppercase tracking-wide text-muted-custom">
-                      Liefergebiet
-                    </p>
-                    <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink">
-                      <MapPin className="h-4 w-4 text-brand" aria-hidden="true" />
-                      Deutschlandweit
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-5 border-t border-line pt-4">
-                  <p className="text-[12px] uppercase tracking-wide text-muted-custom">
-                    Zahlungsarten
-                  </p>
-                  <ul className="mt-2.5 grid grid-cols-2 gap-2">
-                    {PAYMENTS.map((p) => (
-                      <li
-                        key={p.label}
-                        className="flex flex-col items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2.5"
-                      >
-                        {p.img ? (
-                          <img
-                            src={p.img}
-                            alt={p.label}
-                            className="h-6 w-auto object-contain"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <FileText className="h-6 w-6 text-brand" aria-hidden="true" />
-                        )}
-                        <span className="text-[11px] font-medium text-muted-custom">{p.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-6">
-                  <Link
-                    to="/antrag/schritt-1"
-                    search={{}}
-                    className="inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-3.5 text-[15px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:w-auto sm:min-w-[280px]"
-                  >
-                    Zur Bestellung
-                  </Link>
-                  <p className="mt-2.5 inline-flex w-full items-center gap-1.5 text-[12px] text-muted-custom sm:w-auto sm:pl-4">
-                    <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-                    100 % sicher &amp; SSL-verschlüsselt
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <Link
-                    to="/heizoel-wissen"
-                    hash="sorten"
-                    className="text-[13px] font-semibold text-brand underline-offset-4 hover:underline"
-                  >
-                    Sorten im Detail vergleichen
-                  </Link>
                 </div>
               </div>
+            ) : (
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[14px] font-bold text-ink md:text-[15px]">
+                  {plz || "—"}
+                  <span className="mx-2 font-normal text-muted-custom">·</span>
+                  {fmtLiters(liters)} L
+                  <span className="mx-2 font-normal text-muted-custom">·</span>
+                  ab {deliveryDate || "—"}
+                </p>
+                <button
+                  type="button"
+                  onClick={startEditing}
+                  className="shrink-0 text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
+                >
+                  ändern
+                </button>
+              </div>
+            )}
+          </div>
 
-              {/* Trust strip inside the card */}
-              <div className="flex flex-col items-center gap-4 border-t border-line bg-surface px-6 py-5 text-center md:flex-row md:justify-between md:text-left">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={ekomi.url}
-                    alt="eKomi Gold Siegel"
-                    className="h-12 w-auto object-contain"
-                    loading="lazy"
+          {/* Angebots-Card */}
+          <div className="mt-4 overflow-hidden rounded-xl border border-line bg-background shadow-card">
+            {/* Tabs */}
+            <div className="grid grid-cols-2 border-b border-line">
+              {(
+                [
+                  { id: "standard", label: "Standard", sub: "Das Günstige" },
+                  { id: "premium", label: "Premium", sub: "Das Sparsame" },
+                ] as const
+              ).map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setVariant(t.id)}
+                  aria-pressed={variant === t.id}
+                  className={`flex items-center justify-center gap-2 px-3 py-3.5 text-center transition-colors ${
+                    variant === t.id
+                      ? "border-b-[3px] border-b-brand bg-background text-conditions"
+                      : "border-b-[3px] border-b-transparent bg-surface text-muted-custom hover:text-ink"
+                  }`}
+                >
+                  <Flame
+                    className={`h-4 w-4 shrink-0 ${variant === t.id ? "text-brand" : "text-muted-custom"}`}
+                    aria-hidden="true"
                   />
-                  <div>
-                    <Stars />
-                    <p className="mt-1 text-[13px] font-semibold text-ink">25.000+ Bewertungen</p>
-                  </div>
-                </div>
-                <div className="text-[12px] leading-[1.7] text-muted-custom">
-                  <p>Lieferung durch Klaro oder regionalen Partnerhändler</p>
-                  <p>Preis ist bindend bei Bestellung. Es entstehen keine weiteren Kosten!</p>
-                </div>
+                  <span className="text-[14px] font-bold leading-tight">{t.label}</span>
+                  <span className="hidden text-[12px] font-normal sm:inline">{t.sub}</span>
+                  {t.id === "premium" ? (
+                    <span className="rounded-sm bg-[#f5b301] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink">
+                      Empfohlen
+                    </span>
+                  ) : null}
+                </button>
+              ))}
+            </div>
+
+            {/* Beschreibung */}
+            <p className="border-b border-line px-5 py-3.5 text-[13px] leading-[1.7] text-muted-custom">
+              {variant === "premium"
+                ? "Heizöl Premium mit Additiven — für ca. 5 % niedrigeren Verbrauch und längere Lagerfähigkeit."
+                : "Heizöl Standard (DIN 51603-1) — geeignet für alle Ölheizungen."}
+            </p>
+
+            {/* Preise */}
+            <div className="grid grid-cols-2 gap-4 border-b border-line px-5 py-4">
+              <div>
+                <p className="text-[12px] text-muted-custom">Preis pro 100 Liter</p>
+                <p className="mt-1 text-[20px] font-bold leading-none text-conditions md:text-[22px]">
+                  {fmtEuro(price)} €
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-[12px] text-muted-custom">Gesamtpreis inkl. Lieferung</p>
+                <p className="mt-1 text-[20px] font-bold leading-none text-conditions md:text-[22px]">
+                  {fmtEuro(total)} €
+                </p>
+                <p className="mt-1 text-[11px] text-muted-custom">inkl. 19 % MwSt.</p>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section className="bg-white" aria-labelledby="vorteile-title">
-          <div className="mx-auto max-w-2xl px-5 py-10 md:py-12">
+            {/* Direktpreis-Hinweis */}
+            <p className="flex items-center justify-center gap-1.5 border-b border-line px-5 py-3 text-[13px] font-semibold text-brand">
+              <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+              Direktpreis ohne Zwischenhändler — inkl. Lieferung
+            </p>
+
+            {/* Lieferung + Zahlungsarten */}
+            <div className="grid gap-4 border-b border-line px-5 py-4 sm:grid-cols-2">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
+                  Lieferung
+                </p>
+                <p className="mt-1.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink">
+                  <CheckCircle2 className="h-4 w-4 text-brand" aria-hidden="true" />
+                  ab {deliveryDate || "—"}
+                </p>
+                <p className="mt-0.5 text-[12px] text-muted-custom">Deutschlandweit</p>
+              </div>
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
+                  Zahlungsarten
+                </p>
+                <ul className="mt-1.5 flex flex-wrap gap-1.5">
+                  {PAYMENTS.map((p) => (
+                    <li
+                      key={p.label}
+                      className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-1"
+                    >
+                      {p.img ? (
+                        <img
+                          src={p.img}
+                          alt={p.label}
+                          className="h-4 w-auto object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <FileText className="h-4 w-4 text-brand" aria-hidden="true" />
+                      )}
+                      <span className="text-[11px] font-medium text-ink">{p.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="border-b border-line px-5 py-5">
+              <Link
+                to="/antrag/schritt-1"
+                search={{}}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-ink shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                Zur Bestellung »
+              </Link>
+              <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-muted-custom">
+                <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+                100 % sicher &amp; SSL-verschlüsselt
+              </p>
+              <p className="mt-2 text-center">
+                <Link
+                  to="/heizoel-wissen"
+                  hash="sorten"
+                  className="text-[13px] font-semibold text-brand underline-offset-4 hover:underline"
+                >
+                  Sorten im Detail vergleichen
+                </Link>
+              </p>
+            </div>
+
+            {/* Trust */}
+            <div className="flex items-center justify-center gap-4 border-b border-line px-5 py-4">
+              <img
+                src={ekomi.url}
+                alt="eKomi Gold Siegel"
+                className="h-11 w-auto object-contain"
+                loading="lazy"
+              />
+              <div>
+                <Stars className="size-3.5" />
+                <p className="mt-0.5 text-[12px] font-semibold text-ink">25.000+ Bewertungen</p>
+              </div>
+            </div>
+            <p className="bg-surface px-5 py-2.5 text-center text-[11px] text-muted-custom">
+              Lieferung durch Klaro oder regionalen Partnerhändler
+            </p>
+          </div>
+
+          {/* Bindender Preis */}
+          <div className="mt-4 rounded-xl bg-surface px-5 py-5 text-center shadow-card">
+            <p className="text-[15px] font-bold text-conditions">Preis ist bindend bei Bestellung.</p>
+            <p className="mt-1 text-[14px] font-semibold text-conditions">
+              Es entstehen keine weiteren Kosten!
+            </p>
+          </div>
+
+          {/* Ihre Vorteile */}
+          <section className="mt-4 rounded-xl bg-surface px-5 py-5 shadow-card" aria-labelledby="vorteile-title">
             <h2
               id="vorteile-title"
-              className="text-center text-[22px] font-bold text-conditions md:text-[26px]"
+              className="flex items-center gap-2 text-[16px] font-bold text-conditions"
             >
+              <ThumbsUp className="h-4.5 w-4.5 text-brand" aria-hidden="true" />
               Ihre Vorteile
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <ul className="mt-4 space-y-4">
               {ADVANTAGES.map((a) => {
                 const Icon = a.icon;
                 return (
-                    <div
-                    key={a.title}
-                    className="rounded-lg border border-line border-l-4 border-l-brand bg-surface px-4 py-4"
-                  >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/10 text-brand">
-                      <Icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
+                  <li key={a.title} className="flex items-start gap-3">
+                    <Icon className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+                    <div>
+                      <p className="text-[14px] font-bold text-ink">{a.title}</p>
+                      <p className="mt-0.5 text-[13px] leading-[1.6] text-muted-custom">{a.text}</p>
                     </div>
-                    <h3 className="mt-3 text-[15px] font-semibold text-ink">{a.title}</h3>
-                    <p className="mt-1.5 text-[13px] leading-[1.7] text-muted-custom">{a.text}</p>
-                  </div>
+                  </li>
                 );
               })}
-            </div>
-          </div>
-        </section>
+            </ul>
+          </section>
+        </div>
       </main>
-      
+
       <SiteFooter />
     </div>
   );
