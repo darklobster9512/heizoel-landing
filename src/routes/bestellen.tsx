@@ -135,7 +135,7 @@ function ReviewCarousel() {
             <p className="flex items-center gap-2 text-[13px]">
               <Stars className="size-3" />
               <span className="font-bold text-conditions">{r.name}</span>
-              <span className="text-muted-custom">· {r.when}</span>
+              <span className="text-muted-custom">· {formatDaysAgo(r.daysAgo)}</span>
             </p>
             <p className="mt-1 line-clamp-2 text-[13px] leading-[1.6] text-hero-text">{r.text}</p>
           </div>
