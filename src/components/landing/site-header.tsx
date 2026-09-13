@@ -58,15 +58,13 @@ export function SiteHeader() {
 
       <nav aria-label="Hauptnavigation" className="hidden border-y border-line bg-surface md:block">
         <div className="mx-auto flex h-12 max-w-6xl items-center px-5">
-          <div
-            className="relative"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
+          <div className="relative">
             <button
               type="button"
               aria-expanded={open}
               aria-haspopup="true"
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
               className="inline-flex h-12 items-center gap-1 bg-transparent text-xs font-semibold uppercase tracking-wide text-ink transition-colors hover:text-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
             >
               Heizölpreise
