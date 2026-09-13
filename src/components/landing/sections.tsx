@@ -902,13 +902,26 @@ export function SiteFooter() {
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
               Zahlungsarten
             </h4>
-            <img
-              src={zahlungsarten.url}
-              alt="Zahlungsarten: Barzahlung, Rechnung, Vorauskasse"
-              width={264}
-              height={61}
-              className="mt-3 w-full max-w-[264px]"
-            />
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <img
+                src={barzahlungAsset.url}
+                alt="Barzahlung"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+              <img
+                src={vorauskasseAsset.url}
+                alt="Vorauskasse"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+              <img
+                src={ecKarteAsset.url}
+                alt="EC-Karte"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+            </div>
             <h4 className="mt-5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
               Kundenbewertung
             </h4>
