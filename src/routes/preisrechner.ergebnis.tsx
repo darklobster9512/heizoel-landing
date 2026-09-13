@@ -166,6 +166,7 @@ function ErgebnisPage() {
   const [compareOpen, setCompareOpen] = useState(false);
   const [stand, setStand] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
+  const [deliveryIso, setDeliveryIso] = useState("");
 
   useEffect(() => {
     const now = new Date();
@@ -178,7 +179,11 @@ function ErgebnisPage() {
     const d = new Date();
     d.setDate(d.getDate() + 7);
     setDeliveryDate(d.toLocaleDateString("de-DE"));
+    setDeliveryIso(
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`,
+    );
   }, []);
+
 
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
