@@ -52,6 +52,7 @@ function Index() {
         <PersonalDataInfo />
         <MatchingOffers />
         <HeizoelSorten />
+        <CtaCard />
         <TrustLinks />
         <ReferralBanner />
       </main>
