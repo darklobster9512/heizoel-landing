@@ -304,51 +304,51 @@ function PreisrechnerPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Warum Klaro — direkt an die Hero-Card angedockt */}
-        <section
-          className="border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
-          aria-labelledby="why-klaro-title"
-        >
-          <h2
-            id="why-klaro-title"
-            className="text-center text-lg font-semibold leading-snug text-conditions md:text-xl"
-          >
-            Warum bei Klaro bestellen?
-          </h2>
-          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            {ADVANTAGES.map((a) => {
-              const Icon = a.icon;
-              return (
-                <div key={a.title} className="text-center">
-                  <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
-                    <Icon className="h-4 w-4" strokeWidth={2.2} />
+            {/* Warum Klaro — direkt an die Hero-Card angedockt */}
+            <div
+              className="rounded-b-xl border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
+              aria-labelledby="why-klaro-title"
+            >
+              <h2
+                id="why-klaro-title"
+                className="text-center text-lg font-semibold leading-snug text-conditions md:text-xl"
+              >
+                Warum bei Klaro bestellen?
+              </h2>
+              <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                {ADVANTAGES.map((a) => {
+                  const Icon = a.icon;
+                  return (
+                    <div key={a.title} className="text-center">
+                      <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
+                        <Icon className="h-4 w-4" strokeWidth={2.2} />
+                      </div>
+                      <h3 className="mt-2.5 text-sm font-semibold leading-tight text-ink">
+                        {a.title}
+                      </h3>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-custom">
+                        {a.text}
+                      </p>
+                    </div>
+                  );
+                })}
+
+                {/* 6. Kachel: Bewertung */}
+                <div className="text-center">
+                  <Stars size="size-4" />
+                  <div className="mt-2.5 flex items-baseline justify-center gap-1">
+                    <span className="text-lg font-bold text-ink">4,99</span>
+                    <span className="text-xs text-muted-custom">/ 5 Sternen</span>
                   </div>
-                  <h3 className="mt-2.5 text-sm font-semibold leading-tight text-ink">
-                    {a.title}
-                  </h3>
+                  <p className="mt-0.5 text-sm font-semibold text-conditions">
+                    Ausgezeichnet
+                  </p>
                   <p className="mt-1 text-xs leading-relaxed text-muted-custom">
-                    {a.text}
+                    Basierend auf über 33.000 Kundenbewertungen
                   </p>
                 </div>
-              );
-            })}
-
-            {/* 6. Kachel: Bewertung */}
-            <div className="text-center">
-              <Stars size="size-4" />
-              <div className="mt-2.5 flex items-baseline justify-center gap-1">
-                <span className="text-lg font-bold text-ink">4,99</span>
-                <span className="text-xs text-muted-custom">/ 5 Sternen</span>
               </div>
-              <p className="mt-0.5 text-sm font-semibold text-conditions">
-                Ausgezeichnet
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-muted-custom">
-                Basierend auf über 33.000 Kundenbewertungen
-              </p>
             </div>
           </div>
         </section>
