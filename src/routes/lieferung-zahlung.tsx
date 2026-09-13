@@ -122,7 +122,7 @@ function LieferungZahlungPage() {
             {USPS.map((usp) => (
               <div
                 key={usp.title}
-                className="rounded-xl border border-line bg-card p-5 text-center shadow-sm"
+                className="rounded-xl border border-line border-t-4 border-t-brand bg-card p-5 text-center shadow-sm"
               >
                 <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-brand">
                   <usp.icon className="h-5 w-5" aria-hidden="true" />
@@ -198,7 +198,7 @@ function LieferungZahlungPage() {
 
         {/* Zahlungsarten */}
         <section className="border-t border-line bg-background" aria-labelledby="zahlung-title">
-          <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+          <div className="mx-auto max-w-6xl px-5 pt-12 pb-6 md:pt-16 md:pb-8">
             <h2
               id="zahlung-title"
               className="text-[22px] font-bold leading-tight text-conditions md:text-[26px]"
@@ -218,9 +218,9 @@ function LieferungZahlungPage() {
 
             <div className="mt-8 grid gap-4">
               {PAYMENT_METHODS.map((method) => (
-                <article
+              <article
                   key={method.title}
-                  className="flex flex-col gap-5 rounded-xl border border-line bg-card p-5 shadow-sm md:flex-row md:items-start"
+                  className="flex flex-col gap-5 rounded-xl border border-line border-l-4 border-l-brand bg-card p-5 shadow-sm md:flex-row md:items-start"
                 >
                   <img
                     src={method.image}
