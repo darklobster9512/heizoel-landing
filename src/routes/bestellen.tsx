@@ -75,6 +75,65 @@ function Stars({ className = "size-3.5" }: { className?: string }) {
   );
 }
 
+const ITEM_HEIGHT = 72;
+
+function ReviewCarousel() {
+  const [items, setItems] = useState([REVIEWS[0], REVIEWS[1]]);
+  const [nextIndex, setNextIndex] = useState(2);
+  const [offset, setOffset] = useState(0);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (animating) return;
+      setAnimating(true);
+      const newItem = REVIEWS[nextIndex % REVIEWS.length];
+      setNextIndex((i) => i + 1);
+      setItems((prev) => [newItem, ...prev]);
+      setTransitionEnabled(false);
+      setOffset(-ITEM_HEIGHT);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTransitionEnabled(true);
+          setOffset(0);
+        });
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [animating, nextIndex]);
+
+  const handleTransitionEnd = () => {
+    setItems((prev) => prev.slice(0, 2));
+    setAnimating(false);
+  };
+
+  return (
+    <div className="mt-3 overflow-hidden" style={{ height: ITEM_HEIGHT * 2 }}>
+      <div
+        className={`flex flex-col ease-in-out ${transitionEnabled ? "transition-transform duration-500" : ""}`}
+        style={{ transform: `translateY(${offset}px)` }}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        {items.map((r, i) => (
+          <div
+            key={`${r.id}-${i}`}
+            className="flex shrink-0 flex-col justify-center border-t border-line px-0 py-2 first:border-t-0"
+            style={{ height: ITEM_HEIGHT }}
+          >
+            <p className="flex items-center gap-2 text-[13px]">
+              <Stars className="size-3" />
+              <span className="font-bold text-conditions">{r.name}</span>
+              <span className="text-muted-custom">· {r.when}</span>
+            </p>
+            <p className="mt-1 line-clamp-2 text-[13px] leading-[1.6] text-hero-text">{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function nextWorkday(d: Date): Date {
   const next = new Date(d);
   do {
