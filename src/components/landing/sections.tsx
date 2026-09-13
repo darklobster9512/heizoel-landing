@@ -31,7 +31,7 @@ export function SectionHead({
   );
 }
 
-import smavaHero from "@/assets/smava-hero.webp.asset.json";
+
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
