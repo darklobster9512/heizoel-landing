@@ -74,6 +74,15 @@ const TRUCK_OPTIONS = [
 ];
 const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+const COMPARE_ROWS = [
+  { label: "Für alle Ölheizungen", standard: true, premium: true },
+  { label: "Mischbar mit anderen Sorten", standard: true, premium: true },
+  { label: "Geringerer Verbrauch (~5 %)", standard: false, premium: true },
+  { label: "Angenehmer Geruch", standard: false, premium: true },
+  { label: "Bessere Lagerfähigkeit", standard: false, premium: true },
+  { label: "Schützt die Heizung", standard: false, premium: true },
+];
+
 const PAYMENTS = [
   { label: "Vorkasse", img: vorauskasse.url },
   { label: "Bar", img: barzahlung.url },
