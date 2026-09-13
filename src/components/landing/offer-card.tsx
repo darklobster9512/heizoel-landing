@@ -109,7 +109,7 @@ export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
         Jetzt Heizölpreise vergleichen
       </Link>
 
-      <div className="mt-3 flex flex-nowrap items-center justify-center gap-2 text-[11px] text-muted md:mt-4 md:text-xs">
+      <div className="mt-3 flex flex-nowrap items-center justify-center gap-2 text-[11px] text-hero-text/70 md:mt-4 md:text-xs">
         <span className="inline-flex items-center gap-1">
           <Shield className="size-3.5 shrink-0" />
           100% sicher & kostenlos
