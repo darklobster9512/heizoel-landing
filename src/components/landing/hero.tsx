@@ -64,9 +64,18 @@ export function Hero() {
     <section id="top" className="relative bg-surface">
       <div className="relative mx-auto grid max-w-6xl items-start gap-6 px-5 pb-[53px] pt-[29px] md:gap-10 md:py-12 lg:grid-cols-[1fr_510px] lg:py-14">
         <div>
+          <div className="mb-3 md:mb-4">
+            <span className="inline-flex items-center rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-ink md:text-sm">
+              Nr. 1 Heizöl-Preisvergleich in Deutschland
+            </span>
+          </div>
+
           <div className="grid grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
             <h1 className="min-w-0 max-w-[14ch] font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:max-w-[13ch] md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
-              Günstiges Heizöl - garantiert!
+              Günstiges Heizöl -{" "}
+              <span className="underline decoration-brand decoration-[3px] underline-offset-4">
+                garantiert!
+              </span>
             </h1>
 
             <img
@@ -78,7 +87,16 @@ export function Hero() {
             />
           </div>
 
-          <ul className="mt-[53px] space-y-3 md:mt-8 md:space-y-4">
+          <p className="mt-5 max-w-[55ch] text-[15px] leading-snug text-hero-text md:mt-6 md:text-base">
+            Heizölpreise heute ab{" "}
+            <strong className="font-semibold text-ink">128,78 €/100L</strong> —{" "}
+            <strong className="font-semibold text-ink">über 25.000 Kunden</strong>{" "}
+            sparen{" "}
+            <strong className="font-semibold text-ink">Ø €247 pro Bestellung</strong>
+            , direkt vom Händler, deutschlandweit.
+          </p>
+
+          <ul className="mt-5 space-y-3 md:mt-6 md:space-y-4">
             {CHECKS.map((c) => (
               <li key={c} className="flex gap-2 text-[15px] leading-snug text-hero-text md:gap-3 md:text-[15px]">
                 <Check />
