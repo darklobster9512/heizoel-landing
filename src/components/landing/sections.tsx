@@ -868,14 +868,14 @@ function ConsultingBlock() {
 const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   {
     label: "Youtube",
-    href: "https://www.youtube.com/@smava.",
+    href: "#",
     path: (
       <path d="M26.8009 13.1728C26.8009 10.5487 24.6735 8.42126 22.0494 8.42126H9.8992C7.27511 8.42126 5.14771 10.5487 5.14771 13.1728V18.8269C5.14771 21.451 7.27511 23.5784 9.8992 23.5784H22.0494C24.6735 23.5784 26.8009 21.451 26.8009 18.8269V13.1728ZM19.6554 16.4235L14.2067 19.1191C13.9932 19.2346 13.2675 19.0801 13.2675 18.837V13.3041C13.2675 13.0579 13.9992 12.9038 14.2128 13.0253L19.4284 15.863C19.647 15.9876 19.8767 16.3039 19.6554 16.4238V16.4235Z" />
     ),
   },
   {
     label: "LinkedIn",
-    href: "https://de.linkedin.com/company/smava",
+    href: "#",
     path: (
       <>
         <path d="M6.40747 11.9855H10.6129V25.4944H6.40747V11.9855ZM8.5107 5.27246C9.85566 5.27246 10.9451 6.36354 10.9451 7.70547C10.9451 9.0474 9.85532 10.1418 8.5107 10.1418C7.16609 10.1418 6.073 9.04907 6.073 7.70547C6.073 6.36186 7.16239 5.27246 8.5107 5.27246Z" />
@@ -885,7 +885,7 @@ const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/smava_gmbh/",
+    href: "#",
     path: (
       <>
         <path d="M21.9234 8.85455C21.2038 8.85455 20.6201 9.43821 20.6201 10.1579C20.6201 10.8775 21.2038 11.4612 21.9234 11.4612C22.6431 11.4612 23.2267 10.8775 23.2267 10.1579C23.2267 9.43821 22.6431 8.85455 21.9234 8.85455Z" />
@@ -896,14 +896,14 @@ const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/people/smava/100064534726416/",
+    href: "#",
     path: (
       <path d="M18.135 27.3902V17.4238H21.4583L22.0906 13.301H18.135V10.6255C18.135 9.49749 18.6874 8.39802 20.4592 8.39802H22.2578V4.88804C22.2578 4.88804 20.6258 4.60931 19.0652 4.60931C15.8074 4.60931 13.678 6.58393 13.678 10.1584V13.3006H10.0569V17.4235H13.678V27.3899" />
     ),
   },
   {
     label: "X",
-    href: "https://twitter.com/smava",
+    href: "#",
     path: (
       <path d="M5.0259 5.60788L13.6 17.0717L4.97217 26.3924H6.91421L14.4681 18.2316L20.5713 26.3924H27.1795L18.1228 14.2837L26.1539 5.60754H24.2119L17.2554 13.1232L11.6345 5.60754H5.02624L5.0259 5.60788ZM7.8817 7.03813H10.9175L24.323 24.9624H21.2872L7.8817 7.03813Z" />
     ),
@@ -947,7 +947,7 @@ export function SiteFooter() {
           <div>
             <h4 className="text-[14px] font-bold leading-[20px]">
               <a
-                href="https://www.smava.de/kredit/beratung/"
+              href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ink hover:underline"
@@ -1086,7 +1086,7 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="text-[13px] leading-5 text-footer-text">
-              © 2026 smava.de | Palisadenstraße 90 | 10243 Berlin
+              © 2026 Klaro GmbH | Musterstraße 1 | 10115 Berlin
             </p>
           </div>
         </div>
