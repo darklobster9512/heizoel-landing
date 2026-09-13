@@ -53,6 +53,7 @@ function Index() {
         <MatchingOffers />
         <HeizoelSorten />
         <ReferralBanner />
+        <HeizoelServiceIntro />
         <TrustLinks />
       </main>
       <SiteFooter />
