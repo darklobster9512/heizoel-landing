@@ -5,8 +5,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Check, Droplet, Flame, Info, X } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Check, Info, X } from "lucide-react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
@@ -574,7 +575,7 @@ function Mark({ yes }: { yes: boolean }) {
   return yes ? (
     <Check className="h-5 w-5 text-brand" strokeWidth={3} aria-label="Ja" />
   ) : (
-    <X className="h-5 w-5 text-destructive" strokeWidth={3} aria-label="Nein" />
+    <X className="h-5 w-5 text-muted-foreground" strokeWidth={3} aria-label="Nein" />
   );
 }
 
