@@ -67,6 +67,7 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-deep: var(--brand-deep);
   --color-brand-hover: var(--brand-hover);
+  --color-cta-bg: var(--cta-bg);
   --color-ink: var(--ink);
   --color-muted-custom: var(--muted-custom);
   --color-line: var(--line);
@@ -106,6 +107,7 @@
   --brand-soft: oklch(0.95 0.05 150);
   --brand-deep: oklch(0.650134 0.168644 145.705);
   --brand-hover: oklch(0.396399 0.095521 147.144);
+  --cta-bg: oklch(0.55 0.15 145);
   --line: oklch(0.92 0.004 250);
   --conditions-text: oklch(0.35 0 0);
   --smava-logo: oklch(0.650134 0.168644 145.705);
@@ -161,6 +163,7 @@
   --brand-soft: oklch(0.30 0.05 150);
   --brand-deep: oklch(0.650134 0.168644 145.705);
   --brand-hover: oklch(0.396399 0.095521 147.144);
+  --cta-bg: oklch(0.55 0.15 145);
   --line: oklch(0.28 0.015 250);
   --conditions-text: oklch(0.88 0.002 250);
   --smava-logo: oklch(0.650134 0.168644 145.705);
