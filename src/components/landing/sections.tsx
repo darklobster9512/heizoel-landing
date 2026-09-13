@@ -765,7 +765,9 @@ export function TrustLinks() {
               <p className="text-[15px] leading-[1.45] text-footer-text">{card.title}</p>
               <ul className="mt-5 space-y-3">
                 {card.links.map((l) => {
-                  const [path, hash] = l.href.split("#");
+                  const hashIndex = l.href.indexOf("#");
+                  const path = hashIndex === -1 ? l.href : l.href.slice(0, hashIndex);
+                  const hash = hashIndex === -1 ? undefined : l.href.slice(hashIndex + 1);
                   return (
                   <li key={l.label}>
                     <Link
