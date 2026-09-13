@@ -1123,13 +1123,13 @@ export function RegionalSeo() {
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 md:grid-cols-4">
           {REGIONAL_BUTTONS.map((label) => (
-            <button
+            <Link
               key={label}
-              type="button"
+              to="/preisrechner"
               className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-left text-[13px] font-medium leading-snug text-conditions transition-colors hover:border-brand hover:text-brand"
             >
               {label}
-            </button>
+            </Link>
           ))}
         </div>
       </div>
