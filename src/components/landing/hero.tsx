@@ -1,5 +1,4 @@
 import tuev from "@/assets/tuev.svg.asset.json";
-import ekomi from "@/assets/ekomi.webp.asset.json";
 import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
 
@@ -24,18 +23,6 @@ function Check() {
   );
 }
 
-export function Stars({ className = "" }: { className?: string }) {
-  return (
-    <span className={`inline-flex gap-0.5 ${className}`} aria-hidden="true">
-      {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} viewBox="0 0 24 24" className="size-4 fill-[#f1a319]">
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27z" />
-        </svg>
-      ))}
-    </span>
-  );
-}
-
 export function Hero() {
   const trustBadges = (
     <div className="flex items-center justify-center gap-2.5 md:justify-start md:gap-5">
@@ -46,23 +33,6 @@ export function Hero() {
         height={60}
         className="h-[53px] w-auto rounded-sm md:h-[58px]"
       />
-      <img
-        src={ekomi.url}
-        alt="eKomi Kundenauszeichnung Gold"
-        width={52}
-        height={52}
-        className="size-[52px] md:size-[52px]"
-      />
-      <div className="min-w-0">
-        <p className="flex flex-nowrap items-center gap-1.5 md:flex-wrap md:gap-2">
-          <Stars className="gap-0" />
-          <span className="tabular whitespace-nowrap text-xs font-semibold text-hero-text md:text-sm">4.9/5</span>
-        </p>
-        <p className="mt-0.5 max-w-[150px] text-[8px] leading-[1.2] text-hero-text md:mt-1 md:max-w-[190px] md:text-[11px]">
-          aus 705 Bewertungen der letzten 12 Monate – Stand 8.9.2026
-        </p>
-
-      </div>
     </div>
   );
 
@@ -92,7 +62,6 @@ export function Hero() {
               </li>
             ))}
           </ul>
-
 
           <div className="mt-10 hidden md:block">{trustBadges}</div>
         </div>
