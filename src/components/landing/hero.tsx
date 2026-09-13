@@ -96,9 +96,13 @@ export function Hero() {
 
           <ul className="mt-5 space-y-3 md:mt-6 md:space-y-4">
             {CHECKS.map((c) => (
-              <li key={c} className="flex gap-2 text-[15px] leading-snug text-hero-text md:gap-3 md:text-[15px]">
+              <li key={c.bold} className="flex gap-2 text-[15px] leading-snug text-hero-text md:gap-3 md:text-[15px]">
                 <Check />
-                <span>{c}</span>
+                <span>
+                  {c.prefix}
+                  <strong className="font-semibold text-ink">{c.bold}</strong>
+                  {c.suffix}
+                </span>
               </li>
             ))}
           </ul>
