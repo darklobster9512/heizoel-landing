@@ -146,13 +146,7 @@ function ErgebnisPage() {
   const [hose, setHose] = useState(HOSE_OPTIONS[0]!);
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
-  // Draft values while editing
   const [editing, setEditing] = useState(false);
-  const [dPlz, setDPlz] = useState(plz);
-  const [dLiters, setDLiters] = useState(liters);
-  const [dPoints, setDPoints] = useState(points);
-  const [dHose, setDHose] = useState(hose);
-  const [dTruck, setDTruck] = useState(truck);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
