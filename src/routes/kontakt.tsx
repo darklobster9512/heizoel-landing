@@ -77,16 +77,38 @@ const CONTACTS: ContactItem[] = [
   },
 ];
 
-const TOPICS = [
-  { value: "allgemein", label: "Allgemeine Anfrage" },
-  { value: "bestellung", label: "Frage zur Bestellung" },
-  { value: "lieferung", label: "Frage zur Lieferung" },
-  { value: "zahlung", label: "Frage zur Zahlung" },
-  { value: "reklamation", label: "Reklamation / Beschwerde" },
-  { value: "angebot", label: "Preis- und Angebotsanfrage" },
-  { value: "beratung", label: "Technische Beratung" },
-  { value: "sonstiges", label: "Sonstiges" },
-] as const;
+type TopicGroup = {
+  title: string;
+  options: { value: string; label: string }[];
+};
+
+const TOPICS: TopicGroup[] = [
+  {
+    title: "Fragen zum Heizölpreis",
+    options: [
+      { value: "preis-aktuell", label: "Ich möchte den aktuellen Heizölpreis erfahren" },
+      { value: "preis-angebot", label: "Bitte machen Sie mir ein Heizöl-Preisangebot" },
+    ],
+  },
+  {
+    title: "Fragen zur Bestellung",
+    options: [
+      { value: "bestellung-neu", label: "Ich möchte Heizöl bestellen" },
+      { value: "bestellung-lieferzeit", label: "Ich habe Fragen zur Lieferzeit" },
+      { value: "bestellung-haendler", label: "Ich habe Fragen zum Lieferanten" },
+    ],
+  },
+  {
+    title: "Ich habe bereits Heizöl bestellt",
+    options: [
+      { value: "liefertermin", label: "Ich möchte einen Liefertermin vereinbaren" },
+    ],
+  },
+  {
+    title: "Sonstiges",
+    options: [{ value: "sonstiges", label: "Mein Anliegen ist hier nicht ausgeführt" }],
+  },
+];
 
 const SALUTATIONS = [
   { value: "herr", label: "Herr" },
