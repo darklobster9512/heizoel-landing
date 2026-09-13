@@ -25,7 +25,6 @@ import {
 import type { WizardData } from "@/lib/wizard-store";
 
 import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 
 import { bankLogoSrc } from "@/lib/bank-logos";
 import { listActiveBanks, type Bank } from "@/lib/banks.functions";
@@ -190,10 +189,9 @@ function OffersPage() {
     LOADING_TEXTS[Math.min(LOADING_TEXTS.length - 1, Math.floor(progress / 25))] ??
     LOADING_TEXTS[0];
 
-  const fetchBanks = useServerFn(listActiveBanks);
   const banksQuery = useQuery({
     queryKey: ["active-banks"],
-    queryFn: () => fetchBanks(),
+    queryFn: () => listActiveBanks(),
     staleTime: 0,
     gcTime: 0,
   });
@@ -217,7 +215,6 @@ function OffersPage() {
 
   const selected = offers.find((o) => o.bank.id === selectedId) ?? null;
 
-  const startApplication = useServerFn(createApplication);
   const [applying, setApplying] = useState(false);
 
   async function goToApplication(offer: { bank: Bank; effRate: number; rate: number }) {
@@ -230,8 +227,7 @@ function OffersPage() {
       } catch {
         /* ignore */
       }
-      const { id } = await startApplication({
-        data: {
+      const { id } = await createApplication({
           wizard,
           offer: {
             bankId: offer.bank.id,
@@ -242,8 +238,7 @@ function OffersPage() {
             effRate: offer.effRate,
             monthlyRate: offer.rate,
             totalAmount: offer.rate * searchTerm,
-            insurance: searchInsurance,
-          },
+          insurance: searchInsurance,
         },
       });
       await navigate({ to: "/kreditantrag/$applicationId", params: { applicationId: id } });

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowLeft,
   AtSign,
@@ -27,9 +26,7 @@ import {
 import { Logo } from "@/components/landing/logo";
 import { WizardFooter } from "@/components/wizard/ui";
 import { bankLogoSrc } from "@/lib/bank-logos";
-import { supabase } from "@/integrations/supabase/client";
 import {
-  createDocumentUploadUrl,
   deleteApplicationDocument,
   getApplication,
   listApplicationDocuments,
@@ -96,25 +93,21 @@ function ApplicationPage() {
   const { applicationId } = Route.useParams();
   const queryClient = useQueryClient();
 
-  const fetchApplication = useServerFn(getApplication);
-  const fetchDocuments = useServerFn(listApplicationDocuments);
-
   const application = useQuery({
     queryKey: ["application", applicationId],
-    queryFn: () => fetchApplication({ data: { id: applicationId } }),
+    queryFn: () => getApplication({ id: applicationId }),
   });
 
   const documents = useQuery({
     queryKey: ["application-documents", applicationId],
-    queryFn: () => fetchDocuments({ data: { applicationId } }),
+    queryFn: () => listApplicationDocuments({ applicationId }),
   });
 
   const [tab, setTab] = useState<"dokumente" | "signatur" | "auszahlung">("dokumente");
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  const submitDocs = useServerFn(submitApplicationDocuments);
   const submit = useMutation({
-    mutationFn: () => submitDocs({ data: { applicationId } }),
+    mutationFn: () => submitApplicationDocuments({ applicationId }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["application", applicationId] }),
   });
 
@@ -673,9 +666,6 @@ function UploadSection({
   const [dragOver, setDragOver] = useState(false);
   const [open, setOpen] = useState(true);
 
-  const signUpload = useServerFn(createDocumentUploadUrl);
-  const registerDoc = useServerFn(registerApplicationDocument);
-  const removeDoc = useServerFn(deleteApplicationDocument);
 
   const upload = useMutation({
     mutationFn: async (files: File[]) => {
@@ -683,23 +673,13 @@ function UploadSection({
         if (file.size > MAX_SIZE) {
           throw new Error(`„${file.name}" ist größer als 10 MB.`);
         }
-        const { path, token } = await signUpload({
-          data: { applicationId, kind, fileName: file.name },
-        });
-        const { error: uploadError } = await supabase.storage
-          .from("application-documents")
-          .uploadToSignedUrl(path, token, file);
-        if (uploadError) throw new Error(uploadError.message);
-
-        await registerDoc({
-          data: {
-            applicationId,
-            kind,
-            filePath: path,
-            fileName: file.name,
-            fileSize: file.size,
-            mimeType: file.type || "application/octet-stream",
-          },
+        await registerApplicationDocument({
+          applicationId,
+          kind,
+          fileName: file.name,
+          fileSize: file.size,
+          mimeType: file.type || "application/octet-stream",
+          url: URL.createObjectURL(file),
         });
       }
     },
@@ -711,7 +691,7 @@ function UploadSection({
   });
 
   const remove = useMutation({
-    mutationFn: (id: string) => removeDoc({ data: { id, applicationId } }),
+    mutationFn: (id: string) => deleteApplicationDocument({ id, applicationId }),
     onSuccess: onChanged,
   });
 

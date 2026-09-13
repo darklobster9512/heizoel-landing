@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -66,15 +65,11 @@ function Toggle({
 
 export function BanksAdmin() {
   const queryClient = useQueryClient();
-  const fetchBanks = useServerFn(listBanks);
-  const saveBank = useServerFn(upsertBank);
-  const removeBank = useServerFn(deleteBank);
-
-  const banks = useQuery({ queryKey: ["banks-admin"], queryFn: () => fetchBanks() });
+  const banks = useQuery({ queryKey: ["banks-admin"], queryFn: () => listBanks() });
   const [form, setForm] = useState<BankInput | null>(null);
 
   const save = useMutation({
-    mutationFn: (input: BankInput) => saveBank({ data: input }),
+    mutationFn: (input: BankInput) => upsertBank(input),
     onSuccess: async () => {
       toast.success("Bank gespeichert");
       setForm(null);
@@ -85,7 +80,7 @@ export function BanksAdmin() {
   });
 
   const del = useMutation({
-    mutationFn: (id: string) => removeBank({ data: { id } }),
+    mutationFn: (id: string) => deleteBank({ id }),
     onSuccess: async () => {
       toast.success("Bank gelöscht");
       setForm(null);
