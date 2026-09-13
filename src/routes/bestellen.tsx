@@ -531,10 +531,24 @@ function BestellenPage() {
   };
 
   const submit = () => {
-    if (!validate()) return;
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!validate() || !draft) return;
+    const now = new Date();
+    const orderNo = `${String(now.getDate()).padStart(2, "0")}${String(now.getMonth() + 1).padStart(2, "0")}-${Math.floor(10000 + Math.random() * 89999)}`;
+    saveOrderConfirmation({
+      ...draft,
+      slot: slot ?? undefined,
+      orderNo,
+      email: email.trim(),
+      phone: phone.trim(),
+      delivery,
+      ...(billingDifferent ? { billing } : {}),
+      notes,
+      payment,
+      placedAt: now.toISOString(),
+    });
+    void navigate({ to: "/bestaetigung" });
   };
+
 
   if (!loaded) {
     return <div className="min-h-screen bg-surface font-body text-ink" />;

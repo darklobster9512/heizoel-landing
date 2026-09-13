@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AngeboteRouteImport } from './routes/angebote'
 import { Route as AntragRouteRouteImport } from './routes/antrag/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BestaetigungRouteImport } from './routes/bestaetigung'
 import { Route as BestellenRouteImport } from './routes/bestellen'
 import { Route as BewertungenRouteImport } from './routes/bewertungen'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -68,6 +69,11 @@ const AntragRouteRoute = AntragRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestaetigungRoute = BestaetigungRouteImport.update({
+  id: '/bestaetigung',
+  path: '/bestaetigung',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BestellenRoute = BestellenRouteImport.update({
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
@@ -270,6 +277,7 @@ export interface FileRoutesByTo {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
@@ -309,6 +317,7 @@ export interface FileRoutesById {
   '/antrag': typeof AntragRouteRouteWithChildren
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
+  '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
@@ -348,6 +357,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
     | '/faq'
@@ -385,6 +395,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
     | '/faq'
@@ -423,6 +434,7 @@ export interface FileRouteTypes {
     | '/antrag'
     | '/angebote'
     | '/auth'
+    | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
     | '/faq'
@@ -462,6 +474,7 @@ export interface RootRouteChildren {
   AntragRouteRoute: typeof AntragRouteRouteWithChildren
   AngeboteRoute: typeof AngeboteRoute
   AuthRoute: typeof AuthRoute
+  BestaetigungRoute: typeof BestaetigungRoute
   BestellenRoute: typeof BestellenRoute
   BewertungenRoute: typeof BewertungenRoute
   FaqRoute: typeof FaqRoute
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bestaetigung': {
+      id: '/bestaetigung'
+      path: '/bestaetigung'
+      fullPath: '/bestaetigung'
+      preLoaderRoute: typeof BestaetigungRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bestellen': {
@@ -809,6 +829,7 @@ const rootRouteChildren: RootRouteChildren = {
   AntragRouteRoute: AntragRouteRouteWithChildren,
   AngeboteRoute: AngeboteRoute,
   AuthRoute: AuthRoute,
+  BestaetigungRoute: BestaetigungRoute,
   BestellenRoute: BestellenRoute,
   BewertungenRoute: BewertungenRoute,
   FaqRoute: FaqRoute,
