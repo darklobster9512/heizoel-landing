@@ -601,9 +601,15 @@ function InfoCell({ info, label }: { info: string; label: string }) {
           onMouseLeave={() => {
             if (!pinned) setOpen(false);
           }}
-          onClick={() => {
-            setPinned(true);
-            setOpen(true);
+          onClick={(e) => {
+            e.preventDefault();
+            if (pinned) {
+              setPinned(false);
+              setOpen(false);
+            } else {
+              setPinned(true);
+              setOpen(true);
+            }
           }}
           className="mx-auto flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-conditions"
         >
