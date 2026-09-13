@@ -19,7 +19,7 @@ const DESCRIPTION =
 
 const TITLE = "Heizölpreis berechnen — Klaro";
 
-export const Route = createFileRoute("/preisrechner")({
+export const Route = createFileRoute("/preisrechner/")({
   head: () => ({
     meta: [
       { title: TITLE },
