@@ -5,6 +5,7 @@ import { Hero } from "@/components/landing/hero";
 import { CustomerVoices } from "@/components/landing/customer-voices";
 import {
   ConditionsBox,
+  CtaCard,
   HeizoelSorten,
   MatchingOffers,
   PersonalDataInfo,
@@ -51,6 +52,7 @@ function Index() {
         <PersonalDataInfo />
         <MatchingOffers />
         <HeizoelSorten />
+        <CtaCard />
         <TrustLinks />
         <ReferralBanner />
       </main>
