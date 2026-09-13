@@ -195,7 +195,7 @@ function ErgebnisPage() {
       <SiteHeader />
       <main>
         <section className="border-b-[3px] border-b-brand bg-surface">
-          <div className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+          <div className="mx-auto max-w-2xl px-5 py-8 md:py-10">
             <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
               <h1 className="text-[26px] font-bold leading-[1.25] text-conditions md:text-[36px]">
                 Ihr persönliches Heizölangebot
@@ -206,7 +206,7 @@ function ErgebnisPage() {
         </section>
 
         <section className="bg-background">
-          <div className="mx-auto max-w-3xl px-5 py-8 md:py-10">
+          <div className="mx-auto max-w-2xl px-5 py-6 md:py-8">
             {/* Lieferdaten: summary + edit-on-click */}
             <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-card md:px-6">
               {editing ? (
@@ -347,7 +347,7 @@ function ErgebnisPage() {
             </div>
 
             {/* Offer card with tabs */}
-            <div className="mt-6 rounded-xl border border-line bg-background shadow-card">
+            <div className="mt-5 rounded-xl border border-line bg-background shadow-card">
               {/* Tabs */}
               <div className="grid grid-cols-2 border-b border-line">
                 {(
@@ -377,7 +377,7 @@ function ErgebnisPage() {
                 ))}
               </div>
 
-              <div className="px-6 py-6 md:px-8 md:py-7">
+              <div className="px-5 py-5 md:px-6 md:py-6">
                 <p className="text-[13px] leading-[1.7] text-muted-custom">
                   {variant === "premium"
                     ? "Heizöl Premium mit Additiven — für ca. 5 % niedrigeren Verbrauch und längere Lagerfähigkeit."
@@ -432,7 +432,7 @@ function ErgebnisPage() {
                   <p className="text-[12px] uppercase tracking-wide text-muted-custom">
                     Zahlungsarten
                   </p>
-                  <ul className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <ul className="mt-2.5 grid grid-cols-2 gap-2">
                     {PAYMENTS.map((p) => (
                       <li
                         key={p.label}
@@ -503,7 +503,7 @@ function ErgebnisPage() {
         </section>
 
         <section className="bg-white" aria-labelledby="vorteile-title">
-          <div className="mx-auto max-w-3xl px-5 py-12 md:py-16">
+          <div className="mx-auto max-w-2xl px-5 py-10 md:py-12">
             <h2
               id="vorteile-title"
               className="text-center text-[22px] font-bold text-conditions md:text-[26px]"
@@ -514,9 +514,9 @@ function ErgebnisPage() {
               {ADVANTAGES.map((a) => {
                 const Icon = a.icon;
                 return (
-                  <div
+                    <div
                     key={a.title}
-                    className="rounded-lg border border-line border-l-4 border-l-brand bg-surface px-5 py-5"
+                    className="rounded-lg border border-line border-l-4 border-l-brand bg-surface px-4 py-4"
                   >
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/10 text-brand">
                       <Icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
