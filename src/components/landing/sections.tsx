@@ -5,9 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { useRef } from "react";
 import { Logo } from "./logo";
 import totalEnergies from "@/assets/total-energies.png.asset.json";
 import aral from "@/assets/aral-logo.webp.asset.json";
@@ -40,70 +38,34 @@ export function SectionHead({
 
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
 
-const PARTNER_ROWS: { name: string; src: string; className?: string }[][] = [
-  [
-    { name: "TotalEnergies", src: totalEnergies.url, className: "max-h-14" },
-    { name: "Aral", src: aral.url, className: "max-h-16" },
-    { name: "badenöl24", src: badenoel.url },
-    { name: "emweo", src: emweo.url },
-  ],
-  [
-    { name: "Hoyer", src: hoyer.url, className: "max-h-14" },
-    { name: "Montana", src: montana.url, className: "max-h-14" },
-    { name: "Nordoel", src: nordoel.url },
-    { name: "team", src: team.url },
-  ],
+const PARTNERS: { name: string; src: string; className?: string }[] = [
+  { name: "TotalEnergies", src: totalEnergies.url, className: "max-h-14" },
+  { name: "Aral", src: aral.url, className: "max-h-16" },
+  { name: "badenöl24", src: badenoel.url },
+  { name: "emweo", src: emweo.url },
+  { name: "Hoyer", src: hoyer.url, className: "max-h-14" },
+  { name: "Montana", src: montana.url, className: "max-h-14" },
+  { name: "Nordoel", src: nordoel.url },
+  { name: "team", src: team.url },
 ];
 
-const PARTNERS = PARTNER_ROWS.flat();
-
 export function TrustBar() {
-  const mobileTrackRef = useRef<HTMLDivElement>(null);
-
-  const scrollPartners = (direction: 1 | -1) => {
-    const track = mobileTrackRef.current;
-    if (!track) return;
-    track.scrollBy({ left: direction * track.clientWidth, behavior: "smooth" });
-  };
-
   return (
     <section aria-label="Partnerhändler" className="bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-10 md:py-12">
-        <div className="hidden space-y-6 md:block">
-          {PARTNER_ROWS.map((row, i) => (
-            <ul
-              key={i}
-              className="grid grid-cols-4 items-center gap-x-10 gap-y-7"
-            >
-              {row.map((p) => (
-                <li key={p.name} className="flex h-16 items-center justify-center">
-                  <img
-                    src={p.src}
-                    alt={p.name}
-                    loading="lazy"
-                    className={`max-h-12 w-auto max-w-full object-contain ${p.className ?? ""}`}
-                  />
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
-
-        <div className="md:hidden">
-          <div
-            ref={mobileTrackRef}
-            className="partner-track flex snap-x snap-mandatory overflow-x-auto"
-          >
-            {Array.from({ length: Math.ceil(PARTNERS.length / 4) }, (_, pageIndex) => (
+      <div className="py-8 md:py-10">
+        <div className="partner-marquee overflow-hidden">
+          <div className="partner-marquee-track flex w-max">
+            {[false, true].map((duplicate) => (
               <ul
-                key={pageIndex}
-                className="grid w-full shrink-0 snap-start grid-cols-2 grid-rows-2 gap-x-7 gap-y-8"
+                key={duplicate ? "duplicate" : "primary"}
+                aria-hidden={duplicate || undefined}
+                className="flex shrink-0 items-center gap-8 pr-8 md:gap-10 md:pr-10"
               >
-                {PARTNERS.slice(pageIndex * 4, pageIndex * 4 + 4).map((partner) => (
-                  <li key={partner.name} className="flex h-16 items-center justify-center px-2">
+                {PARTNERS.map((partner) => (
+                  <li key={partner.name} className="flex h-16 w-32 shrink-0 items-center justify-center md:w-36">
                     <img
                       src={partner.src}
-                      alt={partner.name}
+                      alt={duplicate ? "" : partner.name}
                       loading="lazy"
                       className={`max-h-12 w-auto max-w-full object-contain ${partner.className ?? ""}`}
                     />
@@ -112,33 +74,9 @@ export function TrustBar() {
               </ul>
             ))}
           </div>
-
-          <div className="mt-6 flex items-center justify-center gap-5">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              aria-label="Vorherige Partnerhändler"
-              onClick={() => scrollPartners(-1)}
-              className="size-10 border-line text-brand shadow-none"
-            >
-              <ChevronLeft className="size-5" />
-            </Button>
-            <span className="h-1.5 w-16 rounded-full bg-secondary" aria-hidden="true" />
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              aria-label="Weitere Partnerhändler"
-              onClick={() => scrollPartners(1)}
-              className="size-10 border-line text-brand shadow-none"
-            >
-              <ChevronRight className="size-5" />
-            </Button>
-          </div>
         </div>
 
-        <p className="mt-8 text-sm md:mt-10">
+        <p className="mx-auto mt-6 max-w-6xl px-5 text-sm md:mt-7">
           <a href="#konditionen" className="text-ink underline underline-offset-4">
             Teilnehmende Heizölhändler
           </a>
