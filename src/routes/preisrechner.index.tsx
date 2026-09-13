@@ -268,7 +268,7 @@ function PreisrechnerPage() {
                     height={88}
                     className="pointer-events-none absolute right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
                   />
-                  <OfferCard bordered={false} />
+                  <OfferCard bordered={false} initialPlz={plz} />
                 </div>
                 <div className="rounded-b-xl border-t border-line bg-surface/50 p-6 md:p-10 lg:rounded-bl-none lg:rounded-r-xl lg:border-t-0 lg:border-l">
                   <CompactSteps />

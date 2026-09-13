@@ -22,11 +22,13 @@ const selectTriggerClass =
 export function OfferCard({
   mobileTrust,
   bordered = true,
+  initialPlz = "",
 }: {
   mobileTrust?: ReactNode;
   bordered?: boolean;
+  initialPlz?: string;
 }) {
-  const [plz, setPlz] = useState("");
+  const [plz, setPlz] = useState(initialPlz);
   const [quantity, setQuantity] = useState(3000);
   const [deliveryPoints, setDeliveryPoints] = useState<number>(DELIVERY_POINTS[0] ?? 1);
 
