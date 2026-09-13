@@ -1299,16 +1299,18 @@ const STATE_LINKS = [
 
 function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
   return (
-    <div className="mt-12 first:mt-0">
-      <h3 className="text-center text-[20px] font-bold leading-[1.3] text-conditions md:text-[24px]">
-        {title}
-      </h3>
-      <div className="mt-6 grid grid-cols-4 gap-x-3 gap-y-3">
+    <div className="mt-10 first:mt-0">
+      {title ? (
+        <h3 className="text-center text-[16px] font-semibold leading-[1.3] text-conditions md:text-[18px]">
+          {title}
+        </h3>
+      ) : null}
+      <div className={`grid grid-cols-4 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
         {links.map((label) => (
           <a
             key={label}
             href="#"
-            className="block text-center text-[13px] leading-snug text-conditions transition-colors hover:text-brand md:text-[14px]"
+            className="block text-left text-[12px] leading-snug text-conditions transition-colors hover:text-brand md:text-[13px]"
           >
             {label}
           </a>
@@ -1320,11 +1322,11 @@ function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
 
 export function CitySeo() {
   return (
-    <section className="bg-white" aria-labelledby="city-seo-title">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+    <section className="bg-surface" aria-labelledby="city-seo-title">
+      <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
         <h2
           id="city-seo-title"
-          className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+          className="text-center text-[20px] font-semibold leading-[1.25] text-conditions md:text-[24px]"
         >
           Heizöl & Heizölpreise in deutschen Städten
         </h2>
