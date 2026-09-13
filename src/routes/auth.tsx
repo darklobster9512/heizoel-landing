@@ -188,8 +188,8 @@ function AuthPage() {
           </div>
 
           <p className="mt-5 text-center text-[13px] leading-relaxed text-[#5b5b5b]">
-            Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen
-            Datenschutzbestimmungen verarbeitet.
+            Demo-Modus: Es gibt keine echte Anmeldung. Eine beliebige E-Mail-Adresse mit Passwort
+            genügt – Adressen, die mit „admin@" beginnen, öffnen den Adminbereich.
           </p>
         </div>
       </main>
