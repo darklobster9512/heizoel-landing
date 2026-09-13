@@ -6,9 +6,9 @@ import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
 
 const CHECKS = [
-  "Aktuelle Angebote von über 300 Heizölhändlern",
-  "Kostenlos und 100 % unverbindlich",
-  "Täglich aktuelle Preise aus Ihrer Region**",
+  { prefix: "Bis zu ", bold: "20% günstiger", suffix: " als der Marktdurchschnitt" },
+  { prefix: "Über ", bold: "500 zertifizierte Händler", suffix: " deutschlandweit" },
+  { prefix: "", bold: "Festpreis-Garantie", suffix: " — auch bei steigenden Ölpreisen" },
 ];
 
 function Check() {
@@ -73,9 +73,7 @@ export function Hero() {
           <div className="grid grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
             <h1 className="min-w-0 max-w-[14ch] font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:max-w-[13ch] md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
               Günstiges Heizöl -{" "}
-              <span className="underline decoration-brand decoration-[3px] underline-offset-12 decoration-skip-ink-none">
-                garantiert!
-              </span>
+              <span>garantiert!</span>
             </h1>
 
             <img
@@ -98,9 +96,13 @@ export function Hero() {
 
           <ul className="mt-5 space-y-3 md:mt-6 md:space-y-4">
             {CHECKS.map((c) => (
-              <li key={c} className="flex gap-2 text-[15px] leading-snug text-hero-text md:gap-3 md:text-[15px]">
+              <li key={c.bold} className="flex gap-2 text-[15px] leading-snug text-hero-text md:gap-3 md:text-[15px]">
                 <Check />
-                <span>{c}</span>
+                <span>
+                  {c.prefix}
+                  <strong className="font-semibold text-ink">{c.bold}</strong>
+                  {c.suffix}
+                </span>
               </li>
             ))}
           </ul>
