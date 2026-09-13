@@ -1,15 +1,14 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, Info, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
+import ntvAward from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
+import bildAward from "@/assets/bild-empfehlung-2026.png.asset.json";
+import weltAward from "@/assets/die-welt-service-champion-2025.png.asset.json";
+import dtgvAward from "@/assets/dtgv-testsieger.png.asset.json";
+import zahlungsarten from "@/assets/zahlungsarten.webp.asset.json";
 
 export function SectionHead({
   eyebrow,
