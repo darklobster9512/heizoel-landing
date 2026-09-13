@@ -76,11 +76,11 @@ function Stars({ size = "size-5" }: { size?: string }) {
 
 function CompactSteps() {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <h2 className="text-[22px] font-bold tracking-tight text-conditions md:text-2xl">
         In 3 Schritten zum günstigen Heizöl
       </h2>
-      <ol className="mt-6 flex flex-1 flex-col justify-between">
+      <ol className="mt-5 space-y-4">
         {STEPS.map((s) => (
           <li key={s.title} className="flex items-start gap-4">
             <img
@@ -101,6 +101,24 @@ function CompactSteps() {
           </li>
         ))}
       </ol>
+
+      <div className="mt-5 flex items-start gap-4 border-t border-line pt-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center">
+          <Stars size="size-6" />
+        </div>
+        <div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-base font-bold text-conditions">4,99</span>
+            <span className="text-sm text-conditions/85">/ 5 Sternen</span>
+          </div>
+          <p className="mt-0.5 text-sm font-semibold text-conditions">
+            Ausgezeichnet
+          </p>
+          <p className="mt-0.5 text-sm text-conditions/85">
+            Basierend auf über 33.000 Kundenbewertungen
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
