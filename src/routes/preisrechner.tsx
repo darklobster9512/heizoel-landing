@@ -278,7 +278,7 @@ function PreisrechnerPage() {
 
             {/* Warum Klaro — direkt an die Hero-Card angedockt */}
             <div
-              className="rounded-b-xl border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
+              className="rounded-xl border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
               aria-labelledby="why-klaro-title"
             >
               <h2
