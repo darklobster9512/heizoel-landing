@@ -31,39 +31,25 @@ export function SectionHead({
 }
 
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
-import santander from "@/assets/santander.svg.asset.json";
-import postbank from "@/assets/postbank.svg.asset.json";
-import creditplus from "@/assets/creditplus.svg.asset.json";
-import commerzbank from "@/assets/commerzbank.svg.asset.json";
-import auxmoney from "@/assets/auxmoney.svg.asset.json";
-import hvb from "@/assets/hvb.svg.asset.json";
-import bankofscotland from "@/assets/bankofscotland.svg.asset.json";
-import dkb from "@/assets/dkb.svg.asset.json";
-import deutschebank from "@/assets/deutschebank.svg.asset.json";
-import ingdiba from "@/assets/ingdiba.svg.asset.json";
-import vvrb from "@/assets/vvrb.svg.asset.json";
-import skredit from "@/assets/skreditpartnerkredit.svg.asset.json";
-import targobank from "@/assets/targobank.svg.asset.json";
-import vonessen from "@/assets/vonessensubprime.svg.asset.json";
 
-const PARTNER_ROWS: { name: string; src: string; h: string }[][] = [
+const PARTNER_ROWS: { name: string }[][] = [
   [
-    { name: "TARGOBANK", src: targobank.url, h: "h-5" },
-    { name: "Vereinigte Volksbank Raiffeisenbank", src: vvrb.url, h: "h-7" },
-    { name: "CreditPlus Bank", src: creditplus.url, h: "h-6" },
-    { name: "ING", src: ingdiba.url, h: "h-8" },
-    { name: "Santander", src: santander.url, h: "h-6" },
-    { name: "Postbank", src: postbank.url, h: "h-9" },
-    { name: "S-Kredit-per-Klick", src: skredit.url, h: "h-6" },
+    { name: "Heizöl Direkt" },
+    { name: "ThermoÖl" },
+    { name: "NordWärme" },
+    { name: "ÖlPartner" },
+    { name: "HeizProfis" },
+    { name: "SüdHeiz" },
+    { name: "Rhein Energie" },
   ],
   [
-    { name: "Commerzbank", src: commerzbank.url, h: "h-7" },
-    { name: "auxmoney", src: auxmoney.url, h: "h-5" },
-    { name: "HypoVereinsbank", src: hvb.url, h: "h-8" },
-    { name: "Bank of Scotland", src: bankofscotland.url, h: "h-9" },
-    { name: "DKB", src: dkb.url, h: "h-10" },
-    { name: "Consors Finanz", src: vonessen.url, h: "h-7" },
-    { name: "Deutsche Bank", src: deutschebank.url, h: "h-6" },
+    { name: "Hansa Öl" },
+    { name: "BayernWärme" },
+    { name: "Teuto Heizöl" },
+    { name: "Elbe Energie" },
+    { name: "AlpenÖl" },
+    { name: "Ostsee Wärme" },
+    { name: "Ruhr Heizöl" },
   ],
 ];
 
@@ -79,7 +65,7 @@ export function TrustBar() {
   };
 
   return (
-    <section aria-label="Partnerbanken" className="bg-background">
+    <section aria-label="Partnerhändler" className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-10 md:py-12">
         <div className="hidden space-y-6 md:block">
           {PARTNER_ROWS.map((row, i) => (
@@ -89,12 +75,9 @@ export function TrustBar() {
             >
               {row.map((p) => (
                 <li key={p.name} className="flex h-11 items-center">
-                  <img
-                    src={p.src}
-                    alt={p.name}
-                    loading="lazy"
-                    className={`${p.h} w-auto max-w-[150px] object-contain object-left`}
-                  />
+                  <span className="text-lg font-bold tracking-tight text-muted-custom/70">
+                    {p.name}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -113,12 +96,9 @@ export function TrustBar() {
               >
                 {PARTNERS.slice(pageIndex * 4, pageIndex * 4 + 4).map((partner) => (
                   <li key={partner.name} className="flex h-14 items-center justify-center">
-                    <img
-                      src={partner.src}
-                      alt={partner.name}
-                      loading="lazy"
-                      className={`${partner.h} max-h-10 w-auto max-w-[145px] object-contain`}
-                    />
+                    <span className="text-base font-bold tracking-tight text-muted-custom/70">
+                      {partner.name}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -130,7 +110,7 @@ export function TrustBar() {
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Vorherige Partnerbanken"
+              aria-label="Vorherige Partnerhändler"
               onClick={() => scrollPartners(-1)}
               className="size-10 border-line text-brand shadow-none"
             >
@@ -141,7 +121,7 @@ export function TrustBar() {
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Weitere Partnerbanken"
+              aria-label="Weitere Partnerhändler"
               onClick={() => scrollPartners(1)}
               className="size-10 border-line text-brand shadow-none"
             >
@@ -152,7 +132,7 @@ export function TrustBar() {
 
         <p className="mt-8 text-sm md:mt-10">
           <a href="#konditionen" className="text-ink underline underline-offset-4">
-            Teilnehmende Kreditbanken/Vermittler
+            Teilnehmende Heizölhändler
           </a>
         </p>
       </div>
@@ -161,13 +141,13 @@ export function TrustBar() {
 }
 
 const CONDITIONS_LEFT = [
-  ["Zinssätze:", "Min. -0,40 % bis Max. 19,90 % effektiver Jahreszins (APR)"],
-  ["Laufzeit:", "Min. 6 bis Max. 120 Monate"],
+  ["Literpreis:", "ca. 78,90 € bis 96,50 € je 100 Liter (Heizöl EL)"],
+  ["Liefermenge:", "Min. 500 bis Max. 30.000 Liter"],
 ];
 
 const CONDITIONS_RIGHT = [
-  ["Nettodarlehensbetrag:", "von 1.000 € bis 150.000 €"],
-  ["Gesamtbetrag:", "von 995,50 € bis 181.247,51 €"],
+  ["Lieferzeit:", "ca. 3 bis 10 Werktage, Express möglich"],
+  ["Zahlungsarten:", "Vorkasse, Lastschrift, Rechnung oder Karte"],
 ];
 
 function ConditionsList({ items }: { items: string[][] }) {
@@ -189,13 +169,13 @@ function ConditionsList({ items }: { items: string[][] }) {
 export function ConditionsBox({ mobileOnly = false }: { mobileOnly?: boolean }) {
   return (
     <section
-      aria-label="Konditionen Übersicht"
+      aria-label="Preis Übersicht"
       className={mobileOnly ? "bg-surface md:hidden" : "hidden bg-background md:block"}
     >
       <div className={`mx-auto max-w-6xl px-5 ${mobileOnly ? "pb-5 pt-4" : "pb-12"}`}>
         <div className="rounded-md bg-line px-4 py-4 md:bg-surface md:px-6 md:py-5">
           <h2 className="text-[14px] font-bold text-conditions">
-            Ratenkredit Konditionen Übersicht
+            Heizöl Preis-Übersicht
           </h2>
           <div className="mt-4 grid gap-x-8 gap-y-2.5 md:grid-cols-[1.25fr_1fr]">
             <ConditionsList items={CONDITIONS_LEFT} />
@@ -396,24 +376,24 @@ const STEPS = [
     iconAlt: "Monitor-Symbol, Schritt 1",
     width: 128,
     height: 128,
-    title: "Kostenlose\nKreditanfrage",
-    text: "Zuerst stellen Sie unverbindlich und kostenlos ihre Kreditanfrage ganz bequem von zu Hause aus.",
+    title: "Kostenlose\nPreisanfrage",
+    text: "Geben Sie einfach Ihre Postleitzahl, die gewünschte Menge und Sorte ein – bequem von zu Hause aus.",
   },
   {
     icon: getOffers.url,
     iconAlt: "Listen-Symbol, Schritt 2",
     width: 67,
     height: 56,
-    title: "Angebote erhalten",
-    text: "Sie erhalten Kreditangebote von verschiedenen Banken. Den passenden Kredit können Sie direkt online beantragen.",
+    title: "Angebote vergleichen",
+    text: "Sie erhalten aktuelle Heizölpreise von Händlern aus Ihrer Region und wählen das günstigste Angebot.",
   },
   {
     icon: closeApplication.url,
     iconAlt: "Hand mit Münzen, Schritt 3",
     width: 72,
     height: 72,
-    title: "Kreditantrag abschließen",
-    text: "Sind Ihre Unterlagen vollständig und alle Voraussetzungen erfüllt, erhalten Sie innerhalb kürzester Zeit Ihr Geld.",
+    title: "Heizöl bestellen",
+    text: "Bestellen Sie direkt online beim Händler Ihrer Wahl – die Lieferung erfolgt zum Wunschtermin.",
   },
 ];
 
@@ -422,7 +402,7 @@ export function Steps() {
     <section id="ablauf" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-6xl px-5 py-12 md:py-14">
         <h2 className="text-[22px] font-bold tracking-tight text-conditions md:text-2xl">
-          In 3 Schritten zum Wunschkredit
+          In 3 Schritten zum günstigen Heizöl
         </h2>
         <ol className="mt-9 grid gap-9 md:grid-cols-3 md:gap-x-12">
           {STEPS.map((s) => (
@@ -462,17 +442,17 @@ export function PersonalDataInfo() {
 
           <div className="mt-8 space-y-4 text-[16px] leading-[1.5]">
             <p>
-              Kreditinstitute sind dazu verpflichtet, Ihre Identität zu überprüfen. Nur mit den
-              Angaben zu Ihrer Person kann das <strong>bestmögliche Angebot</strong> für Sie ermittelt
-              werden.
+              Heizölpreise unterscheiden sich je nach Region teils deutlich. Nur mit Ihrer
+              <strong> Postleitzahl</strong> und der gewünschten Menge können wir die
+              <strong> bestmöglichen Angebote</strong> aus Ihrer Region ermitteln.
             </p>
             <p>
-              Vertrauenswürdige Angebote gibt es nur nach einer Kreditwürdigkeitsprüfung.
-              <br className="hidden sm:block" /> Dafür benötigen wir Informationen zu Ihrer Person und
-              finanziellen Situation.
+              Für den Preisvergleich ist keine Bonitätsprüfung nötig.
+              <br className="hidden sm:block" /> Es genügen Ihre Postleitzahl, die Liefermenge und
+              die gewünschte Sorte.
             </p>
             <p>
-              Ihre Angaben werden von smava <strong>vertraulich</strong> behandelt
+              Ihre Angaben werden von Klaro <strong>vertraulich</strong> behandelt
               <br className="hidden sm:block" /> und <strong>verschlüsselt</strong> übermittelt. Der Schutz
               Ihrer persönlichen Daten hat für uns höchste Bedeutung.
             </p>
@@ -495,19 +475,19 @@ export function PersonalDataInfo() {
 const OFFER_ADVANTAGES = [
   {
     icon: interestIcon.url,
-    iconAlt: "Lupe mit Zinsdiagramm",
-    title: "Günstige Zinsen",
-    text: "Unvergleichliche Konditionen dank besonders günstiger Vereinbarungen mit unseren Partnerbanken.",
+    iconAlt: "Lupe mit Preisdiagramm",
+    title: "Günstige Preise",
+    text: "Sparen Sie durch den direkten Preisvergleich von über 300 Heizölhändlern aus Ihrer Region.",
   },
   {
     icon: neutralIcon.url,
-    iconAlt: "Neutrale Kreditanfrage",
-    title: "SCHUFA-neutral",
-    text: "Der smava Kreditvergleich hat keine negativen Auswirkungen auf Ihren SCHUFA-Score.",
+    iconAlt: "Regionale Händler",
+    title: "Regionale Händler",
+    text: "Wir vergleichen nur Händler, die auch tatsächlich in Ihre Region liefern.",
   },
   {
     icon: freeIcon.url,
-    iconAlt: "Kostenlose Kreditanfrage",
+    iconAlt: "Kostenlose Preisanfrage",
     title: "Kostenlos &\nunverbindlich",
     text: "Es warten keine versteckten Kosten auf Sie und Sie können die Anfrage jederzeit widerrufen.",
   },
@@ -526,7 +506,7 @@ export function MatchingOffers() {
         <div className="order-1 h-[258px] w-full overflow-hidden md:contents">
           <img
             src={offerList.url}
-            alt="Beispielhafte Kreditangebote verschiedener Banken"
+            alt="Beispielhafte Heizöl-Angebote verschiedener Händler"
             width={404}
             height={575}
             loading="lazy"
@@ -539,7 +519,7 @@ export function MatchingOffers() {
             id="matching-offers-title"
             className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[28px]"
           >
-            Mit smava zu passenden Kreditangeboten
+            Mit Klaro zum günstigsten Heizölpreis
           </h2>
 
           <ul className="mt-8 grid gap-x-[72px] gap-y-8 sm:grid-cols-2 md:-ml-[94px] md:w-[calc(100%+94px)]">
@@ -564,7 +544,7 @@ export function MatchingOffers() {
 
           <div className="mt-10 flex justify-center md:mt-[66px]">
             <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Jetzt Kreditvergleich starten</Link>
+              <Link to="/antrag/schritt-1" search={{}}>Jetzt Heizölpreise vergleichen</Link>
             </Button>
           </div>
         </div>
@@ -625,40 +605,40 @@ export function Testimonials() {
 
 export const FAQS = [
   {
-    q: "Was ist smava?",
-    a: "smava ist Deutschlands bekanntestes Online-Vergleichsportal für Kredite mit Sitz in Berlin. Als unabhängiger Finanzdienstleister helfen wir Ihnen, die besten Kreditangebote zu finden – transparent, sicher und einfach online.",
+    q: "Was ist Klaro?",
+    a: "Klaro ist ein Online-Preisvergleich für Heizöl in Deutschland. Wir helfen Ihnen, die günstigsten Heizöl-Angebote von Händlern aus Ihrer Region zu finden – transparent, sicher und einfach online.",
   },
   {
-    q: "Wie funktioniert smava?",
-    a: "Sie stellen eine unverbindliche Anfrage für Ihren Wunschkredit. Anschließend vergleichen wir die Konditionen von über 20 Banken und Kreditpartnern – inklusive effektiver Jahreszinsen, Laufzeiten und monatlicher Raten. Der gesamte Vergleich ist unverbindlich und wirkt sich nicht negativ auf Ihre SCHUFA aus.",
+    q: "Wie funktioniert der Heizöl-Preisvergleich?",
+    a: "Sie geben Postleitzahl, gewünschte Menge und Sorte ein. Anschließend vergleichen wir die aktuellen Preise von über 300 Heizölhändlern und zeigen Ihnen die besten Angebote für Ihre Region. Der gesamte Vergleich ist kostenlos und unverbindlich.",
   },
   {
-    q: "Ist smava eine Bank?",
-    a: "Nein, smava ist keine Bank und verleiht selbst kein Geld. Wir vermitteln Kredite als unabhängiges Vergleichsportal zwischen Verbrauchern und über 20 Partnerbanken. Für erfolgreiche Vermittlungen erhalten wir von der Bank eine Provision – für Sie entstehen keine Kosten.",
+    q: "Ist Klaro ein Heizölhändler?",
+    a: "Nein, Klaro verkauft selbst kein Heizöl. Wir sind ein unabhängiges Vergleichsportal und vermitteln zwischen Verbrauchern und über 300 Händlern. Für erfolgreiche Vermittlungen erhalten wir vom Händler eine Provision – für Sie entstehen keine Kosten.",
   },
   {
-    q: "Kostet der Kreditvergleich bei smava etwas?",
-    a: "Nein, der smava-Kreditvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen. So gewinnen Sie ganz unverbindlich den bestmöglichen Überblick über den Kreditmarkt.",
+    q: "Kostet der Heizölvergleich bei Klaro etwas?",
+    a: "Nein, der Klaro-Preisvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen.",
   },
   {
-    q: "Welchen Vorteil habe ich durch smava?",
-    a: "Sie sparen Zeit, Geld und Aufwand. Mit nur einer Anfrage erhalten Sie personalisierte Angebote von über 20 Banken und Kreditpartnern – inklusive Sofortentscheidung und Online-Abschluss. Oft sind die Zinsen deutlich günstiger als bei Ihrer Hausbank.",
+    q: "Welche Mindestbestellmenge gibt es?",
+    a: "Die meisten Händler liefern ab 500 Litern. Größere Mengen sind meist pro Liter günstiger – ein Sammelauftrag mit Nachbarn kann sich daher lohnen.",
+  },
+  {
+    q: "Wie schnell wird geliefert?",
+    a: "Die Lieferzeit liegt je nach Händler und Region bei etwa 3 bis 10 Werktagen. Viele Händler bieten gegen Aufpreis auch eine Expresslieferung innerhalb weniger Tage an.",
+  },
+  {
+    q: "Welche Zahlungsarten werden angeboten?",
+    a: "Je nach Händler können Sie per Vorkasse, Lastschrift, Rechnung oder Kreditkarte zahlen. Die verfügbaren Zahlungsarten sehen Sie direkt am jeweiligen Angebot.",
   },
   {
     q: 'Was bedeutet die "Günstiger-Geht-Nicht-Garantie"?',
-    a: 'Wenn Sie ein über smava vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
+    a: 'Wenn Sie ein über Klaro vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
   },
   {
-    q: "Bietet smava eine persönliche Beratung an?",
-    a: "Ja. Unsere Kreditspezialisten beraten Sie kostenlos und unverbindlich. Sie erreichen uns telefonisch montags bis freitags von 8:00 – 20:00 Uhr und samstags von 10:00 – 15:00 Uhr. Alternativ können Sie jederzeit online eine Anfrage stellen.",
-  },
-  {
-    q: "Ist smava seriös und sicher?",
-    a: "Ja, smava ist ein TÜV-geprüftes Vergleichsportal mit über 300.000 zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
-  },
-  {
-    q: "Beeinflusst eine Kreditanfrage über smava meine SCHUFA?",
-    a: "Nein, die erste Anfrage erfolgt als SCHUFA-neutrale Konditionsanfrage und hat keinen Einfluss auf Ihre Bonität.",
+    q: "Ist Klaro seriös und sicher?",
+    a: "Ja, Klaro ist ein TÜV-geprüftes Vergleichsportal mit tausenden zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
   },
 ];
 
@@ -667,7 +647,7 @@ export function Faq() {
     <section id="faq" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-[920px] px-5 py-16 md:py-20">
         <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
-          Die häufigsten Fragen zum Kreditvergleich
+          Die häufigsten Fragen zum Heizölvergleich
         </h2>
 
         <Accordion type="multiple" className="mt-10 w-full">
@@ -695,64 +675,64 @@ export function Faq() {
 
 const TRUST_CARDS = [
   {
-    title: "Flexible Ratenkredite für Ihre Wünsche und Pläne",
+    title: "Heizöl günstig bestellen – so einfach geht's",
     links: [
-      { label: "Online Kredit", href: "https://www.smava.de/kredit/" },
-      { label: "Schnellkredit", href: "https://www.smava.de/autokredit/schnellkredit/" },
-      { label: "Kleinkredit", href: "https://www.smava.de/kredit/kleinkredit/" },
-      { label: "30.000 Euro Kredit", href: "https://www.smava.de/kredit/30000-euro-kredit/" },
+      { label: "Heizöl Preisvergleich", href: "#rechner" },
+      { label: "Aktuelle Heizölpreise", href: "#konditionen" },
+      { label: "Heizöl EL Standard", href: "#rechner" },
+      { label: "Premium-Heizöl", href: "#rechner" },
     ],
   },
   {
-    title: "Ihr neues Auto schnell und einfach finanzieren",
+    title: "Der richtige Zeitpunkt für Ihre Bestellung",
     links: [
-      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
-      { label: "3-Wege-Finanzierung", href: "https://www.smava.de/autokredit/3-wege-finanzierung/" },
-      { label: "Neuwagen-Finanzierung", href: "https://www.smava.de/autokredit/neuwagen-finanzierung/" },
-      { label: "Gebrauchtwagen-Finanzierung", href: "https://www.smava.de/autokredit/gebrauchtwagen-finanzierung/" },
+      { label: "Preisentwicklung", href: "#konditionen" },
+      { label: "Heizöl im Sommer kaufen", href: "#faq" },
+      { label: "Sammelbestellungen", href: "#faq" },
+      { label: "Preisgarantie", href: "#faq" },
     ],
   },
   {
-    title: "Mit einer Umschuldung Übersicht gewinnen und sparen",
+    title: "Lieferung und Zahlung im Überblick",
     links: [
-      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
-      { label: "Kredit ablösen", href: "https://www.smava.de/umschuldung/kredit-abloesen/" },
-      { label: "Darlehen umschulden", href: "https://www.smava.de/umschuldung/darlehen/" },
-      { label: "Überziehungskredit", href: "https://www.smava.de/umschuldung/ueberziehungskredit/" },
+      { label: "Lieferzeiten", href: "#faq" },
+      { label: "Expresslieferung", href: "#faq" },
+      { label: "Zahlungsarten", href: "#faq" },
+      { label: "Mindestbestellmenge", href: "#faq" },
     ],
   },
   {
-    title: "Den Traum vom Eigenheim sicher finanzieren",
+    title: "Heizöl-Wissen für Ihr Zuhause",
     links: [
-      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
-      { label: "Grundstück finanzieren", href: "https://www.smava.de/baufinanzierung/grundstueck-finanzieren/" },
-      { label: "Immobiliendarlehen", href: "https://www.smava.de/baufinanzierung/immobiliendarlehen/" },
-      { label: "Vollfinanzierung", href: "https://www.smava.de/baufinanzierung/vollfinanzierung/" },
+      { label: "Sorten im Vergleich", href: "#konditionen" },
+      { label: "Tank richtig pflegen", href: "#faq" },
+      { label: "Verbrauch senken", href: "#faq" },
+      { label: "Heizöl-Glossar", href: "#faq" },
     ],
   },
   {
-    title: "Ihr Wegweiser zu Krediten, Zinsen und Beratung",
+    title: "Ihr Wegweiser zu Preisen, Händlern und Beratung",
     links: [
-      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
-      { label: "Kreditzinsen", href: "https://www.smava.de/kredit/zinsen/" },
-      { label: "Kreditberatung", href: "https://www.smava.de/kredit/beratung/" },
-      { label: "Kreditglossar", href: "https://www.smava.de/kredit/glossar/" },
+      { label: "Preisrechner", href: "#rechner" },
+      { label: "Händler in Ihrer Region", href: "#rechner" },
+      { label: "Beratung", href: "#faq" },
+      { label: "Häufige Fragen", href: "#faq" },
     ],
   },
 ];
 
 export function TrustLinks() {
   return (
-    <section aria-label="Weitere Kreditarten" className="bg-surface">
+    <section aria-label="Weitere Heizöl-Themen" className="bg-surface">
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="pr-4">
             <h2 className="text-[26px] font-bold leading-[1.25] text-conditions">
-              Vertrauen Sie auf smava – Deutschlands bekanntes Kreditportal
+              Vertrauen Sie auf Klaro – Ihr Heizöl-Preisvergleich
             </h2>
             <p className="mt-5 text-[15px] leading-[1.6] text-conditions">
-              Entdecken Sie jetzt weitere Kreditarten und Vergleichsmöglichkeiten, die zu
-              Ihrem Leben, Ihren Plänen und Ihrem Budget passen.
+              Entdecken Sie jetzt weitere Themen und Vergleichsmöglichkeiten rund um
+              Heizöl, Lieferung und den besten Preis für Ihre Region.
             </p>
           </div>
 
@@ -791,19 +771,13 @@ export function TrustLinks() {
 
         <div className="mt-12 space-y-5 text-[12px] leading-[1.6] text-muted-custom">
           <p>
-            <strong className="font-bold">Sparen Sie über 35% mit smava:</strong> Vgl. der
-            eff. Jahreszinssätze neuer (lt. Bundesbank) mit den über smava vermittelten
-            Krediten 2020.{" "}
+            <strong className="font-bold">Preisbeispiel:</strong> Alle genannten Literpreise
+            sind regionale Beispielwerte und werden laufend aktualisiert. Angaben ohne
+            Gewähr, kein Angebot im Rechtssinne.{" "}
             <a href="#faq" className="text-brand-deep hover:underline">
               Mehr Infos
             </a>
             .
-          </p>
-          <p>
-            0,68 % Zinsen: 2/3 aller Kunden erhalten: Nettodarlehensbetrag 50.000,00 €, 60
-            Monate Laufzeit, 8,70 % effektiver Jahreszins, 8,37 % p.a. gebundener Sollzins,
-            60 mtl. Raten zu je 1.022,73 €, 61.363,57 € Gesamtbetrag, Vereinigte Volksbank
-            Raiffeisenbank eG, Darmstädter Str. 62, 64354 Reinheim.(§17 PAngV)
           </p>
           <div className="space-y-1.5">
             <p>
@@ -815,10 +789,6 @@ export function TrustLinks() {
               <a href="#faq" className="text-brand-deep hover:underline">
                 ** Mehr Infos
               </a>
-            </p>
-            <p>
-              *** ARD: Morgenmagazin (02.02.2023); ZDF: Morgenmagazin (02.02.2023); NTV:
-              Telebörse (25.10.2023); RTL: Punkt 12 (04.03.2024).
             </p>
           </div>
         </div>
@@ -836,48 +806,46 @@ type FooterCol = {
 const FOOTER_COLS: FooterCol[] = [
   {
     title: "Unternehmen",
-    titleHref: "https://www.smava.de/ueber-smava/",
+    titleHref: "#",
     links: [
-      { label: "Karriere", href: "https://jobs.smava.de/" },
-      { label: "Presse", href: "https://www.smava.de/presse/" },
-      { label: "Hilfe", href: "https://smava.zendesk.com/hc/de" },
-      { label: "Unsere Partner", href: "https://www.smava.de/kredit/partner/" },
-      { label: "Kontakt", href: "https://www.smava.de/kontakt/" },
-      { label: "Digital Services Act (DSA)", href: "https://www.smava.de/digital-services-act/" },
+      { label: "Karriere", href: "#" },
+      { label: "Presse", href: "#" },
+      { label: "Hilfe", href: "#" },
+      { label: "Unsere Partner", href: "#" },
+      { label: "Kontakt", href: "#" },
     ],
   },
   {
-    title: "Kredit aufnehmen",
-    titleHref: "https://www.smava.de/kredit/",
+    title: "Heizöl bestellen",
+    titleHref: "#rechner",
     links: [
-      { label: "Kreditvergleich", href: "https://www.smava.de/kreditvergleich/" },
-      { label: "Sofortkredit", href: "https://www.smava.de/kredit/sofortkredit/" },
-      { label: "Privatkredit", href: "https://www.smava.de/privatkredit/" },
-      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
-      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
-      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
+      { label: "Preisvergleich", href: "#rechner" },
+      { label: "Heizöl EL Standard", href: "#rechner" },
+      { label: "Schwefelarmes Heizöl", href: "#rechner" },
+      { label: "Premium-Heizöl", href: "#rechner" },
+      { label: "Sammelbestellung", href: "#faq" },
+      { label: "Expresslieferung", href: "#faq" },
     ],
   },
   {
     title: "Service",
-    titleHref: "https://www.smava.de/kredit/service/",
+    titleHref: "#",
     links: [
-      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
-      { label: "Glossar", href: "https://www.smava.de/kredit/glossar/" },
-      { label: "Nachrichten", href: "https://www.smava.de/kredit/nachrichten/" },
-      { label: "Partnerprogramm", href: "https://www.smava.de/partnerprogramm/" },
-      { label: "smava Gutschein", href: "https://www.smava.de/kredit/smava-gutscheine/" },
-      { label: "Freunde werben Freunde", href: "https://smava.aklamio.com/" },
+      { label: "Preisrechner", href: "#rechner" },
+      { label: "Glossar", href: "#" },
+      { label: "Nachrichten", href: "#" },
+      { label: "Partnerprogramm", href: "#" },
+      { label: "Freunde werben Freunde", href: "#" },
     ],
   },
 ];
 
 const FOOTER_LEGAL = [
-  { label: "Datenschutz", href: "https://www.smava.de/datenschutz/" },
-  { label: "AGB", href: "https://www.smava.de/agb/" },
-  { label: "Impressum", href: "https://www.smava.de/impressum/" },
-  { label: "Cookies", href: "https://www.smava.de/cookies/" },
-  { label: "Widerruf", href: "https://www.smava.de/widerruf/" },
+  { label: "Datenschutz", href: "#" },
+  { label: "AGB", href: "#" },
+  { label: "Impressum", href: "#" },
+  { label: "Cookies", href: "#" },
+  { label: "Widerruf", href: "#" },
 ];
 
 function ConsultingBlock() {
@@ -900,14 +868,14 @@ function ConsultingBlock() {
 const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   {
     label: "Youtube",
-    href: "https://www.youtube.com/@smava.",
+    href: "#",
     path: (
       <path d="M26.8009 13.1728C26.8009 10.5487 24.6735 8.42126 22.0494 8.42126H9.8992C7.27511 8.42126 5.14771 10.5487 5.14771 13.1728V18.8269C5.14771 21.451 7.27511 23.5784 9.8992 23.5784H22.0494C24.6735 23.5784 26.8009 21.451 26.8009 18.8269V13.1728ZM19.6554 16.4235L14.2067 19.1191C13.9932 19.2346 13.2675 19.0801 13.2675 18.837V13.3041C13.2675 13.0579 13.9992 12.9038 14.2128 13.0253L19.4284 15.863C19.647 15.9876 19.8767 16.3039 19.6554 16.4238V16.4235Z" />
     ),
   },
   {
     label: "LinkedIn",
-    href: "https://de.linkedin.com/company/smava",
+    href: "#",
     path: (
       <>
         <path d="M6.40747 11.9855H10.6129V25.4944H6.40747V11.9855ZM8.5107 5.27246C9.85566 5.27246 10.9451 6.36354 10.9451 7.70547C10.9451 9.0474 9.85532 10.1418 8.5107 10.1418C7.16609 10.1418 6.073 9.04907 6.073 7.70547C6.073 6.36186 7.16239 5.27246 8.5107 5.27246Z" />
@@ -917,7 +885,7 @@ const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/smava_gmbh/",
+    href: "#",
     path: (
       <>
         <path d="M21.9234 8.85455C21.2038 8.85455 20.6201 9.43821 20.6201 10.1579C20.6201 10.8775 21.2038 11.4612 21.9234 11.4612C22.6431 11.4612 23.2267 10.8775 23.2267 10.1579C23.2267 9.43821 22.6431 8.85455 21.9234 8.85455Z" />
@@ -928,14 +896,14 @@ const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/people/smava/100064534726416/",
+    href: "#",
     path: (
       <path d="M18.135 27.3902V17.4238H21.4583L22.0906 13.301H18.135V10.6255C18.135 9.49749 18.6874 8.39802 20.4592 8.39802H22.2578V4.88804C22.2578 4.88804 20.6258 4.60931 19.0652 4.60931C15.8074 4.60931 13.678 6.58393 13.678 10.1584V13.3006H10.0569V17.4235H13.678V27.3899" />
     ),
   },
   {
     label: "X",
-    href: "https://twitter.com/smava",
+    href: "#",
     path: (
       <path d="M5.0259 5.60788L13.6 17.0717L4.97217 26.3924H6.91421L14.4681 18.2316L20.5713 26.3924H27.1795L18.1228 14.2837L26.1539 5.60754H24.2119L17.2554 13.1232L11.6345 5.60754H5.02624L5.0259 5.60788ZM7.8817 7.03813H10.9175L24.323 24.9624H21.2872L7.8817 7.03813Z" />
     ),
@@ -979,7 +947,7 @@ export function SiteFooter() {
           <div>
             <h4 className="text-[14px] font-bold leading-[20px]">
               <a
-                href="https://www.smava.de/kredit/beratung/"
+              href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ink hover:underline"
@@ -1044,11 +1012,9 @@ export function SiteFooter() {
 
         <div className="flex flex-col items-start gap-5 border-t border-border px-5 py-6 md:grid md:h-[70px] md:grid-cols-[290px_1fr_390px] md:gap-x-[62px] md:px-[66px] md:py-0">
           <a
-            href="https://www.smava.de/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
             className="text-smava-logo"
-            aria-label="smava Startseite"
+            aria-label="Klaro Startseite"
           >
             <Logo />
           </a>
@@ -1118,7 +1084,7 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="text-[13px] leading-5 text-footer-text">
-              © 2026 smava.de | Palisadenstraße 90 | 10243 Berlin
+              © 2026 Klaro GmbH | Musterstraße 1 | 10115 Berlin
             </p>
           </div>
         </div>
@@ -1138,17 +1104,17 @@ export function ReferralBanner() {
             <div className="relative">
               <img
                 src={smavaHero.url}
-                alt="smava Kreditexperte mit Tablet"
+                alt="Klaro Beraterin mit Tablet"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
             </div>
             <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
               <h2 className="text-[26px] font-bold leading-tight text-ink">
-                Prämie für jeden Kredit: Freunde werben!
+                Prämie für jede Bestellung: Freunde werben!
               </h2>
               <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
-                Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
-                Auszahlung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
+                Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
+                Bestellung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
@@ -1164,16 +1130,16 @@ export function ReferralBanner() {
         <div className="flex justify-center bg-white pt-6">
           <img
             src={smavaHero.url}
-            alt="smava Kreditexperte mit Tablet"
+            alt="Klaro Beraterin mit Tablet"
             className="h-[240px] w-auto object-contain"
           />
         </div>
         <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
           <h2 className="text-[22px] font-bold leading-tight text-ink">
-            Prämie für jeden Kredit: Freunde werben!
+            Prämie für jede Bestellung: Freunde werben!
           </h2>
           <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
-            Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Auszahlung
+            Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Bestellung
             eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
           </p>
           <div className="mt-6 flex justify-center">

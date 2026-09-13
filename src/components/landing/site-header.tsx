@@ -3,12 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
 const NAV = [
-  { href: "#konditionen", label: "Kredit" },
-  { href: "#kreditarten", label: "Autokredit" },
-  { href: "#kreditarten", label: "Baufinanzierung" },
-  { href: "#kreditarten", label: "Umschuldung" },
-  { href: "#kreditarten", label: "Kreditkarte" },
-  { href: "#konditionen", label: "Girokonto" },
+  { href: "#rechner", label: "Heizöl" },
+  { href: "#konditionen", label: "Preise" },
+  { href: "#ablauf", label: "Lieferung" },
+  { href: "#konditionen", label: "Sorten" },
+  { href: "#faq", label: "Ratgeber" },
   { href: "#faq", label: "Service" },
 ];
 
