@@ -121,7 +121,6 @@ function BestellenPage() {
   if (!loaded) {
     return (
       <div className="min-h-screen bg-surface font-body text-ink">
-        <SiteHeader />
       </div>
     );
   }
@@ -129,7 +128,6 @@ function BestellenPage() {
   if (!draft) {
     return (
       <div className="flex min-h-screen flex-col bg-surface font-body text-ink">
-        <SiteHeader />
         <main className="flex-1 px-4 py-14">
           <div className="mx-auto max-w-md rounded-xl border border-line bg-background px-6 py-8 text-center shadow-card">
             <h1 className="text-[20px] font-bold text-conditions">Keine Auswahl gefunden</h1>
@@ -145,7 +143,6 @@ function BestellenPage() {
             </Link>
           </div>
         </main>
-        <SiteFooter />
       </div>
     );
   }
