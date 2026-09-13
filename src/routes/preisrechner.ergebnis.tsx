@@ -216,7 +216,7 @@ function ErgebnisPage() {
                     placeholder="z. B. 10115"
                     value={plz}
                     onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                    className={`${fieldClass} w-32 py-2.5 text-right tabular`}
+                    className={`${fieldClass} w-24 py-2.5 text-right tabular`}
                   />
                 </div>
                 <div className="flex items-center justify-between gap-4 py-2">
