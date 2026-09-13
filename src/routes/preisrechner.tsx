@@ -368,38 +368,37 @@ function PreisrechnerPage() {
                 <p className="mt-2">
                   Der Heizölpreis pro Liter liegt heute bei ca.{" "}
                   <strong>1,29 €/Liter</strong> (entspricht 128,78 €/100L). In der
-                  Praxis wird Heizöl ausschließlich in Mengen ab 500 Litern
-                  verkauft — deshalb ist die Angabe €/100L der Standard im
-                  deutschen Heizöl-Markt. Wer wissen möchte, wie der Heizölpreis
-                  pro Liter kalkuliert wird, sollte folgende Komponenten
-                  berücksichtigen: Rohölpreis (ca. 50%), Mineralölsteuer +
-                  CO₂-Abgabe + MwSt. (zusammen ~38%), Logistik & Lagerung (~7%),
-                  Händlermarge (~5%). Bei steigenden Rohölpreisen oder fallenden
-                  Eurokursen verteuert sich der Heizölpreis pro Liter
-                  entsprechend.
+                  Praxis wird Heizöl bei Klaro ab einer Mindestbestellmenge von{" "}
+                  <strong>1.500 Litern</strong> verkauft — deshalb ist die Angabe
+                  €/100L der Standard im deutschen Heizöl-Markt. Wer wissen
+                  möchte, wie der Heizölpreis pro Liter kalkuliert wird, sollte
+                  folgende Komponenten berücksichtigen: Rohölpreis (ca. 50%),
+                  Mineralölsteuer + CO₂-Abgabe + MwSt. (zusammen ~38%), Logistik
+                  & Lagerung (~7%), Händlermarge (~5%). Bei steigenden
+                  Rohölpreisen oder fallenden Eurokursen verteuert sich der
+                  Heizölpreis pro Liter entsprechend.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-ink">
-                  Heizöl bestellen — in 4 Schritten zum besten Preis
+                  Heizöl bestellen — in 3 Schritten zum besten Preis
                 </h3>
                 <p className="mt-2">
-                  Beim Heizöl online bestellen mit Klaro durchlaufen Sie 4 einfache
-                  Schritte: (1){" "}
+                  Beim Heizöl online bestellen mit Klaro durchlaufen Sie 3
+                  einfache Schritte: (1){" "}
                   <strong>PLZ und Liefermenge eingeben</strong> — sofort sehen
                   Sie die Heizölpreise für Ihre Region in €/100L. (2){" "}
                   <strong>Zwischen Heizöl Standard</strong> (DIN 51603-1, der
                   günstigste Preis ab 128,78 €/100L) und{" "}
                   <strong>Heizöl Premium</strong> (mit Additiven für ca. 5%
                   niedrigeren Verbrauch und längere Lagerfähigkeit) wählen. (3){" "}
-                  <strong>Zahlungsart bestimmen</strong> — Vorkasse, Rechnung,
-                  EC-Karte oder Bar bei Lieferung, alle ohne Aufpreis. (4){" "}
-                  <strong>Wunsch-Liefertermin</strong> in den nächsten 7 Werktagen
-                  festlegen. Die Heizölpreis-Garantie bedeutet: Ihr Preis ist
-                  bindend ab Bestellabschluss — auch wenn die Heizölpreise bis
-                  zur Lieferung steigen sollten, zahlen Sie nur den fixierten
-                  Betrag.
+                  <strong>Zahlungsart bestimmen und Wunsch-Liefertermin</strong>{" "}
+                  in den nächsten 7 Werktagen festlegen — Vorkasse, Rechnung,
+                  EC-Karte oder Bar bei Lieferung, alle ohne Aufpreis. Die
+                  Heizölpreis-Garantie bedeutet: Ihr Preis ist bindend ab
+                  Bestellabschluss — auch wenn die Heizölpreise bis zur Lieferung
+                  steigen sollten, zahlen Sie nur den fixierten Betrag.
                 </p>
               </div>
             </div>
