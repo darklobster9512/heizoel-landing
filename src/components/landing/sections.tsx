@@ -772,7 +772,7 @@ export function TrustLinks() {
                   <li key={l.label}>
                     <Link
                       to={path}
-                      hash={hash}
+                      hash={hash ?? ""}
                       className="group flex items-start gap-3 text-[15px] font-semibold text-brand-deep hover:underline"
                     >
                       <svg
