@@ -32,12 +32,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-background shadow-header-strong">
       <div className="mx-auto grid h-[52px] max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 md:flex md:h-16 md:justify-between">
-        <a
-          href="#top"
+        <Link
+          to="/"
           className="rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
         >
           <Logo className="h-auto w-[100px] text-smava-logo md:w-[126px]" />
-        </a>
+        </Link>
 
         <div className="flex shrink-0 items-center gap-4 md:hidden">
           <RatingBadge compact />
@@ -77,8 +77,9 @@ export function SiteHeader() {
             </button>
 
             {open && (
-              <div className="absolute left-0 top-full z-50 w-[420px] pt-1.5">
+              <div className="absolute left-0 top-full z-50 w-max pt-1.5">
                 <div className="overflow-hidden rounded-lg border border-line bg-background shadow-card">
+                  <div className="h-[3px] w-full bg-brand" aria-hidden="true" />
                   <ul className="grid gap-1 p-2">
                     {HEIZOEL_LINKS.map((item) => {
                       const Icon = item.icon;
