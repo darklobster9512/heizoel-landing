@@ -540,7 +540,7 @@ function BestellenPage() {
     const orderNo = `${String(now.getDate()).padStart(2, "0")}${String(now.getMonth() + 1).padStart(2, "0")}-${Math.floor(10000 + Math.random() * 89999)}`;
     saveOrderConfirmation({
       ...draft,
-      slot: slot ?? undefined,
+      ...(slot ? { slot } : {}),
       orderNo,
       email: email.trim(),
       phone: phone.trim(),
