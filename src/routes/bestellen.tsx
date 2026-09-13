@@ -36,8 +36,12 @@ const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 interface Review {
   id: number;
   name: string;
-  when: string;
+  daysAgo: number;
   text: string;
+}
+
+function formatDaysAgo(days: number) {
+  return `vor ${days} Tag${days === 1 ? "" : "en"}`;
 }
 
 const CHECKS = [
