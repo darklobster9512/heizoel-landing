@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { Check, Shield } from "lucide-react";
 
 
 import {
