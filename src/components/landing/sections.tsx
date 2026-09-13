@@ -8,7 +8,9 @@ import ntvAward from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
 import bildAward from "@/assets/bild-empfehlung-2026.png.asset.json";
 import weltAward from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgvAward from "@/assets/dtgv-testsieger.png.asset.json";
-import zahlungsarten from "@/assets/zahlungsarten.webp.asset.json";
+import barzahlungAsset from "@/assets/barzahlung.png.asset.json";
+import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
+import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
 import eKomiLogo from "@/assets/ekomi.webp.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
 import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
@@ -900,13 +902,26 @@ export function SiteFooter() {
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
               Zahlungsarten
             </h4>
-            <img
-              src={zahlungsarten.url}
-              alt="Zahlungsarten: Barzahlung, Rechnung, Vorauskasse"
-              width={264}
-              height={61}
-              className="mt-3 w-full max-w-[264px]"
-            />
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <img
+                src={barzahlungAsset.url}
+                alt="Barzahlung"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+              <img
+                src={vorauskasseAsset.url}
+                alt="Vorauskasse"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+              <img
+                src={ecKarteAsset.url}
+                alt="EC-Karte"
+                className="h-10 w-auto object-contain md:h-12"
+                loading="lazy"
+              />
+            </div>
             <h4 className="mt-5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
               Kundenbewertung
             </h4>
