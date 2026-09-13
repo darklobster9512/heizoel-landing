@@ -1130,16 +1130,16 @@ export function ReferralBanner() {
         <div className="flex justify-center bg-white pt-6">
           <img
             src={smavaHero.url}
-            alt="smava Kreditexperte mit Tablet"
+            alt="Klaro Beraterin mit Tablet"
             className="h-[240px] w-auto object-contain"
           />
         </div>
         <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
           <h2 className="text-[22px] font-bold leading-tight text-ink">
-            Prämie für jeden Kredit: Freunde werben!
+            Prämie für jede Bestellung: Freunde werben!
           </h2>
           <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
-            Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Auszahlung
+            Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Bestellung
             eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
           </p>
           <div className="mt-6 flex justify-center">
