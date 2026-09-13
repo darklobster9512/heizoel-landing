@@ -31,7 +31,7 @@ export function SectionHead({
   );
 }
 
-import smavaHero from "@/assets/smava-hero.webp.asset.json";
+
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
@@ -1119,59 +1119,34 @@ export function SiteFooter() {
 }
 
 
+const CTA_TRUST_ITEMS = [
+  "Keine Anmeldung nötig",
+  "Sofortiger Preisvergleich",
+  "Garantiert günstigste Preise",
+];
+
 export function ReferralBanner() {
   return (
-    <section aria-label="Freunde werben" className="relative bg-white">
-      <div className="hidden md:block">
-        <div className="h-[150px] bg-white" />
-        <div className="relative bg-surface">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-0 px-5">
-            <div className="relative">
-              <img
-                src={smavaHero.url}
-                alt="Klaro Beraterin mit Tablet"
-                className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
-              />
-            </div>
-            <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
-              <h2 className="text-[26px] font-bold leading-tight text-ink">
-                Prämie für jede Bestellung: Freunde werben!
-              </h2>
-              <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
-                Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
-                Bestellung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
-              </p>
-              <div className="mt-7">
-                <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-                  <Link to="/antrag/schritt-1" search={{}}>Jetzt Prämie sichern</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
+    <section aria-label="Jetzt Heizöl günstiger bestellen" className="bg-surface">
+      <div className="mx-auto max-w-3xl px-5 py-14 text-center md:py-20">
+        <h2 className="text-[25px] font-bold leading-[1.25] text-conditions md:text-[34px]">
+          Jetzt Heizöl günstiger bestellen!
+        </h2>
+        <p className="mx-auto mt-4 max-w-[720px] text-[16px] leading-[1.55] text-muted-custom md:text-[18px]">
+          Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
+            <a href="#rechner">Heizölpreis berechnen</a>
+          </Button>
         </div>
-      </div>
-
-      <div className="md:hidden">
-        <div className="flex justify-center bg-white pt-6">
-          <img
-            src={smavaHero.url}
-            alt="Klaro Beraterin mit Tablet"
-            className="h-[240px] w-auto object-contain"
-          />
-        </div>
-        <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
-          <h2 className="text-[22px] font-bold leading-tight text-ink">
-            Prämie für jede Bestellung: Freunde werben!
-          </h2>
-          <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
-            Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Bestellung
-            eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
-          </p>
-          <div className="mt-6 flex justify-center">
-            <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Jetzt Prämie sichern</Link>
-            </Button>
-          </div>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[12px] text-muted-custom md:text-[13px]">
+          {CTA_TRUST_ITEMS.map((item) => (
+            <span key={item} className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-brand" strokeWidth={3} />
+              {item}
+            </span>
+          ))}
         </div>
       </div>
     </section>
