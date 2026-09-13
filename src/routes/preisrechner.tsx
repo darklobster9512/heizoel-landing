@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
@@ -10,6 +11,7 @@ import {
   Truck,
   Clock,
   ShieldCheck,
+  Flame,
 } from "lucide-react";
 
 const DESCRIPTION =
@@ -93,6 +95,133 @@ function Stars({ value, size = "size-5" }: { value?: number; size?: string }) {
   );
 }
 
+const CITIES: Array<{ city: string; plz: string }> = [
+  { city: "Dresden", plz: "01067" },
+  { city: "Leipzig", plz: "04109" },
+  { city: "Erfurt", plz: "99084" },
+  { city: "München", plz: "80331" },
+  { city: "Nürnberg", plz: "90402" },
+  { city: "Hannover", plz: "30159" },
+  { city: "Kiel", plz: "24103" },
+  { city: "Köln", plz: "50667" },
+  { city: "Stuttgart", plz: "70173" },
+  { city: "Rostock", plz: "18055" },
+  { city: "Magdeburg", plz: "39104" },
+  { city: "Potsdam", plz: "14467" },
+  { city: "Karlsruhe", plz: "76133" },
+  { city: "Bremen", plz: "28195" },
+  { city: "Kassel", plz: "34117" },
+  { city: "Augsburg", plz: "86150" },
+];
+
+const TIME_LABELS = [
+  "vor 8 Sek.",
+  "vor 23 Sek.",
+  "vor 41 Sek.",
+  "vor 52 Sek.",
+  "vor 1 Min.",
+  "vor 2 Min.",
+  "vor 3 Min.",
+];
+
+interface LiveOrder {
+  city: string;
+  plz: string;
+  liters: number;
+  pricePer100L: number;
+  timeLabel: string;
+}
+
+function randomOrder(): LiveOrder {
+  const c = CITIES[Math.floor(Math.random() * CITIES.length)] ?? INITIAL_ORDER;
+  const liters = 1500 + Math.floor(Math.random() * 36) * 100; // 1.500–5.000
+  const pricePer100L = 126 + Math.random() * 7; // 126–133 €/100L
+  const timeLabel =
+    TIME_LABELS[Math.floor(Math.random() * TIME_LABELS.length)] ?? "vor 1 Min.";
+  return { city: c.city, plz: c.plz, liters, pricePer100L, timeLabel };
+}
+
+const INITIAL_ORDER: LiveOrder = {
+  city: "Dresden",
+  plz: "01067",
+  liters: 1800,
+  pricePer100L: 128.78,
+  timeLabel: "vor 1 Min.",
+};
+
+const fmtPrice = (v: number) =>
+  v.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function LiveOrders() {
+  const [order, setOrder] = useState<LiveOrder>(INITIAL_ORDER);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setOrder(randomOrder());
+      setTick((t) => t + 1);
+    }, 5000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const total = (order.liters / 100) * order.pricePer100L;
+
+  return (
+    <div
+      className="overflow-hidden rounded-lg border border-line bg-background"
+      aria-live="off"
+    >
+      {/* Kopfzeile */}
+      <div className="flex items-center gap-2 border-b border-line bg-surface px-4 py-2.5">
+        <span className="relative flex size-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+          <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
+        </span>
+        <span className="text-xs font-bold uppercase tracking-widest text-brand">
+          Live
+        </span>
+        <span className="text-xs text-conditions/70">
+          · Aktuelle Bestellungen bei Klaro
+        </span>
+      </div>
+
+      {/* Bestellung */}
+      <div key={tick} className="animate-fade-in px-4 py-3.5">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm font-semibold text-conditions">
+            Bestellung aus {order.city} ({order.plz})
+          </p>
+          <Flame className="size-4 shrink-0 text-brand" strokeWidth={2.2} />
+        </div>
+        <p className="mt-1 text-sm font-bold text-ink">
+          {order.liters.toLocaleString("de-DE")} Liter —{" "}
+          {fmtPrice(order.pricePer100L)} €/100L
+        </p>
+        <div className="mt-1.5 flex items-center justify-between gap-3 text-xs text-conditions/70">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-brand" />
+            {order.timeLabel}
+          </span>
+          <span>
+            Gesamt:{" "}
+            <span className="font-semibold text-brand">{fmtPrice(total)} €</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Fortschrittsbalken bis zum nächsten Wechsel */}
+      <div className="h-0.5 bg-line">
+        <div
+          key={`bar-${tick}`}
+          className="h-full bg-brand/60"
+          style={{ animation: "live-order-bar 5s linear forwards" }}
+        />
+      </div>
+      <style>{`@keyframes live-order-bar { from { width: 0%; } to { width: 100%; } }`}</style>
+    </div>
+  );
+}
+
 function CompactSteps() {
   return (
     <div className="flex flex-col">
@@ -122,17 +251,7 @@ function CompactSteps() {
       </ol>
 
       <div className="mt-5 border-t border-line pt-4">
-        <Stars value={4.9} size="size-5" />
-        <div className="mt-2">
-          <span className="text-base font-bold text-conditions">4,9</span>
-          <span className="text-sm text-conditions/85"> / 5 Sternen</span>
-        </div>
-        <p className="mt-1 text-sm font-semibold text-conditions">
-          Ausgezeichnet
-        </p>
-        <p className="mt-0.5 text-sm text-conditions/85">
-          Basierend auf über 33.000 Kundenbewertungen
-        </p>
+        <LiveOrders />
       </div>
     </div>
   );
