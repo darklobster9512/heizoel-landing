@@ -246,7 +246,7 @@ function ErgebnisPage() {
                     <SelectContent>
                       {DELIVERY_POINTS.map((n) => (
                         <SelectItem key={n} value={String(n)}>
-                          {n}
+                          {n} Lieferstelle{n === 1 ? "" : "n"}
                         </SelectItem>
                       ))}
                     </SelectContent>
