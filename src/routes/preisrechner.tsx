@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
@@ -154,70 +154,69 @@ const fmtPrice = (v: number) =>
 
 function LiveOrders() {
   const [order, setOrder] = useState<LiveOrder>(INITIAL_ORDER);
-  const [tick, setTick] = useState(0);
+  const [orderKey, setOrderKey] = useState(0);
+  const [glowKey, setGlowKey] = useState(0);
+  const isFirstOrder = useRef(true);
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setOrder(randomOrder());
-      setTick((t) => t + 1);
-    }, 5000);
-    return () => window.clearInterval(id);
+    let timeoutId: number;
+    const scheduleNext = () => {
+      const delay = 5000 + Math.floor(Math.random() * 5001); // 5–10 s
+      timeoutId = window.setTimeout(() => {
+        setOrder(randomOrder());
+        setOrderKey((k) => k + 1);
+        scheduleNext();
+      }, delay);
+    };
+    scheduleNext();
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
-  const total = (order.liters / 100) * order.pricePer100L;
+  useEffect(() => {
+    if (isFirstOrder.current) {
+      isFirstOrder.current = false;
+      return;
+    }
+    setGlowKey((k) => k + 1);
+  }, [order]);
 
   return (
     <div
-      className="overflow-hidden rounded-lg border border-line bg-background"
+      className="relative overflow-hidden rounded-lg border border-line bg-background"
       aria-live="off"
     >
-      {/* Kopfzeile */}
-      <div className="flex items-center gap-2 border-b border-line bg-surface px-4 py-2.5">
-        <span className="relative flex size-2.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-          <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
-        </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-brand">
-          Live
-        </span>
-        <span className="text-xs text-conditions/70">
-          · Aktuelle Bestellungen bei Klaro
-        </span>
-      </div>
-
-      {/* Bestellung */}
-      <div key={tick} className="animate-fade-in px-4 py-3.5">
+      <div
+        key={glowKey}
+        className={[
+          "pointer-events-none absolute inset-0",
+          glowKey > 0 && "animate-live-glow",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      />
+      <div key={orderKey} className="animate-fade-in relative px-4 py-3.5">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-conditions">
-            Bestellung aus {order.city} ({order.plz})
+          <p className="text-sm text-conditions">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-brand" />
+              </span>
+              Bestellung aus <span className="font-bold text-ink">{order.city}</span>{" "}
+              ({order.plz})
+            </span>
           </p>
           <Flame className="size-4 shrink-0 text-brand" strokeWidth={2.2} />
         </div>
-        <p className="mt-1 text-sm font-bold text-ink">
+        <p className="mt-1 text-sm text-ink">
           {order.liters.toLocaleString("de-DE")} Liter —{" "}
-          {fmtPrice(order.pricePer100L)} €/100L
+          <span className="font-bold">
+            {fmtPrice(order.pricePer100L)} €/100L
+          </span>
         </p>
-        <div className="mt-1.5 flex items-center justify-between gap-3 text-xs text-conditions/70">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-brand" />
-            {order.timeLabel}
-          </span>
-          <span>
-            Gesamt:{" "}
-            <span className="font-semibold text-brand">{fmtPrice(total)} €</span>
-          </span>
-        </div>
+        <p className="mt-1 text-xs text-conditions/70">{order.timeLabel}</p>
       </div>
-
-      {/* Fortschrittsbalken bis zum nächsten Wechsel */}
-      <div className="h-0.5 bg-line">
-        <div
-          key={`bar-${tick}`}
-          className="h-full bg-brand/60"
-          style={{ animation: "live-order-bar 5s linear forwards" }}
-        />
-      </div>
-      <style>{`@keyframes live-order-bar { from { width: 0%; } to { width: 100%; } }`}</style>
+      <style>{`@keyframes live-glow { 0% { background-color: rgba(34,197,94,0.08); } 100% { background-color: transparent; } } .animate-live-glow { animation: live-glow 0.8s ease-out forwards; }`}</style>
     </div>
   );
 }
