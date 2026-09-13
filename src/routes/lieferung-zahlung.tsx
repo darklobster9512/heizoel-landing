@@ -245,7 +245,7 @@ function LieferungZahlungPage() {
           </div>
         </section>
 
-        <ReferralBanner />
+        <ReferralBanner compact />
       </main>
       <SiteFooter />
     </div>
