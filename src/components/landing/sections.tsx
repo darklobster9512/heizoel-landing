@@ -803,10 +803,10 @@ export function TrustLinks() {
 }
 
 const FOOTER_SERVICES = [
-  { label: "Hilfe", href: "#" },
-  { label: "Kontakt", href: "#" },
-  { label: "Bewertungen", href: "#bewertungen" },
-  { label: "Lieferung & Zahlung", href: "#" },
+  { label: "Hilfe", href: "/faq" },
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Bewertungen", href: "/bewertungen" },
+  { label: "Lieferung & Zahlung", href: "/lieferung-zahlung" },
 ];
 
 const FOOTER_RECHTLICHES = [
@@ -839,13 +839,25 @@ function FooterStars() {
 function FooterLinkList({ items }: { items: { label: string; href: string }[] }) {
   return (
     <ul className="mt-3 space-y-2">
-      {items.map((l) => (
-        <li key={l.label}>
-          <a href={l.href} className="text-[13px] leading-5 text-footer-text hover:underline">
-            {l.label}
-          </a>
-        </li>
-      ))}
+      {items.map((l) => {
+        const isInternal = l.href.startsWith("/") && !l.href.startsWith("//");
+        return (
+          <li key={l.label}>
+            {isInternal ? (
+              <Link
+                to={l.href}
+                className="inline-block text-[13px] leading-5 text-footer-text hover:underline"
+              >
+                {l.label}
+              </Link>
+            ) : (
+              <a href={l.href} className="text-[13px] leading-5 text-footer-text hover:underline">
+                {l.label}
+              </a>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
