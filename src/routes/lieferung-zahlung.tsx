@@ -177,27 +177,21 @@ function LieferungZahlungPage() {
                 Aktuelle Auslastung des Heizöl-Handels, d. h. durchschnittliche Wartezeit auf die
                 Lieferung im Vergleich zum Jahresmittel.
               </p>
-              <div className="mt-5">
-                <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
-                  <span>niedrig</span>
-                  <span>mittel</span>
-                  <span>hoch</span>
-                </div>
-                <div className="mt-2 flex gap-1.5" aria-hidden="true">
-                  <div className="h-2 flex-1 rounded-full bg-brand/25" />
-                  <div className="h-2 flex-1 rounded-full bg-brand/50" />
-                  <div className="h-2 flex-1 rounded-full bg-brand" />
-                </div>
-                <p className="mt-3 text-center">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-1.5 text-sm font-bold text-brand">
+              <img
+                src={lieferfristAsset.url}
+                alt="Aktuelle Lieferfrist: hohe Auslastung"
+                loading="lazy"
+                className="mx-auto mt-5 h-auto w-full max-w-[260px] object-contain"
+              />
+              <p className="mt-3 text-center">
+                <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-1.5 text-sm font-bold text-brand">
                   <span className="relative flex size-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
                     <span className="relative inline-flex size-2 rounded-full bg-brand" />
                   </span>
                   hoch
                 </span>
-                </p>
-              </div>
+              </p>
             </div>
           </div>
         </section>
