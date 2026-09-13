@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect } from "react";
 
 import { AppShell } from "@/components/app/app-shell";
@@ -29,8 +28,7 @@ const requests = [
 ];
 
 function DashboardPage() {
-  const fetchAccount = useServerFn(getMyAccount);
-  const { data, isPending } = useQuery({ queryKey: ["account"], queryFn: () => fetchAccount() });
+  const { data, isPending } = useQuery({ queryKey: ["account"], queryFn: () => getMyAccount() });
   const navigate = useNavigate();
 
   useEffect(() => {
