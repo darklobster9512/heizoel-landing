@@ -103,8 +103,8 @@ function CompactSteps() {
       </ol>
 
       <div className="mt-5 flex items-start gap-4 border-t border-line pt-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center">
-          <Stars size="size-6" />
+        <div className="flex h-12 shrink-0 items-center">
+          <Stars size="size-5" />
         </div>
         <div>
           <div className="flex items-baseline gap-2">
