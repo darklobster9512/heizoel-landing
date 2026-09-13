@@ -141,6 +141,7 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
 
 interface AddressForm {
   salutation: Salutation;
+  company?: string;
   firstName: string;
   lastName: string;
   street: string;
@@ -151,6 +152,7 @@ interface AddressForm {
 
 const emptyAddress = (plz = "", city = ""): AddressForm => ({
   salutation: "Herr",
+  company: "",
   firstName: "",
   lastName: "",
   street: "",
