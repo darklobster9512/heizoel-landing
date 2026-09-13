@@ -146,7 +146,6 @@ function ErgebnisPage() {
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
   const [editing, setEditing] = useState(false);
-  const [editPlzMenge, setEditPlzMenge] = useState(false);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
@@ -169,10 +168,7 @@ function ErgebnisPage() {
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
-  const toggleEditing = () => {
-    setEditing((v) => !v);
-    setEditPlzMenge(false);
-  };
+  const toggleEditing = () => setEditing((v) => !v);
 
 
   return (
