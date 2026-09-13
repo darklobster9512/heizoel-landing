@@ -38,3 +38,47 @@ export function loadOrderDraft(): OrderDraft | null {
     return null;
   }
 }
+
+export type ConfirmationAddress = {
+  salutation: string;
+  company?: string;
+  firstName: string;
+  lastName: string;
+  street: string;
+  streetNo: string;
+  plz: string;
+  city: string;
+};
+
+export type OrderConfirmation = OrderDraft & {
+  orderNo: string;
+  email: string;
+  phone: string;
+  delivery: ConfirmationAddress;
+  billing?: ConfirmationAddress;
+  notes: string;
+  payment: string;
+  placedAt: string;
+};
+
+const CONFIRM_KEY = "klaro.order.confirmed.v1";
+
+export function saveOrderConfirmation(data: OrderConfirmation): void {
+  try {
+    localStorage.setItem(CONFIRM_KEY, JSON.stringify(data));
+  } catch {
+    /* localStorage nicht verfügbar */
+  }
+}
+
+export function loadOrderConfirmation(): OrderConfirmation | null {
+  try {
+    const raw = localStorage.getItem(CONFIRM_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<OrderConfirmation>;
+    if (!parsed.orderNo || typeof parsed.liters !== "number") return null;
+    return parsed as OrderConfirmation;
+  } catch {
+    return null;
+  }
+}
