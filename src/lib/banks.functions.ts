@@ -1,88 +1,65 @@
-import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
+import { newId, store, type Bank } from "@/lib/mock-data";
 
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { Database, Tables, TablesInsert } from "@/integrations/supabase/types";
-
-export type Bank = Tables<"banks">;
+export type { Bank };
+export type BankInput = Partial<Bank> & { name: string; id?: string };
 
 /** Öffentliche Liste aller aktiven Banken (für /angebote). */
-export const listActiveBanks = createServerFn({ method: "GET" }).handler(async () => {
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["SUPABASE_ANON_KEY"]!;
-  const client = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-    global: {
-      fetch: (input, init) => {
-        const h = new Headers(init?.headers);
-        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
-          h.delete("Authorization");
-        }
-        h.set("apikey", key);
-        return fetch(input, { ...init, headers: h });
-      },
-    },
-  });
-
-  const { data, error } = await client
-    .from("banks")
-    .select("*")
-    .eq("active", true)
-    .order("sort_order", { ascending: true });
-
-  if (error) return [] as Bank[];
-  return (data ?? []) as Bank[];
-});
-
-async function assertAdmin(context: { supabase: ReturnType<typeof createClient<Database>>; userId: string }) {
-  const { data: isAdmin, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (error || !isAdmin) throw new Error("Forbidden");
+export async function listActiveBanks(): Promise<Bank[]> {
+  return store.banks
+    .filter((b) => b.active)
+    .slice()
+    .sort((a, b) => a.sort_order - b.sort_order);
 }
 
-/** Alle Banken inkl. inaktiver – nur für Administratoren. */
-export const listBanks = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    await assertAdmin(context as never);
-    const { data, error } = await context.supabase
-      .from("banks")
-      .select("*")
-      .order("sort_order", { ascending: true });
-    if (error) throw new Error(error.message);
-    return (data ?? []) as Bank[];
-  });
+/** Alle Banken inkl. inaktiver (Demo-Verwaltung). */
+export async function listBanks(): Promise<Bank[]> {
+  return store.banks.slice().sort((a, b) => a.sort_order - b.sort_order);
+}
 
-export type BankInput = TablesInsert<"banks"> & { id?: string };
+export async function upsertBank(input: BankInput): Promise<Bank> {
+  const now = new Date().toISOString();
 
-export const upsertBank = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: BankInput) => input)
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context as never);
-    const payload = { ...data };
-    if (!payload.id) delete payload.id;
+  if (input.id) {
+    const index = store.banks.findIndex((b) => b.id === input.id);
+    if (index === -1) throw new Error("Bank nicht gefunden");
+    const updated = { ...store.banks[index]!, ...input, updated_at: now } as Bank;
+    store.banks[index] = updated;
+    return updated;
+  }
 
-    const { data: row, error } = payload.id
-      ? await context.supabase
-          .from("banks")
-          .update(payload)
-          .eq("id", payload.id)
-          .select("*")
-          .single()
-      : await context.supabase.from("banks").insert(payload).select("*").single();
+  const created: Bank = {
+    id: newId(),
+    created_at: now,
+    updated_at: now,
+    logo_key: "",
+    logo_url: "",
+    sort_order: 99,
+    active: true,
+    eff_rate: 3.99,
+    min_amount: 1000,
+    max_amount: 120000,
+    min_term: 12,
+    max_term: 120,
+    payout_days: 5,
+    company_name: "",
+    street: "",
+    zip: "",
+    city: "",
+    documents: "Kontoauszug, Gehaltsabrechnung",
+    free_special_repayment: true,
+    free_full_repayment: false,
+    payment_break: true,
+    online_upload: true,
+    online_id: true,
+    ...input,
+    name: input.name,
+  };
+  store.banks.push(created);
+  return created;
+}
 
-    if (error) throw new Error(error.message);
-    return row as Bank;
-  });
-
-export const deleteBank = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => input)
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context as never);
-    const { error } = await context.supabase.from("banks").delete().eq("id", data.id);
-    if (error) throw new Error(error.message);
-    return { ok: true };
-  });
+export async function deleteBank(input: { id: string }): Promise<{ ok: boolean }> {
+  const index = store.banks.findIndex((b) => b.id === input.id);
+  if (index !== -1) store.banks.splice(index, 1);
+  return { ok: index !== -1 };
+}

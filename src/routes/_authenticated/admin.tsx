@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
 import { AppShell } from "@/components/app/app-shell";
@@ -25,10 +24,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 function AdminPage() {
   const navigate = useNavigate();
-  const fetchAccount = useServerFn(getMyAccount);
-  const fetchUsers = useServerFn(listAllUsers);
-
-  const account = useQuery({ queryKey: ["account"], queryFn: () => fetchAccount() });
+  const account = useQuery({ queryKey: ["account"], queryFn: () => getMyAccount() });
   const isAdmin = account.data?.role === "admin";
 
   useEffect(() => {
@@ -39,21 +35,19 @@ function AdminPage() {
 
   const users = useQuery({
     queryKey: ["all-users"],
-    queryFn: () => fetchUsers(),
+    queryFn: () => listAllUsers(),
     enabled: isAdmin,
   });
 
-  const fetchApps = useServerFn(listLoanApplications);
   const apps = useQuery({
     queryKey: ["loan-applications"],
-    queryFn: () => fetchApps(),
+    queryFn: () => listLoanApplications(),
     enabled: isAdmin,
   });
 
-  const fetchDocs = useServerFn(listApplicationDocumentsAdmin);
   const docs = useQuery({
     queryKey: ["application-documents-admin"],
-    queryFn: () => fetchDocs(),
+    queryFn: () => listApplicationDocumentsAdmin(),
     enabled: isAdmin,
   });
 

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
 import { AppShell } from "@/components/app/app-shell";
@@ -24,11 +23,9 @@ export const Route = createFileRoute("/_authenticated/admin/antrag/$applicationI
 
 function AdminApplicationPage() {
   const { applicationId } = Route.useParams();
-  const fetchDetail = useServerFn(getApplicationAdmin);
-
   const detail = useQuery({
     queryKey: ["admin-application", applicationId],
-    queryFn: () => fetchDetail({ data: { applicationId } }),
+    queryFn: () => getApplicationAdmin({ applicationId }),
   });
 
   const documents = detail.data?.documents ?? [];
