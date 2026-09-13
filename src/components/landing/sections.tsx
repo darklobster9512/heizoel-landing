@@ -806,48 +806,46 @@ type FooterCol = {
 const FOOTER_COLS: FooterCol[] = [
   {
     title: "Unternehmen",
-    titleHref: "https://www.smava.de/ueber-smava/",
+    titleHref: "#",
     links: [
-      { label: "Karriere", href: "https://jobs.smava.de/" },
-      { label: "Presse", href: "https://www.smava.de/presse/" },
-      { label: "Hilfe", href: "https://smava.zendesk.com/hc/de" },
-      { label: "Unsere Partner", href: "https://www.smava.de/kredit/partner/" },
-      { label: "Kontakt", href: "https://www.smava.de/kontakt/" },
-      { label: "Digital Services Act (DSA)", href: "https://www.smava.de/digital-services-act/" },
+      { label: "Karriere", href: "#" },
+      { label: "Presse", href: "#" },
+      { label: "Hilfe", href: "#" },
+      { label: "Unsere Partner", href: "#" },
+      { label: "Kontakt", href: "#" },
     ],
   },
   {
-    title: "Kredit aufnehmen",
-    titleHref: "https://www.smava.de/kredit/",
+    title: "Heizöl bestellen",
+    titleHref: "#rechner",
     links: [
-      { label: "Kreditvergleich", href: "https://www.smava.de/kreditvergleich/" },
-      { label: "Sofortkredit", href: "https://www.smava.de/kredit/sofortkredit/" },
-      { label: "Privatkredit", href: "https://www.smava.de/privatkredit/" },
-      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
-      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
-      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
+      { label: "Preisvergleich", href: "#rechner" },
+      { label: "Heizöl EL Standard", href: "#rechner" },
+      { label: "Schwefelarmes Heizöl", href: "#rechner" },
+      { label: "Premium-Heizöl", href: "#rechner" },
+      { label: "Sammelbestellung", href: "#faq" },
+      { label: "Expresslieferung", href: "#faq" },
     ],
   },
   {
     title: "Service",
-    titleHref: "https://www.smava.de/kredit/service/",
+    titleHref: "#",
     links: [
-      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
-      { label: "Glossar", href: "https://www.smava.de/kredit/glossar/" },
-      { label: "Nachrichten", href: "https://www.smava.de/kredit/nachrichten/" },
-      { label: "Partnerprogramm", href: "https://www.smava.de/partnerprogramm/" },
-      { label: "smava Gutschein", href: "https://www.smava.de/kredit/smava-gutscheine/" },
-      { label: "Freunde werben Freunde", href: "https://smava.aklamio.com/" },
+      { label: "Preisrechner", href: "#rechner" },
+      { label: "Glossar", href: "#" },
+      { label: "Nachrichten", href: "#" },
+      { label: "Partnerprogramm", href: "#" },
+      { label: "Freunde werben Freunde", href: "#" },
     ],
   },
 ];
 
 const FOOTER_LEGAL = [
-  { label: "Datenschutz", href: "https://www.smava.de/datenschutz/" },
-  { label: "AGB", href: "https://www.smava.de/agb/" },
-  { label: "Impressum", href: "https://www.smava.de/impressum/" },
-  { label: "Cookies", href: "https://www.smava.de/cookies/" },
-  { label: "Widerruf", href: "https://www.smava.de/widerruf/" },
+  { label: "Datenschutz", href: "#" },
+  { label: "AGB", href: "#" },
+  { label: "Impressum", href: "#" },
+  { label: "Cookies", href: "#" },
+  { label: "Widerruf", href: "#" },
 ];
 
 function ConsultingBlock() {
