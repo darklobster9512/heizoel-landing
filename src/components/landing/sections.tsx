@@ -803,10 +803,10 @@ export function TrustLinks() {
 }
 
 const FOOTER_SERVICES = [
-  { label: "Hilfe", href: "#" },
-  { label: "Kontakt", href: "#" },
-  { label: "Bewertungen", href: "#bewertungen" },
-  { label: "Lieferung & Zahlung", href: "#" },
+  { label: "Hilfe", href: "/faq" },
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Bewertungen", href: "/bewertungen" },
+  { label: "Lieferung & Zahlung", href: "/lieferung-zahlung" },
 ];
 
 const FOOTER_RECHTLICHES = [
