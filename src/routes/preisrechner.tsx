@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
 import { SiteFooter, STEPS } from "@/components/landing/sections";
+import guarantee from "@/assets/guarantee.svg.asset.json";
 import {
   BadgePercent,
   Handshake,
