@@ -1,9 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   CalendarDays,
   Check,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   CreditCard,
@@ -21,7 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
+import {
+  loadOrderDraft,
+  saveOrderConfirmation,
+  saveOrderDraft,
+  type OrderDraft,
+} from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
@@ -441,7 +445,7 @@ function BestellenPage() {
     null,
   );
   const [step, setStep] = useState<1 | 2>(1);
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -531,10 +535,24 @@ function BestellenPage() {
   };
 
   const submit = () => {
-    if (!validate()) return;
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!validate() || !draft) return;
+    const now = new Date();
+    const orderNo = `${String(now.getDate()).padStart(2, "0")}${String(now.getMonth() + 1).padStart(2, "0")}-${Math.floor(10000 + Math.random() * 89999)}`;
+    saveOrderConfirmation({
+      ...draft,
+      ...(slot ? { slot } : {}),
+      orderNo,
+      email: email.trim(),
+      phone: phone.trim(),
+      delivery,
+      ...(billingDifferent ? { billing } : {}),
+      notes,
+      payment,
+      placedAt: now.toISOString(),
+    });
+    void navigate({ to: "/bestaetigung" });
   };
+
 
   if (!loaded) {
     return <div className="min-h-screen bg-surface font-body text-ink" />;
@@ -602,42 +620,6 @@ function BestellenPage() {
 
       <main className="px-4 py-5">
         <div className="mx-auto max-w-3xl">
-          {submitted ? (
-            /* Bestätigung */
-            <div className="rounded-xl border border-line bg-background px-6 py-10 text-center shadow-card">
-              <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-brand/10 text-brand">
-                <CheckCircle2 className="size-8" aria-hidden="true" />
-              </span>
-              <h1 className="mt-4 text-[24px] font-bold text-conditions md:text-[28px]">
-                Vielen Dank für Ihre Bestellung!
-              </h1>
-              <p className="mt-2 text-[14px] text-muted-custom">
-                Ihre Bestellnummer: <span className="font-bold text-conditions">KL-2026-48213</span>
-              </p>
-              <div className="mx-auto mt-5 max-w-md rounded-lg border border-line bg-surface px-4 py-4 text-left">
-                <p className="text-[14px] font-bold text-conditions">
-                  {fmtLiters(draft.liters)} L {sortLabel} — {fmtEuro(draft.total)} €
-                </p>
-                <p className="mt-1 text-[13px] text-muted-custom">{slotLabel}</p>
-                <p className="mt-1 text-[13px] text-muted-custom">
-                  {delivery.street} {delivery.streetNo}, {delivery.plz} {delivery.city}
-                </p>
-                <p className="mt-1 text-[13px] text-muted-custom">
-                  Zahlungsart: {PAYMENT_OPTIONS.find((p) => p.id === payment)?.label}
-                </p>
-              </div>
-              <p className="mt-4 text-[13px] text-muted-custom">
-                Eine Bestätigung wurde an <span className="font-semibold text-ink">{email}</span>{" "}
-                gesendet.
-              </p>
-              <Link
-                to="/"
-                className="mt-6 inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
-              >
-                Zur Startseite
-              </Link>
-            </div>
-          ) : (
             <>
               {/* Vertrauenszeile */}
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
@@ -1030,13 +1012,11 @@ function BestellenPage() {
                 </>
               )}
             </>
-          )}
         </div>
       </main>
 
       {/* Sticky Preisleiste */}
-      {!submitted ? (
-        <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
+      <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
             <div>
               <p className="text-[17px] font-bold leading-tight text-conditions">
@@ -1065,8 +1045,7 @@ function BestellenPage() {
               </button>
             )}
           </div>
-        </div>
-      ) : null}
+      </div>
     </div>
   );
 }
