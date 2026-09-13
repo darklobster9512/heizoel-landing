@@ -216,27 +216,29 @@ function LieferungZahlungPage() {
               Eingabe Ihrer Postleitzahl.
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-4">
               {PAYMENT_METHODS.map((method) => (
                 <article
                   key={method.title}
-                  className="flex flex-col rounded-xl border border-line bg-card p-6 shadow-sm"
+                  className="flex flex-col gap-5 rounded-xl border border-line bg-card p-5 shadow-sm md:flex-row md:items-start"
                 >
                   <img
                     src={method.image}
                     alt={method.alt}
                     loading="lazy"
-                    className="h-28 w-auto self-start object-contain"
+                    className="h-20 w-auto shrink-0 self-start object-contain md:h-24"
                   />
-                  <h3 className="mt-5 text-[17px] font-bold text-conditions">{method.title}</h3>
-                  {method.paragraphs.map((p) => (
-                    <p
-                      key={p.slice(0, 32)}
-                      className="mt-3 text-[13px] leading-[1.7] text-muted-custom md:text-[14px]"
-                    >
-                      {p}
-                    </p>
-                  ))}
+                  <div>
+                    <h3 className="text-[17px] font-bold text-conditions">{method.title}</h3>
+                    {method.paragraphs.map((p) => (
+                      <p
+                        key={p.slice(0, 32)}
+                        className="mt-3 text-[13px] leading-[1.7] text-muted-custom md:text-[14px]"
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
                 </article>
               ))}
             </div>
