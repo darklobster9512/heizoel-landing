@@ -370,8 +370,12 @@ function ErgebnisPage() {
                       : "border-b-[3px] border-b-transparent bg-surface text-muted-custom hover:text-ink"
                   }`}
                 >
-                  <Flame
-                    className={`h-4 w-4 shrink-0 ${variant === t.id ? "text-brand" : "text-muted-custom"}`}
+                  <img
+                    src={dropGreen.url}
+                    alt=""
+                    className={`h-4 w-4 shrink-0 object-contain transition-all ${
+                      variant === t.id ? "" : "grayscale opacity-60"
+                    }`}
                     aria-hidden="true"
                   />
                   <span className="text-[14px] font-bold leading-tight">{t.label}</span>
