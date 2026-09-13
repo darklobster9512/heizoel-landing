@@ -1162,11 +1162,11 @@ export function ReferralBanner() {
           />
         </div>
         <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
-          <h2 className="text-[22px] font-bold leading-tight text-ink">
+          <h2 className="text-[22px] font-bold leading-tight text-conditions">
             Jetzt Heizöl günstiger bestellen!
           </h2>
           <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
-            Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+            Schließen Sie sich <strong>25.000+ zufriedenen Kunden</strong> an und sparen Sie durchschnittlich €247
           </p>
           <div className="mt-6 flex justify-center">
             <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
