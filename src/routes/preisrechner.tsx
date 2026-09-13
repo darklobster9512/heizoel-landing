@@ -158,7 +158,7 @@ function PreisrechnerPage() {
                 <span>sofort & kostenlos</span>
               </h1>
 
-              <p className="mx-auto mt-5 whitespace-nowrap text-[15px] leading-snug text-hero-text md:mt-6 md:text-base">
+              <p className="mx-auto mt-5 text-[15px] leading-snug text-hero-text md:mt-6 md:whitespace-nowrap md:text-base">
                 Heizölpreise heute ab{" "}
                 <strong className="font-semibold text-ink">128,78 €/100L</strong>{" "}
                 —{" "}
