@@ -439,7 +439,7 @@ export function MatchingOffers() {
           />
         </div>
 
-        <div className="order-2 flex flex-col justify-center px-5 pt-0 md:h-[557px] md:px-0">
+        <div className="order-2 flex flex-col justify-center px-5 pb-10 pt-0 md:h-[557px] md:px-0 md:pb-14">
           <h2
             id="matching-offers-title"
             className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[28px]"
@@ -467,7 +467,7 @@ export function MatchingOffers() {
             ))}
           </ul>
 
-          <div className="mt-10 flex justify-center md:mt-[66px]">
+          <div className="mt-10 flex justify-center md:mt-8">
             <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
               <Link to="/antrag/schritt-1" search={{}}>Jetzt Heizölpreise vergleichen</Link>
             </Button>
