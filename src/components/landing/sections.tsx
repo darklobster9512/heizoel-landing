@@ -75,12 +75,9 @@ export function TrustBar() {
             >
               {row.map((p) => (
                 <li key={p.name} className="flex h-11 items-center">
-                  <img
-                    src={p.src}
-                    alt={p.name}
-                    loading="lazy"
-                    className={`${p.h} w-auto max-w-[150px] object-contain object-left`}
-                  />
+                  <span className="text-lg font-bold tracking-tight text-muted-custom/70">
+                    {p.name}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -99,12 +96,9 @@ export function TrustBar() {
               >
                 {PARTNERS.slice(pageIndex * 4, pageIndex * 4 + 4).map((partner) => (
                   <li key={partner.name} className="flex h-14 items-center justify-center">
-                    <img
-                      src={partner.src}
-                      alt={partner.name}
-                      loading="lazy"
-                      className={`${partner.h} max-h-10 w-auto max-w-[145px] object-contain`}
-                    />
+                    <span className="text-base font-bold tracking-tight text-muted-custom/70">
+                      {partner.name}
+                    </span>
                   </li>
                 ))}
               </ul>
