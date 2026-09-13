@@ -635,9 +635,12 @@ const GRID = "grid grid-cols-[1fr_40px_76px_76px] gap-2 md:grid-cols-[1fr_60px_2
 
 export function HeizoelSorten() {
   return (
-    <section id="heizoelsorten" className="scroll-mt-20 bg-background">
+    <section id="heizoelsorten" className="scroll-mt-20 bg-surface">
       <div className="mx-auto max-w-[1283px] px-5 py-16 md:py-20">
-        <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
+        <p className="text-center text-[11px] font-light uppercase tracking-[0.2em] text-muted-custom">
+          Welches Heizöl brauche ich?
+        </p>
+        <h2 className="mt-3 text-center text-[28px] font-bold leading-[1.2] text-conditions md:text-[34px]">
           Heizölsorten im Überblick
         </h2>
 
