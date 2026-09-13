@@ -144,9 +144,9 @@ function BewertungenPage() {
 
           {/* Kennzahlen-Band */}
           <div className="bg-background">
-            <dl className="mx-auto grid max-w-4xl grid-cols-2 gap-y-8 px-5 py-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line md:py-10">
+            <dl className="mx-auto grid w-full grid-cols-2 gap-y-8 px-5 py-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line md:py-10">
               {STATS.map((stat) => (
-                <div key={stat.label} className="px-3 text-center">
+                <div key={stat.label} className="px-4 text-center md:px-6">
                   <dd className="text-[24px] font-bold leading-tight text-conditions md:text-[28px]">
                     {stat.value}
                   </dd>
