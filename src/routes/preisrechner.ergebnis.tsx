@@ -146,6 +146,20 @@ function ErgebnisPage() {
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
   const [editing, setEditing] = useState(false);
+  const [city, setCity] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    setCity(null);
+    void lookupPlzCity(plz).then((c) => {
+      if (active) setCity(c);
+    });
+    return () => {
+      active = false;
+    };
+  }, [plz]);
+
+  const plzLabel = plz ? (city ? `${plz} ${city}` : plz) : "—";
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
