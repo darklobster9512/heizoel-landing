@@ -4,9 +4,9 @@ import guarantee from "@/assets/guarantee.svg.asset.json";
 import { OfferCard } from "./offer-card";
 
 const CHECKS = [
-  "Persönliche Angebote von über 20 Banken",
-  "SCHUFA-neutral und 100 % kostenlos",
-  "Deutschlands bekanntestes** Kreditportal",
+  "Aktuelle Angebote von über 300 Heizölhändlern",
+  "Kostenlos und 100 % unverbindlich",
+  "Täglich aktuelle Preise aus Ihrer Region**",
 ];
 
 function Check() {
@@ -72,7 +72,7 @@ export function Hero() {
         <div>
           <div className="grid grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
             <h1 className="min-w-0 max-w-[14ch] font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:max-w-[13ch] md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
-              Günstige Kredite - garantiert!
+              Günstiges Heizöl - garantiert!
             </h1>
 
             <img
