@@ -152,6 +152,12 @@ export function SiteHeader() {
         <div className="mx-auto flex h-12 max-w-6xl items-center gap-6 px-5">
           <Dropdown label="Heizölpreise" links={HEIZOEL_LINKS} />
           <Dropdown label="Info & Service" links={INFO_SERVICE_LINKS} />
+          <Link
+            to="/kontakt"
+            className="inline-flex h-12 items-center text-xs font-semibold uppercase tracking-wide text-ink transition-colors hover:text-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+          >
+            KONTAKT &amp; HILFE
+          </Link>
         </div>
       </nav>
     </header>

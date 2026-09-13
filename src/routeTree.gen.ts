@@ -16,6 +16,7 @@ import { Route as AntragRouteRouteImport } from './routes/antrag/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BewertungenRouteImport } from './routes/bewertungen'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LieferungZahlungRouteImport } from './routes/lieferung-zahlung'
 import { Route as PreisrechnerRouteImport } from './routes/preisrechner'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -74,6 +75,11 @@ const BewertungenRoute = BewertungenRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LieferungZahlungRoute = LieferungZahlungRouteImport.update({
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
+  '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/preisrechner': typeof PreisrechnerRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
+  '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/preisrechner': typeof PreisrechnerRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -279,6 +287,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/bewertungen': typeof BewertungenRoute
   '/faq': typeof FaqRoute
+  '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/preisrechner': typeof PreisrechnerRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -314,6 +323,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bewertungen'
     | '/faq'
+    | '/kontakt'
     | '/lieferung-zahlung'
     | '/preisrechner'
     | '/admin'
@@ -347,6 +357,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bewertungen'
     | '/faq'
+    | '/kontakt'
     | '/lieferung-zahlung'
     | '/preisrechner'
     | '/admin'
@@ -381,6 +392,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bewertungen'
     | '/faq'
+    | '/kontakt'
     | '/lieferung-zahlung'
     | '/preisrechner'
     | '/_authenticated/admin'
@@ -416,6 +428,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BewertungenRoute: typeof BewertungenRoute
   FaqRoute: typeof FaqRoute
+  KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
   PreisrechnerRoute: typeof PreisrechnerRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
@@ -470,6 +483,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lieferung-zahlung': {
@@ -731,6 +751,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BewertungenRoute: BewertungenRoute,
   FaqRoute: FaqRoute,
+  KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
   PreisrechnerRoute: PreisrechnerRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
