@@ -99,11 +99,10 @@ function BestellenPage() {
     while (cur.getDay() === 0 || cur.getDay() === 6) cur = nextWorkday(cur);
     const list = [cur];
     for (let i = 0; i < 2; i++) list.push(nextWorkday(list[list.length - 1]!));
-    return list.map((d, i) => ({
+    return list.map((d) => ({
       iso: toIso(d),
       weekday: d.toLocaleDateString("de-DE", { weekday: "long" }),
       date: d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }),
-      morningBooked: i > 0,
     }));
   }, [draft]);
 
