@@ -996,7 +996,7 @@ function BestellenPage() {
                                 </span>
                                 <span className="block text-[12px] text-muted-custom">{p.desc}</span>
                                 {p.hint ? (
-                                  <span className="mt-1 inline-block rounded bg-[#fff7ed] px-1.5 py-0.5 text-[11px] font-semibold text-[#c2410c]">
+                                  <span className="mt-1 inline-block rounded bg-brand/10 px-1.5 py-0.5 text-[11px] font-semibold text-brand">
                                     {p.hint}
                                   </span>
                                 ) : null}
