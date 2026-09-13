@@ -316,11 +316,15 @@ function PreisrechnerPage() {
               >
                 Warum bei Klaro bestellen?
               </h2>
-              <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-                {ADVANTAGES.map((a) => {
+              <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+                {ADVANTAGES.map((a, i) => {
                   const Icon = a.icon;
+                  const isLast = i === ADVANTAGES.length - 1;
                   return (
-                    <div key={a.title} className="text-center">
+                    <div
+                      key={a.title}
+                      className={`text-center ${isLast ? "col-span-2 md:col-span-1" : ""}`}
+                    >
                       <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
                         <Icon className="h-4 w-4" strokeWidth={2.2} />
                       </div>
@@ -333,21 +337,6 @@ function PreisrechnerPage() {
                     </div>
                   );
                 })}
-
-                {/* 6. Kachel: Bewertung */}
-                <div className="text-center">
-                  <Stars size="size-4" />
-                  <div className="mt-2.5 flex items-baseline justify-center gap-1">
-                    <span className="text-lg font-bold text-ink">4,99</span>
-                    <span className="text-xs text-muted-custom">/ 5 Sternen</span>
-                  </div>
-                  <p className="mt-0.5 text-sm font-semibold text-conditions">
-                    Ausgezeichnet
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-custom">
-                    Basierend auf über 33.000 Kundenbewertungen
-                  </p>
-                </div>
               </div>
             </div>
           </div>
