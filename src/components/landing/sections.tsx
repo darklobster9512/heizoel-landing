@@ -506,7 +506,7 @@ export function MatchingOffers() {
         <div className="order-1 h-[258px] w-full overflow-hidden md:contents">
           <img
             src={offerList.url}
-            alt="Beispielhafte Kreditangebote verschiedener Banken"
+            alt="Beispielhafte Heizöl-Angebote verschiedener Händler"
             width={404}
             height={575}
             loading="lazy"
@@ -519,7 +519,7 @@ export function MatchingOffers() {
             id="matching-offers-title"
             className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[28px]"
           >
-            Mit smava zu passenden Kreditangeboten
+            Mit Klaro zum günstigsten Heizölpreis
           </h2>
 
           <ul className="mt-8 grid gap-x-[72px] gap-y-8 sm:grid-cols-2 md:-ml-[94px] md:w-[calc(100%+94px)]">
@@ -544,7 +544,7 @@ export function MatchingOffers() {
 
           <div className="mt-10 flex justify-center md:mt-[66px]">
             <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Jetzt Kreditvergleich starten</Link>
+              <Link to="/antrag/schritt-1" search={{}}>Jetzt Heizölpreise vergleichen</Link>
             </Button>
           </div>
         </div>
