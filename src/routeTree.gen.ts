@@ -42,6 +42,7 @@ import { Route as AntragSchritt7RouteImport } from './routes/antrag/schritt-7'
 import { Route as AntragSchritt8RouteImport } from './routes/antrag/schritt-8'
 import { Route as AntragSchritt9RouteImport } from './routes/antrag/schritt-9'
 import { Route as KreditantragApplicationIdRouteImport } from './routes/kreditantrag.$applicationId'
+import { Route as PreisrechnerErgebnisRouteImport } from './routes/preisrechner.ergebnis'
 import { Route as AuthenticatedAdminAntragApplicationIdRouteImport } from './routes/_authenticated/admin.antrag.$applicationId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -209,6 +210,11 @@ const KreditantragApplicationIdRoute =
     path: '/kreditantrag/$applicationId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PreisrechnerErgebnisRoute = PreisrechnerErgebnisRouteImport.update({
+  id: '/ergebnis',
+  path: '/ergebnis',
+  getParentRoute: () => PreisrechnerRoute,
+} as any)
 const AuthenticatedAdminAntragApplicationIdRoute =
   AuthenticatedAdminAntragApplicationIdRouteImport.update({
     id: '/antrag/$applicationId',
@@ -226,7 +232,7 @@ export interface FileRoutesByFullPath {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
-  '/preisrechner': typeof PreisrechnerRoute
+  '/preisrechner': typeof PreisrechnerRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -249,6 +255,7 @@ export interface FileRoutesByFullPath {
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
+  '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
   '/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRoutesByTo {
@@ -261,7 +268,7 @@ export interface FileRoutesByTo {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
-  '/preisrechner': typeof PreisrechnerRoute
+  '/preisrechner': typeof PreisrechnerRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -284,6 +291,7 @@ export interface FileRoutesByTo {
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
+  '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
   '/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRoutesById {
@@ -298,7 +306,7 @@ export interface FileRoutesById {
   '/heizoel-wissen': typeof HeizoelWissenRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
-  '/preisrechner': typeof PreisrechnerRoute
+  '/preisrechner': typeof PreisrechnerRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -321,6 +329,7 @@ export interface FileRoutesById {
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
+  '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
   '/_authenticated/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRouteTypes {
@@ -358,6 +367,7 @@ export interface FileRouteTypes {
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
     | '/kreditantrag/$applicationId'
+    | '/preisrechner/ergebnis'
     | '/admin/antrag/$applicationId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -393,6 +403,7 @@ export interface FileRouteTypes {
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
     | '/kreditantrag/$applicationId'
+    | '/preisrechner/ergebnis'
     | '/admin/antrag/$applicationId'
   id:
     | '__root__'
@@ -429,6 +440,7 @@ export interface FileRouteTypes {
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
     | '/kreditantrag/$applicationId'
+    | '/preisrechner/ergebnis'
     | '/_authenticated/admin/antrag/$applicationId'
   fileRoutesById: FileRoutesById
 }
@@ -443,7 +455,7 @@ export interface RootRouteChildren {
   HeizoelWissenRoute: typeof HeizoelWissenRoute
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
-  PreisrechnerRoute: typeof PreisrechnerRoute
+  PreisrechnerRoute: typeof PreisrechnerRouteWithChildren
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
 }
 
@@ -680,6 +692,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KreditantragApplicationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/preisrechner/ergebnis': {
+      id: '/preisrechner/ergebnis'
+      path: '/ergebnis'
+      fullPath: '/preisrechner/ergebnis'
+      preLoaderRoute: typeof PreisrechnerErgebnisRouteImport
+      parentRoute: typeof PreisrechnerRoute
+    }
     '/_authenticated/admin/antrag/$applicationId': {
       id: '/_authenticated/admin/antrag/$applicationId'
       path: '/antrag/$applicationId'
@@ -763,6 +782,18 @@ const AntragRouteRouteWithChildren = AntragRouteRoute._addFileChildren(
   AntragRouteRouteChildren,
 )
 
+interface PreisrechnerRouteChildren {
+  PreisrechnerErgebnisRoute: typeof PreisrechnerErgebnisRoute
+}
+
+const PreisrechnerRouteChildren: PreisrechnerRouteChildren = {
+  PreisrechnerErgebnisRoute: PreisrechnerErgebnisRoute,
+}
+
+const PreisrechnerRouteWithChildren = PreisrechnerRoute._addFileChildren(
+  PreisrechnerRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -774,7 +805,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeizoelWissenRoute: HeizoelWissenRoute,
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
-  PreisrechnerRoute: PreisrechnerRoute,
+  PreisrechnerRoute: PreisrechnerRouteWithChildren,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
 }
 export const routeTree = rootRouteImport
