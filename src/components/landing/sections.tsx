@@ -7,14 +7,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
-import totalEnergies from "@/assets/total-energies.png.asset.json";
-import aral from "@/assets/aral-logo.webp.asset.json";
-import badenoel from "@/assets/badenoel.jpg.asset.json";
-import emweo from "@/assets/emweo.png.asset.json";
-import hoyer from "@/assets/hoyer.png.asset.json";
-import montana from "@/assets/montana.jpg.asset.json";
-import nordoel from "@/assets/nordoel.jpg.asset.json";
-import team from "@/assets/team.png.asset.json";
 
 export function SectionHead({
   eyebrow,
@@ -38,49 +30,29 @@ export function SectionHead({
 
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
 
-const PARTNERS: { name: string; src: string; className?: string }[] = [
-  { name: "TotalEnergies", src: totalEnergies.url, className: "max-h-14" },
-  { name: "Aral", src: aral.url, className: "max-h-16" },
-  { name: "badenöl24", src: badenoel.url },
-  { name: "emweo", src: emweo.url },
-  { name: "Hoyer", src: hoyer.url, className: "max-h-14" },
-  { name: "Montana", src: montana.url, className: "max-h-14" },
-  { name: "Nordoel", src: nordoel.url },
-  { name: "team", src: team.url },
+const STATS = [
+  { value: "33.429", label: "ZUFRIEDENE KUNDEN" },
+  { value: "4.99/5", label: "KUNDENBEWERTUNG" },
+  { value: "10+", label: "JAHRE ERFAHRUNG" },
+  { value: "500+", label: "PARTNER-HÄNDLER" },
+  { value: "€247", label: "Ø ERSPARNIS" },
 ];
 
 export function TrustBar() {
   return (
-    <section aria-label="Partnerhändler" className="bg-background">
-      <div className="py-8 md:py-10">
-        <div className="partner-marquee overflow-hidden">
-          <div className="partner-marquee-track flex w-max">
-            {[false, true].map((duplicate) => (
-              <ul
-                key={duplicate ? "duplicate" : "primary"}
-                aria-hidden={duplicate || undefined}
-                className="flex shrink-0 items-center gap-8 pr-8 md:gap-10 md:pr-10"
-              >
-                {PARTNERS.map((partner) => (
-                  <li key={partner.name} className="flex h-16 w-32 shrink-0 items-center justify-center md:w-36">
-                    <img
-                      src={partner.src}
-                      alt={duplicate ? "" : partner.name}
-                      loading="lazy"
-                      className={`max-h-12 w-auto max-w-full object-contain ${partner.className ?? ""}`}
-                    />
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
+    <section aria-label="Klaro in Zahlen" className="bg-background">
+      <div className="h-[3px] w-full bg-brand" />
+      <div className="mx-auto max-w-6xl px-5 py-8 md:py-10">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-2xl font-bold text-ink md:text-3xl">{stat.value}</p>
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-wide text-muted-custom md:text-xs">
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </div>
-
-        <p className="mx-auto mt-6 max-w-6xl px-5 text-sm md:mt-7">
-          <a href="#konditionen" className="text-ink underline underline-offset-4">
-            Teilnehmende Heizölhändler
-          </a>
-        </p>
       </div>
     </section>
   );
