@@ -9,6 +9,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import { Logo } from "./logo";
+import totalEnergies from "@/assets/total-energies.png.asset.json";
+import aral from "@/assets/aral-logo.webp.asset.json";
+import badenoel from "@/assets/badenoel.jpg.asset.json";
+import emweo from "@/assets/emweo.png.asset.json";
+import hoyer from "@/assets/hoyer.png.asset.json";
+import montana from "@/assets/montana.jpg.asset.json";
+import nordoel from "@/assets/nordoel.jpg.asset.json";
+import team from "@/assets/team.png.asset.json";
 
 export function SectionHead({
   eyebrow,
@@ -32,24 +40,18 @@ export function SectionHead({
 
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
 
-const PARTNER_ROWS: { name: string }[][] = [
+const PARTNER_ROWS: { name: string; src: string; className?: string }[][] = [
   [
-    { name: "Heizöl Direkt" },
-    { name: "ThermoÖl" },
-    { name: "NordWärme" },
-    { name: "ÖlPartner" },
-    { name: "HeizProfis" },
-    { name: "SüdHeiz" },
-    { name: "Rhein Energie" },
+    { name: "TotalEnergies", src: totalEnergies.url, className: "max-h-14" },
+    { name: "Aral", src: aral.url, className: "max-h-16" },
+    { name: "badenöl24", src: badenoel.url },
+    { name: "emweo", src: emweo.url },
   ],
   [
-    { name: "Hansa Öl" },
-    { name: "BayernWärme" },
-    { name: "Teuto Heizöl" },
-    { name: "Elbe Energie" },
-    { name: "AlpenÖl" },
-    { name: "Ostsee Wärme" },
-    { name: "Ruhr Heizöl" },
+    { name: "Hoyer", src: hoyer.url, className: "max-h-14" },
+    { name: "Montana", src: montana.url, className: "max-h-14" },
+    { name: "Nordoel", src: nordoel.url },
+    { name: "team", src: team.url },
   ],
 ];
 
@@ -71,13 +73,16 @@ export function TrustBar() {
           {PARTNER_ROWS.map((row, i) => (
             <ul
               key={i}
-              className="grid grid-cols-2 items-center gap-x-6 gap-y-7 sm:grid-cols-4 lg:grid-cols-7"
+              className="grid grid-cols-4 items-center gap-x-10 gap-y-7"
             >
               {row.map((p) => (
-                <li key={p.name} className="flex h-11 items-center">
-                  <span className="text-lg font-bold tracking-tight text-muted-custom/70">
-                    {p.name}
-                  </span>
+                <li key={p.name} className="flex h-16 items-center justify-center">
+                  <img
+                    src={p.src}
+                    alt={p.name}
+                    loading="lazy"
+                    className={`max-h-12 w-auto max-w-full object-contain ${p.className ?? ""}`}
+                  />
                 </li>
               ))}
             </ul>
@@ -95,10 +100,13 @@ export function TrustBar() {
                 className="grid w-full shrink-0 snap-start grid-cols-2 grid-rows-2 gap-x-7 gap-y-8"
               >
                 {PARTNERS.slice(pageIndex * 4, pageIndex * 4 + 4).map((partner) => (
-                  <li key={partner.name} className="flex h-14 items-center justify-center">
-                    <span className="text-base font-bold tracking-tight text-muted-custom/70">
-                      {partner.name}
-                    </span>
+                  <li key={partner.name} className="flex h-16 items-center justify-center px-2">
+                    <img
+                      src={partner.src}
+                      alt={partner.name}
+                      loading="lazy"
+                      className={`max-h-12 w-auto max-w-full object-contain ${partner.className ?? ""}`}
+                    />
                   </li>
                 ))}
               </ul>
