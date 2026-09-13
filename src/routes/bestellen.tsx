@@ -47,7 +47,7 @@ const CHECKS = [
   "Ihre Daten sind sicher verschlüsselt",
 ];
 
-const REVIEWS = [
+const REVIEWS: Review[] = [
   { id: 1, name: "Michael R.", when: "vor 3 Tagen", text: "Schnelle Lieferung, fairer Preis. Bestellung war in 2 Minuten erledigt. Gerne wieder!" },
   { id: 2, name: "Sabine K.", when: "vor 5 Tagen", text: "Super Service! Der Fahrer hat vorher angerufen und war pünktlich." },
   { id: 3, name: "Thomas W.", when: "vor 1 Woche", text: "Preis-Leistung stimmt. Übersichtliche Seite und unkomplizierte Abwicklung." },
