@@ -1254,3 +1254,83 @@ export function RegionalSeo() {
     </section>
   );
 }
+
+const CITY_LINKS = [
+  "Heizölpreise Berlin",
+  "Heizöl Hamburg kaufen",
+  "Heizölpreis München heute",
+  "Heizöl Köln bestellen",
+  "Heizölpreise Frankfurt",
+  "Heizöl Düsseldorf bestellen",
+  "Heizölpreis Dortmund heute",
+  "Heizöl Essen kaufen",
+  "Heizölpreise Leipzig",
+  "Heizöl Bremen bestellen",
+  "Heizölpreise Dresden",
+  "Heizöl Hannover kaufen",
+  "Heizölpreis Nürnberg heute",
+  "Heizöl Duisburg bestellen",
+  "Heizölpreise Bielefeld",
+  "Heizöl Bochum bestellen",
+  "Heizölpreise Bonn",
+  "Heizöl Münster kaufen",
+  "Heizölpreis Kiel heute",
+  "Heizölpreise Chemnitz",
+];
+
+const STATE_LINKS = [
+  "Heizölpreise Baden-Württemberg",
+  "Heizöl Bayern kaufen",
+  "Heizölpreise Berlin",
+  "Heizöl Brandenburg bestellen",
+  "Heizölpreise Bremen",
+  "Heizöl Hamburg kaufen",
+  "Heizölpreise Hessen",
+  "Heizöl Meckl.-Vorpommern bestellen",
+  "Heizölpreise Niedersachsen",
+  "Heizöl NRW kaufen",
+  "Heizölpreise Rheinland-Pfalz",
+  "Heizöl Saarland bestellen",
+  "Heizölpreise Sachsen",
+  "Heizöl Sachsen-Anhalt kaufen",
+  "Heizölpreise Schleswig-Holstein",
+  "Heizöl Thüringen bestellen",
+];
+
+function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
+  return (
+    <div className="mt-12 first:mt-0">
+      <h3 className="text-center text-[20px] font-bold leading-[1.3] text-conditions md:text-[24px]">
+        {title}
+      </h3>
+      <div className="mt-6 grid grid-cols-4 gap-x-3 gap-y-3">
+        {links.map((label) => (
+          <a
+            key={label}
+            href="#"
+            className="block text-center text-[13px] leading-snug text-conditions transition-colors hover:text-brand md:text-[14px]"
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function CitySeo() {
+  return (
+    <section className="bg-white" aria-labelledby="city-seo-title">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+        <h2
+          id="city-seo-title"
+          className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+        >
+          Heizöl & Heizölpreise in deutschen Städten
+        </h2>
+        <SeoLinkGroup title="" links={CITY_LINKS} />
+        <SeoLinkGroup title="Heizölpreise nach Bundesland" links={STATE_LINKS} />
+      </div>
+    </section>
+  );
+}
