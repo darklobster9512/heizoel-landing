@@ -234,7 +234,7 @@ function ErgebnisPage() {
                       if (!liters || liters < 1500) setLiters(1500);
                       else if (liters > 32000) setLiters(32000);
                     }}
-                    className={`${fieldClass} w-40 py-2.5 text-right tabular`}
+                    className={`${fieldClass} w-28 py-2.5 text-right tabular`}
                   />
                 </div>
                 <div className="flex items-center justify-between gap-4 py-2">
