@@ -196,10 +196,20 @@ function KontaktPage() {
                         <SelectValue placeholder="Bitte wählen Sie Ihr Anliegen" />
                       </SelectTrigger>
                       <SelectContent>
-                        {TOPICS.map((topic) => (
-                          <SelectItem key={topic.value} value={topic.value}>
-                            {topic.label}
-                          </SelectItem>
+                        {TOPICS.map((group, groupIndex) => (
+                          <SelectGroup key={group.title}>
+                            <SelectLabel className="font-bold text-ink">
+                              {group.title}
+                            </SelectLabel>
+                            {group.options.map((topic) => (
+                              <SelectItem key={topic.value} value={topic.value}>
+                                {topic.label}
+                              </SelectItem>
+                            ))}
+                            {groupIndex < TOPICS.length - 1 && (
+                              <SelectSeparator className="my-1 bg-line" />
+                            )}
+                          </SelectGroup>
                         ))}
                       </SelectContent>
                     </Select>
