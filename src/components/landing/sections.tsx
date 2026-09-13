@@ -5,6 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Check, Droplet, Flame, Info, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
