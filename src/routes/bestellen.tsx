@@ -304,28 +304,33 @@ function BestellenPage() {
                 type="button"
                 onClick={() => select("telefon", "telefon")}
                 aria-pressed={slot?.period === "telefon"}
-                className={`flex w-full items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors ${
+                className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
                   slot?.period === "telefon"
                     ? "border-brand bg-brand/5 ring-1 ring-brand"
                     : "border-line bg-background hover:border-brand/60"
                 }`}
               >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-brand text-white">
-                  <Phone className="h-4.5 w-4.5" aria-hidden="true" />
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
+                  <Phone className="size-5" aria-hidden="true" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[14px] font-bold text-conditions">
+                  <span className="block text-[16px] font-bold text-conditions md:text-[17px]">
                     Termin telefonisch vereinbaren
                   </span>
-                  <span className="block text-[12px] text-muted-custom">
+                  <span className="block text-[14px] text-muted-custom">
                     Lieferfrist: 7 Werktage. Wir melden uns bei Ihnen.
                   </span>
                 </span>
                 {slot?.period === "telefon" ? (
                   <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                    <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                    <Check className="size-3.5" aria-hidden="true" />
                   </span>
-                ) : null}
+                ) : (
+                  <span
+                    className="size-6 shrink-0 rounded-full border-2 border-brand bg-background"
+                    aria-hidden="true"
+                  />
+                )}
               </button>
             </div>
           </section>
