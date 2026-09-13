@@ -211,9 +211,9 @@ const PreisrechnerIndexRoute = PreisrechnerIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PreisrechnerErgebnisRoute = PreisrechnerErgebnisRouteImport.update({
-  id: '/ergebnis',
-  path: '/ergebnis',
-  getParentRoute: () => PreisrechnerRoute,
+  id: '/preisrechner/ergebnis',
+  path: '/preisrechner/ergebnis',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminAntragApplicationIdRoute =
   AuthenticatedAdminAntragApplicationIdRouteImport.update({
@@ -456,6 +456,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
+  PreisrechnerErgebnisRoute: typeof PreisrechnerErgebnisRoute
   PreisrechnerIndexRoute: typeof PreisrechnerIndexRoute
 }
 
@@ -694,10 +695,10 @@ declare module '@tanstack/react-router' {
     }
     '/preisrechner/ergebnis': {
       id: '/preisrechner/ergebnis'
-      path: '/ergebnis'
+      path: '/preisrechner/ergebnis'
       fullPath: '/preisrechner/ergebnis'
       preLoaderRoute: typeof PreisrechnerErgebnisRouteImport
-      parentRoute: typeof PreisrechnerRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/antrag/$applicationId': {
       id: '/_authenticated/admin/antrag/$applicationId'
@@ -794,6 +795,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
+  PreisrechnerErgebnisRoute: PreisrechnerErgebnisRoute,
   PreisrechnerIndexRoute: PreisrechnerIndexRoute,
 }
 export const routeTree = rootRouteImport
