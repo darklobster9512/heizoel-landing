@@ -1140,14 +1140,14 @@ export function ReferralBanner() {
               <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
                 Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
               </p>
-              <p className="mt-3 max-w-[540px] text-[13px] leading-[1.6] text-muted-custom">
-                Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
-              </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
                   <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
                 </Button>
               </div>
+              <p className="mt-4 max-w-[540px] text-[13px] leading-[1.6] text-muted-custom/70">
+                Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
+              </p>
             </div>
           </div>
         </div>
@@ -1168,14 +1168,14 @@ export function ReferralBanner() {
           <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
             Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
           </p>
-          <p className="mt-3 px-2 text-[13px] leading-[1.6] text-muted-custom">
-            Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
-          </p>
           <div className="mt-6 flex justify-center">
             <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
               <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
             </Button>
           </div>
+          <p className="mt-4 px-2 text-[13px] leading-[1.6] text-muted-custom/70">
+            Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
+          </p>
         </div>
       </div>
     </section>
