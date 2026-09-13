@@ -368,15 +368,15 @@ function PreisrechnerPage() {
                 <p className="mt-2">
                   Der Heizölpreis pro Liter liegt heute bei ca.{" "}
                   <strong>1,29 €/Liter</strong> (entspricht 128,78 €/100L). In der
-                  Praxis wird Heizöl ausschließlich in Mengen ab 500 Litern
-                  verkauft — deshalb ist die Angabe €/100L der Standard im
-                  deutschen Heizöl-Markt. Wer wissen möchte, wie der Heizölpreis
-                  pro Liter kalkuliert wird, sollte folgende Komponenten
-                  berücksichtigen: Rohölpreis (ca. 50%), Mineralölsteuer +
-                  CO₂-Abgabe + MwSt. (zusammen ~38%), Logistik & Lagerung (~7%),
-                  Händlermarge (~5%). Bei steigenden Rohölpreisen oder fallenden
-                  Eurokursen verteuert sich der Heizölpreis pro Liter
-                  entsprechend.
+                  Praxis wird Heizöl bei Klaro ab einer Mindestbestellmenge von{" "}
+                  <strong>1.500 Litern</strong> verkauft — deshalb ist die Angabe
+                  €/100L der Standard im deutschen Heizöl-Markt. Wer wissen
+                  möchte, wie der Heizölpreis pro Liter kalkuliert wird, sollte
+                  folgende Komponenten berücksichtigen: Rohölpreis (ca. 50%),
+                  Mineralölsteuer + CO₂-Abgabe + MwSt. (zusammen ~38%), Logistik
+                  & Lagerung (~7%), Händlermarge (~5%). Bei steigenden
+                  Rohölpreisen oder fallenden Eurokursen verteuert sich der
+                  Heizölpreis pro Liter entsprechend.
                 </p>
               </div>
 
