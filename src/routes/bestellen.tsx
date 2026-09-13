@@ -413,18 +413,7 @@ function BestellenPage() {
               <Stars />
               Das sagen unsere Kunden
             </p>
-            <ul className="mt-3">
-              {REVIEWS.map((r) => (
-                <li key={r.name} className="border-t border-line py-3 last:pb-0">
-                  <p className="flex items-center gap-2 text-[13px]">
-                    <Stars className="size-3" />
-                    <span className="font-bold text-conditions">{r.name}</span>
-                    <span className="text-muted-custom">· {r.when}</span>
-                  </p>
-                  <p className="mt-1 text-[13px] leading-[1.6] text-hero-text">{r.text}</p>
-                </li>
-              ))}
-            </ul>
+            <ReviewCarousel />
           </section>
 
           <button
