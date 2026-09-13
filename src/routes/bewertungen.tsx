@@ -108,39 +108,51 @@ function BewertungenPage() {
       <SiteHeader />
       <main>
         {/* Hero */}
-        <section className="border-b border-line bg-surface" aria-labelledby="bew-title">
-          <div className="mx-auto max-w-6xl px-5 py-12 text-center md:py-16">
-            <h1
-              id="bew-title"
-              className="text-[28px] font-bold leading-tight text-conditions md:text-[36px]"
-            >
-              Kundenbewertungen &amp; Vertrauen
-            </h1>
-            <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-custom md:text-[16px]">
-              Über 33.000 zufriedene Kunden bewerten uns mit 4,99 von 5 Sternen
-            </p>
+        <section className="border-b border-line" aria-labelledby="bew-title">
+          <div className="bg-surface">
+            <div className="mx-auto max-w-6xl px-5 py-12 text-center md:py-16">
+              <h1
+                id="bew-title"
+                className="text-[28px] font-bold leading-tight text-conditions md:text-[36px]"
+              >
+                Kundenbewertungen &amp; Vertrauen
+              </h1>
+              <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-custom md:text-[16px]">
+                Über{" "}
+                <strong className="font-bold text-conditions">33.000 zufriedene Kunden</strong>{" "}
+                bewerten uns mit{" "}
+                <strong className="font-bold text-conditions">4,99 von 5 Sternen</strong>
+              </p>
 
-            <div className="mt-8 flex flex-col items-center">
-              <Stars className="size-7 md:size-8" />
-              <p className="mt-3 text-[34px] font-bold leading-none text-conditions md:text-[42px]">
-                4,99{" "}
-                <span className="text-[20px] font-semibold text-muted-custom md:text-[26px]">
-                  / 5
-                </span>
-              </p>
-              <p className="mt-2 text-[13px] text-muted-custom md:text-[14px]">
-                Basierend auf 33.429 verifizierten Bewertungen
-              </p>
+              <div className="mt-7 flex flex-col items-center">
+                <Stars className="size-7 md:size-8" />
+                <p className="mt-3 text-[34px] font-bold leading-none text-conditions md:text-[42px]">
+                  4,99{" "}
+                  <span className="text-[20px] font-semibold text-muted-custom md:text-[26px]">
+                    / 5
+                  </span>
+                </p>
+                <p className="mt-2.5 text-[13px] text-muted-custom md:text-[14px]">
+                  Basierend auf 33.429 verifizierten Bewertungen
+                </p>
+              </div>
             </div>
+          </div>
 
-            {/* Kennzahlen */}
-            <dl className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-y-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line">
+          {/* Goldene Trennlinie */}
+          <div className="h-1 bg-[#f1a319]" aria-hidden="true" />
+
+          {/* Kennzahlen-Band */}
+          <div className="bg-background">
+            <dl className="mx-auto grid max-w-4xl grid-cols-2 gap-y-8 px-5 py-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line md:py-10">
               {STATS.map((stat) => (
-                <div key={stat.label} className="px-3">
-                  <dd className="text-[24px] font-bold leading-tight text-brand md:text-[28px]">
+                <div key={stat.label} className="px-3 text-center">
+                  <dd className="text-[24px] font-bold leading-tight text-conditions md:text-[28px]">
                     {stat.value}
                   </dd>
-                  <dt className="mt-1 text-xs text-muted-custom md:text-[13px]">{stat.label}</dt>
+                  <dt className="mt-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-custom md:text-xs">
+                    {stat.label}
+                  </dt>
                 </div>
               ))}
             </dl>
@@ -166,7 +178,7 @@ function BewertungenPage() {
                   key={cert.title}
                   className="rounded-xl border border-line bg-card p-5 text-center shadow-sm md:p-6"
                 >
-                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-brand">
+                  <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-surface text-conditions">
                     <cert.icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <h3 className="mt-4 text-[15px] font-bold text-ink md:text-[16px]">
