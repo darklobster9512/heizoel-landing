@@ -12,6 +12,7 @@ import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 import barzahlungAsset from "@/assets/barzahlung.png.asset.json";
 import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
 import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
+import lieferfristAsset from "@/assets/lieferfrist.png.asset.json";
 
 const TITLE = "Lieferung & Zahlung | Klaro";
 const DESCRIPTION =
