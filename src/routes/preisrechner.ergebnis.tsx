@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   BadgePercent,
-  CalendarCheck,
   Check,
   CheckCircle2,
   ChevronDown,
@@ -146,13 +145,7 @@ function ErgebnisPage() {
   const [hose, setHose] = useState(HOSE_OPTIONS[0]!);
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
-  // Draft values while editing
   const [editing, setEditing] = useState(false);
-  const [dPlz, setDPlz] = useState(plz);
-  const [dLiters, setDLiters] = useState(liters);
-  const [dPoints, setDPoints] = useState(points);
-  const [dHose, setDHose] = useState(hose);
-  const [dTruck, setDTruck] = useState(truck);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
@@ -175,23 +168,8 @@ function ErgebnisPage() {
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
-  const startEditing = () => {
-    setDPlz(plz);
-    setDLiters(liters);
-    setDPoints(points);
-    setDHose(hose);
-    setDTruck(truck);
-    setEditing(true);
-  };
+  const toggleEditing = () => setEditing((v) => !v);
 
-  const applyDraft = () => {
-    setPlz(dPlz);
-    setLiters(dLiters >= 1500 ? dLiters : 1500);
-    setPoints(dPoints);
-    setHose(dHose);
-    setTruck(dTruck);
-    setEditing(false);
-  };
 
   return (
     <div className="min-h-screen bg-background font-body text-ink">
@@ -210,141 +188,104 @@ function ErgebnisPage() {
 
           {/* Lieferdaten */}
           <div className="mt-5 rounded-xl border border-line bg-background px-4 py-3.5 shadow-card md:px-5">
-            {editing ? (
-              <div>
-                <h2 className="text-[15px] font-bold text-conditions">Ihre Lieferdaten</h2>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="e-plz" className="text-[13px] font-medium text-hero-text">
-                      Postleitzahl
-                    </label>
-                    <input
-                      id="e-plz"
-                      type="text"
-                      inputMode="numeric"
-                      maxLength={5}
-                      placeholder="z. B. 10115"
-                      value={dPlz}
-                      onChange={(e) => setDPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                      className={`${fieldClass} tabular`}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="e-menge" className="text-[13px] font-medium text-hero-text">
-                      Liefermenge in Liter
-                    </label>
-                    <input
-                      id="e-menge"
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="z. B. 3000"
-                      value={dLiters || ""}
-                      onChange={(e) => {
-                        const digits = e.target.value.replace(/\D/g, "");
-                        setDLiters(digits ? Number(digits) : 0);
-                      }}
-                      onBlur={() => {
-                        if (!dLiters || dLiters < 1500) setDLiters(1500);
-                        else if (dLiters > 32000) setDLiters(32000);
-                      }}
-                      className={`${fieldClass} tabular`}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="e-abladestellen"
-                      className="text-[13px] font-medium text-hero-text"
-                    >
-                      Abladestellen
-                    </label>
-                    <Select value={String(dPoints)} onValueChange={(v) => setDPoints(Number(v))}>
-                      <SelectTrigger id="e-abladestellen" className={`${fieldClass} focus:ring-0`}>
-                        <SelectValue placeholder="Abladestellen wählen" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {DELIVERY_POINTS.map((n) => (
-                          <SelectItem key={n} value={String(n)}>
-                            {n}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label htmlFor="e-schlauch" className="text-[13px] font-medium text-hero-text">
-                      Schlauch
-                    </label>
-                    <Select value={dHose} onValueChange={setDHose}>
-                      <SelectTrigger id="e-schlauch" className={`${fieldClass} focus:ring-0`}>
-                        <SelectValue placeholder="Schlauchlänge wählen" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {HOSE_OPTIONS.map((o) => (
-                          <SelectItem key={o} value={o}>
-                            {o}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label htmlFor="e-tankwagen" className="text-[13px] font-medium text-hero-text">
-                      Tankwagen
-                    </label>
-                    <Select value={dTruck} onValueChange={setDTruck}>
-                      <SelectTrigger id="e-tankwagen" className={`${fieldClass} focus:ring-0`}>
-                        <SelectValue placeholder="Tankwagen wählen" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {TRUCK_OPTIONS.map((o) => (
-                          <SelectItem key={o} value={o}>
-                            {o}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <span className="text-[13px] font-medium text-hero-text">Lieferdatum</span>
-                    <p className="mt-1.5 flex w-full items-center gap-2 rounded-md border border-line bg-surface px-3 py-3 text-[14px] text-muted-custom md:px-4">
-                      <CalendarCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
-                      ab {deliveryDate || "—"} (fest)
-                    </p>
-                  </div>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[14px] font-bold text-ink md:text-[15px]">
+                {plz || "—"}
+                <span className="mx-2 font-normal text-muted-custom">·</span>
+                {fmtLiters(liters)} L
+                <span className="mx-2 font-normal text-muted-custom">·</span>
+                ab {deliveryDate || "—"}
+              </p>
+              <button
+                type="button"
+                onClick={toggleEditing}
+                className="shrink-0 text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
+              >
+                {editing ? "schließen" : "ändern"}
+              </button>
+            </div>
+
+            {editing && (
+              <div className="mt-4 border-t border-line pt-4">
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">PLZ</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={5}
+                    placeholder="z. B. 10115"
+                    value={plz}
+                    onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                    className={`${fieldClass} w-32 py-2.5 text-right tabular`}
+                  />
                 </div>
-                <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-                  <button
-                    type="button"
-                    onClick={() => setEditing(false)}
-                    className="inline-flex items-center justify-center rounded-[4px] border border-line bg-background px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:bg-surface"
-                  >
-                    Abbrechen
-                  </button>
-                  <button
-                    type="button"
-                    onClick={applyDraft}
-                    className="inline-flex items-center justify-center rounded-[4px] bg-brand px-5 py-3 text-[14px] font-semibold text-ink shadow-cta transition-colors hover:bg-brand-hover"
-                  >
-                    Preis neu berechnen
-                  </button>
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">Liefermenge</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="z. B. 3000"
+                    value={liters || ""}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, "");
+                      setLiters(digits ? Number(digits) : 0);
+                    }}
+                    onBlur={() => {
+                      if (!liters || liters < 1500) setLiters(1500);
+                      else if (liters > 32000) setLiters(32000);
+                    }}
+                    className={`${fieldClass} w-40 py-2.5 text-right tabular`}
+                  />
                 </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-[14px] font-bold text-ink md:text-[15px]">
-                  {plz || "—"}
-                  <span className="mx-2 font-normal text-muted-custom">·</span>
-                  {fmtLiters(liters)} L
-                  <span className="mx-2 font-normal text-muted-custom">·</span>
-                  ab {deliveryDate || "—"}
-                </p>
-                <button
-                  type="button"
-                  onClick={startEditing}
-                  className="shrink-0 text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
-                >
-                  ändern
-                </button>
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">Lieferstellen</span>
+                  <Select value={String(points)} onValueChange={(v) => setPoints(Number(v))}>
+                    <SelectTrigger className={`${fieldClass} w-auto min-w-[140px] py-2.5 focus:ring-0`}>
+                      <SelectValue placeholder="Abladestellen wählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {DELIVERY_POINTS.map((n) => (
+                        <SelectItem key={n} value={String(n)}>
+                          {n} Lieferstelle{n === 1 ? "" : "n"}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">Schlauch</span>
+                  <Select value={hose} onValueChange={setHose}>
+                    <SelectTrigger className={`${fieldClass} w-auto min-w-[140px] py-2.5 focus:ring-0`}>
+                      <SelectValue placeholder="Schlauchlänge wählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {HOSE_OPTIONS.map((o) => (
+                        <SelectItem key={o} value={o}>
+                          {o}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">Tankwagen</span>
+                  <Select value={truck} onValueChange={setTruck}>
+                    <SelectTrigger className={`${fieldClass} w-auto min-w-[220px] py-2.5 focus:ring-0`}>
+                      <SelectValue placeholder="Tankwagen wählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {TRUCK_OPTIONS.map((o) => (
+                        <SelectItem key={o} value={o}>
+                          {o}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center justify-between gap-4 py-2">
+                  <span className="text-[13px] font-medium text-hero-text">Frühestens lieferbar ab</span>
+                  <span className="text-[14px] font-semibold text-brand">{deliveryDate || "—"}</span>
+                </div>
               </div>
             )}
           </div>
