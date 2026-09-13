@@ -282,7 +282,7 @@ import freeInquiry from "@/assets/free-inquiry.svg.asset.json";
 import getOffers from "@/assets/get-offers.svg.asset.json";
 import closeApplication from "@/assets/close-application.svg.asset.json";
 import coupleOnCouch from "@/assets/couple-on-couch.webp.asset.json";
-import offerList from "@/assets/fake-offer-list.svg.asset.json";
+import offerList from "@/assets/heizoel-offer-list.png.asset.json";
 import interestIcon from "@/assets/interest.svg.asset.json";
 import neutralIcon from "@/assets/neutral.svg.asset.json";
 import freeIcon from "@/assets/free.svg.asset.json";
