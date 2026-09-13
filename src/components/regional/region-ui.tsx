@@ -108,7 +108,11 @@ export function PriceFacts({ extra }: { extra?: { label: string; value: string }
   return (
     <section aria-label="Preisübersicht" className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-8">
-        <dl className="grid grid-cols-2 gap-4 md:grid-cols-4 md:divide-x md:divide-line">
+        <dl
+          className={`grid grid-cols-2 gap-4 md:divide-x md:divide-line ${
+            facts.length === 5 ? "md:grid-cols-5" : "md:grid-cols-4"
+          }`}
+        >
           {facts.map((f) => (
             <div key={f.label} className="px-2 text-center md:px-4">
               <dt className="text-[11px] font-medium uppercase tracking-wide text-muted-custom">
