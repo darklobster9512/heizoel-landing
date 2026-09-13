@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   CalendarDays,
   Check,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   CreditCard,
@@ -1046,8 +1045,7 @@ function BestellenPage() {
               </button>
             )}
           </div>
-        </div>
-      ) : null}
+      </div>
     </div>
   );
 }
