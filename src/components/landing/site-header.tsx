@@ -32,11 +32,10 @@ export function SiteHeader() {
           <RatingBadge />
           <span className="hidden h-8 w-px bg-line sm:block" />
           <Link
-            to="/antrag/schritt-1"
-            search={{}}
+            to="/preisrechner"
             className="inline-flex items-center gap-1 text-sm font-semibold text-brand-deep transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
           >
-            Jetzt anmelden <span aria-hidden="true">›</span>
+            Preis berechnen <span aria-hidden="true">›</span>
           </Link>
         </div>
       </div>
