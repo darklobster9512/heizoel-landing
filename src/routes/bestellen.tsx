@@ -1,11 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Check, ChevronRight, Lock, Phone } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
+  FileText,
+  Lock,
+  Mail,
+  Phone,
+  Truck,
+} from "lucide-react";
 
 import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
+import vorauskasse from "@/assets/vorauskasse.png.asset.json";
+import barzahlung from "@/assets/barzahlung.png.asset.json";
+import ecKarte from "@/assets/ec-karte.png.asset.json";
 
 const TITLE = "Bestellung — Wunschtermin wählen | Klaro";
 const DESCRIPTION =
@@ -73,6 +88,69 @@ const REVIEWS: Review[] = [
   { id: 19, name: "Wolfgang S.", daysAgo: 5, text: "Preisvergleich war einfach, Bestellung noch einfacher. Gerne wieder." },
   { id: 20, name: "Anna H.", daysAgo: 6, text: "Klaro ist mein neuer Standard für Heizöl. Schnell, günstig, zuverlässig." },
 ];
+
+const SALUTATIONS = ["Herr", "Frau", "Firma"] as const;
+type Salutation = (typeof SALUTATIONS)[number];
+
+interface PaymentOption {
+  id: string;
+  label: string;
+  desc: string;
+  hint?: string;
+  badge?: string;
+  icon: { url: string };
+}
+
+const PAYMENT_OPTIONS: PaymentOption[] = [
+  {
+    id: "vorkasse",
+    label: "Vorkasse (SEPA)",
+    desc: "Überweisung vor Lieferung.",
+    badge: "Beliebt",
+    icon: vorauskasse,
+  },
+  {
+    id: "bar",
+    label: "Barzahlung",
+    desc: "Bar an den Fahrer bei Lieferung.",
+    hint: "Neukunden: 50 % Anzahlung",
+    icon: barzahlung,
+  },
+  {
+    id: "ec",
+    label: "EC-Karte",
+    desc: "Kartenzahlung beim Fahrer.",
+    hint: "Neukunden: 50 % Anzahlung",
+    icon: ecKarte,
+  },
+  {
+    id: "rechnung",
+    label: "Rechnung",
+    desc: "Zahlung nach Lieferung.",
+    hint: "Neukunden: 50 % Anzahlung",
+    icon: vorauskasse,
+  },
+];
+
+interface AddressForm {
+  salutation: Salutation;
+  firstName: string;
+  lastName: string;
+  street: string;
+  streetNo: string;
+  plz: string;
+  city: string;
+}
+
+const emptyAddress = (plz = "", city = ""): AddressForm => ({
+  salutation: "Herr",
+  firstName: "",
+  lastName: "",
+  street: "",
+  streetNo: "",
+  plz,
+  city,
+});
 
 function Stars({ className = "size-3.5" }: { className?: string }) {
   return (
@@ -159,16 +237,207 @@ function toIso(d: Date): string {
   ).padStart(2, "0")}`;
 }
 
+const fieldClass = (invalid?: boolean) =>
+  `h-11 w-full rounded-md border bg-background px-3 text-[14px] text-ink outline-none transition-colors placeholder:text-muted-custom focus:border-brand focus:ring-2 focus:ring-brand/20 ${
+    invalid ? "border-red-500" : "border-line"
+  }`;
+
+function Field({
+  label,
+  required,
+  error,
+  children,
+  className = "",
+}: {
+  label: string;
+  required?: boolean | undefined;
+  error?: string | undefined;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <label className="mb-1 block text-[13px] font-bold text-conditions">
+        {label}
+        {required ? <span className="text-red-500"> *</span> : null}
+      </label>
+      {children}
+      {error ? <p className="mt-1 text-[12px] text-red-500">{error}</p> : null}
+    </div>
+  );
+}
+
+function SectionCard({
+  icon,
+  title,
+  hint,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="overflow-hidden rounded-xl border border-line bg-background shadow-card">
+      <div className="flex items-center gap-3 border-b border-line bg-brand/5 px-4 py-3.5">
+        <span className="flex size-9 items-center justify-center rounded-md bg-brand text-white">
+          {icon}
+        </span>
+        <h2 className="text-[16px] font-bold text-conditions">
+          {title}
+          {hint ? (
+            <span className="ml-2 text-[13px] font-normal text-muted-custom">{hint}</span>
+          ) : null}
+        </h2>
+      </div>
+      <div className="px-4 py-4">{children}</div>
+    </section>
+  );
+}
+
+function AddressFields({
+  value,
+  onChange,
+  errors,
+  withSalutationButtons,
+}: {
+  value: AddressForm;
+  onChange: (next: AddressForm) => void;
+  errors: Record<string, string>;
+  withSalutationButtons?: boolean;
+}) {
+  const set = (patch: Partial<AddressForm>) => onChange({ ...value, ...patch });
+  return (
+    <div className="grid gap-3">
+      {withSalutationButtons ? (
+        <div>
+          <p className="mb-1 text-[13px] font-bold text-conditions">Anrede</p>
+          <div className="grid grid-cols-3 gap-2">
+            {SALUTATIONS.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => set({ salutation: s })}
+                aria-pressed={value.salutation === s}
+                className={`flex h-11 items-center justify-center gap-1.5 rounded-md border text-[14px] font-semibold transition-colors ${
+                  value.salutation === s
+                    ? "border-brand bg-brand/5 text-conditions ring-1 ring-brand"
+                    : "border-line bg-background text-ink hover:border-brand/60"
+                }`}
+              >
+                {value.salutation === s ? (
+                  <Check className="h-4 w-4 text-brand" aria-hidden="true" />
+                ) : null}
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Field label="Anrede">
+          <select
+            value={value.salutation}
+            onChange={(e) => set({ salutation: e.target.value as Salutation })}
+            className={fieldClass()}
+          >
+            {SALUTATIONS.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Field label="Vorname" required={withSalutationButtons} error={errors["firstName"]}>
+          <input
+            value={value.firstName}
+            onChange={(e) => set({ firstName: e.target.value })}
+            placeholder="Vorname"
+            className={fieldClass(!!errors["firstName"])}
+            autoComplete="given-name"
+          />
+        </Field>
+        <Field label="Nachname" required={withSalutationButtons} error={errors["lastName"]}>
+          <input
+            value={value.lastName}
+            onChange={(e) => set({ lastName: e.target.value })}
+            placeholder="Nachname"
+            className={fieldClass(!!errors["lastName"])}
+            autoComplete="family-name"
+          />
+        </Field>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-[1fr_120px]">
+        <Field label="Straße" required={withSalutationButtons} error={errors["street"]}>
+          <input
+            value={value.street}
+            onChange={(e) => set({ street: e.target.value })}
+            placeholder="Straße"
+            className={fieldClass(!!errors["street"])}
+            autoComplete="street-address"
+          />
+        </Field>
+        <Field label="Nr." required={withSalutationButtons} error={errors["streetNo"]}>
+          <input
+            value={value.streetNo}
+            onChange={(e) => set({ streetNo: e.target.value })}
+            placeholder="Nr."
+            className={fieldClass(!!errors["streetNo"])}
+          />
+        </Field>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
+        <Field label="PLZ" required={withSalutationButtons} error={errors["plz"]}>
+          <input
+            value={value.plz}
+            onChange={(e) => set({ plz: e.target.value.replace(/\D/g, "").slice(0, 5) })}
+            placeholder="PLZ"
+            inputMode="numeric"
+            className={fieldClass(!!errors["plz"])}
+            autoComplete="postal-code"
+          />
+        </Field>
+        <Field label="Ort" required={withSalutationButtons} error={errors["city"]}>
+          <input
+            value={value.city}
+            onChange={(e) => set({ city: e.target.value })}
+            placeholder="Ort"
+            className={fieldClass(!!errors["city"])}
+            autoComplete="address-level2"
+          />
+        </Field>
+      </div>
+    </div>
+  );
+}
+
 function BestellenPage() {
   const [draft, setDraft] = useState<OrderDraft | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [slot, setSlot] = useState<{ date: string; period: "vormittag" | "nachmittag" | "telefon" } | null>(
     null,
   );
-  const [notice, setNotice] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [submitted, setSubmitted] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [delivery, setDelivery] = useState<AddressForm>(emptyAddress());
+  const [billingDifferent, setBillingDifferent] = useState(false);
+  const [billing, setBilling] = useState<AddressForm>(emptyAddress());
+  const [notes, setNotes] = useState("");
+  const [payment, setPayment] = useState("vorkasse");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    setDraft(loadOrderDraft());
+    const d = loadOrderDraft();
+    setDraft(d);
+    if (d) {
+      setDelivery(emptyAddress(d.plz, d.city ?? ""));
+      if (d.slot) setSlot(d.slot);
+    }
     setLoaded(true);
   }, []);
 
@@ -188,20 +457,58 @@ function BestellenPage() {
 
   const select = (date: string, period: "vormittag" | "nachmittag" | "telefon") => {
     setSlot({ date, period });
-    setNotice(false);
     if (draft) saveOrderDraft({ ...draft, slot: { date, period } });
   };
 
   const proceed = () => {
     if (!slot) return;
-    setNotice(true);
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const slotLabel = (() => {
+    if (!slot) return "";
+    if (slot.period === "telefon") return "Termin telefonisch vereinbaren";
+    const day = days.find((d) => d.iso === slot.date);
+    const period = slot.period === "vormittag" ? "Vormittag (8:00 - 12:00 Uhr)" : "Nachmittag (15:00 - 18:00 Uhr)";
+    return day ? `${day.weekday}, ${day.date} · ${period}` : period;
+  })();
+
+  const validate = (): boolean => {
+    const next: Record<string, string> = {};
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()))
+      next["email"] = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    if (phone.trim().length < 5) next["phone"] = "Bitte geben Sie Ihre Telefonnummer ein.";
+    if (!delivery.firstName.trim()) next["firstName"] = "Bitte ausfüllen.";
+    if (!delivery.lastName.trim()) next["lastName"] = "Bitte ausfüllen.";
+    if (!delivery.street.trim()) next["street"] = "Bitte ausfüllen.";
+    if (!delivery.streetNo.trim()) next["streetNo"] = "Bitte ausfüllen.";
+    if (!/^\d{5}$/.test(delivery.plz)) next["plz"] = "5-stellige PLZ eingeben.";
+    if (!delivery.city.trim()) next["city"] = "Bitte ausfüllen.";
+    if (billingDifferent) {
+      if (!billing.firstName.trim()) next["b_firstName"] = "Bitte ausfüllen.";
+      if (!billing.lastName.trim()) next["b_lastName"] = "Bitte ausfüllen.";
+      if (!billing.street.trim()) next["b_street"] = "Bitte ausfüllen.";
+      if (!billing.streetNo.trim()) next["b_streetNo"] = "Bitte ausfüllen.";
+      if (!/^\d{5}$/.test(billing.plz)) next["b_plz"] = "5-stellige PLZ eingeben.";
+      if (!billing.city.trim()) next["b_city"] = "Bitte ausfüllen.";
+    }
+    setErrors(next);
+    if (Object.keys(next).length > 0) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return false;
+    }
+    return true;
+  };
+
+  const submit = () => {
+    if (!validate()) return;
+    setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!loaded) {
-    return (
-      <div className="min-h-screen bg-surface font-body text-ink">
-      </div>
-    );
+    return <div className="min-h-screen bg-surface font-body text-ink" />;
   }
 
   if (!draft) {
@@ -234,6 +541,11 @@ function BestellenPage() {
         : "border-line bg-background hover:border-brand/60"
     }`;
 
+  const billingErrors: Record<string, string> = {};
+  for (const [k, v] of Object.entries(errors)) {
+    if (k.startsWith("b_")) billingErrors[k.slice(2)] = v;
+  }
+
   return (
     <div className="min-h-screen bg-surface font-body text-ink">
       {/* Sticky Zusammenfassung */}
@@ -261,214 +573,468 @@ function BestellenPage() {
 
       <main className="px-4 py-5">
         <div className="mx-auto max-w-3xl">
-          {/* Vertrauenszeile */}
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-            <div className="flex items-center gap-3">
-              <div>
-                <Stars />
-                <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
-              </div>
-              <span className="h-8 w-px bg-line" />
-              <div>
+          {submitted ? (
+            /* Bestätigung */
+            <div className="rounded-xl border border-line bg-background px-6 py-10 text-center shadow-card">
+              <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-brand/10 text-brand">
+                <CheckCircle2 className="size-8" aria-hidden="true" />
+              </span>
+              <h1 className="mt-4 text-[24px] font-bold text-conditions md:text-[28px]">
+                Vielen Dank für Ihre Bestellung!
+              </h1>
+              <p className="mt-2 text-[14px] text-muted-custom">
+                Ihre Bestellnummer: <span className="font-bold text-conditions">KL-2026-48213</span>
+              </p>
+              <div className="mx-auto mt-5 max-w-md rounded-lg border border-line bg-surface px-4 py-4 text-left">
                 <p className="text-[14px] font-bold text-conditions">
-                  Über 25.000 zufriedene Kunden
+                  {fmtLiters(draft.liters)} L {sortLabel} — {fmtEuro(draft.total)} €
                 </p>
-                <p className="text-[12px] text-muted-custom">
-                  Bestellung jederzeit kostenlos stornierbar
+                <p className="mt-1 text-[13px] text-muted-custom">{slotLabel}</p>
+                <p className="mt-1 text-[13px] text-muted-custom">
+                  {delivery.street} {delivery.streetNo}, {delivery.plz} {delivery.city}
+                </p>
+                <p className="mt-1 text-[13px] text-muted-custom">
+                  Zahlungsart: {PAYMENT_OPTIONS.find((p) => p.id === payment)?.label}
                 </p>
               </div>
+              <p className="mt-4 text-[13px] text-muted-custom">
+                Eine Bestätigung wurde an <span className="font-semibold text-ink">{email}</span>{" "}
+                gesendet.
+              </p>
+              <Link
+                to="/"
+                className="mt-6 inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+              >
+                Zur Startseite
+              </Link>
             </div>
-            <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
-              <Lock className="h-4 w-4" aria-hidden="true" />
-              Sichere Bestellung
-            </p>
-          </div>
-
-          {/* Siegel */}
-          <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
-              Geprüft &amp; sicher
-            </p>
-            <span className="h-6 w-px bg-line" />
-            <img src={trustedShops.url} alt="Trusted Shops" className="h-7 w-auto object-contain" loading="lazy" />
-            <img src={ekomi.url} alt="eKomi" className="h-7 w-auto object-contain" loading="lazy" />
-            <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
-          </div>
-
-          {/* Titel */}
-          <h1 className="mt-6 text-[24px] font-bold leading-[1.25] text-conditions md:text-[28px]">
-            Wann soll geliefert werden?
-          </h1>
-          <p className="mt-1.5 text-[14px] text-muted-custom">
-            Wählen Sie Ihren Wunschtermin — <span className="font-semibold text-ink">keine Anmeldung nötig</span>.
-          </p>
-          <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
-            {CHECKS.map((c) => (
-              <li key={c} className="flex items-center gap-2 text-[13px] text-hero-text">
-                <Check className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
-                {c}
-              </li>
-            ))}
-          </ul>
-
-          {/* Schritte */}
-          <div className="mt-5 flex items-center gap-3 rounded-xl border border-line bg-background px-4 py-4 shadow-card">
-            <div className="flex flex-col items-center gap-1">
-              <span className="flex size-7 items-center justify-center rounded-full bg-brand text-[13px] font-bold text-white">
-                1
-              </span>
-              <span className="text-[12px] font-bold text-conditions">Termin</span>
-            </div>
-            <span className="h-px flex-1 bg-line" />
-            <div className="flex flex-col items-center gap-1">
-              <span className="flex size-7 items-center justify-center rounded-full bg-surface text-[13px] font-bold text-muted-custom">
-                2
-              </span>
-              <span className="text-[12px] text-muted-custom">Daten &amp; Zahlung</span>
-            </div>
-          </div>
-
-          {/* Terminauswahl */}
-          <section
-            className="mt-4 overflow-hidden rounded-xl border border-line bg-background shadow-card"
-            aria-labelledby="termin-title"
-          >
-            <div className="flex items-center gap-3 border-b border-line bg-brand/5 px-4 py-3.5">
-              <span className="flex size-9 items-center justify-center rounded-md bg-brand text-white">
-                <CalendarDays className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h2 id="termin-title" className="text-[16px] font-bold text-conditions">
-                Wann darf geliefert werden?
-              </h2>
-            </div>
-
-            <div className="px-4 py-4">
-              {days.map((d) => (
-                <div key={d.iso} className="mb-3 overflow-hidden rounded-lg border border-line last:mb-0">
-                  <div className="flex items-center justify-between gap-3 bg-surface px-3 py-2.5">
-                    <p className="text-[14px] font-bold text-conditions">{d.weekday}</p>
-                    <p className="text-[14px] font-bold text-conditions">{d.date}</p>
+          ) : (
+            <>
+              {/* Vertrauenszeile */}
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
+                <div className="flex items-center gap-3">
+                  <div>
+                    <Stars />
+                    <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
                   </div>
-                  <div className="flex flex-col gap-2 p-3 sm:flex-row">
-                    <button
-                      type="button"
-                      onClick={() => select(d.iso, "vormittag")}
-                      aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
-                      className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
-                    >
-                      <p className="text-[14px] font-bold text-conditions">Vormittag</p>
-                      <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => select(d.iso, "nachmittag")}
-                      aria-pressed={slot?.date === d.iso && slot?.period === "nachmittag"}
-                      className={slotCardClass(slot?.date === d.iso && slot?.period === "nachmittag")}
-                    >
-                      <p className="text-[14px] font-bold text-conditions">Nachmittag</p>
-                      <p className="text-[12px] text-muted-custom">15:00 - 18:00 Uhr</p>
-                    </button>
+                  <span className="h-8 w-px bg-line" />
+                  <div>
+                    <p className="text-[14px] font-bold text-conditions">
+                      Über 25.000 zufriedene Kunden
+                    </p>
+                    <p className="text-[12px] text-muted-custom">
+                      Bestellung jederzeit kostenlos stornierbar
+                    </p>
                   </div>
                 </div>
-              ))}
-
-              <div className="my-4 flex items-center gap-3">
-                <span className="h-px flex-1 bg-line" />
-                <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
-                  oder
-                </span>
-                <span className="h-px flex-1 bg-line" />
+                <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
+                  <Lock className="h-4 w-4" aria-hidden="true" />
+                  Sichere Bestellung
+                </p>
               </div>
 
-              <button
-                type="button"
-                onClick={() => select("telefon", "telefon")}
-                aria-pressed={slot?.period === "telefon"}
-                className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
-                  slot?.period === "telefon"
-                    ? "border-brand bg-brand/5 ring-1 ring-brand"
-                    : "border-line bg-background hover:border-brand/60"
-                }`}
-              >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
-                  <Phone className="size-5" aria-hidden="true" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[16px] font-bold text-conditions md:text-[17px]">
-                    Termin telefonisch vereinbaren
-                  </span>
-                  <span className="block text-[14px] text-muted-custom">
-                    Lieferfrist: 7 Werktage. Wir melden uns bei Ihnen.
-                  </span>
-                </span>
-                {slot?.period === "telefon" ? (
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                    <Check className="size-3.5" aria-hidden="true" />
-                  </span>
+              {/* Siegel */}
+              <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
+                  Geprüft &amp; sicher
+                </p>
+                <span className="h-6 w-px bg-line" />
+                <img src={trustedShops.url} alt="Trusted Shops" className="h-7 w-auto object-contain" loading="lazy" />
+                <img src={ekomi.url} alt="eKomi" className="h-7 w-auto object-contain" loading="lazy" />
+                <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
+              </div>
+
+              {/* Titel */}
+              <h1 className="mt-6 text-[24px] font-bold leading-[1.25] text-conditions md:text-[28px]">
+                {step === 1 ? "Wann soll geliefert werden?" : "Fast fertig — nur noch Ihre Daten"}
+              </h1>
+              <p className="mt-1.5 text-[14px] text-muted-custom">
+                {step === 1 ? (
+                  <>
+                    Wählen Sie Ihren Wunschtermin —{" "}
+                    <span className="font-semibold text-ink">keine Anmeldung nötig</span>.
+                  </>
                 ) : (
-                  <span
-                    className="size-6 shrink-0 rounded-full border-2 border-line bg-background"
-                    aria-hidden="true"
-                  />
+                  "Ihr Termin ist reserviert. Noch wenige Angaben und Ihre Bestellung ist abgeschlossen."
                 )}
-              </button>
-            </div>
-          </section>
+              </p>
+              <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
+                {CHECKS.map((c) => (
+                  <li key={c} className="flex items-center gap-2 text-[13px] text-hero-text">
+                    <Check className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
 
-          {/* Kundenstimmen */}
-          <section
-            className="mt-4 rounded-xl border border-line bg-background px-4 py-4 shadow-card"
-            aria-labelledby="stimmen-title"
-          >
-            <p id="stimmen-title" className="flex items-center gap-2 text-[14px] font-bold text-conditions">
-              <Stars />
-              Das sagen unsere Kunden
-            </p>
-            <ReviewCarousel />
-          </section>
+              {/* Schritte */}
+              <div className="mt-5 flex items-center gap-3 rounded-xl border border-line bg-background px-4 py-4 shadow-card">
+                <div className="flex flex-col items-center gap-1">
+                  {step === 2 ? (
+                    <span className="flex size-7 items-center justify-center rounded-full bg-brand text-white">
+                      <Check className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  ) : (
+                    <span className="flex size-7 items-center justify-center rounded-full bg-brand text-[13px] font-bold text-white">
+                      1
+                    </span>
+                  )}
+                  <span className="text-[12px] font-bold text-conditions">Termin</span>
+                </div>
+                <span className={`h-px flex-1 ${step === 2 ? "bg-brand" : "bg-line"}`} />
+                <div className="flex flex-col items-center gap-1">
+                  <span
+                    className={`flex size-7 items-center justify-center rounded-full text-[13px] font-bold ${
+                      step === 2 ? "bg-brand text-white" : "bg-surface text-muted-custom"
+                    }`}
+                  >
+                    2
+                  </span>
+                  <span
+                    className={`text-[12px] ${step === 2 ? "font-bold text-conditions" : "text-muted-custom"}`}
+                  >
+                    Daten &amp; Zahlung
+                  </span>
+                </div>
+              </div>
 
-          <button
-            type="button"
-            onClick={proceed}
-            disabled={!slot}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Weiter zu Ihren Daten
-            <ChevronRight className="h-4 w-4" aria-hidden="true" />
-          </button>
-          {notice ? (
-            <p className="mt-2 text-center text-[13px] text-muted-custom">
-              Termin gespeichert. Schritt 2 „Daten &amp; Zahlung" folgt in Kürze.
-            </p>
-          ) : null}
-          {!slot ? (
-            <p className="mt-2 text-center text-[13px] text-muted-custom">
-              Bitte wählen Sie einen Termin oder die telefonische Absprache.
-            </p>
-          ) : null}
+              {step === 1 ? (
+                <>
+                  {/* Terminauswahl */}
+                  <section
+                    className="mt-4 overflow-hidden rounded-xl border border-line bg-background shadow-card"
+                    aria-labelledby="termin-title"
+                  >
+                    <div className="flex items-center gap-3 border-b border-line bg-brand/5 px-4 py-3.5">
+                      <span className="flex size-9 items-center justify-center rounded-md bg-brand text-white">
+                        <CalendarDays className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h2 id="termin-title" className="text-[16px] font-bold text-conditions">
+                        Wann darf geliefert werden?
+                      </h2>
+                    </div>
+
+                    <div className="px-4 py-4">
+                      {days.map((d) => (
+                        <div key={d.iso} className="mb-3 overflow-hidden rounded-lg border border-line last:mb-0">
+                          <div className="flex items-center justify-between gap-3 bg-surface px-3 py-2.5">
+                            <p className="text-[14px] font-bold text-conditions">{d.weekday}</p>
+                            <p className="text-[14px] font-bold text-conditions">{d.date}</p>
+                          </div>
+                          <div className="flex flex-col gap-2 p-3 sm:flex-row">
+                            <button
+                              type="button"
+                              onClick={() => select(d.iso, "vormittag")}
+                              aria-pressed={slot?.date === d.iso && slot?.period === "vormittag"}
+                              className={slotCardClass(slot?.date === d.iso && slot?.period === "vormittag")}
+                            >
+                              <p className="text-[14px] font-bold text-conditions">Vormittag</p>
+                              <p className="text-[12px] text-muted-custom">8:00 - 12:00 Uhr</p>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => select(d.iso, "nachmittag")}
+                              aria-pressed={slot?.date === d.iso && slot?.period === "nachmittag"}
+                              className={slotCardClass(slot?.date === d.iso && slot?.period === "nachmittag")}
+                            >
+                              <p className="text-[14px] font-bold text-conditions">Nachmittag</p>
+                              <p className="text-[12px] text-muted-custom">15:00 - 18:00 Uhr</p>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      <div className="my-4 flex items-center gap-3">
+                        <span className="h-px flex-1 bg-line" />
+                        <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
+                          oder
+                        </span>
+                        <span className="h-px flex-1 bg-line" />
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => select("telefon", "telefon")}
+                        aria-pressed={slot?.period === "telefon"}
+                        className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
+                          slot?.period === "telefon"
+                            ? "border-brand bg-brand/5 ring-1 ring-brand"
+                            : "border-line bg-background hover:border-brand/60"
+                        }`}
+                      >
+                        <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
+                          <Phone className="size-5" aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[16px] font-bold text-conditions md:text-[17px]">
+                            Termin telefonisch vereinbaren
+                          </span>
+                          <span className="block text-[14px] text-muted-custom">
+                            Lieferfrist: 7 Werktage. Wir melden uns bei Ihnen.
+                          </span>
+                        </span>
+                        {slot?.period === "telefon" ? (
+                          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                            <Check className="size-3.5" aria-hidden="true" />
+                          </span>
+                        ) : (
+                          <span
+                            className="size-6 shrink-0 rounded-full border-2 border-line bg-background"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </button>
+                    </div>
+                  </section>
+
+                  {/* Kundenstimmen */}
+                  <section
+                    className="mt-4 rounded-xl border border-line bg-background px-4 py-4 shadow-card"
+                    aria-labelledby="stimmen-title"
+                  >
+                    <p id="stimmen-title" className="flex items-center gap-2 text-[14px] font-bold text-conditions">
+                      <Stars />
+                      Das sagen unsere Kunden
+                    </p>
+                    <ReviewCarousel />
+                  </section>
+
+                  <button
+                    type="button"
+                    onClick={proceed}
+                    disabled={!slot}
+                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Weiter zu Ihren Daten
+                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  {!slot ? (
+                    <p className="mt-2 text-center text-[13px] text-muted-custom">
+                      Bitte wählen Sie einen Termin oder die telefonische Absprache.
+                    </p>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  {/* Zurück */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStep(1);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-line bg-background px-3 py-2 text-[13px] font-semibold text-conditions transition-colors hover:border-brand/60"
+                  >
+                    <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                    Zurück zum Termin
+                  </button>
+
+                  <div className="mt-4 grid gap-4">
+                    {/* Kontakt */}
+                    <SectionCard icon={<Mail className="h-5 w-5" aria-hidden="true" />} title="Kontakt">
+                      <div className="grid gap-3">
+                        <Field label="E-Mail-Adresse" required error={errors["email"]}>
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="z.B. max@mustermann.de"
+                            className={fieldClass(!!errors["email"])}
+                            autoComplete="email"
+                          />
+                        </Field>
+                        <div className="rounded-lg border border-line bg-surface p-3">
+                          <Field label="Telefonnummer" required error={errors["phone"]}>
+                            <input
+                              type="tel"
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                              placeholder="z.B. 0170 1234567"
+                              className={fieldClass(!!errors["phone"])}
+                              autoComplete="tel"
+                            />
+                          </Field>
+                          <p className="mt-2 flex items-start gap-1.5 text-[12px] text-muted-custom">
+                            <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand" aria-hidden="true" />
+                            <span>
+                              <span className="font-bold text-conditions">Wichtig:</span> Der
+                              Lieferfahrer ruft Sie 30 Min. vor Ankunft an.
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </SectionCard>
+
+                    {/* Lieferadresse */}
+                    <SectionCard icon={<Truck className="h-5 w-5" aria-hidden="true" />} title="Lieferadresse">
+                      <AddressFields
+                        value={delivery}
+                        onChange={setDelivery}
+                        errors={errors}
+                        withSalutationButtons
+                      />
+                    </SectionCard>
+
+                    {/* Weitere Angaben */}
+                    <SectionCard
+                      icon={<FileText className="h-5 w-5" aria-hidden="true" />}
+                      title="Weitere Angaben"
+                      hint="(optional)"
+                    >
+                      <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-surface px-3 py-3">
+                        <input
+                          type="checkbox"
+                          checked={billingDifferent}
+                          onChange={(e) => setBillingDifferent(e.target.checked)}
+                          className="mt-0.5 size-4 accent-brand"
+                        />
+                        <span className="text-[13px]">
+                          <span className="font-bold text-conditions">Andere Rechnungsadresse?</span>{" "}
+                          <span className="text-muted-custom">
+                            Nur ankreuzen, wenn die Rechnung nicht an die Lieferadresse gehen soll.
+                          </span>
+                        </span>
+                      </label>
+
+                      {billingDifferent ? (
+                        <div className="mt-3 rounded-lg border border-line bg-surface p-3">
+                          <AddressFields
+                            value={billing}
+                            onChange={setBilling}
+                            errors={billingErrors}
+                          />
+                        </div>
+                      ) : null}
+
+                      <div className="mt-3">
+                        <Field label="Hinweise zur Lieferung">
+                          <textarea
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            placeholder="z.B. Tank im Keller, Einfahrt rechts"
+                            rows={3}
+                            className="w-full rounded-md border border-line bg-background px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted-custom focus:border-brand focus:ring-2 focus:ring-brand/20"
+                          />
+                        </Field>
+                      </div>
+                    </SectionCard>
+
+                    {/* Zahlungsmethode */}
+                    <SectionCard
+                      icon={<CreditCard className="h-5 w-5" aria-hidden="true" />}
+                      title="Zahlungsmethode"
+                    >
+                      <div className="grid gap-3" role="radiogroup" aria-label="Zahlungsmethode">
+                        {PAYMENT_OPTIONS.map((p) => {
+                          const active = payment === p.id;
+                          return (
+                            <button
+                              key={p.id}
+                              type="button"
+                              role="radio"
+                              aria-checked={active}
+                              onClick={() => setPayment(p.id)}
+                              className={`relative flex items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors ${
+                                active
+                                  ? "border-brand bg-brand/5 ring-1 ring-brand"
+                                  : "border-line bg-background hover:border-brand/60"
+                              }`}
+                            >
+                              <span
+                                className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 ${
+                                  active ? "border-brand" : "border-line"
+                                }`}
+                                aria-hidden="true"
+                              >
+                                {active ? <span className="size-2.5 rounded-full bg-brand" /> : null}
+                              </span>
+                              <img
+                                src={p.icon.url}
+                                alt=""
+                                className="h-9 w-auto shrink-0 object-contain"
+                                loading="lazy"
+                              />
+                              <span className="min-w-0 flex-1">
+                                <span className="block text-[14px] font-bold text-conditions">
+                                  {p.label}
+                                </span>
+                                <span className="block text-[12px] text-muted-custom">{p.desc}</span>
+                                {p.hint ? (
+                                  <span className="mt-1 inline-block rounded bg-surface px-1.5 py-0.5 text-[11px] font-semibold text-muted-custom">
+                                    {p.hint}
+                                  </span>
+                                ) : null}
+                              </span>
+                              {p.badge ? (
+                                <span className="absolute -top-2 right-3 rounded-sm bg-brand px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                                  {p.badge}
+                                </span>
+                              ) : null}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </SectionCard>
+                  </div>
+
+                  {Object.keys(errors).length > 0 ? (
+                    <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[13px] font-semibold text-red-600">
+                      Bitte prüfen Sie die markierten Felder.
+                    </p>
+                  ) : null}
+
+                  <button
+                    type="button"
+                    onClick={submit}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                  >
+                    Jetzt verbindlich bestellen
+                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  <p className="mt-2 text-center text-[12px] text-muted-custom">
+                    Mit Klick auf „Jetzt verbindlich bestellen" geben Sie eine verbindliche Bestellung
+                    ab.
+                  </p>
+                </>
+              )}
+            </>
+          )}
         </div>
       </main>
 
       {/* Sticky Preisleiste */}
-      <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
-          <div>
-            <p className="text-[17px] font-bold leading-tight text-conditions">
-              {fmtEuro(draft.total)} €
-            </p>
-            <p className="text-[12px] text-muted-custom">inkl. MwSt. · kostenlose Lieferung</p>
+      {!submitted ? (
+        <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
+          <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
+            <div>
+              <p className="text-[17px] font-bold leading-tight text-conditions">
+                {fmtEuro(draft.total)} €
+              </p>
+              <p className="text-[12px] text-muted-custom">inkl. MwSt. · kostenlose Lieferung</p>
+            </div>
+            {step === 1 ? (
+              <button
+                type="button"
+                onClick={proceed}
+                disabled={!slot}
+                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Weiter
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={submit}
+                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+              >
+                Bestellen
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            )}
           </div>
-          <button
-            type="button"
-            onClick={proceed}
-            disabled={!slot}
-            className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Weiter
-            <ChevronRight className="h-4 w-4" aria-hidden="true" />
-          </button>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
