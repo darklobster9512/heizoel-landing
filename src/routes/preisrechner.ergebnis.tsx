@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
-import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
+import { SiteFooter } from "@/components/landing/sections";
 import {
   Select,
   SelectContent,
@@ -195,7 +195,7 @@ function ErgebnisPage() {
       <SiteHeader />
       <main>
         <section className="border-b-[3px] border-b-brand bg-surface">
-          <div className="mx-auto max-w-6xl px-5 py-10 md:py-14">
+          <div className="mx-auto max-w-3xl px-5 py-10 md:py-14">
             <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
               <h1 className="text-[26px] font-bold leading-[1.25] text-conditions md:text-[36px]">
                 Ihr persönliches Heizölangebot
@@ -206,7 +206,7 @@ function ErgebnisPage() {
         </section>
 
         <section className="bg-background">
-          <div className="mx-auto max-w-6xl px-5 py-8 md:py-10">
+          <div className="mx-auto max-w-3xl px-5 py-8 md:py-10">
             {/* Lieferdaten: summary + edit-on-click */}
             <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-card md:px-6">
               {editing ? (
@@ -503,7 +503,7 @@ function ErgebnisPage() {
         </section>
 
         <section className="bg-white" aria-labelledby="vorteile-title">
-          <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+          <div className="mx-auto max-w-3xl px-5 py-12 md:py-16">
             <h2
               id="vorteile-title"
               className="text-center text-[22px] font-bold text-conditions md:text-[26px]"
@@ -530,7 +530,7 @@ function ErgebnisPage() {
           </div>
         </section>
       </main>
-      <ReferralBanner compact />
+      
       <SiteFooter />
     </div>
   );
