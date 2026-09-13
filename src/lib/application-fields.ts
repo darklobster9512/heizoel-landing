@@ -1,6 +1,6 @@
-import type { Tables } from "@/integrations/supabase/types";
+import type { LoanApplication } from "@/lib/mock-data";
 
-export type Application = Tables<"loan_applications">;
+export type Application = LoanApplication;
 
 export const GROUPS: { title: string; fields: [keyof Application, string][] }[] = [
   {

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Logo } from "@/components/landing/logo";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import { signOut } from "@/lib/mock-auth";
 
 export function AppShell({
   title,
@@ -23,7 +23,7 @@ export function AppShell({
   async function handleSignOut() {
     await queryClient.cancelQueries();
     queryClient.clear();
-    await supabase.auth.signOut();
+    await signOut();
     navigate({ to: "/auth", replace: true });
   }
 
