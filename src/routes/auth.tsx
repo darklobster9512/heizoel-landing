@@ -7,7 +7,7 @@ import { Logo } from "@/components/landing/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { supabase } from "@/integrations/supabase/client";
+import { getSession, signIn, signUp } from "@/lib/mock-auth";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -31,10 +31,6 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-async function getIsAdmin(userId: string): Promise<boolean> {
-  const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
-  return data?.some((r) => r.role === "admin") ?? false;
-}
 
 const schema = z.object({
   email: z.string().trim().email({ message: "Bitte geben Sie eine gültige E-Mail-Adresse ein." }).max(255),
