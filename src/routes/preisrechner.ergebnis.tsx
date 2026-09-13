@@ -6,8 +6,6 @@ import {
   Check,
   CheckCircle2,
   ChevronDown,
-  FileText,
-  Flame,
   Lock,
   ShieldCheck,
   ThumbsUp,
@@ -29,6 +27,7 @@ import ekomi from "@/assets/ekomi.webp.asset.json";
 import vorauskasse from "@/assets/vorauskasse.png.asset.json";
 import barzahlung from "@/assets/barzahlung.png.asset.json";
 import ecKarte from "@/assets/ec-karte.png.asset.json";
+import dropGreen from "@/assets/drop-green.png.asset.json";
 
 const TITLE = "Ihr persönliches Heizölangebot | Klaro";
 const DESCRIPTION =
