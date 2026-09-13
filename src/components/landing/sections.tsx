@@ -846,7 +846,10 @@ function FooterLinkList({ items }: { items: { label: string; href: string }[] })
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-card text-ink">
+    <>
+      <CitySeo />
+
+      <footer className="border-t border-line bg-card text-ink">
       <div className="mx-auto max-w-[1283px] px-5 py-10 md:px-[66px] md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.25fr_0.9fr_0.9fr_1.15fr] md:gap-10">
           <div>
@@ -917,8 +920,6 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <CitySeo />
-
       <div className="border-y border-line bg-surface">
         <div className="mx-auto max-w-[1283px] px-5 py-8 md:px-[66px]">
           <h4 className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-footer-text">
@@ -952,7 +953,8 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 }
 
