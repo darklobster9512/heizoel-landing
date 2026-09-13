@@ -959,11 +959,11 @@ export function SiteFooter() {
 }
 
 
-export function ReferralBanner() {
+export function ReferralBanner({ compact = false }: { compact?: boolean }) {
   return (
     <section aria-label="Freunde werben" className="relative bg-white">
       <div className="hidden md:block">
-        <div className="h-[150px] bg-white" />
+        <div className={`${compact ? "h-[60px]" : "h-[150px]"} bg-white`} />
         <div className="relative bg-surface">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-0 px-5">
             <div className="relative">
@@ -994,7 +994,7 @@ export function ReferralBanner() {
       </div>
 
       <div className="md:hidden">
-        <div className="flex justify-center bg-white pt-6">
+        <div className={`flex justify-center bg-white ${compact ? "pt-2" : "pt-6"}`}>
           <img
             src={smavaHero.url}
             alt="Klaro Beraterin mit Tablet"
