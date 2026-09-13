@@ -1,60 +1,29 @@
-import { createServerFn } from "@tanstack/react-start";
+import { getSession, type AppRole } from "@/lib/mock-auth";
+import { store } from "@/lib/mock-data";
 
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+export type { AppRole };
 
-export type AppRole = "admin" | "user";
+export async function getMyAccount() {
+  const session = getSession();
+  const profile = session
+    ? store.users.find((u) => u.email.toLowerCase() === session.email.toLowerCase())
+    : undefined;
 
-export const getMyAccount = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { supabase, userId } = context;
+  return {
+    userId: session?.userId ?? "demo",
+    email: session?.email ?? null,
+    fullName: profile?.fullName ?? null,
+    createdAt: profile?.createdAt ?? session?.createdAt ?? null,
+    role: (session?.role ?? "user") as AppRole,
+  };
+}
 
-    const [{ data: profile }, { data: roles }] = await Promise.all([
-      supabase.from("profiles").select("id, email, full_name, created_at").eq("id", userId).maybeSingle(),
-      supabase.from("user_roles").select("role").eq("user_id", userId),
-    ]);
-
-    const role: AppRole = roles?.some((r) => r.role === "admin") ? "admin" : "user";
-
-    return {
-      userId,
-      email: profile?.email ?? (context.claims["email"] as string | undefined) ?? null,
-      fullName: profile?.full_name ?? null,
-      createdAt: profile?.created_at ?? null,
-      role,
-    };
-  });
-
-export const listAllUsers = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { supabase, userId } = context;
-
-    const { data: isAdmin, error: roleError } = await supabase.rpc("has_role", {
-      _user_id: userId,
-      _role: "admin",
-    });
-
-    if (roleError || !isAdmin) {
-      throw new Error("Forbidden");
-    }
-
-    const [{ data: profiles }, { data: roles }] = await Promise.all([
-      supabase.from("profiles").select("id, email, full_name, created_at").order("created_at", { ascending: true }),
-      supabase.from("user_roles").select("user_id, role"),
-    ]);
-
-    const roleByUser = new Map<string, AppRole>();
-    for (const r of roles ?? []) {
-      if (r.role === "admin") roleByUser.set(r.user_id, "admin");
-      else if (!roleByUser.has(r.user_id)) roleByUser.set(r.user_id, "user");
-    }
-
-    return (profiles ?? []).map((p) => ({
-      id: p.id,
-      email: p.email,
-      fullName: p.full_name,
-      createdAt: p.created_at,
-      role: roleByUser.get(p.id) ?? "user",
-    }));
-  });
+export async function listAllUsers() {
+  return store.users.map((u) => ({
+    id: u.id,
+    email: u.email,
+    fullName: u.fullName,
+    createdAt: u.createdAt,
+    role: (u.email.toLowerCase().startsWith("admin@") ? "admin" : "user") as AppRole,
+  }));
+}
