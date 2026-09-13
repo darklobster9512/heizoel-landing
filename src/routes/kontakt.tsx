@@ -75,8 +75,26 @@ const CONTACTS: ContactItem[] = [
   },
 ];
 
+const TOPICS = [
+  { value: "allgemein", label: "Allgemeine Anfrage" },
+  { value: "bestellung", label: "Frage zur Bestellung" },
+  { value: "lieferung", label: "Frage zur Lieferung" },
+  { value: "zahlung", label: "Frage zur Zahlung" },
+  { value: "reklamation", label: "Reklamation / Beschwerde" },
+  { value: "angebot", label: "Preis- und Angebotsanfrage" },
+  { value: "beratung", label: "Technische Beratung" },
+  { value: "sonstiges", label: "Sonstiges" },
+] as const;
+
+const SALUTATIONS = [
+  { value: "herr", label: "Herr" },
+  { value: "frau", label: "Frau" },
+  { value: "divers", label: "Divers" },
+] as const;
+
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
