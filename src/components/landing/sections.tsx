@@ -1134,11 +1134,11 @@ export function ReferralBanner() {
               />
             </div>
             <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
-              <h2 className="text-[26px] font-bold leading-tight text-ink">
+              <h2 className="text-[26px] font-bold leading-tight text-conditions">
                 Jetzt Heizöl günstiger bestellen!
               </h2>
               <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
-                Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+                Schließen Sie sich <strong>25.000+ zufriedenen Kunden</strong> an und sparen Sie durchschnittlich €247
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
