@@ -85,7 +85,7 @@ function Stars({ className = "size-3.5" }: { className?: string }) {
 const ITEM_HEIGHT = 72;
 
 function ReviewCarousel() {
-  const [items, setItems] = useState([REVIEWS[0], REVIEWS[1]]);
+  const [items, setItems] = useState<Review[]>([REVIEWS[0], REVIEWS[1]]);
   const [nextIndex, setNextIndex] = useState(2);
   const [offset, setOffset] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
