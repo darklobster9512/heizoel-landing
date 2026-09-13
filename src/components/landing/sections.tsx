@@ -31,7 +31,7 @@ export function SectionHead({
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
 
 const STATS = [
-  { value: "33.429", label: "ZUFRIEDENE KUNDEN" },
+  { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
   { value: "4.99/5", label: "KUNDENBEWERTUNG" },
   { value: "10+", label: "JAHRE ERFAHRUNG" },
   { value: "500+", label: "PARTNER-HÄNDLER" },
@@ -42,12 +42,12 @@ export function TrustBar() {
   return (
     <section aria-label="Klaro in Zahlen" className="bg-background">
       <div className="h-[3px] w-full bg-brand" />
-      <div className="mx-auto max-w-6xl px-5 py-8 md:py-10">
+      <div className="mx-auto max-w-6xl px-5 py-6 md:py-8">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-2xl font-bold text-ink md:text-3xl">{stat.value}</p>
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-wide text-muted-custom md:text-xs">
+              <p className="text-xl font-bold text-ink md:text-2xl">{stat.value}</p>
+              <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-custom md:text-[11px]">
                 {stat.label}
               </p>
             </div>
