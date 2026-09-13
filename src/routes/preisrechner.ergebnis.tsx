@@ -192,6 +192,25 @@ function ErgebnisPage() {
 
   const toggleEditing = () => setEditing((v) => !v);
 
+  const navigate = useNavigate();
+
+  const goToOrder = () => {
+    saveOrderDraft({
+      plz,
+      city,
+      liters,
+      points,
+      hose,
+      truck,
+      earliestDate: deliveryIso,
+      variant,
+      pricePer100: price,
+      total,
+    });
+    void navigate({ to: "/bestellen" });
+  };
+
+
 
   return (
     <div className="min-h-screen bg-background font-body text-ink">
