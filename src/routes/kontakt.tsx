@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { HelpCircle, Mail, Phone, Send } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Calculator, HelpCircle, Info, Mail, Phone, Send } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
@@ -117,13 +117,58 @@ const SALUTATIONS = [
   { value: "divers", label: "Divers" },
 ] as const;
 
+type TopicKind = "info" | "calculator" | "full";
+
+const TOPIC_KIND: Record<string, TopicKind> = {
+  "preis-aktuell": "calculator",
+  "preis-angebot": "calculator",
+  "bestellung-neu": "calculator",
+  "bestellung-lieferzeit": "calculator",
+  "bestellung-haendler": "calculator",
+  liefertermin: "info",
+  sonstiges: "full",
+};
+
+const CALCULATOR_INTRO: Record<string, string> = {
+  "preis-aktuell":
+    "Den aktuellen Heizölpreis erfahren Sie ausschließlich über unseren Heizöl-Preisrechner.",
+  "preis-angebot":
+    "Die Erstellung eines Heizöl-Angebotes ist ausschließlich über unseren Heizöl-Preisrechner möglich.",
+  "bestellung-neu": "Eine Heizöl-Bestellung ist nur online möglich.",
+  "bestellung-lieferzeit":
+    "Die aktuelle Lieferzeit wird Ihnen im Heizöl-Preisrechner angezeigt. Nach erfolgter Bestellung wird sich unser zuständiger Partnerhändler in Ihrer Region mit Ihnen in Verbindung setzen, um einen Liefertermin zu vereinbaren.",
+  "bestellung-haendler":
+    "Unser Partnerhändler in Ihrer Region wird Ihnen im Heizöl-Preisrechner angezeigt. Nach erfolgter Bestellung erhalten Sie umgehend eine Bestellbestätigung mit den Kontaktdaten des Lieferanten. Sie können dann den Lieferanten auch sofort selbst kontaktieren, um individuelle Absprachen zu treffen.",
+};
+
+const CALCULATOR_OUTRO =
+  "Bitte geben Sie dazu in nachfolgendes Formular PLZ, Liefermenge und Anzahl der Lieferstellen ein, um den aktuellen Heizölpreis zu berechnen. Sie haben anschließend die Möglichkeit, sofort zum angezeigten Preis verbindlich zu bestellen.";
+
+const LIEFERTERMIN_TEXT =
+  "Unmittelbar nach Ihrer Bestellung haben Sie eine Bestellbestätigung per E-Mail erhalten. Darin finden Sie auch die Kontaktdaten des zuständigen Lieferanten in Ihrer Region. Bitte wenden Sie sich direkt an den Lieferanten, um einen Liefertermin zu vereinbaren.";
+
+const LIEFERSTELLEN = ["1", "2", "3", "4", "5+"] as const;
+
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState("");
+  const [calcZip, setCalcZip] = useState("");
+  const [calcAmount, setCalcAmount] = useState("");
+  const [calcLocations, setCalcLocations] = useState("");
+  const navigate = useNavigate();
+
+  const topicKind: TopicKind | null = selectedTopic
+    ? (TOPIC_KIND[selectedTopic] ?? "full")
+    : null;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+  };
+
+  const handleCalcSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    void navigate({ to: "/preisrechner" });
   };
 
   return (
