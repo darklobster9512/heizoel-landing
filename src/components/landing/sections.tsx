@@ -688,11 +688,6 @@ export function HeizoelSorten() {
           ))}
         </div>
 
-        <div className="mt-12 flex justify-center">
-          <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-            <a href="#rechner">Jetzt Preis berechnen</a>
-          </Button>
-        </div>
       </div>
     </section>
   );
