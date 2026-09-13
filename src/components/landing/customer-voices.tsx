@@ -199,11 +199,11 @@ export function CustomerVoices() {
       <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-y-8 px-5 md:grid-cols-3">
         {RATINGS.map((r) => (
           <div key={r.label} className="flex flex-col items-center gap-1.5 text-center">
-            <span className="flex h-[26px] items-center justify-center">
+            <span className="flex h-[40px] items-center justify-center">
               {r.isEkomi ? (
-                <img src={eKomiLogo.url} alt="eKomi" width={90} height={26} className="h-[26px] w-auto" loading="lazy" />
+                <img src={eKomiLogo.url} alt="eKomi" width={138} height={40} className="h-[40px] w-auto" loading="lazy" />
               ) : r.icon ? (
-                <img src={r.icon} alt={r.label} width={26} height={26} className="size-[26px] object-contain" loading="lazy" />
+                <img src={r.icon} alt={r.label} width={40} height={40} className="size-[40px] object-contain" loading="lazy" />
               ) : (
                 <span className="text-[15px] font-bold text-ink">{r.label}</span>
               )}
