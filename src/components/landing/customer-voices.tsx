@@ -1,261 +1,255 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import eKomiLogo from "@/assets/ekomi.webp.asset.json";
+import starAsset from "@/assets/customer-star.svg.asset.json";
 
+type Voice = {
+  text: string;
+  author: string;
+  avatar: string;
+};
 
-type Voice = { text: string; date: string; time: string };
+const AVATARS = {
+  a: "bg-[#F2C8C8]",
+  b: "bg-[#F9E4A8]",
+  c: "bg-[#E7C89A]",
+  d: "bg-[#F5D4E6]",
+  e: "bg-[#E1B3B3]",
+  f: "bg-[#F6C7A8]",
+  g: "bg-[#EDE3C0]",
+  h: "bg-[#C8DCF5]",
+};
 
 const VOICES: Voice[] = [
   {
-    text: "Sehr netter Mitarbeiter, der alles in Ruhe und ausführlich erklärt hat und sich Mühe gegeben hat, dass ich die günstigste Finanzierung erhalte. Ein großes Lob!",
-    date: "05.09.2026",
-    time: "12:12",
+    text: "Super einfache Preisanfrage und die günstigsten Angebote aus meiner Region. Bestellung war in wenigen Minuten erledigt.",
+    author: "Gisela S., 58",
+    avatar: AVATARS.a,
   },
   {
-    text: "Ihr Mitarbeiter war sehr kompetent und freundlich. Er hat gewusst von was er redet, kennt seine Produkte. Das alternative Produkt hat mich überzeugt. 👍👍👍 . Ich wünsche Ihnen und Ihrem Mitarbeiter weiterhin viel Erfolg 🍀",
-    date: "03.09.2026",
-    time: "14:46",
+    text: "Ich habe über 200 € gegenüber dem letzten Jahr gespart. Der Vergleich lohnt sich wirklich, danke!",
+    author: "Sabrina G., 36",
+    avatar: AVATARS.b,
   },
   {
-    text: "Äußerst zufrieden bin ich mit der kompetenten Beratung durch *** Kreditspezialist von Smava. Vielen Dank für die superschnelle Bearbeitung und Beratung.",
-    date: "01.09.2026",
-    time: "21:16",
+    text: "Unkompliziert und transparent. Die Lieferung kam sogar zwei Tage früher als angegeben.",
+    author: "Mario T., 44",
+    avatar: AVATARS.c,
   },
   {
-    text: "Eine schnelle fachliche Beratung Ein sehr netter Mitarbeiter der genau auf meine Wünsche eingegangen ist. Nach zwei Tagen war alles zu meiner Zufriedenheit erledigt",
-    date: "01.09.2026",
-    time: "11:02",
+    text: "Sehr übersichtliche Angebote. Ich konnte Preise, Lieferzeit und Zahlungsart direkt vergleichen.",
+    author: "Jessica M., 31",
+    avatar: AVATARS.d,
   },
   {
-    text: "Sehr netter entspannter Berater. Alles verständlich und schnell erklärt. Keine Frage offen gelassen. Sehr guter Service und Abwicklung. WIR BEDANKEN UNS RECHT HERZLICH",
-    date: "31.08.2026",
-    time: "17:26",
+    text: "Alles online erledigt, ohne Telefonate. Beim nächsten Tanken bestelle ich wieder über Klaro.",
+    author: "Renate H., 66",
+    avatar: AVATARS.e,
   },
   {
-    text: "Der Mitarbeiter war zum einen sehr freundlich und zum anderen sehr kundenorientiert. Die Kommunikation verlief reibungslos und Rückfragen wurden zeitnah beantwortet. Er hat umfassend und kompetent beraten.",
-    date: "28.08.2026",
-    time: "11:31",
+    text: "Guter Preis, schnelle Lieferung, freundlicher Fahrer. Besser geht es nicht.",
+    author: "Tobias W., 41",
+    avatar: AVATARS.f,
   },
   {
-    text: "Sehr gute und kompetente Beratung, klasse Service, kundenfreundlich, verbindlich, sehr gute und verständliche Kommunikation. Direkt am Kreditmarkt, spitzen Konditionen, gute Produkte, ganz klare Empfehlung! 👍🎯🙂",
-    date: "27.08.2026",
-    time: "17:35",
+    text: "Die Sammelbestellung mit den Nachbarn hat sich richtig gelohnt. Pro Liter deutlich günstiger.",
+    author: "Andrea K., 52",
+    avatar: AVATARS.g,
   },
   {
-    text: "Der Vergleich war transparent und vielseitig. Es wurden verschiedene Angebote mit unterschiedlichen Laufzeiten dargestellt und das Ergebnis entsprechend gut.",
-    date: "24.08.2026",
-    time: "17:03",
+    text: "Ich war skeptisch, aber alles lief reibungslos. Klare Preise, keine versteckten Kosten.",
+    author: "Stefan B., 49",
+    avatar: AVATARS.h,
   },
   {
-    text: "Die Vermittlung bis Kreditauszahlung lief sehr unkompliziert und reibungslos. Das Einzige was leider konsequent ignoriert wurde war mein Wunsch mich statt häufig per Telefon doch bitte per Mail zu kontaktieren. Ansonsten bin ich mit dem Ablauf und der Beratung aber sehr zufrieden.",
-    date: "21.08.2026",
-    time: "14:16",
+    text: "Endlich muss ich nicht mehr fünf Händler einzeln anrufen. Ein Vergleich, ein Klick, fertig.",
+    author: "Monika L., 61",
+    avatar: AVATARS.a,
   },
   {
-    text: "Ich kann nur sagen Hut ab mir wurde super geholfen die Mittarbeiter einfach super nett und freundlich würde immer wieder mit Smava zusammenarbeiten",
-    date: "21.08.2026",
-    time: "10:53",
+    text: "Auch als Nicht-Profi leicht verständlich. Sorte und Menge auswählen und los geht's.",
+    author: "Jürgen P., 55",
+    avatar: AVATARS.b,
   },
   {
-    text: "Mein Berater Herr *** war super freundlich und hilfsbereit und konnte mich kompetent Betaten. Ein sehr netter Mensch. Ich bin froh Herrn *** als Berater bekommen zu haben",
-    date: "20.08.2026",
-    time: "09:22",
+    text: "Der Preisalarm ist klasse – ich habe genau im richtigen Moment bestellt.",
+    author: "Katrin F., 38",
+    avatar: AVATARS.c,
   },
   {
-    text: "Die Kreditabwicklung ging ganz unkompliziert von statten. Das Hochladen der Dokumente hat super funktioniert. Das Beste aber war, die schnelle Entscheidung und dann sofort die Kreditauszahlung. Topnote. 1,0",
-    date: "18.08.2026",
-    time: "15:06",
+    text: "Seriöser Anbieter mit TÜV-Siegel. Die Zahlung per Rechnung hat mir die Entscheidung leicht gemacht.",
+    author: "Peter N., 63",
+    avatar: AVATARS.d,
   },
   {
-    text: "Gute Beratung, schnelle Abwicklung. Das war alles sehr gut. Etwas irreführend sind die vielen Emails und SMS, die sich vom Inhalt her selbst überholen und mich etwas verunsichert haben. Das geht deutlich besser! Einerseits wurden Dokumente wiederholt eingefordert, andererseits wurde mitgeteilt, es s …",
-    date: "14.08.2026",
-    time: "21:47",
+    text: "Schnelle Antwort auf meine Frage zur Lieferung. Sehr kundenfreundlicher Service.",
+    author: "Heike R., 47",
+    avatar: AVATARS.e,
   },
   {
-    text: "Meine Situation ist ziemlich schwierig und die finanzberaterin hat es doch geschafft einen Kredit zu finden der jetzt genehmigt wurde Super toll und vielen Dank für die Geduld",
-    date: "13.08.2026",
-    time: "09:27",
+    text: "Wir heizen seit 20 Jahren mit Öl – so günstig wie dieses Jahr war es selten.",
+    author: "Wolfgang D., 68",
+    avatar: AVATARS.f,
   },
   {
-    text: "Ich bedanke mich über die überaus freundliche, schnelle und ausgesprochen kompetente Bearbeitung meines Anliegens. Ich bin und war sehr zufrieden und würde Sie jederzeit weiterempfehlen. Mit freundlichen Grüßen ***",
-    date: "06.08.2026",
-    time: "09:37",
+    text: "Einfache Bedienung, auch am Handy. Bestellung in der Mittagspause erledigt.",
+    author: "Nina S., 29",
+    avatar: AVATARS.g,
   },
   {
-    text: "Ich bin äußerst sehr zufrieden mit Beratung, Freundlichkeit, sehr gute Mitarbeiter, alle Fragen wurden mir beantwortet. Der Antrag ist noch am selben Tag genehmigt worden. Kann ich nur weiter empfehlen.***ist der Beste Berater den ich ihn kennen lernen durfte.",
-    date: "05.08.2026",
-    time: "18:53",
+    text: "Der Fahrer war pünktlich und sehr sorgfältig. Alles sauber abgelaufen.",
+    author: "Bernd M., 57",
+    avatar: AVATARS.h,
   },
   {
-    text: "Mein Berater, ***, war freundlich und zugewandt. Er erklärte sein Vorgehen und stand beantwortete Rückfragen umgehend und kompetent. Insgesamt war ich mit der Kommunikation sehr zufrieden und fühlte mich sehr gut beraten!",
-    date: "04.08.2026",
-    time: "16:23",
+    text: "Klare Empfehlung für alle, die Heizöl günstig und stressfrei bestellen wollen.",
+    author: "Claudia V., 45",
+    avatar: AVATARS.a,
   },
   {
-    text: "Die Beratung vom Smawa-Kreditexperten war umfassend, kundenorientiert und auf meine Bedürfnisse angepasst. Die Kommunikation per Mail und der Kundenbereich online sind immer schnell und leicht verständlich. Ich habe mich sehr gut beraten gefühlt. Vielen Dank!",
-    date: "03.08.2026",
-    time: "11:52",
+    text: "Ich vergleiche jetzt jede Saison über Klaro. Die Ersparnis ist jedes Mal spürbar.",
+    author: "Thomas E., 51",
+    avatar: AVATARS.b,
   },
   {
-    text: "Ich war sehr zufrieden mit dem Service von Smava sehr freundliche und zuverlässige Mitarbeiter die einem gut zu Seite standen. Wenn ich wieder was brauchen sollte dann gehe ich wieder zu Smava. Macht weiter so ihr seid echt Mega",
-    date: "02.08.2026",
-    time: "08:33",
+    text: "Auch für unsere kleine Menge gab es faire Angebote. Kein Zwang zu großen Bestellungen.",
+    author: "Petra O., 59",
+    avatar: AVATARS.c,
   },
   {
-    text: "Der Kreditvergleich bei Sava war einfach. In kurzer Zeit bekam man verschiedene Angebote mit verschiedenen Zinssätzen. Der persönliche Mitarbeiter hat sich regelmäßig gemeldet und sich um den besten Zinssatz bemüht. Die Abwicklung ging relativ unkompliziert. Auf jeden Fall weiter zu empfehlen!",
-    date: "31.07.2026",
-    time: "18:31",
+    text: "Die Übersicht der Zahlungsarten pro Händler ist sehr hilfreich. Rechnung war kein Problem.",
+    author: "Frank U., 43",
+    avatar: AVATARS.d,
   },
   {
-    text: "Sehr kompetent und hilfsbereit. Sehr gute Zusammenarbeit der einzelnen Schritte und die Erklärungen und sehr gut erklärt. Sehr freundlich und hilfsbereit. Die Beratung war bestens organisiert und die Termine wurden immer eingehalten. Werde wir weiterempfehlen waren sehr zufrieden mit der Beratung …",
-    date: "29.07.2026",
-    time: "20:43",
+    text: "Von der Anfrage bis zur Lieferung nur vier Tage. Absolut zuverlässig.",
+    author: "Silke A., 50",
+    avatar: AVATARS.e,
   },
   {
-    text: "Super unkompliziert ,der gewünschte Betrag kam sehr schnell. Freundlich und kompetent ich würde 10 Sterne geben, Auf jeden Fall weiter zu empfehlen. DANKE",
-    date: "13.07.2026",
-    time: "13:06",
+    text: "Transparenz von Anfang bis Ende. Ich wusste immer, was mich erwartet.",
+    author: "Ralf H., 54",
+    avatar: AVATARS.f,
+  },
+  {
+    text: "Als Erstbesteller wurde ich super begleitet. Nächstes Jahr wieder!",
+    author: "Anna Z., 33",
+    avatar: AVATARS.g,
   },
 ];
 
+const RATINGS = [
+  { label: "eKomi", sub: null as string | null, value: 4.6, count: "18.400", isEkomi: true },
+  { label: "Trustpilot", sub: null, value: 4.5, count: "2.140", isEkomi: false },
+  { label: "Google", sub: null, value: 4.5, count: "860", isEkomi: false },
+  { label: null as string | null, sub: "Kundenbewertung", value: 4.6, count: null as string | null, isEkomi: false },
+];
+
+function Stars({ rating, className = "" }: { rating: number; className?: string }) {
+  return (
+    <span className={`inline-flex items-center gap-1 ${className}`} aria-label={`${rating} von 5 Sternen`}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <img
+          key={i}
+          src={starAsset.url}
+          alt=""
+          aria-hidden="true"
+          width={16}
+          height={16}
+          className="size-4 shrink-0"
+          style={{
+            filter: i <= Math.round(rating) ? "none" : "grayscale(1) brightness(1.6)",
+          }}
+          loading="lazy"
+        />
+      ))}
+    </span>
+  );
+}
+
+function VoiceCard({ voice }: { voice: Voice }) {
+  return (
+    <figure className="w-[265px] shrink-0 rounded-[4px] border border-line bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+      <Stars rating={5} />
+      <blockquote className="mt-3 min-h-[88px] text-[13.5px] leading-[1.55] text-conditions">
+        „{voice.text}"
+      </blockquote>
+      <figcaption className="mt-4 flex items-center gap-3">
+        <span
+          className={`grid size-11 shrink-0 place-items-center rounded-full text-[15px] font-bold text-ink/60 ${voice.avatar}`}
+          aria-hidden="true"
+        >
+          {voice.author.charAt(0)}
+        </span>
+        <span className="text-[13px] font-semibold text-ink">{voice.author}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+function MarqueeRow({ voices, duration, reverse = false }: { voices: Voice[]; duration: string; reverse?: boolean }) {
+  const doubled = [...voices, ...voices];
+  return (
+    <div className="group relative overflow-hidden" aria-hidden="false">
+      <div
+        className={`flex w-max gap-5 ${reverse ? "marquee-reverse" : "marquee"} group-hover:[animation-play-state:paused]`}
+        style={{ animationDuration: duration }}
+      >
+        {doubled.map((v, i) => (
+          <VoiceCard key={`${v.author}-${i}`} voice={v} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CustomerVoices() {
-  const trackRef = useRef<HTMLUListElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
-  const [thumb, setThumb] = useState({ width: 20, left: 0 });
-
-  const sync = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    const ratio = el.clientWidth / el.scrollWidth;
-    const width = Math.max(ratio * 100, 6);
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    const progress = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
-    setThumb({ width, left: progress * (100 - width) });
-  };
-
-  useEffect(() => {
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
-  }, []);
-
-  const scrollByCard = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const card = el.querySelector("li");
-    const step = card ? card.getBoundingClientRect().width + 24 : 360;
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
-  };
-
-  const scrollToPointer = (clientX: number) => {
-    const el = trackRef.current;
-    const bar = barRef.current;
-    if (!el || !bar) return;
-    const rect = bar.getBoundingClientRect();
-    const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
-    el.scrollLeft = ratio * (el.scrollWidth - el.clientWidth);
-  };
-
-  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    scrollToPointer(e.clientX);
-    const move = (ev: PointerEvent) => scrollToPointer(ev.clientX);
-    const up = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
+  const rowA = VOICES.slice(0, 8);
+  const rowB = VOICES.slice(8, 16);
+  const rowC = VOICES.slice(16);
 
   return (
-    <section aria-label="Kundenbewertungen" className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="text-[26px] font-bold leading-tight tracking-[-0.01em] text-conditions sm:text-[30px]">
-          Über 300.000 zufriedene Kunden mit smava
-        </h2>
-
-        <div className="relative mt-10">
-          <button
-            type="button"
-            aria-label="Vorherige Bewertungen"
-            onClick={() => scrollByCard(-1)}
-            className="absolute -left-6 top-[46%] z-10 hidden -translate-y-1/2 p-2 text-brand-deep transition hover:opacity-70 lg:block xl:-left-12"
-          >
-            <ChevronLeft className="size-6" strokeWidth={2} />
-          </button>
-          <button
-            type="button"
-            aria-label="Weitere Bewertungen"
-            onClick={() => scrollByCard(1)}
-            className="absolute -right-6 top-[46%] z-10 hidden -translate-y-1/2 p-2 text-brand-deep transition hover:opacity-70 lg:block xl:-right-12"
-          >
-            <ChevronRight className="size-6" strokeWidth={2} />
-          </button>
-
-          <ul
-            ref={trackRef}
-            onScroll={sync}
-            className="voices-track flex snap-x snap-mandatory gap-6 overflow-x-auto"
-          >
-            {VOICES.map((v) => (
-              <li
-                key={`${v.date}-${v.time}`}
-                className="flex w-[85%] shrink-0 snap-start flex-col border border-border/60 bg-background p-6 sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
-              >
-                <span aria-hidden className="text-[26px] font-bold leading-none text-brand">
-                  ”
-                </span>
-                <p className="voices-text mt-3 min-h-[150px] text-[15px] leading-[1.55] text-conditions">
-                  {v.text}
-                </p>
-                <div className="mt-auto pt-6 text-[13px] leading-relaxed text-muted-custom">
-                  <p>
-                    5 von 5 Sterne auf <span className="text-brand-deep">ekomi.de</span>
-                  </p>
-                  <p>
-                    vom {v.date} um {v.time} Uhr
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-6 flex items-center gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              aria-label="Nach links scrollen"
-              onClick={() => scrollByCard(-1)}
-              className="size-9 shrink-0 border-line text-brand shadow-none md:size-8"
-            >
-              <ChevronLeft className="size-5" />
-            </Button>
-            <div
-              ref={barRef}
-              onPointerDown={startDrag}
-              className="relative h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-secondary"
-            >
-              <div
-                className="absolute inset-y-0 rounded-full bg-brand transition-[left] duration-150"
-                style={{ width: `${thumb.width}%`, left: `${thumb.left}%` }}
-              />
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              aria-label="Nach rechts scrollen"
-              onClick={() => scrollByCard(1)}
-              className="size-9 shrink-0 border-line text-brand shadow-none md:size-8"
-            >
-              <ChevronRight className="size-5" />
-            </Button>
+    <section aria-label="Kundenbewertungen" className="overflow-hidden bg-background pb-16 pt-2">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="text-center">
+          <h2 className="text-[26px] font-bold leading-[1.3] text-conditions md:text-[32px]">
+            Über 25.000 zufriedene Kunden
+          </h2>
+          <div className="mt-2 flex items-center justify-center gap-2 text-[15px] text-conditions">
+            <Stars rating={5} />
+            <span>
+              <strong className="font-bold">4,6</strong>/5 von <strong className="font-bold">21.400</strong>{" "}
+              Bewertungen
+            </span>
           </div>
         </div>
+      </div>
+
+      <div className="mt-10 space-y-5 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+        <MarqueeRow voices={rowA} duration="55s" />
+        <MarqueeRow voices={rowB} duration="68s" reverse />
+        <MarqueeRow voices={rowC} duration="60s" />
+      </div>
+
+      <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-y-8 px-5 md:grid-cols-4">
+        {RATINGS.map((r) => (
+          <div key={r.label ?? "kunden"} className="flex flex-col items-center gap-1 text-center">
+            <span className="flex items-center gap-2 text-[15px] font-bold text-ink">
+              {r.isEkomi ? (
+                <img src={eKomiLogo.url} alt="eKomi" width={62} height={18} className="h-[18px] w-auto" loading="lazy" />
+              ) : (
+                <span>
+                  {r.label}
+                  {r.sub ? <span className="block text-[12px] font-medium text-muted-custom">{r.sub}</span> : null}
+                </span>
+              )}
+            </span>
+            <Stars rating={r.value} />
+            <span className="text-[13px] text-muted-custom">
+              {r.value.toLocaleString("de-DE")}/5
+              {r.count ? ` von ${r.count} Bewertungen` : ""}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
-
