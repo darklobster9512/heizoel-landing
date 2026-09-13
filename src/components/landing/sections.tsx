@@ -300,7 +300,7 @@ export const STEPS = [
     width: 128,
     height: 128,
     title: "Kostenlose\nPreisanfrage",
-    text: "Geben Sie einfach Ihre Postleitzahl, die gewünschte Menge und Sorte ein – bequem von zu Hause aus.",
+    text: "Geben Sie einfach Ihre Postleitzahl, die gewünschte Menge und Abladestellen ein – bequem von zu Hause aus.",
   },
   {
     icon: getOffers.url,

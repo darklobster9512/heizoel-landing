@@ -138,11 +138,11 @@ function PreisrechnerPage() {
 
             <div className="overflow-hidden rounded-xl border border-line bg-background shadow-card">
               <div className="grid lg:grid-cols-2">
-                <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-r">
-                  <CompactSteps />
-                </div>
                 <div className="p-6 md:p-10">
                   <OfferCard bordered={false} />
+                </div>
+                <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-l">
+                  <CompactSteps />
                 </div>
               </div>
             </div>
