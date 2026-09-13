@@ -788,7 +788,7 @@ function BestellenPage() {
                         className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
                           slot?.period === "telefon"
                             ? "border-brand bg-brand/5 ring-1 ring-brand"
-                            : "border-line bg-brand/5 hover:border-brand/60"
+                            : "border-line bg-background hover:border-brand/60"
                         }`}
                       >
                         <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
@@ -872,7 +872,7 @@ function BestellenPage() {
                             autoComplete="email"
                           />
                         </Field>
-                        <div className="rounded-lg border border-line bg-surface p-3">
+                        <div className="rounded-lg border border-line bg-brand/5 p-3">
                           <Field label="Telefonnummer" required error={errors["phone"]}>
                             <input
                               type="tel"
