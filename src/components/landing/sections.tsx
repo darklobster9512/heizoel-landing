@@ -9,6 +9,9 @@ import bildAward from "@/assets/bild-empfehlung-2026.png.asset.json";
 import weltAward from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgvAward from "@/assets/dtgv-testsieger.png.asset.json";
 import zahlungsarten from "@/assets/zahlungsarten.webp.asset.json";
+import eKomiLogo from "@/assets/ekomi.webp.asset.json";
+import googleIcon from "@/assets/google-icon.webp.asset.json";
+import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
 
 export function SectionHead({
   eyebrow,
@@ -848,7 +851,7 @@ function FooterLinkList({ items }: { items: { label: string; href: string }[] })
 
 export function SiteFooter() {
   return (
-    <footer className="bg-surface text-ink">
+    <footer className="border-t border-line bg-card text-ink">
       <div className="mx-auto max-w-[1283px] px-5 py-10 md:px-[66px] md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.25fr_0.9fr_0.9fr_1.15fr] md:gap-10">
           <div>
@@ -859,6 +862,26 @@ export function SiteFooter() {
               Heizöl online günstig bestellen. Tagesaktuelle Preise, deutschlandweite Lieferung,
               über 33.000 zufriedene Kunden.
             </p>
+            <div className="mt-4 flex items-center gap-5">
+              <img
+                src={eKomiLogo.url}
+                alt="eKomi Bewertungen"
+                className="h-7 w-auto object-contain"
+                loading="lazy"
+              />
+              <img
+                src={googleIcon.url}
+                alt="Google Bewertungen"
+                className="h-7 w-auto object-contain"
+                loading="lazy"
+              />
+              <img
+                src={trustedShopsIcon.url}
+                alt="Trusted Shops"
+                className="h-7 w-auto object-contain"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           <nav aria-label="Services">
@@ -899,7 +922,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-y border-line bg-background">
+      <div className="border-y border-line bg-surface">
         <div className="mx-auto max-w-[1283px] px-5 py-8 md:px-[66px]">
           <h4 className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-footer-text">
             Auszeichnungen &amp; Vertrauen
