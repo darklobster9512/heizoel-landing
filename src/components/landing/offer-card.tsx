@@ -36,6 +36,15 @@ export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
 
   return (
     <div className="bg-transparent px-0 py-1 md:rounded-md md:border md:border-line md:bg-background md:p-9 md:shadow-card">
+      <div className="mb-4 md:mb-5">
+        <h2 className="font-hero text-lg font-semibold text-hero-text md:text-xl">
+          Heizölpreis sofort berechnen
+        </h2>
+        <p className="mt-1 text-[13px] text-hero-text/70 md:text-sm">
+          Kostenlos & unverbindlich — Ergebnis in Sekunden
+        </p>
+      </div>
+
       <div className="space-y-3 md:space-y-5">
         <div>
           <label htmlFor="plz" className="text-[13px] font-normal text-hero-text md:text-sm md:font-medium">
