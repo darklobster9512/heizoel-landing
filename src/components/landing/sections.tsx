@@ -1012,11 +1012,9 @@ export function SiteFooter() {
 
         <div className="flex flex-col items-start gap-5 border-t border-border px-5 py-6 md:grid md:h-[70px] md:grid-cols-[290px_1fr_390px] md:gap-x-[62px] md:px-[66px] md:py-0">
           <a
-            href="https://www.smava.de/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
             className="text-smava-logo"
-            aria-label="smava Startseite"
+            aria-label="Klaro Startseite"
           >
             <Logo />
           </a>
@@ -1106,17 +1104,17 @@ export function ReferralBanner() {
             <div className="relative">
               <img
                 src={smavaHero.url}
-                alt="smava Kreditexperte mit Tablet"
+                alt="Klaro Beraterin mit Tablet"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
             </div>
             <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
               <h2 className="text-[26px] font-bold leading-tight text-ink">
-                Prämie für jeden Kredit: Freunde werben!
+                Prämie für jede Bestellung: Freunde werben!
               </h2>
               <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
-                Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
-                Auszahlung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
+                Empfehlen Sie Klaro Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
+                Bestellung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
