@@ -2,8 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Check, ChevronRight, Lock, Phone } from "lucide-react";
 
-import { SiteHeader } from "@/components/landing/site-header";
-import { SiteFooter } from "@/components/landing/sections";
 import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
