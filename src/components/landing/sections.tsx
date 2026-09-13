@@ -1301,7 +1301,7 @@ function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
   return (
     <div className="mt-10 first:mt-0">
       {title ? (
-        <h3 className="text-center text-[16px] font-semibold leading-[1.3] text-conditions md:text-[18px]">
+        <h3 className="text-left text-[16px] font-semibold leading-[1.3] text-conditions md:text-[18px]">
           {title}
         </h3>
       ) : null}
@@ -1326,7 +1326,7 @@ export function CitySeo() {
       <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
         <h2
           id="city-seo-title"
-          className="text-center text-[20px] font-semibold leading-[1.25] text-conditions md:text-[24px]"
+          className="text-left text-[20px] font-semibold leading-[1.25] text-conditions md:text-[24px]"
         >
           Heizöl & Heizölpreise in deutschen Städten
         </h2>
