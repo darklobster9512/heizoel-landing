@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { HelpCircle, Mail, Phone, Send } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Calculator, HelpCircle, Info, Mail, Phone, Send } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
@@ -117,13 +117,58 @@ const SALUTATIONS = [
   { value: "divers", label: "Divers" },
 ] as const;
 
+type TopicKind = "info" | "calculator" | "full";
+
+const TOPIC_KIND: Record<string, TopicKind> = {
+  "preis-aktuell": "calculator",
+  "preis-angebot": "calculator",
+  "bestellung-neu": "calculator",
+  "bestellung-lieferzeit": "calculator",
+  "bestellung-haendler": "calculator",
+  liefertermin: "info",
+  sonstiges: "full",
+};
+
+const CALCULATOR_INTRO: Record<string, string> = {
+  "preis-aktuell":
+    "Den aktuellen Heizölpreis erfahren Sie ausschließlich über unseren Heizöl-Preisrechner.",
+  "preis-angebot":
+    "Die Erstellung eines Heizöl-Angebotes ist ausschließlich über unseren Heizöl-Preisrechner möglich.",
+  "bestellung-neu": "Eine Heizöl-Bestellung ist nur online möglich.",
+  "bestellung-lieferzeit":
+    "Die aktuelle Lieferzeit wird Ihnen im Heizöl-Preisrechner angezeigt. Nach erfolgter Bestellung wird sich unser zuständiger Partnerhändler in Ihrer Region mit Ihnen in Verbindung setzen, um einen Liefertermin zu vereinbaren.",
+  "bestellung-haendler":
+    "Unser Partnerhändler in Ihrer Region wird Ihnen im Heizöl-Preisrechner angezeigt. Nach erfolgter Bestellung erhalten Sie umgehend eine Bestellbestätigung mit den Kontaktdaten des Lieferanten. Sie können dann den Lieferanten auch sofort selbst kontaktieren, um individuelle Absprachen zu treffen.",
+};
+
+const CALCULATOR_OUTRO =
+  "Bitte geben Sie dazu in nachfolgendes Formular PLZ, Liefermenge und Anzahl der Lieferstellen ein, um den aktuellen Heizölpreis zu berechnen. Sie haben anschließend die Möglichkeit, sofort zum angezeigten Preis verbindlich zu bestellen.";
+
+const LIEFERTERMIN_TEXT =
+  "Unmittelbar nach Ihrer Bestellung haben Sie eine Bestellbestätigung per E-Mail erhalten. Darin finden Sie auch die Kontaktdaten des zuständigen Lieferanten in Ihrer Region. Bitte wenden Sie sich direkt an den Lieferanten, um einen Liefertermin zu vereinbaren.";
+
+const LIEFERSTELLEN = ["1", "2", "3", "4", "5+"] as const;
+
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState("");
+  const [calcZip, setCalcZip] = useState("");
+  const [calcAmount, setCalcAmount] = useState("");
+  const [calcLocations, setCalcLocations] = useState("");
+  const navigate = useNavigate();
+
+  const topicKind: TopicKind | null = selectedTopic
+    ? (TOPIC_KIND[selectedTopic] ?? "full")
+    : null;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+  };
+
+  const handleCalcSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    void navigate({ to: "/preisrechner" });
   };
 
   return (
@@ -176,10 +221,14 @@ function KontaktPage() {
           <div className="mt-10 rounded-md border border-line bg-surface shadow-card md:mt-14">
             <div className="h-[3px] w-full bg-brand" aria-hidden="true" />
             <div className="p-6 md:p-10">
-              <h2 className="text-xl font-semibold text-ink md:text-2xl">Kontaktformular</h2>
-              <p className="mt-2 text-sm text-muted-custom">
-                Senden Sie uns Ihre Anfrage — wir melden uns zeitnah bei Ihnen.
-              </p>
+              <div className="text-center">
+                <h2 className="text-xl font-semibold text-ink md:text-2xl">
+                  Wählen Sie Ihr Anliegen
+                </h2>
+                <p className="mt-2 text-sm text-muted-custom">
+                  Bitte füllen Sie das Formular aus. Sie erhalten umgehend eine Antwort.
+                </p>
+              </div>
 
               {submitted ? (
                 <div className="mt-8 rounded-md border border-line bg-background p-6 text-center">
@@ -189,8 +238,8 @@ function KontaktPage() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="mt-8 grid gap-5 md:grid-cols-2">
-                  <div className="grid gap-2 md:col-span-2">
+                <div className="mt-8">
+                  <div className="grid gap-2">
                     <Label htmlFor="topic">Anliegen</Label>
                     <Select value={selectedTopic} onValueChange={setSelectedTopic} required>
                       <SelectTrigger id="topic" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
@@ -216,8 +265,84 @@ function KontaktPage() {
                     </Select>
                   </div>
 
-                  {selectedTopic && (
-                    <>
+                  {topicKind === "info" && (
+                    <div className="mt-6 rounded-md border border-line border-l-4 border-l-brand bg-background p-5">
+                      <div className="flex items-start gap-3">
+                        <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
+                        <p className="text-sm leading-relaxed text-ink">{LIEFERTERMIN_TEXT}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {topicKind === "calculator" && (
+                    <div className="mt-6">
+                      <div className="rounded-md border border-line border-l-4 border-l-brand bg-background p-5">
+                        <div className="flex items-start gap-3">
+                          <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
+                          <div className="space-y-3 text-sm leading-relaxed text-ink">
+                            <p>{CALCULATOR_INTRO[selectedTopic]}</p>
+                            <p>{CALCULATOR_OUTRO}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <form onSubmit={handleCalcSubmit} className="mt-5 grid gap-5 md:grid-cols-3">
+                        <div className="grid gap-2">
+                          <Label htmlFor="calc-zip">Postleitzahl</Label>
+                          <Input
+                            id="calc-zip"
+                            name="calc-zip"
+                            inputMode="numeric"
+                            placeholder="z. B. 10115"
+                            maxLength={5}
+                            value={calcZip}
+                            onChange={(e) => setCalcZip(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="grid gap-2">
+                          <Label htmlFor="calc-amount">Liefermenge in Liter</Label>
+                          <Input
+                            id="calc-amount"
+                            name="calc-amount"
+                            inputMode="numeric"
+                            placeholder="z. B. 1500"
+                            maxLength={6}
+                            value={calcAmount}
+                            onChange={(e) => setCalcAmount(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="grid gap-2">
+                          <Label htmlFor="calc-locations">Anzahl der Lieferstellen</Label>
+                          <Select value={calcLocations} onValueChange={setCalcLocations} required>
+                            <SelectTrigger id="calc-locations" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                              <SelectValue placeholder="Bitte wählen" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {LIEFERSTELLEN.map((count) => (
+                                <SelectItem key={count} value={count}>
+                                  {count}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="md:col-span-3">
+                          <Button type="submit" className="w-full sm:w-auto">
+                            <Calculator className="h-4 w-4" aria-hidden="true" />
+                            Heizölpreis berechnen
+                          </Button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+
+                  {topicKind === "full" && (
+                    <form onSubmit={handleSubmit} className="mt-6 grid gap-5 md:grid-cols-2">
                       <div className="grid gap-2">
                         <Label htmlFor="salutation">Anrede</Label>
                         <Select name="salutation" required>
@@ -298,9 +423,9 @@ function KontaktPage() {
                           Nachricht senden
                         </Button>
                       </div>
-                    </>
+                    </form>
                   )}
-                </form>
+                </div>
               )}
             </div>
           </div>
