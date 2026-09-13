@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Calculator, ChevronDown, Fuel, HelpCircle, TrendingUp } from "lucide-react";
+import {
+  Calculator,
+  ChevronDown,
+  Fuel,
+  HelpCircle,
+  Star,
+  TrendingUp,
+  Truck,
+} from "lucide-react";
 
 import { Logo } from "./logo";
 import { RatingBadge } from "./rating-badge";
@@ -24,17 +32,95 @@ const HEIZOEL_LINKS = [
     description: "PLZ eingeben, Preis sofort berechnen",
     icon: Calculator,
   },
+] as const;
+
+const INFO_SERVICE_LINKS = [
+  {
+    to: "/lieferung-zahlung",
+    title: "Lieferung & Zahlung",
+    description: "Liefer- und Zahlungsmodalitäten",
+    icon: Truck,
+  },
+  {
+    to: "/bewertungen",
+    title: "Kundenbewertungen",
+    description: "25.000+ Bewertungen & Trust-Siegel",
+    icon: Star,
+  },
   {
     to: "/faq",
     title: "Heizöl FAQ",
-    description: "Antworten auf häufige Fragen",
+    description: "Heizöl sicher kaufen",
     icon: HelpCircle,
   },
 ] as const;
 
-export function SiteHeader() {
+function Dropdown({
+  label,
+  links,
+}: {
+  label: string;
+  links: readonly {
+    to: string;
+    title: string;
+    description: string;
+    icon: typeof TrendingUp;
+  }[];
+}) {
   const [open, setOpen] = useState(false);
 
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="true"
+        className="inline-flex h-12 items-center gap-1 bg-transparent text-xs font-semibold uppercase tracking-wide text-ink transition-colors hover:text-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+      >
+        {label}
+        <ChevronDown
+          className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full z-50 w-max pt-1.5">
+          <div className="overflow-hidden rounded-lg border border-line bg-background shadow-card">
+            <div className="h-[3px] w-full bg-brand" aria-hidden="true" />
+            <ul className="grid gap-1 p-2">
+              {links.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.title}>
+                    <Link
+                      to={item.to}
+                      className="flex items-start gap-4 rounded-lg p-3 transition-colors hover:bg-brand/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                    >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                        <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                      </span>
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-sm font-semibold text-ink">{item.title}</span>
+                        <span className="text-xs text-muted-custom">{item.description}</span>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-background shadow-header-strong">
       <div className="mx-auto grid h-[52px] max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 md:flex md:h-16 md:justify-between">
@@ -63,54 +149,9 @@ export function SiteHeader() {
       </div>
 
       <nav aria-label="Hauptnavigation" className="hidden border-y border-line bg-surface md:block">
-        <div className="mx-auto flex h-12 max-w-6xl items-center px-5">
-          <div
-            className="relative"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-haspopup="true"
-              className="inline-flex h-12 items-center gap-1 bg-transparent text-xs font-semibold uppercase tracking-wide text-ink transition-colors hover:text-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-            >
-              Heizölpreise
-              <ChevronDown
-                className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {open && (
-              <div className="absolute left-0 top-full z-50 w-max pt-1.5">
-                <div className="overflow-hidden rounded-lg border border-line bg-background shadow-card">
-                  <div className="h-[3px] w-full bg-brand" aria-hidden="true" />
-                  <ul className="grid gap-1 p-2">
-                    {HEIZOEL_LINKS.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <li key={item.title}>
-                          <Link
-                            to={item.to}
-                            className="flex items-start gap-4 rounded-lg p-3 transition-colors hover:bg-brand/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                          >
-                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
-                              <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-                            </span>
-                            <div className="flex flex-col gap-0.5">
-                              <span className="text-sm font-semibold text-ink">{item.title}</span>
-                              <span className="text-xs text-muted-custom">{item.description}</span>
-                            </div>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-            )}
-          </div>
+        <div className="mx-auto flex h-12 max-w-6xl items-center gap-6 px-5">
+          <Dropdown label="Heizölpreise" links={HEIZOEL_LINKS} />
+          <Dropdown label="Info & Service" links={INFO_SERVICE_LINKS} />
         </div>
       </nav>
     </header>
