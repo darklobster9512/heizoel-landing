@@ -65,7 +65,7 @@ export function TrustBar() {
   };
 
   return (
-    <section aria-label="Partnerbanken" className="bg-background">
+    <section aria-label="Partnerhändler" className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-10 md:py-12">
         <div className="hidden space-y-6 md:block">
           {PARTNER_ROWS.map((row, i) => (
@@ -110,7 +110,7 @@ export function TrustBar() {
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Vorherige Partnerbanken"
+              aria-label="Vorherige Partnerhändler"
               onClick={() => scrollPartners(-1)}
               className="size-10 border-line text-brand shadow-none"
             >
@@ -121,7 +121,7 @@ export function TrustBar() {
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Weitere Partnerbanken"
+              aria-label="Weitere Partnerhändler"
               onClick={() => scrollPartners(1)}
               className="size-10 border-line text-brand shadow-none"
             >
@@ -132,7 +132,7 @@ export function TrustBar() {
 
         <p className="mt-8 text-sm md:mt-10">
           <a href="#konditionen" className="text-ink underline underline-offset-4">
-            Teilnehmende Kreditbanken/Vermittler
+            Teilnehmende Heizölhändler
           </a>
         </p>
       </div>
@@ -169,13 +169,13 @@ function ConditionsList({ items }: { items: string[][] }) {
 export function ConditionsBox({ mobileOnly = false }: { mobileOnly?: boolean }) {
   return (
     <section
-      aria-label="Konditionen Übersicht"
+      aria-label="Preis Übersicht"
       className={mobileOnly ? "bg-surface md:hidden" : "hidden bg-background md:block"}
     >
       <div className={`mx-auto max-w-6xl px-5 ${mobileOnly ? "pb-5 pt-4" : "pb-12"}`}>
         <div className="rounded-md bg-line px-4 py-4 md:bg-surface md:px-6 md:py-5">
           <h2 className="text-[14px] font-bold text-conditions">
-            Ratenkredit Konditionen Übersicht
+            Heizöl Preis-Übersicht
           </h2>
           <div className="mt-4 grid gap-x-8 gap-y-2.5 md:grid-cols-[1.25fr_1fr]">
             <ConditionsList items={CONDITIONS_LEFT} />
