@@ -121,7 +121,7 @@ const fmtEuro = (v: number) =>
 const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 
 const fieldClass =
-  "mt-1.5 w-full rounded-md border border-line bg-background px-3 py-3 text-[14px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:px-4";
+  "mt-1.5 rounded-md border border-line bg-background px-3 py-3 text-[14px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:px-4";
 
 function Stars({ className = "size-4" }: { className?: string }) {
   return (
@@ -216,7 +216,7 @@ function ErgebnisPage() {
                     placeholder="z. B. 10115"
                     value={plz}
                     onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                    className={`${fieldClass} w-32 py-2.5 text-right tabular`}
+                    className={`${fieldClass} w-24 py-2.5 text-right tabular`}
                   />
                 </div>
                 <div className="flex items-center justify-between gap-4 py-2">
@@ -234,7 +234,7 @@ function ErgebnisPage() {
                       if (!liters || liters < 1500) setLiters(1500);
                       else if (liters > 32000) setLiters(32000);
                     }}
-                    className={`${fieldClass} w-40 py-2.5 text-right tabular`}
+                    className={`${fieldClass} w-28 py-2.5 text-right tabular`}
                   />
                 </div>
                 <div className="flex items-center justify-between gap-4 py-2">
