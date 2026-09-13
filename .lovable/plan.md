@@ -1,26 +1,30 @@
-# Footer um SEO-Linklisten für Städte und Bundesländer erweitern
+# CitySeo-Sektion in den Footer verschieben
 
 ## Ziel
-Dem bestehenden `SiteFooter` eine neue Sektion hinzufügen, die Linklisten zu Heizölpreisen in deutschen Städten und Bundesländern enthält. Die Sektion soll dadurch auf der `/preisrechner`-Seite (und allen anderen Seiten, die den Footer verwenden) sichtbar sein.
+Die bestehende Sektion „Heizöl & Heizölpreise in deutschen Städten" (mit den Linklisten für Städte und Bundesländer) wird von der Landingpage entfernt und stattdessen fest in den `SiteFooter` eingebaut. Dadurch erscheint sie auf allen Seiten, die den Footer verwenden — einschließlich `/preisrechner` — und ist nicht mehr doppelt auf der Startseite.
 
 ## Änderungen
 
-### 1. `src/components/landing/site-footer.tsx` — neue SEO-Sektion
-- Oberhalb des Copyright-/Rechtstext-Bereichs wird eine neue Sektion eingefügt.
-- Zwei Spalten:
-  - **Linke Spalte:** „Heizöl & Heizölpreise in deutschen Städten" mit den Begriffen:
-    Heizölpreise Berlin, Heizöl Hamburg kaufen, Heizölpreis München heute, Heizöl Köln bestellen, Heizölpreise Frankfurt, Heizöl Düsseldorf bestellen, Heizölpreis Dortmund heute, Heizöl Essen kaufen, Heizölpreise Leipzig, Heizöl Bremen bestellen, Heizölpreise Dresden, Heizöl Hannover kaufen, Heizölpreis Nürnberg heute, Heizöl Duisburg bestellen, Heizölpreise Bielefeld, Heizöl Bochum bestellen, Heizölpreise Bonn, Heizöl Münster kaufen, Heizölpreis Kiel heute, Heizölpreise Chemnitz.
-  - **Rechte Spalte:** „Heizölpreise nach Bundesland" mit den Begriffen:
-    Heizölpreise Baden-Württemberg, Heizöl Bayern kaufen, Heizölpreise Berlin, Heizöl Brandenburg bestellen, Heizölpreise Bremen, Heizöl Hamburg kaufen, Heizölpreise Hessen, Heizöl Meckl.-Vorpommern bestellen, Heizölpreise Niedersachsen, Heizöl NRW kaufen, Heizölpreise Rheinland-Pfalz, Heizöl Saarland bestellen, Heizölpreise Sachsen, Heizöl Sachsen-Anhalt kaufen, Heizölpreise Schleswig-Holstein, Heizöl Thüringen bestellen.
-- Die Begriffe werden als dezente, inline dargestellte Elemente (z. B. kleine Tags oder verlinkte Texte) ausgegeben, optisch abgegrenzt durch Kommas oder Abstände.
-- Da es für die einzelnen Städte-/Bundesland-Seiten noch keine Routen gibt, erhalten die Elemente zunächst kein `href` bzw. `href="#"` und werden als Platzhalter-Links markiert. Sie sind trotzdem für SEO und Übersicht sichtbar.
-- Styling ruhig und dezent: kleine Schrift, neutrale Farbe, hover-Effekt optional; passt sich dem bestehenden Footer-Design an.
+### 1. `src/components/landing/sections.tsx` — CitySeo von der Landingpage entfernen
+- Die `CitySeo`-Komponente wird komplett entfernt.
+- Die Konstanten `CITY_LINKS`, `STATE_LINKS` und die Hilfskomponente `SeoLinkGroup` werden aus `sections.tsx` entfernt.
+- Die Komponente wird nicht mehr exportiert.
 
-### 2. Keine weiteren Änderungen
-- Keine Änderungen an `/preisrechner.tsx`, `/index.tsx`, `/antrag/*`, `/angebote`, `/dashboard` oder `/admin`.
+### 2. `src/routes/index.tsx` — Verwendung von CitySeo entfernen
+- Das Rendering von `<CitySeo />` wird aus der Landingpage entfernt.
+- Der Import von `CitySeo` wird entfernt.
+
+### 3. `src/components/landing/sections.tsx` — CitySeo in den Footer einbauen
+- Die Komponente `CitySeo` (inkl. `CITY_LINKS`, `STATE_LINKS`, `SeoLinkGroup`) wird in `SiteFooter` integriert.
+- Sie wird als zusätzlicher Footer-Bereich eingefügt, bevor die Auszeichnungen/Copyright kommen.
+- Styling und Inhalt bleiben 1:1 wie bisher (weißer Hintergrund, gleiche Texte, gleiche Link-Darstellung).
+- `SiteFooter` wird entsprechend erweitert, ohne die bestehenden Footer-Elemente (Adresse, Services, Rechtliches, Zahlungsarten, Awards, Copyright) zu verändern.
+
+### 4. Keine weiteren Änderungen
+- Keine Änderungen an `/preisrechner.tsx` — die Seite verwendet bereits `SiteFooter`, dadurch erscheint die Sektion automatisch.
+- Keine Änderungen an `/antrag/*`, `/angebote`, `/dashboard` oder `/admin`.
 - Keine neuen Routen oder Backend-Änderungen.
-- Keine Änderungen am Inhalt der bestehenden Footer-Elemente (Adresse, Rechtstexte, etc.).
 
 ## Verifikation
 - Build prüfen (`/tmp/observability/build-errors.log`).
-- Screenshots Desktop/Mobil der `/preisrechner`-Seite und ggf. der Startseite, um zu prüfen, dass die neue Footer-Sektion sichtbar ist.
+- Screenshots Desktop/Mobil der `/preisrechner`-Seite und der Landingpage, um zu prüfen, dass die Sektion im Footer sichtbar ist und auf der Landingpage nicht mehr doppelt erscheint.
