@@ -62,14 +62,32 @@ const ADVANTAGES = [
   },
 ];
 
-function Stars({ size = "size-5" }: { size?: string }) {
+function Star({ fill, size }: { fill: number; size: string }) {
   return (
-    <span className="inline-flex gap-0.5" aria-hidden="true">
-      {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} viewBox="0 0 24 24" className={`${size} fill-[#f1a319]`}>
+    <span className="relative inline-flex" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className={`${size} fill-[#f1a319]/30`}>
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27z" />
+      </svg>
+      <span
+        className="absolute left-0 top-0 h-full overflow-hidden"
+        style={{ width: `${Math.round(fill * 100)}%` }}
+      >
+        <svg viewBox="0 0 24 24" className={`${size} fill-[#f1a319]`}>
           <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27z" />
         </svg>
-      ))}
+      </span>
+    </span>
+  );
+}
+
+function Stars({ value, size = "size-5" }: { value?: number; size?: string }) {
+  const rating = value ?? 5;
+  return (
+    <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => {
+        const fill = Math.min(Math.max(rating - i, 0), 1);
+        return <Star key={i} fill={fill} size={size} />;
+      })}
     </span>
   );
 }
