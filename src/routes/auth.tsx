@@ -50,16 +50,10 @@ function AuthPage() {
   const [info, setInfo] = useState<string | null>(null);
 
   useEffect(() => {
-    let active = true;
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (active && data.session) {
-        const admin = await getIsAdmin(data.session.user.id);
-        if (active) navigate({ to: admin ? "/admin" : "/dashboard", replace: true });
-      }
-    });
-    return () => {
-      active = false;
-    };
+    const session = getSession();
+    if (session) {
+      navigate({ to: session.role === "admin" ? "/admin" : "/dashboard", replace: true });
+    }
   }, [navigate]);
 
   async function handleSubmit(event: React.FormEvent) {
@@ -75,44 +69,13 @@ function AuthPage() {
 
     setLoading(true);
     try {
-      if (mode === "login") {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email: parsed.data.email,
-          password: parsed.data.password,
-        });
-        if (signInError) {
-          setError(
-            signInError.message.toLowerCase().includes("invalid")
-              ? "E-Mail oder Passwort ist nicht korrekt."
-              : signInError.message,
-          );
-          return;
-        }
-        toast.success("Willkommen zurück!");
-        const { data: sessionData } = await supabase.auth.getSession();
-        const admin = sessionData.session ? await getIsAdmin(sessionData.session.user.id) : false;
-        navigate({ to: admin ? "/admin" : "/dashboard", replace: true });
-      } else {
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email: parsed.data.email,
-          password: parsed.data.password,
-          options: { emailRedirectTo: `${window.location.origin}/dashboard` },
-        });
-        if (signUpError) {
-          setError(
-            signUpError.message.toLowerCase().includes("already")
-              ? "Für diese E-Mail-Adresse existiert bereits ein Konto."
-              : signUpError.message,
-          );
-          return;
-        }
-        if (data.session) {
-          toast.success("Konto erstellt. Viel Erfolg!");
-          navigate({ to: "/dashboard", replace: true });
-        } else {
-          setInfo("Fast geschafft: Bitte bestätigen Sie Ihre E-Mail-Adresse über den Link, den wir Ihnen geschickt haben.");
-        }
-      }
+      const session =
+        mode === "login"
+          ? await signIn(parsed.data.email, parsed.data.password)
+          : await signUp(parsed.data.email, parsed.data.password);
+
+      toast.success(mode === "login" ? "Willkommen zurück!" : "Konto erstellt. Viel Erfolg!");
+      navigate({ to: session.role === "admin" ? "/admin" : "/dashboard", replace: true });
     } finally {
       setLoading(false);
     }
