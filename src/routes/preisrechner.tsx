@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
 import { SiteFooter, STEPS } from "@/components/landing/sections";
+import guarantee from "@/assets/guarantee.svg.asset.json";
 import {
   BadgePercent,
   Handshake,
@@ -157,7 +158,7 @@ function PreisrechnerPage() {
                 <span>sofort & kostenlos</span>
               </h1>
 
-              <p className="mx-auto mt-5 max-w-[55ch] text-[15px] leading-snug text-hero-text md:mt-6 md:text-base">
+              <p className="mx-auto mt-5 text-[15px] leading-snug text-hero-text md:mt-6 md:whitespace-nowrap md:text-base">
                 Heizölpreise heute ab{" "}
                 <strong className="font-semibold text-ink">128,78 €/100L</strong>{" "}
                 —{" "}
@@ -170,7 +171,14 @@ function PreisrechnerPage() {
 
             <div className="overflow-hidden rounded-xl border border-line bg-background shadow-card">
               <div className="grid lg:grid-cols-2">
-                <div className="p-6 md:p-10">
+                <div className="relative p-6 md:p-10">
+                  <img
+                    src={guarantee.url}
+                    alt="Günstiger-geht-nicht-Garantie"
+                    width={88}
+                    height={88}
+                    className="pointer-events-none absolute -left-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
+                  />
                   <OfferCard bordered={false} />
                 </div>
                 <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-l">
