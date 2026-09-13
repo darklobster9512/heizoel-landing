@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Star } from "lucide-react";
+import { Award, BadgeCheck, Lock, ShieldCheck } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 
 const TITLE = "Kundenbewertungen | Klaro";
 const DESCRIPTION =
-  "Über 33.000 zufriedene Kunden bewerten Klaro mit 4,9 von 5 Sternen. Lesen Sie echte Erfahrungen zu Preisen, Lieferung und Service beim Heizöl-Kauf.";
+  "Über 33.000 zufriedene Kunden bewerten Klaro mit 4,99 von 5 Sternen. Lesen Sie echte Erfahrungen zu Preisen, Lieferung und Service beim Heizöl-Kauf.";
 
 export const Route = createFileRoute("/bewertungen")({
   head: () => ({
@@ -25,73 +25,80 @@ export const Route = createFileRoute("/bewertungen")({
 });
 
 const STATS = [
-  { value: "33.000+", label: "Kunden" },
-  { value: "4,9/5", label: "Bewertung" },
-  { value: "98 %", label: "Weiterempfehlung" },
-  { value: "500+", label: "Partnerhändler" },
+  { value: "33.429", label: "Kunden" },
+  { value: "4,99/5", label: "Bewertung" },
+  { value: "98,9 %", label: "Zufriedenheit" },
+  { value: "500+", label: "Händler" },
+  { value: "10+", label: "Jahre Erfahrung" },
 ];
 
 const REVIEWS = [
   {
-    name: "Sabine K.",
+    name: "Sabine Krüger",
     text: "Bestelle inzwischen zum dritten Mal über Klaro. Der Preis war jedes Mal spürbar günstiger als bei meinem örtlichen Händler, und die Lieferung kam immer zum vereinbarten Termin.",
   },
   {
-    name: "Thomas M.",
+    name: "Thomas Meier",
     text: "Preis eingegeben, Menge gewählt, fertig — die Bestellung war in wenigen Minuten erledigt. Der Fahrer war pünktlich und sehr freundlich. Klare Empfehlung.",
   },
   {
-    name: "Julia F.",
+    name: "Julia Fischer",
     text: "Ich war anfangs skeptisch, Heizöl online zu bestellen. Aber alles hat reibungslos geklappt: von der Preisberechnung bis zur Lieferung. Beim nächsten Mal wieder.",
   },
   {
-    name: "Michael W.",
+    name: "Michael Wagner",
     text: "Durch den Vergleich habe ich gegenüber meinem bisherigen Anbieter über 200 Euro gespart. Die Abwicklung war unkompliziert, die Rechnung kam litergenau.",
   },
   {
-    name: "Petra S.",
+    name: "Petra Schulz",
     text: "Wir bestellen als Familie schon seit zwei Jahren hier. Immer faire Preise, immer zuverlässig. Die Sammelbestellung mit den Nachbarn hat zusätzlich gespart.",
   },
   {
-    name: "Andreas B.",
+    name: "Andreas Becker",
     text: "Als Handwerker bin ich auf verlässliche Lieferungen angewiesen. Klaro hat bisher jeden Termin gehalten, und der Festpreis gibt mir Planungssicherheit.",
   },
   {
-    name: "Monika L.",
+    name: "Monika Lang",
     text: "Sehr übersichtliche Bestellstrecke, keine versteckten Kosten. Bezahlt habe ich bequem am Tankwagen mit EC-Karte. So einfach sollte Heizöl-Kauf immer sein.",
   },
   {
-    name: "Ralf Z.",
+    name: "Ralf Zimmermann",
     text: "Die Lieferung kam sogar einen Tag früher als angekündigt. Preis-Leistung top, Kommunikation vorbildlich. Ich werde definitiv wieder hier bestellen.",
   },
 ];
 
-const TRUST_POINTS = [
+const CERTS = [
   {
-    title: "Über 10 Jahre Erfahrung",
-    text: "Wir kennen den Heizölmarkt genau und wickeln jedes Jahr tausende Bestellungen zuverlässig ab.",
+    icon: Award,
+    title: "eKomi Gold",
+    text: "Höchste Auszeichnung für Kundenzufriedenheit. Nur vergeben an Unternehmen mit mindestens 4,8/5 Sternen.",
   },
   {
-    title: "500+ geprüfte Partnerhändler",
-    text: "Deutschlandweite Lieferung über sorgfältig ausgewählte und geprüfte Händler in Ihrer Region.",
+    icon: Lock,
+    title: "SSL-Verschlüsselung",
+    text: "256-bit SSL-Verschlüsselung nach Bankstandard. Ihre Daten sind jederzeit geschützt.",
   },
   {
-    title: "Festpreisgarantie",
-    text: "Der Preis des Bestelltages gilt — auch wenn die Marktpreise danach steigen. Schriftlich fixiert.",
+    icon: ShieldCheck,
+    title: "DSGVO-konform",
+    text: "Vollständig DSGVO-konform. Keine Datenweitergabe an Dritte.",
   },
   {
-    title: "Liefergarantie",
-    text: "Kommt Ihre Lieferung zu spät, erhalten Sie 50 € Entschädigung. Zuverlässigkeit ist bei uns versprochen.",
+    icon: BadgeCheck,
+    title: "Festpreis-Garantie",
+    text: "Schriftliche Preisbindung. Ihr Preis bleibt fixiert bis zur Lieferung.",
   },
 ];
 
-function Stars({ className = "h-4 w-4" }: { className?: string }) {
+function Stars({ className = "size-4" }: { className?: string }) {
   return (
-    <div className="flex items-center gap-0.5 text-brand" aria-label="5 von 5 Sternen">
-      {Array.from({ length: 5 }, (_, i) => (
-        <Star key={i} className={`${className} fill-current`} aria-hidden="true" />
+    <span className="inline-flex gap-0.5" aria-label="5 von 5 Sternen" role="img">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} viewBox="0 0 24 24" className={`${className} fill-[#f1a319]`} aria-hidden="true">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27z" />
+        </svg>
       ))}
-    </div>
+    </span>
   );
 }
 
@@ -100,50 +107,77 @@ function BewertungenPage() {
     <div className="min-h-screen bg-background font-body text-ink">
       <SiteHeader />
       <main>
-        {/* Seitenkopf */}
+        {/* Hero */}
         <section className="border-b border-line bg-surface" aria-labelledby="bew-title">
-          <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+          <div className="mx-auto max-w-6xl px-5 py-12 text-center md:py-16">
             <h1
               id="bew-title"
               className="text-[28px] font-bold leading-tight text-conditions md:text-[36px]"
             >
-              Kundenbewertungen
+              Kundenbewertungen &amp; Vertrauen
             </h1>
-            <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-custom md:text-[16px]">
-              Über 33.000 zufriedene Kunden bewerten uns mit 4,9 von 5 Sternen
+            <p className="mx-auto mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-custom md:text-[16px]">
+              Über 33.000 zufriedene Kunden bewerten uns mit 4,99 von 5 Sternen
             </p>
+
+            <div className="mt-8 flex flex-col items-center">
+              <Stars className="size-7 md:size-8" />
+              <p className="mt-3 text-[34px] font-bold leading-none text-conditions md:text-[42px]">
+                4,99{" "}
+                <span className="text-[20px] font-semibold text-muted-custom md:text-[26px]">
+                  / 5
+                </span>
+              </p>
+              <p className="mt-2 text-[13px] text-muted-custom md:text-[14px]">
+                Basierend auf 33.429 verifizierten Bewertungen
+              </p>
+            </div>
+
+            {/* Kennzahlen */}
+            <dl className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-y-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="px-3">
+                  <dd className="text-[24px] font-bold leading-tight text-brand md:text-[28px]">
+                    {stat.value}
+                  </dd>
+                  <dt className="mt-1 text-xs text-muted-custom md:text-[13px]">{stat.label}</dt>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
-        {/* Gesamtbewertung */}
-        <section className="bg-background" aria-label="Gesamtbewertung">
-          <div className="mx-auto max-w-6xl px-5 pt-10 md:pt-12">
-            <div className="rounded-xl border border-line border-t-4 border-t-brand bg-card p-6 text-center shadow-sm md:p-8">
-              <div className="flex justify-center">
-                <Stars className="h-6 w-6" />
-              </div>
-              <p className="mt-3 text-[32px] font-bold leading-none text-conditions md:text-[40px]">
-                4,9 <span className="text-[20px] font-semibold text-muted-custom md:text-[24px]">/ 5</span>
-              </p>
-              <p className="mt-2 text-[13px] text-muted-custom md:text-[14px]">
-                Basierend auf über 33.000 verifizierten Bewertungen
-              </p>
-            </div>
-          </div>
+        {/* Zertifizierungen & Siegel */}
+        <section className="bg-background" aria-labelledby="certs-title">
+          <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+            <h2
+              id="certs-title"
+              className="text-center text-[22px] font-bold leading-tight text-conditions md:text-[26px]"
+            >
+              Unsere Zertifizierungen &amp; Siegel
+            </h2>
+            <p className="mt-2 text-center text-[14px] text-muted-custom md:text-[15px]">
+              Geprüfte Qualität und Sicherheit — von unabhängigen Instituten bestätigt
+            </p>
 
-          {/* Kennzahlen */}
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-10 md:grid-cols-4 md:gap-6 md:py-12">
-            {STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-xl border border-line bg-card p-5 text-center shadow-sm"
-              >
-                <p className="text-[24px] font-bold leading-tight text-brand md:text-[28px]">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs text-muted-custom md:text-[13px]">{stat.label}</p>
-              </div>
-            ))}
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
+              {CERTS.map((cert) => (
+                <div
+                  key={cert.title}
+                  className="rounded-xl border border-line bg-card p-5 text-center shadow-sm md:p-6"
+                >
+                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-brand">
+                    <cert.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-4 text-[15px] font-bold text-ink md:text-[16px]">
+                    {cert.title}
+                  </h3>
+                  <p className="mt-1.5 text-[13px] leading-[1.7] text-muted-custom">
+                    {cert.text}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -178,40 +212,6 @@ function BewertungenPage() {
                     Verifizierter Kauf
                   </p>
                 </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Vertrauen */}
-        <section className="border-t border-line bg-background" aria-labelledby="trust-title">
-          <div className="mx-auto max-w-6xl px-5 pt-12 pb-6 md:pt-16 md:pb-8">
-            <h2
-              id="trust-title"
-              className="text-[22px] font-bold leading-tight text-conditions md:text-[26px]"
-            >
-              Warum über 33.000 Kunden uns vertrauen
-            </h2>
-            <p className="mt-2 text-[14px] text-muted-custom md:text-[15px]">
-              Qualität, Transparenz und faire Preise — bei jeder Bestellung
-            </p>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 md:gap-6">
-              {TRUST_POINTS.map((point, index) => (
-                <div
-                  key={point.title}
-                  className="flex gap-4 rounded-xl border border-line border-l-4 border-l-brand bg-card p-5 shadow-sm"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-[15px] font-bold text-brand">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <h3 className="text-[15px] font-bold text-ink md:text-[16px]">{point.title}</h3>
-                    <p className="mt-1.5 text-[13px] leading-[1.7] text-muted-custom md:text-[14px]">
-                      {point.text}
-                    </p>
-                  </div>
-                </div>
               ))}
             </div>
           </div>
