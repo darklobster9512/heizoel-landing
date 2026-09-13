@@ -34,7 +34,7 @@ export const Route = createFileRoute("/preisrechner/ergebnis")({
     const menge = Number(search['menge']);
     const abladestellen = Number(search['abladestellen']);
     return {
-      plz: typeof search['plz'] === "string" ? search['plz'].replace(/\D/g, "").slice(0, 5) : "",
+      plz: String(search['plz'] ?? "").replace(/\D/g, "").slice(0, 5),
       menge: Number.isFinite(menge) && menge > 0 ? Math.min(32000, Math.max(1500, menge)) : 3000,
       abladestellen:
         Number.isFinite(abladestellen) && abladestellen > 0 ? Math.min(10, abladestellen) : 1,
