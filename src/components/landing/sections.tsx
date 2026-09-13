@@ -744,68 +744,6 @@ const TRUST_CARDS = [
   },
 ];
 
-export function CtaCard() {
-  return (
-    <section aria-label="Jetzt Heizöl günstiger bestellen" className="relative overflow-hidden bg-cta-bg">
-      {/* Subtle grid pattern for enterprise depth without blur */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.08]">
-        <svg className="h-full w-full" aria-hidden="true" preserveAspectRatio="none">
-          <defs>
-            <pattern id="cta-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#cta-grid)" />
-        </svg>
-      </div>
-
-      <div className="relative mx-auto max-w-6xl px-5 py-16 text-center md:py-24">
-        <h2 className="text-[30px] font-bold leading-[1.15] tracking-tight text-white md:text-[46px]">
-          Jetzt Heizöl günstiger bestellen!
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-[17px] leading-[1.6] text-white/90 md:text-[20px]">
-          Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich{" "}
-          <span className="font-semibold text-white underline decoration-white/40 underline-offset-4">
-            €247
-          </span>
-        </p>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button
-            asChild
-            className="h-13 w-full max-w-[280px] bg-white text-[15px] font-bold text-cta-bg shadow-lg hover:bg-white/90"
-          >
-            <Link to="/" hash="rechner">Heizölpreis berechnen</Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="h-13 w-full max-w-[280px] border-2 border-white bg-transparent text-[15px] font-bold text-white hover:bg-white/10"
-          >
-            <Link to="/" hash="bewertungen">Bewertungen lesen</Link>
-          </Button>
-        </div>
-
-        <div className="mx-auto mt-10 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-medium text-white/80 md:text-[14px]">
-          <span className="flex items-center gap-2">
-            <Check className="size-4 shrink-0 text-white/70" strokeWidth={2.5} aria-hidden="true" />
-            Keine Anmeldung nötig
-          </span>
-          <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:block" aria-hidden="true" />
-          <span className="flex items-center gap-2">
-            <Check className="size-4 shrink-0 text-white/70" strokeWidth={2.5} aria-hidden="true" />
-            Sofortiger Preisvergleich
-          </span>
-          <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:block" aria-hidden="true" />
-          <span className="flex items-center gap-2">
-            <Check className="size-4 shrink-0 text-white/70" strokeWidth={2.5} aria-hidden="true" />
-            Garantiert günstigste Preise
-          </span>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 
 export function TrustLinks() {
