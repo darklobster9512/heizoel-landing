@@ -169,7 +169,10 @@ function ErgebnisPage() {
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
-  const toggleEditing = () => setEditing((v) => !v);
+  const toggleEditing = () => {
+    setEditing((v) => !v);
+    setEditPlzMenge(false);
+  };
 
 
   return (
