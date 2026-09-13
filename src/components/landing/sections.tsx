@@ -1224,27 +1224,27 @@ const REGIONAL_BUTTONS = [
 export function RegionalSeo() {
   return (
     <section className="bg-white" aria-labelledby="regional-seo-title">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+      <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
         <div className="text-center">
-          <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted-custom">
+          <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-custom">
             Heizölpreise nach Region
           </p>
           <h2
             id="regional-seo-title"
-            className="mt-2 text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+            className="mt-2 text-[20px] font-semibold leading-[1.25] text-conditions md:text-[24px]"
           >
             Heizöl in Ihrem Bundesland bestellen
           </h2>
-          <p className="mx-auto mt-4 max-w-[720px] text-[15px] leading-[1.7] text-muted-custom">
+          <p className="mx-auto mt-3 max-w-[720px] text-[13px] leading-[1.7] text-muted-custom">
             Tagesaktuelle Heizölpreise für alle 16 Bundesländer — Lieferung deutschlandweit, Festpreisgarantie.
           </p>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-2 md:grid-cols-4">
           {REGIONAL_BUTTONS.map((label) => (
             <button
               key={label}
               type="button"
-              className="rounded-lg border border-line bg-card px-4 py-3 text-left text-[14px] font-medium leading-snug text-conditions transition-colors hover:border-brand hover:text-brand"
+              className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-left text-[13px] font-medium leading-snug text-conditions transition-colors hover:border-brand hover:text-brand"
             >
               {label}
             </button>
