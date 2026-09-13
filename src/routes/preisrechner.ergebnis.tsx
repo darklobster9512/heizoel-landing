@@ -86,7 +86,7 @@ const PAYMENTS = [
   { label: "Vorkasse", img: vorauskasse.url },
   { label: "Bar", img: barzahlung.url },
   { label: "EC-Karte", img: ecKarte.url },
-  { label: "Rechnung", img: null },
+  { label: "Rechnung", img: vorauskasse.url },
 ];
 
 const ADVANTAGES = [
