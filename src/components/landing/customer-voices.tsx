@@ -1,5 +1,4 @@
 import eKomiLogo from "@/assets/ekomi.webp.asset.json";
-import starAsset from "@/assets/customer-star.svg.asset.json";
 
 type Voice = {
   text: string;
