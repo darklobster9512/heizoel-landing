@@ -58,6 +58,7 @@ function Index() {
         <HeizoelServiceIntro />
         <TrustLinks />
         <RegionalSeo />
+        <CitySeo />
       </main>
       <SiteFooter />
     </div>
