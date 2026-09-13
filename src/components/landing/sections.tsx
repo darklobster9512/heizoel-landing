@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, Info, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
@@ -1182,14 +1182,6 @@ export function ReferralBanner() {
   );
 }
 
-function CurrentDomain() {
-  const [host, setHost] = useState("Klaro");
-  useEffect(() => {
-    setHost(window.location.host);
-  }, []);
-  return <span className="whitespace-nowrap">{host}</span>;
-}
-
 export function HeizoelServiceIntro() {
   return (
     <section className="bg-white" aria-labelledby="heizoel-service-title">
@@ -1202,7 +1194,7 @@ export function HeizoelServiceIntro() {
         </h2>
         <div className="mx-auto mt-8 max-w-[920px] space-y-5 text-[16px] leading-[1.65] text-conditions">
           <p>
-            <CurrentDomain /> ist Deutschlands führender Online-Service für günstige Heizölpreise. Seit{" "}
+            klaro.de ist Deutschlands führender Online-Service für günstige Heizölpreise. Seit{" "}
             <strong>2014</strong> können Kunden bei uns Heizöl online kaufen — einfach, schnell und zum garantiert
             besten Preis. Unser Preisrechner vergleicht automatisch die Heizölpreise heute von über{" "}
             <strong>500 zertifizierten Partnerhändlern</strong> deutschlandweit und findet den optimalen
@@ -1225,7 +1217,7 @@ export function HeizoelServiceIntro() {
           <p>
             Flexible Zahlungsarten ohne Aufpreis: Barzahlung, EC-Karte, Rechnung oder Vorauskasse. Standard-Lieferzeit
             ca. <strong>7 Werktage</strong>. Bei Verspätung erhalten Sie <strong>50€ Entschädigung</strong>.{" "}
-            <CurrentDomain /> — Ihr vertrauenswürdiger Partner für günstiges Heizöl in ganz Deutschland.
+            klaro.de — Ihr vertrauenswürdiger Partner für günstiges Heizöl in ganz Deutschland.
           </p>
         </div>
       </div>
