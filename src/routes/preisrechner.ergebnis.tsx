@@ -121,7 +121,7 @@ const fmtEuro = (v: number) =>
 const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 
 const fieldClass =
-  "mt-1.5 w-full rounded-md border border-line bg-background px-3 py-3 text-[14px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:px-4";
+  "mt-1.5 rounded-md border border-line bg-background px-3 py-3 text-[14px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:px-4";
 
 function Stars({ className = "size-4" }: { className?: string }) {
   return (
