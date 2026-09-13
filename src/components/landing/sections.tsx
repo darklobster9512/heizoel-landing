@@ -786,9 +786,10 @@ export function TrustLinks() {
                         <path d="M9 6l6 6-6 6" />
                       </svg>
                       <span>{l.label}</span>
-                    </a>
+                    </Link>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           ))}
