@@ -73,9 +73,7 @@ export function Hero() {
           <div className="grid grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
             <h1 className="min-w-0 max-w-[14ch] font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:max-w-[13ch] md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
               Günstiges Heizöl -{" "}
-              <span className="underline decoration-brand decoration-[3px] underline-offset-12 decoration-skip-ink-none">
-                garantiert!
-              </span>
+              <span>garantiert!</span>
             </h1>
 
             <img
