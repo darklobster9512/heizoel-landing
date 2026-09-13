@@ -1181,3 +1181,54 @@ export function ReferralBanner() {
     </section>
   );
 }
+
+function CurrentDomain() {
+  const [host, setHost] = useState("Klaro");
+  useEffect(() => {
+    setHost(window.location.host);
+  }, []);
+  return <span className="whitespace-nowrap">{host}</span>;
+}
+
+export function HeizoelServiceIntro() {
+  return (
+    <section className="bg-white" aria-labelledby="heizoel-service-title">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+        <h2
+          id="heizoel-service-title"
+          className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+        >
+          Heizölpreise heute & Heizöl online bestellen
+        </h2>
+        <div className="mx-auto mt-8 max-w-[920px] space-y-5 text-[16px] leading-[1.65] text-conditions">
+          <p>
+            <CurrentDomain /> ist Deutschlands führender Online-Service für günstige Heizölpreise. Seit{" "}
+            <strong>2014</strong> können Kunden bei uns Heizöl online kaufen — einfach, schnell und zum garantiert
+            besten Preis. Unser Preisrechner vergleicht automatisch die Heizölpreise heute von über{" "}
+            <strong>500 zertifizierten Partnerhändlern</strong> deutschlandweit und findet den optimalen
+            Bestellzeitpunkt für maximale Ersparnis.
+          </p>
+          <p>
+            Über <strong>33.000 zufriedene Kunden</strong> bewerten unseren Service mit durchschnittlich{" "}
+            <strong>4,99 von 5 Sternen</strong>. Die Kundenzufriedenheit liegt bei <strong>98,9%</strong>.
+            Kunden sparen durchschnittlich <strong>€247</strong> pro Heizöl-Bestellung gegenüber dem
+            Marktdurchschnitt. Wir bieten eine <strong>Festpreisgarantie</strong> — Ihr Heizölpreis pro Liter
+            bleibt auch bei steigenden Ölpreisen fixiert bis zur Lieferung.
+          </p>
+          <p>
+            Heizöl bestellen war noch nie so einfach: PLZ und Menge eingeben, Preis vergleichen, online bestellen —
+            ohne Registrierung in <strong>2 Minuten</strong>. Wir bieten sowohl{" "}
+            <strong>Heizöl Standard</strong> (günstige Basisvariante) als auch <strong>Heizöl Premium</strong> (mit
+            Additiven für geringeren Verbrauch und längere Lagerfähigkeit). Alle Preise sind{" "}
+            <strong>Endpreise inklusive MwSt. und Lieferung</strong> — angegeben in <strong>€/100L</strong>.
+          </p>
+          <p>
+            Flexible Zahlungsarten ohne Aufpreis: Barzahlung, EC-Karte, Rechnung oder Vorauskasse. Standard-Lieferzeit
+            ca. <strong>7 Werktage</strong>. Bei Verspätung erhalten Sie <strong>50€ Entschädigung</strong>.{" "}
+            <CurrentDomain /> — Ihr vertrauenswürdiger Partner für günstiges Heizöl in ganz Deutschland.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
