@@ -28,7 +28,7 @@ export function OfferCard({
 }) {
   const [plz, setPlz] = useState("");
   const [quantity, setQuantity] = useState(3000);
-  const [deliveryPoints, setDeliveryPoints] = useState(DELIVERY_POINTS[0]);
+  const [deliveryPoints, setDeliveryPoints] = useState<number>(DELIVERY_POINTS[0] ?? 1);
 
   return (
     <div
@@ -115,11 +115,11 @@ export function OfferCard({
       </div>
 
       <Link
-        to="/antrag/schritt-1"
+        to="/preisrechner/ergebnis"
         search={{
           plz,
           menge: quantity,
-          abladestellen: String(deliveryPoints),
+          abladestellen: deliveryPoints,
         }}
         className="mt-4 inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-4 text-xs font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-7 md:shadow-none md:py-3.5 md:text-[15px]"
       >
