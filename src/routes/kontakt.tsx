@@ -32,13 +32,23 @@ export const Route = createFileRoute("/kontakt")({
   component: KontaktPage,
 });
 
-const CONTACTS = [
+type ContactItem = {
+  icon: typeof Phone;
+  title: string;
+  value: string;
+  hint: string;
+  href: string;
+  isInternal: boolean;
+};
+
+const CONTACTS: ContactItem[] = [
   {
     icon: Phone,
     title: "Telefon",
     value: "0800 - 000 000 00",
     hint: "Kostenlos aus dem deutschen Festnetz",
     href: "tel:080000000000",
+    isInternal: false,
   },
   {
     icon: Mail,
@@ -46,6 +56,7 @@ const CONTACTS = [
     value: "service@klaro.de",
     hint: "Wir antworten schnellstmöglich",
     href: "mailto:service@klaro.de",
+    isInternal: false,
   },
   {
     icon: HelpCircle,
@@ -55,7 +66,7 @@ const CONTACTS = [
     href: "/faq",
     isInternal: true,
   },
-] as const;
+];
 
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
