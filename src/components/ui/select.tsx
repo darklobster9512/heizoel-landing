@@ -36,8 +36,8 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 
 function countSelectNodes(children: React.ReactNode): number {
-  return React.Children.toArray(children).reduce((count, child) => {
-    if (React.isValidElement(child) && child.props.children) {
+  return React.Children.toArray(children).reduce<number>((count, child) => {
+    if (React.isValidElement<{ children?: React.ReactNode }>(child) && child.props.children) {
       return count + 1 + countSelectNodes(child.props.children);
     }
     return count + 1;
