@@ -165,50 +165,106 @@ function KontaktPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-8 grid gap-5 md:grid-cols-2">
-                  <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" name="name" placeholder="Ihr Name" required />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">E-Mail</Label>
-                    <Input id="email" name="email" type="email" placeholder="ihre@email.de" required />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="phone">Telefon (optional)</Label>
-                    <Input id="phone" name="phone" type="tel" placeholder="z. B. 0176 12345678" />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="subject">Betreff</Label>
-                    <Input id="subject" name="subject" placeholder="Worum geht es?" required />
-                  </div>
-
                   <div className="grid gap-2 md:col-span-2">
-                    <Label htmlFor="message">Nachricht</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Beschreiben Sie Ihr Anliegen..."
-                      rows={5}
-                      required
-                    />
+                    <Label htmlFor="topic">Anliegen</Label>
+                    <Select value={selectedTopic} onValueChange={setSelectedTopic} required>
+                      <SelectTrigger id="topic" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                        <SelectValue placeholder="Bitte wählen Sie Ihr Anliegen" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TOPICS.map((topic) => (
+                          <SelectItem key={topic.value} value={topic.value}>
+                            {topic.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
-                  <div className="flex items-start gap-3 md:col-span-2">
-                    <Checkbox id="privacy" name="privacy" required className="mt-0.5" />
-                    <Label htmlFor="privacy" className="text-sm font-normal leading-snug text-muted-custom">
-                      Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.
-                    </Label>
-                  </div>
+                  {selectedTopic && (
+                    <>
+                      <div className="grid gap-2">
+                        <Label htmlFor="salutation">Anrede</Label>
+                        <Select name="salutation" required>
+                          <SelectTrigger id="salutation" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                            <SelectValue placeholder="Bitte wählen" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {SALUTATIONS.map((salutation) => (
+                              <SelectItem key={salutation.value} value={salutation.value}>
+                                {salutation.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
 
-                  <div className="md:col-span-2">
-                    <Button type="submit" className="w-full sm:w-auto">
-                      <Send className="h-4 w-4" aria-hidden="true" />
-                      Nachricht senden
-                    </Button>
-                  </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input id="name" name="name" placeholder="Ihr Name" maxLength={100} required />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="email">E-Mail</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          placeholder="ihre@email.de"
+                          maxLength={255}
+                          required
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="phone">Telefon</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          placeholder="z. B. 0176 12345678"
+                          maxLength={30}
+                          required
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="zip">PLZ</Label>
+                        <Input id="zip" name="zip" placeholder="z. B. 10115" maxLength={10} required />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="city">Stadt</Label>
+                        <Input id="city" name="city" placeholder="z. B. Berlin" maxLength={100} required />
+                      </div>
+
+                      <div className="grid gap-2 md:col-span-2">
+                        <Label htmlFor="message">Ihre Nachricht</Label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          placeholder="Beschreiben Sie Ihr Anliegen..."
+                          rows={5}
+                          maxLength={1000}
+                          required
+                        />
+                      </div>
+
+                      <div className="flex items-start gap-3 md:col-span-2">
+                        <Checkbox id="privacy" name="privacy" required className="mt-0.5" />
+                        <Label htmlFor="privacy" className="text-sm font-normal leading-snug text-muted-custom">
+                          Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.
+                        </Label>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <Button type="submit" className="w-full sm:w-auto">
+                          <Send className="h-4 w-4" aria-hidden="true" />
+                          Nachricht senden
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </form>
               )}
             </div>
