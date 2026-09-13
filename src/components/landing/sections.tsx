@@ -699,46 +699,46 @@ const TRUST_CARDS = [
   {
     title: "Heizöl günstig bestellen – so einfach geht's",
     links: [
-      { label: "Heizöl Preisvergleich", href: "#rechner" },
-      { label: "Aktuelle Heizölpreise", href: "#konditionen" },
-      { label: "Heizöl EL Standard", href: "#rechner" },
-      { label: "Premium-Heizöl", href: "#rechner" },
+      { label: "Heizöl Preisvergleich", href: "/preisrechner" },
+      { label: "Aktuelle Heizölpreise", href: "/preisrechner" },
+      { label: "Heizöl EL Standard", href: "/preisrechner" },
+      { label: "Premium-Heizöl", href: "/preisrechner" },
     ],
   },
   {
     title: "Der richtige Zeitpunkt für Ihre Bestellung",
     links: [
-      { label: "Preisentwicklung", href: "#konditionen" },
-      { label: "Heizöl im Sommer kaufen", href: "#faq" },
-      { label: "Sammelbestellungen", href: "#faq" },
-      { label: "Preisgarantie", href: "#faq" },
+      { label: "Preisentwicklung", href: "/faq" },
+      { label: "Heizöl im Sommer kaufen", href: "/faq" },
+      { label: "Sammelbestellungen", href: "/faq" },
+      { label: "Preisgarantie", href: "/faq" },
     ],
   },
   {
     title: "Lieferung und Zahlung im Überblick",
     links: [
-      { label: "Lieferzeiten", href: "#faq" },
-      { label: "Expresslieferung", href: "#faq" },
-      { label: "Zahlungsarten", href: "#faq" },
-      { label: "Mindestbestellmenge", href: "#faq" },
+      { label: "Lieferzeiten", href: "/lieferung-zahlung" },
+      { label: "Expresslieferung", href: "/lieferung-zahlung" },
+      { label: "Zahlungsarten", href: "/lieferung-zahlung" },
+      { label: "Mindestbestellmenge", href: "/lieferung-zahlung" },
     ],
   },
   {
     title: "Heizöl-Wissen für Ihr Zuhause",
     links: [
-      { label: "Sorten im Vergleich", href: "#konditionen" },
-      { label: "Tank richtig pflegen", href: "#faq" },
-      { label: "Verbrauch senken", href: "#faq" },
-      { label: "Heizöl-Glossar", href: "#faq" },
+      { label: "Sorten im Vergleich", href: "/heizoel-wissen#sorten" },
+      { label: "Tank richtig pflegen", href: "/heizoel-wissen#tank" },
+      { label: "Verbrauch senken", href: "/heizoel-wissen#verbrauch" },
+      { label: "Heizöl-Glossar", href: "/heizoel-wissen#glossar" },
     ],
   },
   {
     title: "Ihr Wegweiser zu Preisen, Händlern und Beratung",
     links: [
-      { label: "Preisrechner", href: "#rechner" },
-      { label: "Händler in Ihrer Region", href: "#rechner" },
-      { label: "Beratung", href: "#faq" },
-      { label: "Häufige Fragen", href: "#faq" },
+      { label: "Preisrechner", href: "/preisrechner" },
+      { label: "Händler in Ihrer Region", href: "/preisrechner" },
+      { label: "Beratung", href: "/kontakt" },
+      { label: "Häufige Fragen", href: "/faq" },
     ],
   },
 ];
@@ -764,12 +764,15 @@ export function TrustLinks() {
             <div key={card.title} className="rounded-sm bg-background px-6 py-6">
               <p className="text-[15px] leading-[1.45] text-footer-text">{card.title}</p>
               <ul className="mt-5 space-y-3">
-                {card.links.map((l) => (
+                {card.links.map((l) => {
+                  const hashIndex = l.href.indexOf("#");
+                  const path = hashIndex === -1 ? l.href : l.href.slice(0, hashIndex);
+                  const hash = hashIndex === -1 ? undefined : l.href.slice(hashIndex + 1);
+                  return (
                   <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to={path}
+                      hash={hash ?? ""}
                       className="group flex items-start gap-3 text-[15px] font-semibold text-brand-deep hover:underline"
                     >
                       <svg
@@ -785,9 +788,10 @@ export function TrustLinks() {
                         <path d="M9 6l6 6-6 6" />
                       </svg>
                       <span>{l.label}</span>
-                    </a>
+                    </Link>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           ))}
