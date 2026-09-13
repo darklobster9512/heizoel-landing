@@ -307,50 +307,48 @@ function PreisrechnerPage() {
           </div>
         </section>
 
-        {/* Warum Klaro */}
-        <section className="bg-surface" aria-labelledby="why-klaro-title">
-          <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
-            <h2
-              id="why-klaro-title"
-              className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
-            >
-              Warum bei Klaro bestellen?
-            </h2>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {ADVANTAGES.map((a) => {
-                const Icon = a.icon;
-                return (
-                  <div
-                    key={a.title}
-                    className="rounded-xl border border-line bg-background p-6 transition-colors hover:border-brand"
-                  >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-brand">
-                      <Icon className="h-5 w-5" strokeWidth={2.2} />
-                    </div>
-                    <h3 className="mt-4 text-base font-semibold text-ink">
-                      {a.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted-custom">
-                      {a.text}
-                    </p>
+        {/* Warum Klaro — direkt an die Hero-Card angedockt */}
+        <section
+          className="border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
+          aria-labelledby="why-klaro-title"
+        >
+          <h2
+            id="why-klaro-title"
+            className="text-center text-lg font-semibold leading-snug text-conditions md:text-xl"
+          >
+            Warum bei Klaro bestellen?
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {ADVANTAGES.map((a) => {
+              const Icon = a.icon;
+              return (
+                <div key={a.title} className="text-center">
+                  <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
+                    <Icon className="h-4 w-4" strokeWidth={2.2} />
                   </div>
-                );
-              })}
-
-              {/* 6. Kachel: Bewertung */}
-              <div className="flex flex-col items-center justify-center rounded-xl border border-line bg-background p-6 text-center transition-colors hover:border-brand">
-                <Stars size="size-6" />
-                <div className="mt-4 flex items-baseline justify-center gap-2">
-                  <span className="text-3xl font-bold text-ink">4,99</span>
-                  <span className="text-base text-muted-custom">/ 5 Sternen</span>
+                  <h3 className="mt-2.5 text-sm font-semibold leading-tight text-ink">
+                    {a.title}
+                  </h3>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-custom">
+                    {a.text}
+                  </p>
                 </div>
-                <p className="mt-2 text-lg font-semibold text-conditions">
-                  Ausgezeichnet
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-custom">
-                  Basierend auf über 33.000 Kundenbewertungen
-                </p>
+              );
+            })}
+
+            {/* 6. Kachel: Bewertung */}
+            <div className="text-center">
+              <Stars size="size-4" />
+              <div className="mt-2.5 flex items-baseline justify-center gap-1">
+                <span className="text-lg font-bold text-ink">4,99</span>
+                <span className="text-xs text-muted-custom">/ 5 Sternen</span>
               </div>
+              <p className="mt-0.5 text-sm font-semibold text-conditions">
+                Ausgezeichnet
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-custom">
+                Basierend auf über 33.000 Kundenbewertungen
+              </p>
             </div>
           </div>
         </section>
