@@ -146,19 +146,14 @@ function Stars({ rating, className = "" }: { rating: number; className?: string 
   return (
     <span className={`inline-flex items-center gap-1 ${className}`} aria-label={`${rating} von 5 Sternen`}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <img
+        <svg
           key={i}
-          src={starAsset.url}
-          alt=""
           aria-hidden="true"
-          width={16}
-          height={16}
-          className="size-4 shrink-0"
-          style={{
-            filter: i <= Math.round(rating) ? "none" : "grayscale(1) brightness(1.6)",
-          }}
-          loading="lazy"
-        />
+          viewBox="0 0 24 24"
+          className={`size-4 shrink-0 ${i <= Math.round(rating) ? "fill-[#F5A623]" : "fill-line"}`}
+        >
+          <path d="M12 2.5l2.95 6.26 6.87.72-5.12 4.63 1.43 6.76L12 17.42l-6.13 3.45 1.43-6.76-5.12-4.63 6.87-.72L12 2.5z" />
+        </svg>
       ))}
     </span>
   );
