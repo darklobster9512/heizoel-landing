@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfferCard } from "@/components/landing/offer-card";
 import { SiteFooter, STEPS } from "@/components/landing/sections";
+import { Logo } from "@/components/landing/logo";
 import guarantee from "@/assets/guarantee.svg.asset.json";
 import {
   BadgePercent,
@@ -11,7 +12,6 @@ import {
   Truck,
   Clock,
   ShieldCheck,
-  Flame,
 } from "lucide-react";
 
 const DESCRIPTION =
