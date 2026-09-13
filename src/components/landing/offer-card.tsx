@@ -11,13 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const QUANTITIES: number[] = [];
-for (let v = 500; v <= 5000; v += 250) QUANTITIES.push(v);
-for (let v = 6000; v <= 10000; v += 1000) QUANTITIES.push(v);
-
 const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-const liters = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 });
 
 const fieldClass =
   "mt-1 w-full rounded-md border border-line bg-background px-3 py-3.5 text-[13px] text-hero-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-2 md:px-4 md:py-3 md:text-[15px]";
@@ -65,21 +59,24 @@ export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
             Menge in Litern
           </label>
 
-          <Select
-            value={String(quantity)}
-            onValueChange={(value) => setQuantity(Number(value))}
-          >
-            <SelectTrigger id="quantity" className={selectTriggerClass}>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {QUANTITIES.map((q) => (
-                <SelectItem key={q} value={String(q)}>
-                  {liters.format(q)} Liter
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <input
+            id="quantity"
+            type="text"
+            inputMode="numeric"
+            min={1500}
+            max={32000}
+            placeholder="z. B. 3000"
+            value={quantity || ""}
+            onChange={(e) => {
+              const digits = e.target.value.replace(/\D/g, "");
+              setQuantity(digits ? Number(digits) : 0);
+            }}
+            onBlur={() => {
+              if (!quantity || quantity < 1500) setQuantity(1500);
+              else if (quantity > 32000) setQuantity(32000);
+            }}
+            className={`${fieldClass} tabular`}
+          />
         </div>
 
         <div>
