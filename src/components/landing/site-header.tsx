@@ -1,15 +1,37 @@
 import { Link } from "@tanstack/react-router";
+import { Calculator, Fuel, TrendingUp } from "lucide-react";
+
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 import { Logo } from "./logo";
 import { RatingBadge } from "./rating-badge";
 
-const NAV = [
-  { href: "#rechner", label: "Heizöl" },
-  { href: "#konditionen", label: "Preise" },
-  { href: "#ablauf", label: "Lieferung" },
-  { href: "#konditionen", label: "Sorten" },
-  { href: "#faq", label: "Ratgeber" },
-  { href: "#faq", label: "Service" },
+const HEIZOEL_LINKS = [
+  {
+    to: "/preisrechner",
+    title: "Heizöl Preise heute",
+    description: "Aktueller Tagespreis & 7-Tage-Trend",
+    icon: TrendingUp,
+  },
+  {
+    to: "/preisrechner",
+    title: "Heizöl kaufen",
+    description: "Direkt vom Händler - bis 15% sparen",
+    icon: Fuel,
+  },
+  {
+    to: "/preisrechner",
+    title: "Heizölpreis pro Liter",
+    description: "PLZ eingeben, Preis sofort berechnen",
+    icon: Calculator,
+  },
 ];
 
 export function SiteHeader() {
@@ -41,18 +63,42 @@ export function SiteHeader() {
       </div>
 
       <nav aria-label="Hauptnavigation" className="hidden border-y border-line bg-surface md:block">
-        <ul className="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-5 py-3">
-          {NAV.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className="whitespace-nowrap text-xs uppercase tracking-wide text-ink transition-colors hover:text-brand-deep"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="mx-auto flex h-12 max-w-6xl items-center px-5">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent px-0 text-xs font-semibold uppercase tracking-wide text-ink hover:bg-transparent hover:text-brand-deep focus:bg-transparent focus:text-brand-deep data-[state=open]:bg-transparent data-[state=open]:text-brand-deep data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent">
+                  Heizölpreise
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[420px] gap-1 p-2">
+                    {HEIZOEL_LINKS.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <li key={item.title}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              to={item.to}
+                              className="flex items-start gap-4 rounded-lg p-3 transition-colors hover:bg-brand/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                            >
+                              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                                <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                              </span>
+                              <div className="flex flex-col gap-0.5">
+                                <span className="text-sm font-semibold text-ink">{item.title}</span>
+                                <span className="text-xs text-muted-custom">{item.description}</span>
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
       </nav>
     </header>
   );
