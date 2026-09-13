@@ -31,39 +31,25 @@ export function SectionHead({
 }
 
 import smavaHero from "@/assets/smava-hero.webp.asset.json";
-import santander from "@/assets/santander.svg.asset.json";
-import postbank from "@/assets/postbank.svg.asset.json";
-import creditplus from "@/assets/creditplus.svg.asset.json";
-import commerzbank from "@/assets/commerzbank.svg.asset.json";
-import auxmoney from "@/assets/auxmoney.svg.asset.json";
-import hvb from "@/assets/hvb.svg.asset.json";
-import bankofscotland from "@/assets/bankofscotland.svg.asset.json";
-import dkb from "@/assets/dkb.svg.asset.json";
-import deutschebank from "@/assets/deutschebank.svg.asset.json";
-import ingdiba from "@/assets/ingdiba.svg.asset.json";
-import vvrb from "@/assets/vvrb.svg.asset.json";
-import skredit from "@/assets/skreditpartnerkredit.svg.asset.json";
-import targobank from "@/assets/targobank.svg.asset.json";
-import vonessen from "@/assets/vonessensubprime.svg.asset.json";
 
-const PARTNER_ROWS: { name: string; src: string; h: string }[][] = [
+const PARTNER_ROWS: { name: string }[][] = [
   [
-    { name: "TARGOBANK", src: targobank.url, h: "h-5" },
-    { name: "Vereinigte Volksbank Raiffeisenbank", src: vvrb.url, h: "h-7" },
-    { name: "CreditPlus Bank", src: creditplus.url, h: "h-6" },
-    { name: "ING", src: ingdiba.url, h: "h-8" },
-    { name: "Santander", src: santander.url, h: "h-6" },
-    { name: "Postbank", src: postbank.url, h: "h-9" },
-    { name: "S-Kredit-per-Klick", src: skredit.url, h: "h-6" },
+    { name: "Heizöl Direkt" },
+    { name: "ThermoÖl" },
+    { name: "NordWärme" },
+    { name: "ÖlPartner" },
+    { name: "HeizProfis" },
+    { name: "SüdHeiz" },
+    { name: "Rhein Energie" },
   ],
   [
-    { name: "Commerzbank", src: commerzbank.url, h: "h-7" },
-    { name: "auxmoney", src: auxmoney.url, h: "h-5" },
-    { name: "HypoVereinsbank", src: hvb.url, h: "h-8" },
-    { name: "Bank of Scotland", src: bankofscotland.url, h: "h-9" },
-    { name: "DKB", src: dkb.url, h: "h-10" },
-    { name: "Consors Finanz", src: vonessen.url, h: "h-7" },
-    { name: "Deutsche Bank", src: deutschebank.url, h: "h-6" },
+    { name: "Hansa Öl" },
+    { name: "BayernWärme" },
+    { name: "Teuto Heizöl" },
+    { name: "Elbe Energie" },
+    { name: "AlpenÖl" },
+    { name: "Ostsee Wärme" },
+    { name: "Ruhr Heizöl" },
   ],
 ];
 
@@ -161,13 +147,13 @@ export function TrustBar() {
 }
 
 const CONDITIONS_LEFT = [
-  ["Zinssätze:", "Min. -0,40 % bis Max. 19,90 % effektiver Jahreszins (APR)"],
-  ["Laufzeit:", "Min. 6 bis Max. 120 Monate"],
+  ["Literpreis:", "ca. 78,90 € bis 96,50 € je 100 Liter (Heizöl EL)"],
+  ["Liefermenge:", "Min. 500 bis Max. 30.000 Liter"],
 ];
 
 const CONDITIONS_RIGHT = [
-  ["Nettodarlehensbetrag:", "von 1.000 € bis 150.000 €"],
-  ["Gesamtbetrag:", "von 995,50 € bis 181.247,51 €"],
+  ["Lieferzeit:", "ca. 3 bis 10 Werktage, Express möglich"],
+  ["Zahlungsarten:", "Vorkasse, Lastschrift, Rechnung oder Karte"],
 ];
 
 function ConditionsList({ items }: { items: string[][] }) {
