@@ -42,9 +42,12 @@ import { Route as AntragSchritt6RouteImport } from './routes/antrag/schritt-6'
 import { Route as AntragSchritt7RouteImport } from './routes/antrag/schritt-7'
 import { Route as AntragSchritt8RouteImport } from './routes/antrag/schritt-8'
 import { Route as AntragSchritt9RouteImport } from './routes/antrag/schritt-9'
+import { Route as HeizoelpreiseIndexRouteImport } from './routes/heizoelpreise.index'
+import { Route as HeizoelpreiseCityRouteImport } from './routes/heizoelpreise.$city'
 import { Route as KreditantragApplicationIdRouteImport } from './routes/kreditantrag.$applicationId'
 import { Route as PreisrechnerIndexRouteImport } from './routes/preisrechner.index'
 import { Route as PreisrechnerErgebnisRouteImport } from './routes/preisrechner.ergebnis'
+import { Route as HeizoelpreiseBundeslandStateRouteImport } from './routes/heizoelpreise.bundesland.$state'
 import { Route as AuthenticatedAdminAntragApplicationIdRouteImport } from './routes/_authenticated/admin.antrag.$applicationId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -211,6 +214,16 @@ const AntragSchritt9Route = AntragSchritt9RouteImport.update({
   path: '/schritt-9',
   getParentRoute: () => AntragRouteRoute,
 } as any)
+const HeizoelpreiseIndexRoute = HeizoelpreiseIndexRouteImport.update({
+  id: '/heizoelpreise/',
+  path: '/heizoelpreise/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeizoelpreiseCityRoute = HeizoelpreiseCityRouteImport.update({
+  id: '/heizoelpreise/$city',
+  path: '/heizoelpreise/$city',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KreditantragApplicationIdRoute =
   KreditantragApplicationIdRouteImport.update({
     id: '/kreditantrag/$applicationId',
@@ -227,6 +240,12 @@ const PreisrechnerErgebnisRoute = PreisrechnerErgebnisRouteImport.update({
   path: '/preisrechner/ergebnis',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HeizoelpreiseBundeslandStateRoute =
+  HeizoelpreiseBundeslandStateRouteImport.update({
+    id: '/heizoelpreise/bundesland/$state',
+    path: '/heizoelpreise/bundesland/$state',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminAntragApplicationIdRoute =
   AuthenticatedAdminAntragApplicationIdRouteImport.update({
     id: '/antrag/$applicationId',
@@ -267,9 +286,12 @@ export interface FileRoutesByFullPath {
   '/antrag/schritt-7': typeof AntragSchritt7Route
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
+  '/heizoelpreise/$city': typeof HeizoelpreiseCityRoute
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
   '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
+  '/heizoelpreise/': typeof HeizoelpreiseIndexRoute
   '/preisrechner/': typeof PreisrechnerIndexRoute
+  '/heizoelpreise/bundesland/$state': typeof HeizoelpreiseBundeslandStateRoute
   '/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRoutesByTo {
@@ -305,9 +327,12 @@ export interface FileRoutesByTo {
   '/antrag/schritt-7': typeof AntragSchritt7Route
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
+  '/heizoelpreise/$city': typeof HeizoelpreiseCityRoute
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
   '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
+  '/heizoelpreise': typeof HeizoelpreiseIndexRoute
   '/preisrechner': typeof PreisrechnerIndexRoute
+  '/heizoelpreise/bundesland/$state': typeof HeizoelpreiseBundeslandStateRoute
   '/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRoutesById {
@@ -345,9 +370,12 @@ export interface FileRoutesById {
   '/antrag/schritt-7': typeof AntragSchritt7Route
   '/antrag/schritt-8': typeof AntragSchritt8Route
   '/antrag/schritt-9': typeof AntragSchritt9Route
+  '/heizoelpreise/$city': typeof HeizoelpreiseCityRoute
   '/kreditantrag/$applicationId': typeof KreditantragApplicationIdRoute
   '/preisrechner/ergebnis': typeof PreisrechnerErgebnisRoute
+  '/heizoelpreise/': typeof HeizoelpreiseIndexRoute
   '/preisrechner/': typeof PreisrechnerIndexRoute
+  '/heizoelpreise/bundesland/$state': typeof HeizoelpreiseBundeslandStateRoute
   '/_authenticated/admin/antrag/$applicationId': typeof AuthenticatedAdminAntragApplicationIdRoute
 }
 export interface FileRouteTypes {
@@ -385,9 +413,12 @@ export interface FileRouteTypes {
     | '/antrag/schritt-7'
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
+    | '/heizoelpreise/$city'
     | '/kreditantrag/$applicationId'
     | '/preisrechner/ergebnis'
+    | '/heizoelpreise/'
     | '/preisrechner/'
+    | '/heizoelpreise/bundesland/$state'
     | '/admin/antrag/$applicationId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -423,9 +454,12 @@ export interface FileRouteTypes {
     | '/antrag/schritt-7'
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
+    | '/heizoelpreise/$city'
     | '/kreditantrag/$applicationId'
     | '/preisrechner/ergebnis'
+    | '/heizoelpreise'
     | '/preisrechner'
+    | '/heizoelpreise/bundesland/$state'
     | '/admin/antrag/$applicationId'
   id:
     | '__root__'
@@ -462,9 +496,12 @@ export interface FileRouteTypes {
     | '/antrag/schritt-7'
     | '/antrag/schritt-8'
     | '/antrag/schritt-9'
+    | '/heizoelpreise/$city'
     | '/kreditantrag/$applicationId'
     | '/preisrechner/ergebnis'
+    | '/heizoelpreise/'
     | '/preisrechner/'
+    | '/heizoelpreise/bundesland/$state'
     | '/_authenticated/admin/antrag/$applicationId'
   fileRoutesById: FileRoutesById
 }
@@ -481,9 +518,12 @@ export interface RootRouteChildren {
   HeizoelWissenRoute: typeof HeizoelWissenRoute
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
+  HeizoelpreiseCityRoute: typeof HeizoelpreiseCityRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
   PreisrechnerErgebnisRoute: typeof PreisrechnerErgebnisRoute
+  HeizoelpreiseIndexRoute: typeof HeizoelpreiseIndexRoute
   PreisrechnerIndexRoute: typeof PreisrechnerIndexRoute
+  HeizoelpreiseBundeslandStateRoute: typeof HeizoelpreiseBundeslandStateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -719,6 +759,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AntragSchritt9RouteImport
       parentRoute: typeof AntragRouteRoute
     }
+    '/heizoelpreise/': {
+      id: '/heizoelpreise/'
+      path: '/heizoelpreise'
+      fullPath: '/heizoelpreise/'
+      preLoaderRoute: typeof HeizoelpreiseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heizoelpreise/$city': {
+      id: '/heizoelpreise/$city'
+      path: '/heizoelpreise/$city'
+      fullPath: '/heizoelpreise/$city'
+      preLoaderRoute: typeof HeizoelpreiseCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kreditantrag/$applicationId': {
       id: '/kreditantrag/$applicationId'
       path: '/kreditantrag/$applicationId'
@@ -738,6 +792,13 @@ declare module '@tanstack/react-router' {
       path: '/preisrechner/ergebnis'
       fullPath: '/preisrechner/ergebnis'
       preLoaderRoute: typeof PreisrechnerErgebnisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heizoelpreise/bundesland/$state': {
+      id: '/heizoelpreise/bundesland/$state'
+      path: '/heizoelpreise/bundesland/$state'
+      fullPath: '/heizoelpreise/bundesland/$state'
+      preLoaderRoute: typeof HeizoelpreiseBundeslandStateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/antrag/$applicationId': {
@@ -836,9 +897,12 @@ const rootRouteChildren: RootRouteChildren = {
   HeizoelWissenRoute: HeizoelWissenRoute,
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
+  HeizoelpreiseCityRoute: HeizoelpreiseCityRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
   PreisrechnerErgebnisRoute: PreisrechnerErgebnisRoute,
+  HeizoelpreiseIndexRoute: HeizoelpreiseIndexRoute,
   PreisrechnerIndexRoute: PreisrechnerIndexRoute,
+  HeizoelpreiseBundeslandStateRoute: HeizoelpreiseBundeslandStateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
