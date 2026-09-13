@@ -33,6 +33,13 @@ const fmtEuro = (v: number) =>
   v.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 
+interface Review {
+  id: number;
+  name: string;
+  when: string;
+  text: string;
+}
+
 const CHECKS = [
   "Bestellung ohne Anmeldung",
   "Lieferkosten enthalten",
