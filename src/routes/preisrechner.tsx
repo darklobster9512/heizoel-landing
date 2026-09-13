@@ -34,21 +34,6 @@ export const Route = createFileRoute("/preisrechner")({
   component: PreisrechnerPage,
 });
 
-function CheckIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      className="mt-1 size-4 shrink-0 text-brand"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.2}
-    >
-      <path d="M3 10.5l4.5 4.5L17 5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 const ADVANTAGES = [
   {
     icon: BadgePercent,
@@ -91,11 +76,11 @@ function Stars({ size = "size-5" }: { size?: string }) {
 
 function CompactSteps() {
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <h2 className="text-[22px] font-bold tracking-tight text-conditions md:text-2xl">
         In 3 Schritten zum günstigen Heizöl
       </h2>
-      <ol className="mt-6 space-y-5">
+      <ol className="mt-6 flex flex-1 flex-col justify-between">
         {STEPS.map((s) => (
           <li key={s.title} className="flex items-start gap-4">
             <img
@@ -129,39 +114,38 @@ function PreisrechnerPage() {
         <section className="relative bg-surface">
           <div className="mx-auto max-w-5xl px-5 py-10 md:py-16">
             <div className="mb-8 text-center">
-              <h1 className="font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:text-[44px] md:font-bold md:leading-[1.12] md:tracking-tight">
-                Heizölpreis berechnen
+              <div className="mb-3 md:mb-4">
+                <span className="inline-flex items-center rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white md:text-sm">
+                  Nr. 1 Heizöl-Preisvergleich in Deutschland
+                </span>
+              </div>
+
+              <h1 className="font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
+                Heizölpreis berechnen —{" "}
+                <span>sofort & kostenlos</span>
               </h1>
-              <p className="mt-2 text-[15px] text-hero-text/70 md:text-base">
-                Kostenlos & unverbindlich — Ergebnis in Sekunden
+
+              <p className="mx-auto mt-5 max-w-[55ch] text-[15px] leading-snug text-hero-text md:mt-6 md:text-base">
+                Heizölpreise heute ab{" "}
+                <strong className="font-semibold text-ink">128,78 €/100L</strong>{" "}
+                —{" "}
+                <strong className="font-semibold text-ink">über 25.000 Kunden</strong>{" "}
+                sparen{" "}
+                <strong className="font-semibold text-ink">Ø €247 pro Bestellung</strong>
+                , direkt vom Händler, deutschlandweit.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-xl border border-line bg-background shadow-card">
               <div className="grid lg:grid-cols-2">
+                <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-r">
+                  <CompactSteps />
+                </div>
                 <div className="p-6 md:p-10">
                   <OfferCard bordered={false} />
                 </div>
-                <div className="border-t border-line bg-surface/50 p-6 md:p-10 lg:border-t-0 lg:border-l">
-                  <CompactSteps />
-                </div>
               </div>
             </div>
-
-            <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-hero-text">
-              <li className="inline-flex items-center gap-2">
-                <CheckIcon />
-                <span>100% sicher & kostenlos</span>
-              </li>
-              <li className="inline-flex items-center gap-2">
-                <CheckIcon />
-                <span>Keine versteckten Kosten</span>
-              </li>
-              <li className="inline-flex items-center gap-2">
-                <CheckIcon />
-                <span>Über 500 Partner-Händler</span>
-              </li>
-            </ul>
           </div>
         </section>
 
