@@ -228,16 +228,16 @@ function OffersPage() {
         /* ignore */
       }
       const { id } = await createApplication({
-          wizard,
-          offer: {
-            bankId: offer.bank.id,
-            bankName: offer.bank.name,
-            bankLogoKey: offer.bank.logo_key ?? null,
-            amount: searchAmount,
-            termMonths: searchTerm,
-            effRate: offer.effRate,
-            monthlyRate: offer.rate,
-            totalAmount: offer.rate * searchTerm,
+        wizard,
+        offer: {
+          bankId: offer.bank.id,
+          bankName: offer.bank.name,
+          bankLogoKey: offer.bank.logo_key ?? null,
+          amount: searchAmount,
+          termMonths: searchTerm,
+          effRate: offer.effRate,
+          monthlyRate: offer.rate,
+          totalAmount: offer.rate * searchTerm,
           insurance: searchInsurance,
         },
       });
