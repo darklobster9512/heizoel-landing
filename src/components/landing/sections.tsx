@@ -1096,23 +1096,23 @@ export function HeizoelServiceIntro() {
   );
 }
 
-const REGIONAL_BUTTONS = [
-  "Heizölpreise Baden-Württemberg",
-  "Heizöl Bayern kaufen",
-  "Heizölpreise Berlin",
-  "Heizöl Brandenburg bestellen",
-  "Heizölpreise Bremen",
-  "Heizöl Hamburg kaufen",
-  "Heizölpreise Hessen",
-  "Heizöl Meckl.-Vorpommern",
-  "Heizölpreise Niedersachsen",
-  "Heizöl NRW kaufen",
-  "Heizölpreise Rheinland-Pfalz",
-  "Heizöl Saarland bestellen",
-  "Heizölpreise Sachsen",
-  "Heizöl Sachsen-Anhalt",
-  "Heizölpreise Schleswig-Holstein",
-  "Heizöl Thüringen bestellen",
+const REGIONAL_BUTTONS: { label: string; state: string }[] = [
+  { label: "Heizölpreise Baden-Württemberg", state: "baden-wuerttemberg" },
+  { label: "Heizöl Bayern kaufen", state: "bayern" },
+  { label: "Heizölpreise Berlin", state: "berlin" },
+  { label: "Heizöl Brandenburg bestellen", state: "brandenburg" },
+  { label: "Heizölpreise Bremen", state: "bremen" },
+  { label: "Heizöl Hamburg kaufen", state: "hamburg" },
+  { label: "Heizölpreise Hessen", state: "hessen" },
+  { label: "Heizöl Meckl.-Vorpommern", state: "mecklenburg-vorpommern" },
+  { label: "Heizölpreise Niedersachsen", state: "niedersachsen" },
+  { label: "Heizöl NRW kaufen", state: "nordrhein-westfalen" },
+  { label: "Heizölpreise Rheinland-Pfalz", state: "rheinland-pfalz" },
+  { label: "Heizöl Saarland bestellen", state: "saarland" },
+  { label: "Heizölpreise Sachsen", state: "sachsen" },
+  { label: "Heizöl Sachsen-Anhalt", state: "sachsen-anhalt" },
+  { label: "Heizölpreise Schleswig-Holstein", state: "schleswig-holstein" },
+  { label: "Heizöl Thüringen bestellen", state: "thueringen" },
 ];
 
 export function RegionalSeo() {
@@ -1134,13 +1134,15 @@ export function RegionalSeo() {
           </p>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 md:grid-cols-4">
-          {REGIONAL_BUTTONS.map((label) => (
+          {REGIONAL_BUTTONS.map((item) => (
             <Link
-              key={label}
-              to="/preisrechner"
+              key={item.label}
+              to="/heizoelpreise/bundesland/$state"
+              params={{ state: item.state }}
+              title={item.label}
               className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-left text-[13px] font-medium leading-snug text-conditions transition-colors hover:border-brand hover:text-brand"
             >
-              {label}
+              {item.label}
             </Link>
           ))}
         </div>
@@ -1149,49 +1151,52 @@ export function RegionalSeo() {
   );
 }
 
-const CITY_LINKS = [
-  "Heizölpreise Berlin",
-  "Heizöl Hamburg kaufen",
-  "Heizölpreis München heute",
-  "Heizöl Köln bestellen",
-  "Heizölpreise Frankfurt",
-  "Heizöl Düsseldorf bestellen",
-  "Heizölpreis Dortmund heute",
-  "Heizöl Essen kaufen",
-  "Heizölpreise Leipzig",
-  "Heizöl Bremen bestellen",
-  "Heizölpreise Dresden",
-  "Heizöl Hannover kaufen",
-  "Heizölpreis Nürnberg heute",
-  "Heizöl Duisburg bestellen",
-  "Heizölpreise Bielefeld",
-  "Heizöl Bochum bestellen",
-  "Heizölpreise Bonn",
-  "Heizöl Münster kaufen",
-  "Heizölpreis Kiel heute",
-  "Heizölpreise Chemnitz",
+const CITY_LINKS: { label: string; city: string }[] = [
+  { label: "Heizölpreise Berlin", city: "berlin-berlin" },
+  { label: "Heizöl Hamburg kaufen", city: "hamburg-hamburg" },
+  { label: "Heizölpreis München heute", city: "muenchen-bayern" },
+  { label: "Heizöl Köln bestellen", city: "koeln-nordrhein-westfalen" },
+  { label: "Heizölpreise Frankfurt", city: "frankfurt-am-main-hessen" },
+  { label: "Heizöl Düsseldorf bestellen", city: "duesseldorf-nordrhein-westfalen" },
+  { label: "Heizölpreis Dortmund heute", city: "dortmund-nordrhein-westfalen" },
+  { label: "Heizöl Essen kaufen", city: "essen-nordrhein-westfalen" },
+  { label: "Heizölpreise Leipzig", city: "leipzig-sachsen" },
+  { label: "Heizöl Bremen bestellen", city: "bremen-bremen" },
+  { label: "Heizölpreise Dresden", city: "dresden-sachsen" },
+  { label: "Heizöl Hannover kaufen", city: "hannover-niedersachsen" },
+  { label: "Heizölpreis Nürnberg heute", city: "nuernberg-bayern" },
+  { label: "Heizöl Duisburg bestellen", city: "duisburg-nordrhein-westfalen" },
+  { label: "Heizölpreise Bielefeld", city: "bielefeld-nordrhein-westfalen" },
+  { label: "Heizöl Bochum bestellen", city: "bochum-nordrhein-westfalen" },
+  { label: "Heizölpreise Bonn", city: "bonn-nordrhein-westfalen" },
+  { label: "Heizöl Münster kaufen", city: "muenster-nordrhein-westfalen" },
+  { label: "Heizölpreis Kiel heute", city: "kiel-schleswig-holstein" },
+  { label: "Heizölpreise Chemnitz", city: "chemnitz-sachsen" },
 ];
 
-const STATE_LINKS = [
-  "Heizölpreise Baden-Württemberg",
-  "Heizöl Bayern kaufen",
-  "Heizölpreise Berlin",
-  "Heizöl Brandenburg bestellen",
-  "Heizölpreise Bremen",
-  "Heizöl Hamburg kaufen",
-  "Heizölpreise Hessen",
-  "Heizöl Meckl.-Vorpommern bestellen",
-  "Heizölpreise Niedersachsen",
-  "Heizöl NRW kaufen",
-  "Heizölpreise Rheinland-Pfalz",
-  "Heizöl Saarland bestellen",
-  "Heizölpreise Sachsen",
-  "Heizöl Sachsen-Anhalt kaufen",
-  "Heizölpreise Schleswig-Holstein",
-  "Heizöl Thüringen bestellen",
+const STATE_LINKS: { label: string; state: string }[] = [
+  { label: "Heizölpreise Baden-Württemberg", state: "baden-wuerttemberg" },
+  { label: "Heizöl Bayern kaufen", state: "bayern" },
+  { label: "Heizölpreise Berlin", state: "berlin" },
+  { label: "Heizöl Brandenburg bestellen", state: "brandenburg" },
+  { label: "Heizölpreise Bremen", state: "bremen" },
+  { label: "Heizöl Hamburg kaufen", state: "hamburg" },
+  { label: "Heizölpreise Hessen", state: "hessen" },
+  { label: "Heizöl Meckl.-Vorpommern bestellen", state: "mecklenburg-vorpommern" },
+  { label: "Heizölpreise Niedersachsen", state: "niedersachsen" },
+  { label: "Heizöl NRW kaufen", state: "nordrhein-westfalen" },
+  { label: "Heizölpreise Rheinland-Pfalz", state: "rheinland-pfalz" },
+  { label: "Heizöl Saarland bestellen", state: "saarland" },
+  { label: "Heizölpreise Sachsen", state: "sachsen" },
+  { label: "Heizöl Sachsen-Anhalt kaufen", state: "sachsen-anhalt" },
+  { label: "Heizölpreise Schleswig-Holstein", state: "schleswig-holstein" },
+  { label: "Heizöl Thüringen bestellen", state: "thueringen" },
 ];
 
-function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
+const seoLinkClass =
+  "block text-left text-[12px] leading-snug text-conditions transition-colors hover:text-brand md:text-[13px]";
+
+function SeoLinkGrid({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-10 first:mt-0">
       {title ? (
@@ -1200,15 +1205,7 @@ function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
         </h3>
       ) : null}
       <div className={`grid grid-cols-4 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
-        {links.map((label) => (
-          <Link
-            key={label}
-            to="/preisrechner"
-            className="block text-left text-[12px] leading-snug text-conditions transition-colors hover:text-brand md:text-[13px]"
-          >
-            {label}
-          </Link>
-        ))}
+        {children}
       </div>
     </div>
   );
@@ -1222,10 +1219,34 @@ export function CitySeo() {
           id="city-seo-title"
           className="text-left text-[20px] font-semibold leading-[1.25] text-conditions md:text-[24px]"
         >
-          Heizöl & Heizölpreise in deutschen Städten
+          Heizöl &amp; Heizölpreise in deutschen Städten
         </h2>
-        <SeoLinkGroup title="" links={CITY_LINKS} />
-        <SeoLinkGroup title="Heizölpreise nach Bundesland" links={STATE_LINKS} />
+        <SeoLinkGrid title="">
+          {CITY_LINKS.map((item) => (
+            <Link
+              key={item.label}
+              to="/heizoelpreise/$city"
+              params={{ city: item.city }}
+              title={item.label}
+              className={seoLinkClass}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </SeoLinkGrid>
+        <SeoLinkGrid title="Heizölpreise nach Bundesland">
+          {STATE_LINKS.map((item) => (
+            <Link
+              key={item.label}
+              to="/heizoelpreise/bundesland/$state"
+              params={{ state: item.state }}
+              title={item.label}
+              className={seoLinkClass}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </SeoLinkGrid>
       </div>
     </section>
   );
