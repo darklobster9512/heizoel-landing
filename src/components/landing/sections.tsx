@@ -794,29 +794,6 @@ export function TrustLinks() {
           ))}
         </div>
 
-        <div className="mt-12 space-y-5 text-[12px] leading-[1.6] text-muted-custom">
-          <p>
-            <strong className="font-bold">Preisbeispiel:</strong> Alle genannten Literpreise
-            sind regionale Beispielwerte und werden laufend aktualisiert. Angaben ohne
-            Gewähr, kein Angebot im Rechtssinne.{" "}
-            <a href="#faq" className="text-brand-deep hover:underline">
-              Mehr Infos
-            </a>
-            .
-          </p>
-          <div className="space-y-1.5">
-            <p>
-              <a href="#faq" className="text-brand-deep hover:underline">
-                * Mehr Infos
-              </a>
-            </p>
-            <p>
-              <a href="#faq" className="text-brand-deep hover:underline">
-                ** Mehr Infos
-              </a>
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
