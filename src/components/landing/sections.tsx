@@ -376,24 +376,24 @@ const STEPS = [
     iconAlt: "Monitor-Symbol, Schritt 1",
     width: 128,
     height: 128,
-    title: "Kostenlose\nKreditanfrage",
-    text: "Zuerst stellen Sie unverbindlich und kostenlos ihre Kreditanfrage ganz bequem von zu Hause aus.",
+    title: "Kostenlose\nPreisanfrage",
+    text: "Geben Sie einfach Ihre Postleitzahl, die gewünschte Menge und Sorte ein – bequem von zu Hause aus.",
   },
   {
     icon: getOffers.url,
     iconAlt: "Listen-Symbol, Schritt 2",
     width: 67,
     height: 56,
-    title: "Angebote erhalten",
-    text: "Sie erhalten Kreditangebote von verschiedenen Banken. Den passenden Kredit können Sie direkt online beantragen.",
+    title: "Angebote vergleichen",
+    text: "Sie erhalten aktuelle Heizölpreise von Händlern aus Ihrer Region und wählen das günstigste Angebot.",
   },
   {
     icon: closeApplication.url,
     iconAlt: "Hand mit Münzen, Schritt 3",
     width: 72,
     height: 72,
-    title: "Kreditantrag abschließen",
-    text: "Sind Ihre Unterlagen vollständig und alle Voraussetzungen erfüllt, erhalten Sie innerhalb kürzester Zeit Ihr Geld.",
+    title: "Heizöl bestellen",
+    text: "Bestellen Sie direkt online beim Händler Ihrer Wahl – die Lieferung erfolgt zum Wunschtermin.",
   },
 ];
 
@@ -402,7 +402,7 @@ export function Steps() {
     <section id="ablauf" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-6xl px-5 py-12 md:py-14">
         <h2 className="text-[22px] font-bold tracking-tight text-conditions md:text-2xl">
-          In 3 Schritten zum Wunschkredit
+          In 3 Schritten zum günstigen Heizöl
         </h2>
         <ol className="mt-9 grid gap-9 md:grid-cols-3 md:gap-x-12">
           {STEPS.map((s) => (
@@ -442,17 +442,17 @@ export function PersonalDataInfo() {
 
           <div className="mt-8 space-y-4 text-[16px] leading-[1.5]">
             <p>
-              Kreditinstitute sind dazu verpflichtet, Ihre Identität zu überprüfen. Nur mit den
-              Angaben zu Ihrer Person kann das <strong>bestmögliche Angebot</strong> für Sie ermittelt
-              werden.
+              Heizölpreise unterscheiden sich je nach Region teils deutlich. Nur mit Ihrer
+              <strong> Postleitzahl</strong> und der gewünschten Menge können wir die
+              <strong> bestmöglichen Angebote</strong> aus Ihrer Region ermitteln.
             </p>
             <p>
-              Vertrauenswürdige Angebote gibt es nur nach einer Kreditwürdigkeitsprüfung.
-              <br className="hidden sm:block" /> Dafür benötigen wir Informationen zu Ihrer Person und
-              finanziellen Situation.
+              Für den Preisvergleich ist keine Bonitätsprüfung nötig.
+              <br className="hidden sm:block" /> Es genügen Ihre Postleitzahl, die Liefermenge und
+              die gewünschte Sorte.
             </p>
             <p>
-              Ihre Angaben werden von smava <strong>vertraulich</strong> behandelt
+              Ihre Angaben werden von Klaro <strong>vertraulich</strong> behandelt
               <br className="hidden sm:block" /> und <strong>verschlüsselt</strong> übermittelt. Der Schutz
               Ihrer persönlichen Daten hat für uns höchste Bedeutung.
             </p>
@@ -475,19 +475,19 @@ export function PersonalDataInfo() {
 const OFFER_ADVANTAGES = [
   {
     icon: interestIcon.url,
-    iconAlt: "Lupe mit Zinsdiagramm",
-    title: "Günstige Zinsen",
-    text: "Unvergleichliche Konditionen dank besonders günstiger Vereinbarungen mit unseren Partnerbanken.",
+    iconAlt: "Lupe mit Preisdiagramm",
+    title: "Günstige Preise",
+    text: "Sparen Sie durch den direkten Preisvergleich von über 300 Heizölhändlern aus Ihrer Region.",
   },
   {
     icon: neutralIcon.url,
-    iconAlt: "Neutrale Kreditanfrage",
-    title: "SCHUFA-neutral",
-    text: "Der smava Kreditvergleich hat keine negativen Auswirkungen auf Ihren SCHUFA-Score.",
+    iconAlt: "Regionale Händler",
+    title: "Regionale Händler",
+    text: "Wir vergleichen nur Händler, die auch tatsächlich in Ihre Region liefern.",
   },
   {
     icon: freeIcon.url,
-    iconAlt: "Kostenlose Kreditanfrage",
+    iconAlt: "Kostenlose Preisanfrage",
     title: "Kostenlos &\nunverbindlich",
     text: "Es warten keine versteckten Kosten auf Sie und Sie können die Anfrage jederzeit widerrufen.",
   },
