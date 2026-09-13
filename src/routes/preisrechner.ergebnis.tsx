@@ -451,7 +451,7 @@ function ErgebnisPage() {
               <Link
                 to="/antrag/schritt-1"
                 search={{}}
-                className="flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-ink shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Zur Bestellung »
               </Link>
@@ -459,15 +459,86 @@ function ErgebnisPage() {
                 <Lock className="h-3.5 w-3.5" aria-hidden="true" />
                 100 % sicher &amp; SSL-verschlüsselt
               </p>
-              <p className="mt-2 text-center">
-                <Link
-                  to="/heizoel-wissen"
-                  hash="sorten"
-                  className="text-[13px] font-semibold text-brand underline-offset-4 hover:underline"
+              <div className="mt-2">
+                <button
+                  type="button"
+                  onClick={() => setCompareOpen((v) => !v)}
+                  aria-expanded={compareOpen}
+                  aria-controls="sorten-vergleich"
+                  className="mx-auto flex items-center gap-1.5 text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
                 >
                   Sorten im Detail vergleichen
-                </Link>
-              </p>
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform duration-300 ${compareOpen ? "rotate-180" : ""}`}
+                    aria-hidden="true"
+                  />
+                </button>
+                <div
+                  id="sorten-vergleich"
+                  className={`grid transition-all duration-300 ease-out ${
+                    compareOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <table className="w-full border-collapse text-left text-[13px]">
+                      <thead>
+                        <tr className="border-b border-line">
+                          <th scope="col" className="py-2 pr-2 font-semibold text-ink">
+                            <span className="sr-only">Merkmal</span>
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-2 py-2 text-center font-bold text-conditions"
+                          >
+                            Standard
+                          </th>
+                          <th
+                            scope="col"
+                            className="py-2 pl-2 text-center font-bold text-conditions"
+                          >
+                            Premium
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {COMPARE_ROWS.map((row) => (
+                          <tr key={row.label} className="border-b border-line last:border-b-0">
+                            <th scope="row" className="py-2.5 pr-2 font-normal text-ink">
+                              {row.label}
+                            </th>
+                            <td className="px-2 py-2.5 text-center">
+                              {row.standard ? (
+                                <Check
+                                  className="mx-auto h-4 w-4 text-brand"
+                                  aria-label="Ja"
+                                />
+                              ) : (
+                                <X
+                                  className="mx-auto h-4 w-4 text-muted-custom"
+                                  aria-label="Nein"
+                                />
+                              )}
+                            </td>
+                            <td className="py-2.5 pl-2 text-center">
+                              {row.premium ? (
+                                <Check
+                                  className="mx-auto h-4 w-4 text-brand"
+                                  aria-label="Ja"
+                                />
+                              ) : (
+                                <X
+                                  className="mx-auto h-4 w-4 text-muted-custom"
+                                  aria-label="Nein"
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Trust */}
