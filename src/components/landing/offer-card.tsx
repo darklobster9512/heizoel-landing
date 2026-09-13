@@ -15,11 +15,7 @@ const QUANTITIES: number[] = [];
 for (let v = 500; v <= 5000; v += 250) QUANTITIES.push(v);
 for (let v = 6000; v <= 10000; v += 1000) QUANTITIES.push(v);
 
-const GRADES = [
-  { value: "standard", label: "Heizöl EL Standard" },
-  { value: "schwefelarm", label: "Heizöl EL schwefelarm" },
-  { value: "premium", label: "Premium-Heizöl" },
-];
+const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const liters = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 });
 
@@ -32,7 +28,7 @@ const selectTriggerClass =
 export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
   const [plz, setPlz] = useState("");
   const [quantity, setQuantity] = useState(3000);
-  const [grade, setGrade] = useState(GRADES[0]!.value);
+  const [deliveryPoints, setDeliveryPoints] = useState(DELIVERY_POINTS[0]);
 
   return (
     <div className="bg-transparent px-0 py-1 md:rounded-md md:border md:border-line md:bg-background md:p-9 md:shadow-card">
@@ -87,18 +83,21 @@ export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
         </div>
 
         <div>
-          <label htmlFor="grade" className="text-[13px] font-normal text-hero-text md:text-sm md:font-medium">
-            Sorte
+          <label htmlFor="delivery-points" className="text-[13px] font-normal text-hero-text md:text-sm md:font-medium">
+            Abladestellen
           </label>
 
-          <Select value={grade} onValueChange={setGrade}>
-            <SelectTrigger id="grade" className={selectTriggerClass}>
-              <SelectValue placeholder="Sorte wählen" />
+          <Select
+            value={String(deliveryPoints)}
+            onValueChange={(value) => setDeliveryPoints(Number(value))}
+          >
+            <SelectTrigger id="delivery-points" className={selectTriggerClass}>
+              <SelectValue placeholder="Abladestellen wählen" />
             </SelectTrigger>
             <SelectContent>
-              {GRADES.map((g) => (
-                <SelectItem key={g.value} value={g.value}>
-                  {g.label}
+              {DELIVERY_POINTS.map((n) => (
+                <SelectItem key={n} value={String(n)}>
+                  {n}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -111,7 +110,7 @@ export function OfferCard({ mobileTrust }: { mobileTrust?: ReactNode }) {
         search={{
           plz,
           menge: quantity,
-          sorte: GRADES.find((g) => g.value === grade)!.label,
+          abladestellen: String(deliveryPoints),
         }}
         className="mt-4 inline-flex w-full items-center justify-center rounded-[4px] bg-brand px-5 py-4 text-xs font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-7 md:shadow-none md:py-3.5 md:text-[15px]"
       >

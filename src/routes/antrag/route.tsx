@@ -16,7 +16,7 @@ const validateSearch = (search: Record<string, unknown>) => {
     anzahlung?: number;
     plz?: string;
     menge?: number;
-    sorte?: string;
+    abladestellen?: string;
   } = {};
   if (typeof search["zweck"] === "string" && search["zweck"]) out.zweck = search["zweck"];
   if (Number.isFinite(betrag) && betrag > 0) out.betrag = betrag;
@@ -24,7 +24,7 @@ const validateSearch = (search: Record<string, unknown>) => {
   if (Number.isFinite(anzahlung) && anzahlung > 0) out.anzahlung = anzahlung;
   if (typeof search["plz"] === "string" && /^\d{5}$/.test(search["plz"])) out.plz = search["plz"];
   if (Number.isFinite(menge) && menge > 0) out.menge = menge;
-  if (typeof search["sorte"] === "string" && search["sorte"]) out.sorte = search["sorte"];
+  if (typeof search["abladestellen"] === "string" && search["abladestellen"]) out.abladestellen = search["abladestellen"];
   return out;
 };
 
