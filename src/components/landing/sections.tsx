@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, Info, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
 
@@ -1134,11 +1134,11 @@ export function ReferralBanner() {
               />
             </div>
             <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
-              <h2 className="text-[26px] font-bold leading-tight text-ink">
+              <h2 className="text-[26px] font-bold leading-tight text-conditions">
                 Jetzt Heizöl günstiger bestellen!
               </h2>
               <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
-                Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+                Schließen Sie sich <strong>25.000+ zufriedenen Kunden</strong> an und sparen Sie durchschnittlich €247
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
@@ -1162,11 +1162,11 @@ export function ReferralBanner() {
           />
         </div>
         <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
-          <h2 className="text-[22px] font-bold leading-tight text-ink">
+          <h2 className="text-[22px] font-bold leading-tight text-conditions">
             Jetzt Heizöl günstiger bestellen!
           </h2>
           <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
-            Schließen Sie sich 25.000+ zufriedenen Kunden an und sparen Sie durchschnittlich €247
+            Schließen Sie sich <strong>25.000+ zufriedenen Kunden</strong> an und sparen Sie durchschnittlich €247
           </p>
           <div className="mt-6 flex justify-center">
             <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
@@ -1175,6 +1175,57 @@ export function ReferralBanner() {
           </div>
           <p className="mt-4 px-2 text-[13px] leading-[1.6] text-muted-custom/70">
             Keine Anmeldung nötig • Sofortiger Preisvergleich • Garantiert günstigste Preise
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CurrentDomain() {
+  const [host, setHost] = useState("Klaro");
+  useEffect(() => {
+    setHost(window.location.host);
+  }, []);
+  return <span className="whitespace-nowrap">{host}</span>;
+}
+
+export function HeizoelServiceIntro() {
+  return (
+    <section className="bg-white" aria-labelledby="heizoel-service-title">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+        <h2
+          id="heizoel-service-title"
+          className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[30px]"
+        >
+          Heizölpreise heute & Heizöl online bestellen
+        </h2>
+        <div className="mx-auto mt-8 max-w-[920px] space-y-5 text-[16px] leading-[1.65] text-conditions">
+          <p>
+            <CurrentDomain /> ist Deutschlands führender Online-Service für günstige Heizölpreise. Seit{" "}
+            <strong>2014</strong> können Kunden bei uns Heizöl online kaufen — einfach, schnell und zum garantiert
+            besten Preis. Unser Preisrechner vergleicht automatisch die Heizölpreise heute von über{" "}
+            <strong>500 zertifizierten Partnerhändlern</strong> deutschlandweit und findet den optimalen
+            Bestellzeitpunkt für maximale Ersparnis.
+          </p>
+          <p>
+            Über <strong>33.000 zufriedene Kunden</strong> bewerten unseren Service mit durchschnittlich{" "}
+            <strong>4,99 von 5 Sternen</strong>. Die Kundenzufriedenheit liegt bei <strong>98,9%</strong>.
+            Kunden sparen durchschnittlich <strong>€247</strong> pro Heizöl-Bestellung gegenüber dem
+            Marktdurchschnitt. Wir bieten eine <strong>Festpreisgarantie</strong> — Ihr Heizölpreis pro Liter
+            bleibt auch bei steigenden Ölpreisen fixiert bis zur Lieferung.
+          </p>
+          <p>
+            Heizöl bestellen war noch nie so einfach: PLZ und Menge eingeben, Preis vergleichen, online bestellen —
+            ohne Registrierung in <strong>2 Minuten</strong>. Wir bieten sowohl{" "}
+            <strong>Heizöl Standard</strong> (günstige Basisvariante) als auch <strong>Heizöl Premium</strong> (mit
+            Additiven für geringeren Verbrauch und längere Lagerfähigkeit). Alle Preise sind{" "}
+            <strong>Endpreise inklusive MwSt. und Lieferung</strong> — angegeben in <strong>€/100L</strong>.
+          </p>
+          <p>
+            Flexible Zahlungsarten ohne Aufpreis: Barzahlung, EC-Karte, Rechnung oder Vorauskasse. Standard-Lieferzeit
+            ca. <strong>7 Werktage</strong>. Bei Verspätung erhalten Sie <strong>50€ Entschädigung</strong>.{" "}
+            <CurrentDomain /> — Ihr vertrauenswürdiger Partner für günstiges Heizöl in ganz Deutschland.
           </p>
         </div>
       </div>
