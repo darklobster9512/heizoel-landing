@@ -55,6 +55,7 @@ function Index() {
         <HeizoelSorten />
         <ReferralBanner />
         <HeizoelServiceIntro />
+        <RegionalSeo />
         <TrustLinks />
       </main>
       <SiteFooter />
