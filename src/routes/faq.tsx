@@ -543,9 +543,9 @@ function FaqPage() {
               </div>
               <a
                 href="mailto:service@klaro.de"
-                className="mt-4 inline-flex shrink-0 items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-bold text-ink transition-opacity hover:opacity-90 md:mt-0"
+                className="mt-4 inline-flex shrink-0 items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 md:mt-0"
               >
-                <Mail className="h-4 w-4" aria-hidden="true" />
+                <Mail className="h-4 w-4 text-white" aria-hidden="true" />
                 Kontakt aufnehmen
               </a>
             </div>
