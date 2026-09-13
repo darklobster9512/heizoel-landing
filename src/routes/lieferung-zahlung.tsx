@@ -12,6 +12,7 @@ import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 import barzahlungAsset from "@/assets/barzahlung.png.asset.json";
 import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
 import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
+import lieferfristAsset from "@/assets/lieferfrist.png.asset.json";
 
 const TITLE = "Lieferung & Zahlung | Klaro";
 const DESCRIPTION =
@@ -176,27 +177,21 @@ function LieferungZahlungPage() {
                 Aktuelle Auslastung des Heizöl-Handels, d. h. durchschnittliche Wartezeit auf die
                 Lieferung im Vergleich zum Jahresmittel.
               </p>
-              <div className="mt-5">
-                <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
-                  <span>niedrig</span>
-                  <span>mittel</span>
-                  <span>hoch</span>
-                </div>
-                <div className="mt-2 flex gap-1.5" aria-hidden="true">
-                  <div className="h-2 flex-1 rounded-full bg-brand/25" />
-                  <div className="h-2 flex-1 rounded-full bg-brand/50" />
-                  <div className="h-2 flex-1 rounded-full bg-brand" />
-                </div>
-                <p className="mt-3 text-center">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-1.5 text-sm font-bold text-brand">
+              <img
+                src={lieferfristAsset.url}
+                alt="Aktuelle Lieferfrist: hohe Auslastung"
+                loading="lazy"
+                className="mx-auto mt-5 h-auto w-full max-w-[260px] object-contain"
+              />
+              <p className="mt-3 text-center">
+                <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-1.5 text-sm font-bold text-brand">
                   <span className="relative flex size-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
                     <span className="relative inline-flex size-2 rounded-full bg-brand" />
                   </span>
                   hoch
                 </span>
-                </p>
-              </div>
+              </p>
             </div>
           </div>
         </section>
@@ -221,27 +216,29 @@ function LieferungZahlungPage() {
               Eingabe Ihrer Postleitzahl.
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-4">
               {PAYMENT_METHODS.map((method) => (
                 <article
                   key={method.title}
-                  className="flex flex-col rounded-xl border border-line bg-card p-6 shadow-sm"
+                  className="flex flex-col gap-5 rounded-xl border border-line bg-card p-5 shadow-sm md:flex-row md:items-start"
                 >
                   <img
                     src={method.image}
                     alt={method.alt}
                     loading="lazy"
-                    className="h-28 w-auto self-start object-contain"
+                    className="h-20 w-auto shrink-0 self-start object-contain md:h-24"
                   />
-                  <h3 className="mt-5 text-[17px] font-bold text-conditions">{method.title}</h3>
-                  {method.paragraphs.map((p) => (
-                    <p
-                      key={p.slice(0, 32)}
-                      className="mt-3 text-[13px] leading-[1.7] text-muted-custom md:text-[14px]"
-                    >
-                      {p}
-                    </p>
-                  ))}
+                  <div>
+                    <h3 className="text-[17px] font-bold text-conditions">{method.title}</h3>
+                    {method.paragraphs.map((p) => (
+                      <p
+                        key={p.slice(0, 32)}
+                        className="mt-3 text-[13px] leading-[1.7] text-muted-custom md:text-[14px]"
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
                 </article>
               ))}
             </div>
