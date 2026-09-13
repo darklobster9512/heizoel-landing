@@ -1,4 +1,5 @@
 import ekomi from "@/assets/ekomi.webp.asset.json";
+import { useEffect, useState } from "react";
 
 function Stars({ className = "", size = "size-4" }: { className?: string; size?: string }) {
   return (
@@ -12,7 +13,22 @@ function Stars({ className = "", size = "size-4" }: { className?: string; size?:
   );
 }
 
+function formatToday() {
+  const d = new Date();
+  return d.toLocaleDateString("de-DE", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  });
+}
+
 export function RatingBadge({ compact = false }: { compact?: boolean }) {
+  const [date, setDate] = useState("Stand 8.9.2026");
+
+  useEffect(() => {
+    setDate(`Stand ${formatToday()}`);
+  }, []);
+
   return (
     <div className="flex items-center gap-2">
       <img
@@ -40,7 +56,7 @@ export function RatingBadge({ compact = false }: { compact?: boolean }) {
               : "max-w-[190px] text-[11px]"
           }`}
         >
-          aus 705 Bewertungen der letzten 12 Monate – Stand 8.9.2026
+          aus 705 Bewertungen der letzten 12 Monate – {date}
         </p>
       </div>
     </div>
