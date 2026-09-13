@@ -32,7 +32,14 @@ const HEIZOEL_LINKS = [
     description: "PLZ eingeben, Preis sofort berechnen",
     icon: Calculator,
   },
+  {
+    to: "/heizoelpreise",
+    title: "Heizölpreise nach Region",
+    description: "Alle Bundesländer & über 700 Städte",
+    icon: MapPin,
+  },
 ] as const;
+
 
 const INFO_SERVICE_LINKS = [
   {
