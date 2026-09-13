@@ -133,10 +133,11 @@ interface LiveOrder {
 }
 
 function randomOrder(): LiveOrder {
-  const c = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const c = CITIES[Math.floor(Math.random() * CITIES.length)] ?? INITIAL_ORDER;
   const liters = 1500 + Math.floor(Math.random() * 36) * 100; // 1.500–5.000
   const pricePer100L = 126 + Math.random() * 7; // 126–133 €/100L
-  const timeLabel = TIME_LABELS[Math.floor(Math.random() * TIME_LABELS.length)];
+  const timeLabel =
+    TIME_LABELS[Math.floor(Math.random() * TIME_LABELS.length)] ?? "vor 1 Min.";
   return { city: c.city, plz: c.plz, liters, pricePer100L, timeLabel };
 }
 
