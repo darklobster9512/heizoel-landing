@@ -36,8 +36,12 @@ const fmtLiters = (v: number) => v.toLocaleString("de-DE");
 interface Review {
   id: number;
   name: string;
-  when: string;
+  daysAgo: number;
   text: string;
+}
+
+function formatDaysAgo(days: number) {
+  return `vor ${days} Tag${days === 1 ? "" : "en"}`;
 }
 
 const CHECKS = [
@@ -48,26 +52,26 @@ const CHECKS = [
 ];
 
 const REVIEWS: Review[] = [
-  { id: 1, name: "Michael R.", when: "vor 3 Tagen", text: "Schnelle Lieferung, fairer Preis. Bestellung war in 2 Minuten erledigt. Gerne wieder!" },
-  { id: 2, name: "Sabine K.", when: "vor 5 Tagen", text: "Super Service! Der Fahrer hat vorher angerufen und war pünktlich." },
-  { id: 3, name: "Thomas W.", when: "vor 1 Woche", text: "Preis-Leistung stimmt. Übersichtliche Seite und unkomplizierte Abwicklung." },
-  { id: 4, name: "Petra S.", when: "vor 1 Woche", text: "Zum ersten Mal online bestellt — ging super einfach. Lieferung kam wie versprochen." },
-  { id: 5, name: "Andreas B.", when: "vor 2 Wochen", text: "Guter Preis, freundlicher Fahrer. Werde auch nächstes Jahr wieder bestellen." },
-  { id: 6, name: "Julia M.", when: "vor 2 Wochen", text: "Alles transparent, keine versteckten Kosten. Das gefällt mir sehr." },
-  { id: 7, name: "Stefan H.", when: "vor 3 Wochen", text: "Heizöl kam einen Tag früher als angekündigt. Top organisiert!" },
-  { id: 8, name: "Claudia F.", when: "vor 3 Wochen", text: "Klaro hat den besten Preis in meiner Region gehabt. Empfehlung!" },
-  { id: 9, name: "Markus L.", when: "vor 4 Wochen", text: "Unkompliziert, schnell, zuverlässig. Genau so muss das sein." },
-  { id: 10, name: "Nicole G.", when: "vor 4 Wochen", text: "Sehr gute Beratung am Telefon. Die Lieferung verlief reibungslos." },
-  { id: 11, name: "Frank D.", when: "vor 5 Wochen", text: "Ich bin begeistert. Preis berechnet, bestellt, geliefert — ohne Stress." },
-  { id: 12, name: "Ute P.", when: "vor 5 Wochen", text: "Der Tankwagen passte perfekt in unsere Einfahrt. Gerne wieder!" },
-  { id: 13, name: "Klaus N.", when: "vor 6 Wochen", text: "Fairer Direktpreis, keine Überraschungen. Bestellung lief reibungslos." },
-  { id: 14, name: "Sandra O.", when: "vor 6 Wochen", text: "Schnelle Reaktionszeit und pünktliche Lieferung. Absolut empfehlenswert." },
-  { id: 15, name: "Jürgen T.", when: "vor 7 Wochen", text: "Meine zweite Bestellung bei Klaro. Beide Male alles bestens." },
-  { id: 16, name: "Monika E.", when: "vor 7 Wochen", text: "Günstiger als beim lokalen Händler und trotzdem persönlicher Service." },
-  { id: 17, name: "Robert Z.", when: "vor 8 Wochen", text: "Alles digital, alles klar. So soll Online-Bestellung heute funktionieren." },
-  { id: 18, name: "Elke K.", when: "vor 8 Wochen", text: "Lieferung am gewünschten Tag, Fahrer sehr freundlich. Danke!" },
-  { id: 19, name: "Wolfgang S.", when: "vor 9 Wochen", text: "Preisvergleich war einfach, Bestellung noch einfacher. Gerne wieder." },
-  { id: 20, name: "Anna H.", when: "vor 9 Wochen", text: "Klaro ist mein neuer Standard für Heizöl. Schnell, günstig, zuverlässig." },
+  { id: 1, name: "Michael R.", daysAgo: 2, text: "Schnelle Lieferung, fairer Preis. Bestellung war in 2 Minuten erledigt. Gerne wieder!" },
+  { id: 2, name: "Sabine K.", daysAgo: 4, text: "Super Service! Der Fahrer hat vorher angerufen und war pünktlich." },
+  { id: 3, name: "Thomas W.", daysAgo: 1, text: "Preis-Leistung stimmt. Übersichtliche Seite und unkomplizierte Abwicklung." },
+  { id: 4, name: "Petra S.", daysAgo: 3, text: "Zum ersten Mal online bestellt — ging super einfach. Lieferung kam wie versprochen." },
+  { id: 5, name: "Andreas B.", daysAgo: 5, text: "Guter Preis, freundlicher Fahrer. Werde auch nächstes Jahr wieder bestellen." },
+  { id: 6, name: "Julia M.", daysAgo: 2, text: "Alles transparent, keine versteckten Kosten. Das gefällt mir sehr." },
+  { id: 7, name: "Stefan H.", daysAgo: 6, text: "Heizöl kam einen Tag früher als angekündigt. Top organisiert!" },
+  { id: 8, name: "Claudia F.", daysAgo: 4, text: "Klaro hat den besten Preis in meiner Region gehabt. Empfehlung!" },
+  { id: 9, name: "Markus L.", daysAgo: 7, text: "Unkompliziert, schnell, zuverlässig. Genau so muss das sein." },
+  { id: 10, name: "Nicole G.", daysAgo: 1, text: "Sehr gute Beratung am Telefon. Die Lieferung verlief reibungslos." },
+  { id: 11, name: "Frank D.", daysAgo: 3, text: "Ich bin begeistert. Preis berechnet, bestellt, geliefert — ohne Stress." },
+  { id: 12, name: "Ute P.", daysAgo: 5, text: "Der Tankwagen passte perfekt in unsere Einfahrt. Gerne wieder!" },
+  { id: 13, name: "Klaus N.", daysAgo: 6, text: "Fairer Direktpreis, keine Überraschungen. Bestellung lief reibungslos." },
+  { id: 14, name: "Sandra O.", daysAgo: 2, text: "Schnelle Reaktionszeit und pünktliche Lieferung. Absolut empfehlenswert." },
+  { id: 15, name: "Jürgen T.", daysAgo: 4, text: "Meine zweite Bestellung bei Klaro. Beide Male alles bestens." },
+  { id: 16, name: "Monika E.", daysAgo: 7, text: "Günstiger als beim lokalen Händler und trotzdem persönlicher Service." },
+  { id: 17, name: "Robert Z.", daysAgo: 1, text: "Alles digital, alles klar. So soll Online-Bestellung heute funktionieren." },
+  { id: 18, name: "Elke K.", daysAgo: 3, text: "Lieferung am gewünschten Tag, Fahrer sehr freundlich. Danke!" },
+  { id: 19, name: "Wolfgang S.", daysAgo: 5, text: "Preisvergleich war einfach, Bestellung noch einfacher. Gerne wieder." },
+  { id: 20, name: "Anna H.", daysAgo: 6, text: "Klaro ist mein neuer Standard für Heizöl. Schnell, günstig, zuverlässig." },
 ];
 
 function Stars({ className = "size-3.5" }: { className?: string }) {
@@ -131,7 +135,7 @@ function ReviewCarousel() {
             <p className="flex items-center gap-2 text-[13px]">
               <Stars className="size-3" />
               <span className="font-bold text-conditions">{r.name}</span>
-              <span className="text-muted-custom">· {r.when}</span>
+              <span className="text-muted-custom">· {formatDaysAgo(r.daysAgo)}</span>
             </p>
             <p className="mt-1 line-clamp-2 text-[13px] leading-[1.6] text-hero-text">{r.text}</p>
           </div>
