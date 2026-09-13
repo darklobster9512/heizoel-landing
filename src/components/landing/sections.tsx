@@ -798,296 +798,138 @@ export function TrustLinks() {
   );
 }
 
-type FooterCol = {
-  title: string;
-  titleHref: string;
-  links: { label: string; href: string }[];
-};
-
-const FOOTER_COLS: FooterCol[] = [
-  {
-    title: "Unternehmen",
-    titleHref: "#",
-    links: [
-      { label: "Karriere", href: "#" },
-      { label: "Presse", href: "#" },
-      { label: "Hilfe", href: "#" },
-      { label: "Unsere Partner", href: "#" },
-      { label: "Kontakt", href: "#" },
-    ],
-  },
-  {
-    title: "Heizöl bestellen",
-    titleHref: "#rechner",
-    links: [
-      { label: "Preisvergleich", href: "#rechner" },
-      { label: "Heizöl EL Standard", href: "#rechner" },
-      { label: "Schwefelarmes Heizöl", href: "#rechner" },
-      { label: "Premium-Heizöl", href: "#rechner" },
-      { label: "Sammelbestellung", href: "#faq" },
-      { label: "Expresslieferung", href: "#faq" },
-    ],
-  },
-  {
-    title: "Service",
-    titleHref: "#",
-    links: [
-      { label: "Preisrechner", href: "#rechner" },
-      { label: "Glossar", href: "#" },
-      { label: "Nachrichten", href: "#" },
-      { label: "Partnerprogramm", href: "#" },
-      { label: "Freunde werben Freunde", href: "#" },
-    ],
-  },
+const FOOTER_SERVICES = [
+  { label: "Hilfe", href: "#" },
+  { label: "Kontakt", href: "#" },
+  { label: "Bewertungen", href: "#bewertungen" },
+  { label: "Lieferung & Zahlung", href: "#" },
 ];
 
-const FOOTER_LEGAL = [
-  { label: "Datenschutz", href: "#" },
+const FOOTER_RECHTLICHES = [
   { label: "AGB", href: "#" },
   { label: "Impressum", href: "#" },
-  { label: "Cookies", href: "#" },
+  { label: "Datenschutz", href: "#" },
+  { label: "Cookie-Einstellungen", href: "#" },
   { label: "Widerruf", href: "#" },
 ];
 
-function ConsultingBlock() {
+const FOOTER_AWARDS = [
+  { src: ntvAward.url, alt: "ntv Gesamtsieger Heizöl-Preisvergleich 2025" },
+  { src: bildAward.url, alt: "Bild Höchste Empfehlung 2026" },
+  { src: weltAward.url, alt: "Die Welt Service-Champion 2025" },
+  { src: dtgvAward.url, alt: "DtGV Testsieger Heizölportale" },
+];
+
+function FooterStars() {
   return (
-    <p className="text-[14px] leading-[1.45] text-footer-text">
-      Wir beraten Sie gerne telefonisch unter:
-      <br />
-      <a href="tel:08000009800" className="text-footer-text hover:underline">
-        0800 000 98 00
-      </a>
-      <br />
-      <br />
-      Montag - Freitag: 8:00 - 20:00 Uhr
-      <br />
-      Samstag: 10:00 - 15:00 Uhr
-    </p>
+    <span className="inline-flex gap-0.5" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} viewBox="0 0 24 24" className="size-4 fill-[#f1a319]">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27z" />
+        </svg>
+      ))}
+    </span>
   );
 }
 
-const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
-  {
-    label: "Youtube",
-    href: "#",
-    path: (
-      <path d="M26.8009 13.1728C26.8009 10.5487 24.6735 8.42126 22.0494 8.42126H9.8992C7.27511 8.42126 5.14771 10.5487 5.14771 13.1728V18.8269C5.14771 21.451 7.27511 23.5784 9.8992 23.5784H22.0494C24.6735 23.5784 26.8009 21.451 26.8009 18.8269V13.1728ZM19.6554 16.4235L14.2067 19.1191C13.9932 19.2346 13.2675 19.0801 13.2675 18.837V13.3041C13.2675 13.0579 13.9992 12.9038 14.2128 13.0253L19.4284 15.863C19.647 15.9876 19.8767 16.3039 19.6554 16.4238V16.4235Z" />
-    ),
-  },
-  {
-    label: "LinkedIn",
-    href: "#",
-    path: (
-      <>
-        <path d="M6.40747 11.9855H10.6129V25.4944H6.40747V11.9855ZM8.5107 5.27246C9.85566 5.27246 10.9451 6.36354 10.9451 7.70547C10.9451 9.0474 9.85532 10.1418 8.5107 10.1418C7.16609 10.1418 6.073 9.04907 6.073 7.70547C6.073 6.36186 7.16239 5.27246 8.5107 5.27246Z" />
-        <path d="M13.2476 11.9848H17.2754V13.8325H17.3304C17.8919 12.7693 19.2617 11.6503 21.3065 11.6503C25.5577 11.6503 26.3418 14.4464 26.3418 18.0846V25.4938H22.1457V18.9262C22.1457 17.3582 22.1152 15.3437 19.9633 15.3437C17.8113 15.3437 17.4443 17.05 17.4443 18.8117V25.4938H13.2476V11.9848Z" />
-      </>
-    ),
-  },
-  {
-    label: "Instagram",
-    href: "#",
-    path: (
-      <>
-        <path d="M21.9234 8.85455C21.2038 8.85455 20.6201 9.43821 20.6201 10.1579C20.6201 10.8775 21.2038 11.4612 21.9234 11.4612C22.6431 11.4612 23.2267 10.8775 23.2267 10.1579C23.2267 9.43821 22.6431 8.85455 21.9234 8.85455Z" />
-        <path d="M16.1295 10.5257C13.1109 10.5257 10.655 12.9815 10.655 16.0002C10.655 19.0189 13.1109 21.4747 16.1295 21.4747C19.1482 21.4747 21.6041 19.0189 21.6041 16.0002C21.6041 12.9815 19.1482 10.5257 16.1295 10.5257ZM16.1295 19.5068C14.1959 19.5068 12.6226 17.9338 12.6226 16.0002C12.6226 14.0666 14.1956 12.4936 16.1295 12.4936C18.0635 12.4936 19.6362 14.0666 19.6362 16.0002C19.6362 17.9338 18.0632 19.5068 16.1295 19.5068Z" />
-        <path d="M20.4754 27.1147H11.6004C7.91849 27.1147 4.92334 24.1195 4.92334 20.4376V11.5623C4.92334 7.88036 7.91849 4.88519 11.6004 4.88519H20.4754C24.1573 4.88519 27.1528 7.88036 27.1528 11.5623V20.4376C27.1528 24.1195 24.157 27.1147 20.4754 27.1147ZM11.6004 6.97667C9.07169 6.97667 7.01448 9.03356 7.01448 11.5623V20.4376C7.01448 22.9663 9.07135 25.0235 11.6004 25.0235H20.4754C23.0041 25.0235 25.0614 22.9667 25.0614 20.4376V11.5623C25.0614 9.03356 23.0041 6.97667 20.4754 6.97667H11.6004Z" />
-      </>
-    ),
-  },
-  {
-    label: "Facebook",
-    href: "#",
-    path: (
-      <path d="M18.135 27.3902V17.4238H21.4583L22.0906 13.301H18.135V10.6255C18.135 9.49749 18.6874 8.39802 20.4592 8.39802H22.2578V4.88804C22.2578 4.88804 20.6258 4.60931 19.0652 4.60931C15.8074 4.60931 13.678 6.58393 13.678 10.1584V13.3006H10.0569V17.4235H13.678V27.3899" />
-    ),
-  },
-  {
-    label: "X",
-    href: "#",
-    path: (
-      <path d="M5.0259 5.60788L13.6 17.0717L4.97217 26.3924H6.91421L14.4681 18.2316L20.5713 26.3924H27.1795L18.1228 14.2837L26.1539 5.60754H24.2119L17.2554 13.1232L11.6345 5.60754H5.02624L5.0259 5.60788ZM7.8817 7.03813H10.9175L24.323 24.9624H21.2872L7.8817 7.03813Z" />
-    ),
-  },
-];
+function FooterLinkList({ items }: { items: { label: string; href: string }[] }) {
+  return (
+    <ul className="mt-3 space-y-2">
+      {items.map((l) => (
+        <li key={l.label}>
+          <a href={l.href} className="text-[13px] leading-5 text-footer-text hover:underline">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function SiteFooter() {
   return (
-    <footer className="bg-background text-ink">
-      <div className="mx-auto max-w-[1283px]">
-        {/* Desktop columns */}
-        <div className="hidden min-h-[237px] grid-cols-[316px_264px_307px_1fr] px-[66px] pt-[21px] md:grid">
-          {FOOTER_COLS.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
-              <h4 className="text-[14px] font-bold leading-[20px]">
-                <a
-                  href={col.titleHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-ink hover:underline"
-                >
-                  {col.title}
-                </a>
-              </h4>
-              <ul className="mt-[7px] space-y-[3px]">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[13px] leading-[20px] text-footer-text hover:underline"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+    <footer className="bg-surface text-ink">
+      <div className="mx-auto max-w-[1283px] px-5 py-10 md:px-[66px] md:py-12">
+        <div className="grid gap-8 md:grid-cols-[1.25fr_0.9fr_0.9fr_1.15fr] md:gap-10">
           <div>
-            <h4 className="text-[14px] font-bold leading-[20px]">
-              <a
-              href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink hover:underline"
-              >
-                Kostenlose Beratung
-              </a>
-            </h4>
-            <div className="mt-[2px]">
-              <ConsultingBlock />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile accordions */}
-        <div className="px-5 pt-4 md:hidden">
-          <Accordion type="multiple" className="w-full">
-            {FOOTER_COLS.map((col) => (
-              <AccordionItem key={col.title} value={col.title} className="border-b border-border">
-                <AccordionTrigger className="py-4 text-[15px] font-semibold text-ink hover:no-underline">
-                  {col.title}
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="space-y-2.5 pb-2">
-                    <li>
-                      <a
-                        href={col.titleHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[14px] text-ink hover:underline"
-                      >
-                        {col.title}
-                      </a>
-                    </li>
-                    {col.links.map((l) => (
-                      <li key={l.label}>
-                        <a
-                          href={l.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[13px] text-footer-text hover:underline"
-                        >
-                          {l.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-            <AccordionItem value="beratung" className="border-b border-border">
-              <AccordionTrigger className="py-4 text-[15px] font-semibold text-ink hover:no-underline">
-                Kostenlose Beratung
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="pb-2">
-                  <ConsultingBlock />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-
-        <div className="flex flex-col items-start gap-5 border-t border-border px-5 py-6 md:grid md:h-[70px] md:grid-cols-[290px_1fr_390px] md:gap-x-[62px] md:px-[66px] md:py-0">
-          <a
-            href="#"
-            className="text-smava-logo"
-            aria-label="Klaro Startseite"
-          >
-            <Logo />
-          </a>
-          <div className="flex items-center gap-4 md:justify-start">
-            {SOCIALS.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${s.label} icon`}
-                className="grid size-8 place-items-center rounded-[4px] border border-smava-logo text-smava-logo transition-colors hover:bg-brand-soft"
-              >
-                <svg
-                  width="30"
-                  height="30"
-                  viewBox="0 0 32 32"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  {s.path}
-                </svg>
-              </a>
-            ))}
-          </div>
-          <div className="flex w-full flex-col items-start gap-3 text-left md:items-end md:gap-2 md:text-right">
-            <div className="hidden flex-wrap items-center justify-center gap-x-5 gap-y-1 md:flex md:justify-end">
-              {FOOTER_LEGAL.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[13px] leading-5 text-footer-text hover:underline"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div className="grid w-full max-w-[270px] grid-cols-2 gap-x-12 md:hidden">
-              <div className="flex flex-col gap-2">
-                {FOOTER_LEGAL.filter((link) => ["Datenschutz", "Impressum", "Widerruf"].includes(link.label)).map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[13px] leading-5 text-footer-text hover:underline"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-              <div className="flex flex-col gap-2">
-                {FOOTER_LEGAL.filter((link) => ["AGB", "Cookies"].includes(link.label)).map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[13px] leading-5 text-footer-text hover:underline"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <p className="text-[13px] leading-5 text-footer-text">
-              © 2026 Klaro GmbH | Musterstraße 1 | 10115 Berlin
+            <a href="#top" aria-label="Klaro Startseite" className="inline-block text-smava-logo">
+              <Logo />
+            </a>
+            <p className="mt-3 max-w-[280px] text-[13px] leading-[1.5] text-footer-text">
+              Heizöl online günstig bestellen. Tagesaktuelle Preise, deutschlandweite Lieferung,
+              über 33.000 zufriedene Kunden.
             </p>
           </div>
+
+          <nav aria-label="Services">
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+              Services
+            </h4>
+            <FooterLinkList items={FOOTER_SERVICES} />
+          </nav>
+
+          <nav aria-label="Rechtliches">
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+              Rechtliches
+            </h4>
+            <FooterLinkList items={FOOTER_RECHTLICHES} />
+          </nav>
+
+          <div>
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+              Zahlungsarten
+            </h4>
+            <img
+              src={zahlungsarten.url}
+              alt="Zahlungsarten: Barzahlung, Rechnung, Vorauskasse"
+              width={264}
+              height={61}
+              className="mt-3 w-full max-w-[264px]"
+            />
+            <h4 className="mt-5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+              Kundenbewertung
+            </h4>
+            <p className="mt-2 flex items-center gap-2 text-[13px] text-footer-text">
+              <FooterStars />
+              <span>
+                <strong className="font-semibold text-ink">4,99</strong>/5 – 33.000+ Bewertungen
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-y border-line bg-background">
+        <div className="mx-auto max-w-[1283px] px-5 py-8 md:px-[66px]">
+          <h4 className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-footer-text">
+            Auszeichnungen &amp; Vertrauen
+          </h4>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-5 md:gap-8">
+            {FOOTER_AWARDS.map((a) => (
+              <img
+                key={a.alt}
+                src={a.src}
+                alt={a.alt}
+                className="h-14 w-auto max-w-[130px] object-contain md:h-16 md:max-w-[150px]"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto flex max-w-[1283px] flex-col gap-2 px-5 py-4 text-[12px] text-footer-text md:flex-row md:items-center md:justify-between md:px-[66px]">
+        <p>© 2026 Klaro GmbH | Heizöl online günstig bestellen</p>
+        <div className="flex gap-5">
+          <a href="#" className="hover:underline">
+            Impressum
+          </a>
+          <a href="#" className="hover:underline">
+            Datenschutz
+          </a>
+          <a href="#" className="hover:underline">
+            AGB
+          </a>
         </div>
       </div>
     </footer>
