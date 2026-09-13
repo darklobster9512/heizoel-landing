@@ -120,22 +120,18 @@ function CompactSteps() {
         ))}
       </ol>
 
-      <div className="mt-5 flex items-start gap-4 border-t border-line pt-4">
-        <div className="flex h-12 shrink-0 items-center">
-          <Stars size="size-5" />
+      <div className="mt-5 border-t border-line pt-4">
+        <Stars value={4.9} size="size-5" />
+        <div className="mt-2">
+          <span className="text-base font-bold text-conditions">4,9</span>
+          <span className="text-sm text-conditions/85"> / 5 Sternen</span>
         </div>
-        <div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-base font-bold text-conditions">4,99</span>
-            <span className="text-sm text-conditions/85">/ 5 Sternen</span>
-          </div>
-          <p className="mt-0.5 text-sm font-semibold text-conditions">
-            Ausgezeichnet
-          </p>
-          <p className="mt-0.5 text-sm text-conditions/85">
-            Basierend auf über 33.000 Kundenbewertungen
-          </p>
-        </div>
+        <p className="mt-1 text-sm font-semibold text-conditions">
+          Ausgezeichnet
+        </p>
+        <p className="mt-0.5 text-sm text-conditions/85">
+          Basierend auf über 33.000 Kundenbewertungen
+        </p>
       </div>
     </div>
   );
