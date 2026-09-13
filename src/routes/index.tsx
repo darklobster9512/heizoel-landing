@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { Hero } from "@/components/landing/hero";
 import { CustomerVoices } from "@/components/landing/customer-voices";
 import {
+  CitySeo,
   ConditionsBox,
   HeizoelServiceIntro,
   HeizoelSorten,
