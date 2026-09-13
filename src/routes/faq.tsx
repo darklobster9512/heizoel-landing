@@ -491,18 +491,15 @@ function FaqPage() {
               index % 2 === 0 ? "bg-background" : "bg-surface"
             }`}
           >
-            <div className="mx-auto max-w-4xl px-5 py-12 md:py-16">
+            <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
               <h2
                 id={`${section.id}-title`}
                 className="text-[22px] font-bold leading-tight text-conditions md:text-[26px]"
               >
                 {section.title}
               </h2>
-              <Accordion
-                type="multiple"
-                defaultValue={[`${section.id}-0`]}
-                className="mt-6 grid gap-3"
-              >
+              <Accordion type="multiple" className="mt-6 grid gap-3">
+
                 {section.items.map((item, i) => (
                   <AccordionItem
                     key={item.q}
@@ -530,7 +527,7 @@ function FaqPage() {
 
         {/* Frage nicht gefunden? */}
         <section className="border-t border-line bg-background" aria-labelledby="faq-kontakt-title">
-          <div className="mx-auto max-w-4xl px-5 pb-10 pt-12 md:pb-12 md:pt-16">
+          <div className="mx-auto max-w-6xl px-5 pb-10 pt-12 md:pb-12 md:pt-16">
             <div className="rounded-xl border border-line border-l-4 border-l-brand bg-card p-6 shadow-sm md:flex md:items-center md:justify-between md:gap-6">
               <div>
                 <h2
