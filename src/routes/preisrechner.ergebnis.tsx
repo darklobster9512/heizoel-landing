@@ -224,13 +224,16 @@ function ErgebnisPage() {
                       className={`${fieldClass} w-20 py-2 text-right tabular`}
                     />
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => setEditPlzMenge(true)}
-                      className="text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
-                    >
-                      {plz || "—"} ändern
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-bold text-ink">{plz || "—"}</span>
+                      <button
+                        type="button"
+                        onClick={() => setEditPlzMenge(true)}
+                        className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
+                      >
+                        ändern
+                      </button>
+                    </div>
                   )}
                 </div>
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
@@ -252,13 +255,16 @@ function ErgebnisPage() {
                       className={`${fieldClass} w-24 py-2 text-right tabular`}
                     />
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => setEditPlzMenge(true)}
-                      className="text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
-                    >
-                      {fmtLiters(liters)} L ändern
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-bold text-ink">{fmtLiters(liters)} Liter</span>
+                      <button
+                        type="button"
+                        onClick={() => setEditPlzMenge(true)}
+                        className="text-[13px] font-normal text-muted-custom underline underline-offset-4 transition-colors hover:text-ink"
+                      >
+                        ändern
+                      </button>
+                    </div>
                   )}
                 </div>
                 <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
