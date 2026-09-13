@@ -18,18 +18,20 @@ import {
 
 
 const DESCRIPTION =
-  "Kreditvergleich für Deutschland: 31 Bankpartner, effektiver Jahreszins ab 3,89 %, SCHUFA-neutral und kostenfrei. Konditionen in zwei Minuten prüfen.";
+  "Klaro – Heizöl-Preisvergleich für Deutschland: Preise von über 300 Händlern aus Ihrer Region vergleichen und Heizöl günstig online bestellen. Kostenlos und unverbindlich.";
+
+const TITLE = "Klaro — Heizöl-Preisvergleich für Deutschland";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "smava — Kreditvergleich ab 3,89 % eff. Jahreszins" },
+      { title: TITLE },
       { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: "smava — Kreditvergleich für Deutschland" },
+      { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "smava — Kreditvergleich für Deutschland" },
+      { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
     scripts: [

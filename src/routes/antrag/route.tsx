@@ -8,16 +8,23 @@ const validateSearch = (search: Record<string, unknown>) => {
   const betrag = Number(search["betrag"]);
   const laufzeit = Number(search["laufzeit"]);
   const anzahlung = Number(search["anzahlung"]);
+  const menge = Number(search["menge"]);
   const out: {
     zweck?: string;
     betrag?: number;
     laufzeit?: number;
     anzahlung?: number;
+    plz?: string;
+    menge?: number;
+    sorte?: string;
   } = {};
   if (typeof search["zweck"] === "string" && search["zweck"]) out.zweck = search["zweck"];
   if (Number.isFinite(betrag) && betrag > 0) out.betrag = betrag;
   if (Number.isFinite(laufzeit) && laufzeit > 0) out.laufzeit = laufzeit;
   if (Number.isFinite(anzahlung) && anzahlung > 0) out.anzahlung = anzahlung;
+  if (typeof search["plz"] === "string" && /^\d{5}$/.test(search["plz"])) out.plz = search["plz"];
+  if (Number.isFinite(menge) && menge > 0) out.menge = menge;
+  if (typeof search["sorte"] === "string" && search["sorte"]) out.sorte = search["sorte"];
   return out;
 };
 
