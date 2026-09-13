@@ -28,7 +28,7 @@ export function OfferCard({
 }) {
   const [plz, setPlz] = useState("");
   const [quantity, setQuantity] = useState(3000);
-  const [deliveryPoints, setDeliveryPoints] = useState(DELIVERY_POINTS[0]);
+  const [deliveryPoints, setDeliveryPoints] = useState<number>(DELIVERY_POINTS[0] ?? 1);
 
   return (
     <div
