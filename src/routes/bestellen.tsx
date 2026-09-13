@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   CalendarDays,
@@ -21,7 +21,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { loadOrderDraft, saveOrderDraft, type OrderDraft } from "@/lib/order-draft";
+import {
+  loadOrderDraft,
+  saveOrderConfirmation,
+  saveOrderDraft,
+  type OrderDraft,
+} from "@/lib/order-draft";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
@@ -441,7 +446,7 @@ function BestellenPage() {
     null,
   );
   const [step, setStep] = useState<1 | 2>(1);
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
