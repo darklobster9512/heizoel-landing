@@ -1189,13 +1189,13 @@ function SeoLinkGroup({ title, links }: { title: string; links: string[] }) {
       ) : null}
       <div className={`grid grid-cols-4 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
         {links.map((label) => (
-          <a
+          <Link
             key={label}
-            href="#"
+            to="/preisrechner"
             className="block text-left text-[12px] leading-snug text-conditions transition-colors hover:text-brand md:text-[13px]"
           >
             {label}
-          </a>
+          </Link>
         ))}
       </div>
     </div>
