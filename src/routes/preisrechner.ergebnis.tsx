@@ -146,6 +146,7 @@ function ErgebnisPage() {
   const [truck, setTruck] = useState(TRUCK_OPTIONS[0]!);
 
   const [editing, setEditing] = useState(false);
+  const [editPlzMenge, setEditPlzMenge] = useState(false);
 
   const [variant, setVariant] = useState<"standard" | "premium">("standard");
   const [compareOpen, setCompareOpen] = useState(false);
@@ -168,7 +169,10 @@ function ErgebnisPage() {
   const price = variant === "premium" ? PRICE_PREMIUM : PRICE_STANDARD;
   const total = useMemo(() => (liters / 100) * price, [liters, price]);
 
-  const toggleEditing = () => setEditing((v) => !v);
+  const toggleEditing = () => {
+    setEditing((v) => !v);
+    setEditPlzMenge(false);
+  };
 
 
   return (
@@ -206,41 +210,61 @@ function ErgebnisPage() {
             </div>
 
             {editing && (
-              <div className="mt-4 border-t border-line pt-4">
-                <div className="flex items-center justify-between gap-4 py-2">
+              <div className="mt-3 border-t border-line pt-2.5">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">PLZ</span>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={5}
-                    placeholder="z. B. 10115"
-                    value={plz}
-                    onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                    className={`${fieldClass} w-24 py-2.5 text-right tabular`}
-                  />
+                  {editPlzMenge ? (
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={5}
+                      placeholder="z. B. 10115"
+                      value={plz}
+                      onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                      className={`${fieldClass} w-20 py-2 text-right tabular`}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setEditPlzMenge(true)}
+                      className="text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
+                    >
+                      {plz || "—"} ändern
+                    </button>
+                  )}
                 </div>
-                <div className="flex items-center justify-between gap-4 py-2">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Liefermenge</span>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="z. B. 3000"
-                    value={liters || ""}
-                    onChange={(e) => {
-                      const digits = e.target.value.replace(/\D/g, "");
-                      setLiters(digits ? Number(digits) : 0);
-                    }}
-                    onBlur={() => {
-                      if (!liters || liters < 1500) setLiters(1500);
-                      else if (liters > 32000) setLiters(32000);
-                    }}
-                    className={`${fieldClass} w-28 py-2.5 text-right tabular`}
-                  />
+                  {editPlzMenge ? (
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="z. B. 3000"
+                      value={liters || ""}
+                      onChange={(e) => {
+                        const digits = e.target.value.replace(/\D/g, "");
+                        setLiters(digits ? Number(digits) : 0);
+                      }}
+                      onBlur={() => {
+                        if (!liters || liters < 1500) setLiters(1500);
+                        else if (liters > 32000) setLiters(32000);
+                      }}
+                      className={`${fieldClass} w-24 py-2 text-right tabular`}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setEditPlzMenge(true)}
+                      className="text-[13px] font-semibold text-brand underline-offset-4 transition-colors hover:text-brand-deep hover:underline"
+                    >
+                      {fmtLiters(liters)} L ändern
+                    </button>
+                  )}
                 </div>
-                <div className="flex items-center justify-between gap-4 py-2">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Lieferstellen</span>
                   <Select value={String(points)} onValueChange={(v) => setPoints(Number(v))}>
-                    <SelectTrigger className={`${fieldClass} w-auto min-w-[140px] py-2.5 focus:ring-0`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[140px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Abladestellen wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -252,10 +276,10 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex items-center justify-between gap-4 py-2">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Schlauch</span>
                   <Select value={hose} onValueChange={setHose}>
-                    <SelectTrigger className={`${fieldClass} w-auto min-w-[140px] py-2.5 focus:ring-0`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[140px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Schlauchlänge wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -267,10 +291,10 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex items-center justify-between gap-4 py-2">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Tankwagen</span>
                   <Select value={truck} onValueChange={setTruck}>
-                    <SelectTrigger className={`${fieldClass} w-auto min-w-[220px] py-2.5 focus:ring-0`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[220px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Tankwagen wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -282,7 +306,7 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex items-center justify-between gap-4 py-2">
+                <div className="flex items-center justify-between gap-4 py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Frühestens lieferbar ab</span>
                   <span className="text-[14px] font-semibold text-brand">{deliveryDate || "—"}</span>
                 </div>
