@@ -1,0 +1,1188 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useRef } from "react";
+import { Logo } from "./logo";
+
+export function SectionHead({
+  eyebrow,
+  title,
+  intro,
+}: {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+}) {
+  return (
+    <div className="max-w-2xl">
+      <p className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-brand-deep">
+        {eyebrow}
+      </p>
+      <h2 className="mt-4 text-3xl font-semibold text-ink md:text-[38px]">{title}</h2>
+      {intro ? <p className="mt-4 text-base leading-relaxed text-muted-custom">{intro}</p> : null}
+    </div>
+  );
+}
+
+import smavaHero from "@/assets/smava-hero.webp.asset.json";
+import santander from "@/assets/santander.svg.asset.json";
+import postbank from "@/assets/postbank.svg.asset.json";
+import creditplus from "@/assets/creditplus.svg.asset.json";
+import commerzbank from "@/assets/commerzbank.svg.asset.json";
+import auxmoney from "@/assets/auxmoney.svg.asset.json";
+import hvb from "@/assets/hvb.svg.asset.json";
+import bankofscotland from "@/assets/bankofscotland.svg.asset.json";
+import dkb from "@/assets/dkb.svg.asset.json";
+import deutschebank from "@/assets/deutschebank.svg.asset.json";
+import ingdiba from "@/assets/ingdiba.svg.asset.json";
+import vvrb from "@/assets/vvrb.svg.asset.json";
+import skredit from "@/assets/skreditpartnerkredit.svg.asset.json";
+import targobank from "@/assets/targobank.svg.asset.json";
+import vonessen from "@/assets/vonessensubprime.svg.asset.json";
+
+const PARTNER_ROWS: { name: string; src: string; h: string }[][] = [
+  [
+    { name: "TARGOBANK", src: targobank.url, h: "h-5" },
+    { name: "Vereinigte Volksbank Raiffeisenbank", src: vvrb.url, h: "h-7" },
+    { name: "CreditPlus Bank", src: creditplus.url, h: "h-6" },
+    { name: "ING", src: ingdiba.url, h: "h-8" },
+    { name: "Santander", src: santander.url, h: "h-6" },
+    { name: "Postbank", src: postbank.url, h: "h-9" },
+    { name: "S-Kredit-per-Klick", src: skredit.url, h: "h-6" },
+  ],
+  [
+    { name: "Commerzbank", src: commerzbank.url, h: "h-7" },
+    { name: "auxmoney", src: auxmoney.url, h: "h-5" },
+    { name: "HypoVereinsbank", src: hvb.url, h: "h-8" },
+    { name: "Bank of Scotland", src: bankofscotland.url, h: "h-9" },
+    { name: "DKB", src: dkb.url, h: "h-10" },
+    { name: "Consors Finanz", src: vonessen.url, h: "h-7" },
+    { name: "Deutsche Bank", src: deutschebank.url, h: "h-6" },
+  ],
+];
+
+const PARTNERS = PARTNER_ROWS.flat();
+
+export function TrustBar() {
+  const mobileTrackRef = useRef<HTMLDivElement>(null);
+
+  const scrollPartners = (direction: 1 | -1) => {
+    const track = mobileTrackRef.current;
+    if (!track) return;
+    track.scrollBy({ left: direction * track.clientWidth, behavior: "smooth" });
+  };
+
+  return (
+    <section aria-label="Partnerbanken" className="bg-background">
+      <div className="mx-auto max-w-6xl px-5 py-10 md:py-12">
+        <div className="hidden space-y-6 md:block">
+          {PARTNER_ROWS.map((row, i) => (
+            <ul
+              key={i}
+              className="grid grid-cols-2 items-center gap-x-6 gap-y-7 sm:grid-cols-4 lg:grid-cols-7"
+            >
+              {row.map((p) => (
+                <li key={p.name} className="flex h-11 items-center">
+                  <img
+                    src={p.src}
+                    alt={p.name}
+                    loading="lazy"
+                    className={`${p.h} w-auto max-w-[150px] object-contain object-left`}
+                  />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+
+        <div className="md:hidden">
+          <div
+            ref={mobileTrackRef}
+            className="partner-track flex snap-x snap-mandatory overflow-x-auto"
+          >
+            {Array.from({ length: Math.ceil(PARTNERS.length / 4) }, (_, pageIndex) => (
+              <ul
+                key={pageIndex}
+                className="grid w-full shrink-0 snap-start grid-cols-2 grid-rows-2 gap-x-7 gap-y-8"
+              >
+                {PARTNERS.slice(pageIndex * 4, pageIndex * 4 + 4).map((partner) => (
+                  <li key={partner.name} className="flex h-14 items-center justify-center">
+                    <img
+                      src={partner.src}
+                      alt={partner.name}
+                      loading="lazy"
+                      className={`${partner.h} max-h-10 w-auto max-w-[145px] object-contain`}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-5">
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Vorherige Partnerbanken"
+              onClick={() => scrollPartners(-1)}
+              className="size-10 border-line text-brand shadow-none"
+            >
+              <ChevronLeft className="size-5" />
+            </Button>
+            <span className="h-1.5 w-16 rounded-full bg-secondary" aria-hidden="true" />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Weitere Partnerbanken"
+              onClick={() => scrollPartners(1)}
+              className="size-10 border-line text-brand shadow-none"
+            >
+              <ChevronRight className="size-5" />
+            </Button>
+          </div>
+        </div>
+
+        <p className="mt-8 text-sm md:mt-10">
+          <a href="#konditionen" className="text-ink underline underline-offset-4">
+            Teilnehmende Kreditbanken/Vermittler
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const CONDITIONS_LEFT = [
+  ["Zinssätze:", "Min. -0,40 % bis Max. 19,90 % effektiver Jahreszins (APR)"],
+  ["Laufzeit:", "Min. 6 bis Max. 120 Monate"],
+];
+
+const CONDITIONS_RIGHT = [
+  ["Nettodarlehensbetrag:", "von 1.000 € bis 150.000 €"],
+  ["Gesamtbetrag:", "von 995,50 € bis 181.247,51 €"],
+];
+
+function ConditionsList({ items }: { items: string[][] }) {
+  return (
+    <dl className="grid gap-y-2.5">
+      {items.map(([label, value]) => (
+        <div
+          key={label}
+          className="grid gap-x-3 gap-y-0.5 text-[13.5px] leading-snug sm:grid-cols-[150px_1fr]"
+        >
+          <dt className="font-bold text-conditions">{label}</dt>
+          <dd className="tabular text-conditions">{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function ConditionsBox({ mobileOnly = false }: { mobileOnly?: boolean }) {
+  return (
+    <section
+      aria-label="Konditionen Übersicht"
+      className={mobileOnly ? "bg-surface md:hidden" : "hidden bg-background md:block"}
+    >
+      <div className={`mx-auto max-w-6xl px-5 ${mobileOnly ? "pb-5 pt-4" : "pb-12"}`}>
+        <div className="rounded-md bg-line px-4 py-4 md:bg-surface md:px-6 md:py-5">
+          <h2 className="text-[14px] font-bold text-conditions">
+            Ratenkredit Konditionen Übersicht
+          </h2>
+          <div className="mt-4 grid gap-x-8 gap-y-2.5 md:grid-cols-[1.25fr_1fr]">
+            <ConditionsList items={CONDITIONS_LEFT} />
+            <ConditionsList items={CONDITIONS_RIGHT} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+const LOAN_TYPES = [
+  { title: "Ratenkredit", rate: "ab 3,89 %", text: "Für alles, was gerade ansteht — frei verwendbar." },
+  { title: "Autokredit", rate: "ab 3,89 %", text: "Barzahlerrabatt beim Händler sichern." },
+  { title: "Umschuldung", rate: "ab 4,29 %", text: "Teure Altkredite und Dispo ablösen." },
+  { title: "Modernisierung", rate: "ab 4,09 %", text: "Sanieren, renovieren, energetisch aufwerten." },
+  { title: "Baufinanzierung", rate: "ab 3,15 %", text: "Kauf, Neubau oder Anschlussfinanzierung." },
+  { title: "Gewerbekredit", rate: "ab 5,20 %", text: "Betriebsmittel und Investitionen für Selbstständige." },
+];
+
+export function LoanTypes() {
+  return (
+    <section id="kreditarten" className="border-y border-line bg-background">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <SectionHead eyebrow="Kreditarten" title="Für jeden Zweck der passende Kredit" />
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {LOAN_TYPES.map((l) => (
+            <li
+              key={l.title}
+              className="rounded-xl border border-line bg-surface p-5 transition-colors hover:border-brand"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="text-base font-semibold text-ink">{l.title}</h3>
+                <span className="tabular font-mono text-sm font-semibold text-brand-deep">
+                  {l.rate}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-custom">{l.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+const COMPARE = [
+  { label: "Bestes Angebot über smava", value: 3.89, width: "26%", highlight: true },
+  { label: "Durchschnitt unserer Bankpartner", value: 6.4, width: "45%" },
+  { label: "Typisches Filialbank-Angebot", value: 8.9, width: "62%" },
+  { label: "Dispositionskredit", value: 12.5, width: "88%" },
+];
+
+export function RateComparison() {
+  return (
+    <section className="border-b border-line bg-surface">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[0.85fr_1.15fr]">
+        <SectionHead
+          eyebrow="Zinsvergleich"
+          title="Der Unterschied zur Hausbank ist selten klein"
+          intro="Beispielwerte für 25.000 € über 60 Monate. Ihr Zinssatz hängt von Bonität und Laufzeit ab."
+        />
+        <ul className="space-y-5">
+          {COMPARE.map((c) => (
+            <li key={c.label}>
+              <div className="flex items-baseline justify-between text-sm">
+                <span className="text-ink">{c.label}</span>
+                <span className="tabular font-mono font-semibold text-ink">
+                  {c.value.toLocaleString("de-DE", { minimumFractionDigits: 2 })} %
+                </span>
+              </div>
+              <div className="mt-2 h-2.5 w-full rounded-full bg-secondary">
+                <div
+                  className={`h-full rounded-full ${c.highlight ? "bg-brand" : "bg-muted-custom/35"}`}
+                  style={{ width: c.width }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+const RATES = [
+  { type: "Ratenkredit", rate: "3,89 – 12,90 %", term: "12 – 120 Monate", amount: "1.000 – 100.000 €" },
+  { type: "Autokredit", rate: "3,89 – 9,90 %", term: "12 – 96 Monate", amount: "2.500 – 80.000 €" },
+  { type: "Umschuldung", rate: "4,29 – 11,50 %", term: "24 – 120 Monate", amount: "5.000 – 100.000 €" },
+  { type: "Modernisierungskredit", rate: "4,09 – 10,40 %", term: "24 – 120 Monate", amount: "5.000 – 100.000 €" },
+  { type: "Kredit für Selbstständige", rate: "5,20 – 14,90 %", term: "12 – 84 Monate", amount: "2.500 – 60.000 €" },
+];
+
+export function RatesTable() {
+  return (
+    <section id="konditionen" className="scroll-mt-20 border-b border-line bg-surface">
+      <div className="mx-auto max-w-6xl px-5 py-20">
+        <SectionHead
+          eyebrow="Konditionen"
+          title="Zinsübersicht nach Kreditart"
+          intro="Beispielhafte Spannen unserer Bankpartner. Ihr persönlicher Zinssatz hängt von Bonität, Laufzeit und Verwendungszweck ab."
+        />
+
+        <div className="mt-10 overflow-x-auto rounded-xl border border-line bg-background">
+          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+            <caption className="sr-only">Zinsspannen, Laufzeiten und Betragsrahmen je Kreditart</caption>
+            <thead>
+              <tr className="border-b border-line bg-secondary/60">
+                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Kreditart</th>
+                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">eff. Jahreszins</th>
+                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Laufzeit</th>
+                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Betragsrahmen</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RATES.map((r) => (
+                <tr key={r.type} className="border-b border-line last:border-0">
+                  <th scope="row" className="px-5 py-4 font-medium text-ink">{r.type}</th>
+                  <td className="tabular px-5 py-4 font-mono font-medium text-brand-deep">{r.rate}</td>
+                  <td className="tabular px-5 py-4 text-muted-custom">{r.term}</td>
+                  <td className="tabular px-5 py-4 text-muted-custom">{r.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-xs text-muted-custom">
+          Stand der Beispielwerte: laufend aktualisiert. Angaben ohne Gewähr, kein Angebot im
+          Rechtssinne.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const ADVANTAGES = [
+  {
+    title: "31 Bankpartner in einer Abfrage",
+    text: "Eine Anfrage, ein Score, alle erreichbaren Angebote — statt fünf einzelner Anträge.",
+  },
+  {
+    title: "SCHUFA-neutrale Konditionsanfrage",
+    text: "Der Vergleich hinterlässt keine Spur in Ihrem SCHUFA-Score.",
+  },
+  {
+    title: "Keine Gebühren, keine Provision von Ihnen",
+    text: "Wir werden von den Banken vergütet. Für Sie ist der Vergleich kostenfrei.",
+  },
+  {
+    title: "Vollständig digitaler Abschluss",
+    text: "Identifikation per Video oder Bank-Login, Signatur online, Papier entfällt.",
+  },
+  {
+    title: "Persönliche Beratung aus Deutschland",
+    text: "Zertifizierte Kreditberater, erreichbar Mo–Fr von 8 bis 20 Uhr.",
+  },
+  {
+    title: "Transparente Gesamtkosten",
+    text: "Effektivzins, Restschuldversicherung und Gesamtbetrag immer vollständig ausgewiesen.",
+  },
+];
+
+export function Advantages() {
+  return (
+    <section id="vorteile" className="scroll-mt-20 border-b border-line bg-background">
+      <div className="mx-auto max-w-6xl px-5 py-20">
+        <SectionHead
+          eyebrow="Warum smava"
+          title="Ein Vergleich, der auch der Prüfung standhält"
+        />
+        <ul className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+          {ADVANTAGES.map((a) => (
+            <li key={a.title} className="border-t border-line pt-5">
+              <h3 className="text-base font-semibold text-ink">{a.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-custom">{a.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+import freeInquiry from "@/assets/free-inquiry.svg.asset.json";
+import getOffers from "@/assets/get-offers.svg.asset.json";
+import closeApplication from "@/assets/close-application.svg.asset.json";
+import coupleOnCouch from "@/assets/couple-on-couch.webp.asset.json";
+import offerList from "@/assets/fake-offer-list.svg.asset.json";
+import interestIcon from "@/assets/interest.svg.asset.json";
+import neutralIcon from "@/assets/neutral.svg.asset.json";
+import freeIcon from "@/assets/free.svg.asset.json";
+import dataSafetyIcon from "@/assets/data-safety.svg.asset.json";
+
+const STEPS = [
+  {
+    icon: freeInquiry.url,
+    iconAlt: "Monitor-Symbol, Schritt 1",
+    width: 128,
+    height: 128,
+    title: "Kostenlose\nKreditanfrage",
+    text: "Zuerst stellen Sie unverbindlich und kostenlos ihre Kreditanfrage ganz bequem von zu Hause aus.",
+  },
+  {
+    icon: getOffers.url,
+    iconAlt: "Listen-Symbol, Schritt 2",
+    width: 67,
+    height: 56,
+    title: "Angebote erhalten",
+    text: "Sie erhalten Kreditangebote von verschiedenen Banken. Den passenden Kredit können Sie direkt online beantragen.",
+  },
+  {
+    icon: closeApplication.url,
+    iconAlt: "Hand mit Münzen, Schritt 3",
+    width: 72,
+    height: 72,
+    title: "Kreditantrag abschließen",
+    text: "Sind Ihre Unterlagen vollständig und alle Voraussetzungen erfüllt, erhalten Sie innerhalb kürzester Zeit Ihr Geld.",
+  },
+];
+
+export function Steps() {
+  return (
+    <section id="ablauf" className="scroll-mt-20 bg-background">
+      <div className="mx-auto max-w-6xl px-5 py-12 md:py-14">
+        <h2 className="text-[22px] font-bold tracking-tight text-conditions md:text-2xl">
+          In 3 Schritten zum Wunschkredit
+        </h2>
+        <ol className="mt-9 grid gap-9 md:grid-cols-3 md:gap-x-12">
+          {STEPS.map((s) => (
+            <li key={s.title} className="flex items-start gap-5">
+              <img
+                src={s.icon}
+                alt={s.iconAlt}
+                width={s.width}
+                height={s.height}
+                className="h-[72px] w-[72px] shrink-0 object-contain"
+              />
+              <div className="max-w-[250px] pt-0.5">
+                <h3 className="whitespace-pre-line text-[21px] font-bold leading-[1.18] text-conditions">{s.title}</h3>
+                <p className="mt-2 text-[15px] leading-[1.55] text-conditions/85">{s.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+  );
+}
+
+export function PersonalDataInfo() {
+  return (
+    <section className="bg-surface" aria-labelledby="personal-data-title">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 pb-14 md:grid-cols-[1.45fr_1fr] md:gap-20 md:px-5 md:py-[106px]">
+        <div className="order-2 max-w-[610px] px-5 text-conditions md:order-1 md:px-0">
+          <h2
+            id="personal-data-title"
+            className="max-w-[560px] text-[25px] font-bold leading-[1.3] md:text-[28px]"
+          >
+            Wir erklären, warum wir Ihre persönlichen
+            <br className="hidden sm:block" /> Angaben benötigen
+          </h2>
+
+          <div className="mt-8 space-y-4 text-[16px] leading-[1.5]">
+            <p>
+              Kreditinstitute sind dazu verpflichtet, Ihre Identität zu überprüfen. Nur mit den
+              Angaben zu Ihrer Person kann das <strong>bestmögliche Angebot</strong> für Sie ermittelt
+              werden.
+            </p>
+            <p>
+              Vertrauenswürdige Angebote gibt es nur nach einer Kreditwürdigkeitsprüfung.
+              <br className="hidden sm:block" /> Dafür benötigen wir Informationen zu Ihrer Person und
+              finanziellen Situation.
+            </p>
+            <p>
+              Ihre Angaben werden von smava <strong>vertraulich</strong> behandelt
+              <br className="hidden sm:block" /> und <strong>verschlüsselt</strong> übermittelt. Der Schutz
+              Ihrer persönlichen Daten hat für uns höchste Bedeutung.
+            </p>
+          </div>
+        </div>
+
+        <img
+          src={coupleOnCouch.url}
+          alt="Ein Paar betrachtet gemeinsam ein Smartphone"
+          width={400}
+          height={400}
+          loading="lazy"
+          className="order-1 aspect-square w-full object-cover md:order-2 md:max-w-[400px] md:justify-self-end"
+        />
+      </div>
+    </section>
+  );
+}
+
+const OFFER_ADVANTAGES = [
+  {
+    icon: interestIcon.url,
+    iconAlt: "Lupe mit Zinsdiagramm",
+    title: "Günstige Zinsen",
+    text: "Unvergleichliche Konditionen dank besonders günstiger Vereinbarungen mit unseren Partnerbanken.",
+  },
+  {
+    icon: neutralIcon.url,
+    iconAlt: "Neutrale Kreditanfrage",
+    title: "SCHUFA-neutral",
+    text: "Der smava Kreditvergleich hat keine negativen Auswirkungen auf Ihren SCHUFA-Score.",
+  },
+  {
+    icon: freeIcon.url,
+    iconAlt: "Kostenlose Kreditanfrage",
+    title: "Kostenlos &\nunverbindlich",
+    text: "Es warten keine versteckten Kosten auf Sie und Sie können die Anfrage jederzeit widerrufen.",
+  },
+  {
+    icon: dataSafetyIcon.url,
+    iconAlt: "Geschützte Datenübertragung",
+    title: "Datensicherheit",
+    text: "Für eine sichere Übermittlung Ihrer persönlichen Daten sorgen unsere strengen Datenschutzrichtlinien.",
+  },
+];
+
+export function MatchingOffers() {
+  return (
+    <section className="overflow-hidden bg-background" aria-labelledby="matching-offers-title">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 pt-0 md:h-[557px] md:grid-cols-[404px_1fr] md:gap-[74px] md:px-5 md:pt-8">
+        <div className="order-1 h-[258px] w-full overflow-hidden md:contents">
+          <img
+            src={offerList.url}
+            alt="Beispielhafte Kreditangebote verschiedener Banken"
+            width={404}
+            height={575}
+            loading="lazy"
+            className="mx-auto w-full max-w-[404px] self-start md:order-1 md:-translate-x-[78px]"
+          />
+        </div>
+
+        <div className="order-2 flex flex-col justify-center px-5 pt-0 md:h-[557px] md:px-0">
+          <h2
+            id="matching-offers-title"
+            className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[28px]"
+          >
+            Mit smava zu passenden Kreditangeboten
+          </h2>
+
+          <ul className="mt-8 grid gap-x-[72px] gap-y-8 sm:grid-cols-2 md:-ml-[94px] md:w-[calc(100%+94px)]">
+            {OFFER_ADVANTAGES.map((advantage) => (
+              <li key={advantage.title} className="flex items-start gap-3">
+                <img
+                  src={advantage.icon}
+                  alt={advantage.iconAlt}
+                  width={40}
+                  height={40}
+                  className="size-10 shrink-0 object-contain"
+                />
+                <div className="max-w-[280px] text-conditions">
+                  <h3 className="whitespace-pre-line text-[21px] font-bold leading-[1.2]">
+                    {advantage.title}
+                  </h3>
+                  <p className="mt-1 text-[16px] leading-[1.5]">{advantage.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex justify-center md:mt-[66px]">
+            <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
+              <Link to="/antrag/schritt-1" search={{}}>Jetzt Kreditvergleich starten</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+const VOICES = [
+  {
+    quote:
+      "Drei Angebote innerhalb einer Stunde, das beste lag 1,4 Prozentpunkte unter dem meiner Hausbank.",
+    name: "Martin K.",
+    role: "Umschuldung, 32.000 €",
+  },
+  {
+    quote:
+      "Klare Zahlen, keine Lockangebote. Der ausgewiesene Effektivzins war am Ende auch der im Vertrag.",
+    name: "Sabine R.",
+    role: "Autokredit, 18.500 €",
+  },
+  {
+    quote:
+      "Als Selbstständige war es sonst mühsam. Hier hatte ich in zwei Tagen eine Zusage.",
+    name: "Elena T.",
+    role: "Betriebsmittel, 45.000 €",
+  },
+];
+
+export function Testimonials() {
+  return (
+    <section className="border-b border-line bg-surface">
+      <div className="mx-auto max-w-6xl px-5 py-20">
+        <SectionHead
+          eyebrow="Kundenstimmen"
+          title="4,8 von 5 Sternen aus 2.318 Bewertungen"
+        />
+        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+          {VOICES.map((v) => (
+            <li key={v.name} className="rounded-xl border border-line bg-background p-6">
+              <p className="font-mono text-xs tracking-[0.2em] text-brand-deep" aria-label="5 von 5 Sternen">
+                ★★★★★
+              </p>
+              <blockquote className="mt-4 text-sm leading-relaxed text-ink">
+                „{v.quote}“
+              </blockquote>
+              <footer className="mt-5 border-t border-line pt-4 text-xs text-muted-custom">
+                <span className="font-medium text-ink">{v.name}</span> · {v.role}
+              </footer>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+export const FAQS = [
+  {
+    q: "Was ist smava?",
+    a: "smava ist Deutschlands bekanntestes Online-Vergleichsportal für Kredite mit Sitz in Berlin. Als unabhängiger Finanzdienstleister helfen wir Ihnen, die besten Kreditangebote zu finden – transparent, sicher und einfach online.",
+  },
+  {
+    q: "Wie funktioniert smava?",
+    a: "Sie stellen eine unverbindliche Anfrage für Ihren Wunschkredit. Anschließend vergleichen wir die Konditionen von über 20 Banken und Kreditpartnern – inklusive effektiver Jahreszinsen, Laufzeiten und monatlicher Raten. Der gesamte Vergleich ist unverbindlich und wirkt sich nicht negativ auf Ihre SCHUFA aus.",
+  },
+  {
+    q: "Ist smava eine Bank?",
+    a: "Nein, smava ist keine Bank und verleiht selbst kein Geld. Wir vermitteln Kredite als unabhängiges Vergleichsportal zwischen Verbrauchern und über 20 Partnerbanken. Für erfolgreiche Vermittlungen erhalten wir von der Bank eine Provision – für Sie entstehen keine Kosten.",
+  },
+  {
+    q: "Kostet der Kreditvergleich bei smava etwas?",
+    a: "Nein, der smava-Kreditvergleich ist komplett kostenlos und unverbindlich. Sie zahlen nichts – auch nicht, wenn Sie kein Angebot annehmen. So gewinnen Sie ganz unverbindlich den bestmöglichen Überblick über den Kreditmarkt.",
+  },
+  {
+    q: "Welchen Vorteil habe ich durch smava?",
+    a: "Sie sparen Zeit, Geld und Aufwand. Mit nur einer Anfrage erhalten Sie personalisierte Angebote von über 20 Banken und Kreditpartnern – inklusive Sofortentscheidung und Online-Abschluss. Oft sind die Zinsen deutlich günstiger als bei Ihrer Hausbank.",
+  },
+  {
+    q: 'Was bedeutet die "Günstiger-Geht-Nicht-Garantie"?',
+    a: 'Wenn Sie ein über smava vermitteltes Angebot woanders günstiger finden, gleichen wir den Unterschied aus – mit unserer "Günstiger-Geht-Nicht-Garantie". So stellen wir sicher, dass Sie immer das beste Angebot erhalten.',
+  },
+  {
+    q: "Bietet smava eine persönliche Beratung an?",
+    a: "Ja. Unsere Kreditspezialisten beraten Sie kostenlos und unverbindlich. Sie erreichen uns telefonisch montags bis freitags von 8:00 – 20:00 Uhr und samstags von 10:00 – 15:00 Uhr. Alternativ können Sie jederzeit online eine Anfrage stellen.",
+  },
+  {
+    q: "Ist smava seriös und sicher?",
+    a: "Ja, smava ist ein TÜV-geprüftes Vergleichsportal mit über 300.000 zufriedenen Kundenbewertungen. Ihre Daten werden SSL-verschlüsselt übertragen und gemäß den deutschen Datenschutzbestimmungen verarbeitet.",
+  },
+  {
+    q: "Beeinflusst eine Kreditanfrage über smava meine SCHUFA?",
+    a: "Nein, die erste Anfrage erfolgt als SCHUFA-neutrale Konditionsanfrage und hat keinen Einfluss auf Ihre Bonität.",
+  },
+];
+
+export function Faq() {
+  return (
+    <section id="faq" className="scroll-mt-20 bg-background">
+      <div className="mx-auto max-w-[920px] px-5 py-16 md:py-20">
+        <h2 className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[27px]">
+          Die häufigsten Fragen zum Kreditvergleich
+        </h2>
+
+        <Accordion type="multiple" className="mt-10 w-full">
+          {FAQS.map((f, i) => (
+            <AccordionItem key={f.q} value={`item-${i}`} className="border-b border-line">
+              <AccordionTrigger className="py-5 text-left text-[15px] font-normal text-brand hover:no-underline [&>svg]:text-brand">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="pb-6 pr-6 text-[15px] leading-[1.7] text-conditions">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+
+        <div className="mt-12 flex justify-center">
+          <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
+            <a href="#rechner">Zum Hilfe Center</a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const TRUST_CARDS = [
+  {
+    title: "Flexible Ratenkredite für Ihre Wünsche und Pläne",
+    links: [
+      { label: "Online Kredit", href: "https://www.smava.de/kredit/" },
+      { label: "Schnellkredit", href: "https://www.smava.de/autokredit/schnellkredit/" },
+      { label: "Kleinkredit", href: "https://www.smava.de/kredit/kleinkredit/" },
+      { label: "30.000 Euro Kredit", href: "https://www.smava.de/kredit/30000-euro-kredit/" },
+    ],
+  },
+  {
+    title: "Ihr neues Auto schnell und einfach finanzieren",
+    links: [
+      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
+      { label: "3-Wege-Finanzierung", href: "https://www.smava.de/autokredit/3-wege-finanzierung/" },
+      { label: "Neuwagen-Finanzierung", href: "https://www.smava.de/autokredit/neuwagen-finanzierung/" },
+      { label: "Gebrauchtwagen-Finanzierung", href: "https://www.smava.de/autokredit/gebrauchtwagen-finanzierung/" },
+    ],
+  },
+  {
+    title: "Mit einer Umschuldung Übersicht gewinnen und sparen",
+    links: [
+      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
+      { label: "Kredit ablösen", href: "https://www.smava.de/umschuldung/kredit-abloesen/" },
+      { label: "Darlehen umschulden", href: "https://www.smava.de/umschuldung/darlehen/" },
+      { label: "Überziehungskredit", href: "https://www.smava.de/umschuldung/ueberziehungskredit/" },
+    ],
+  },
+  {
+    title: "Den Traum vom Eigenheim sicher finanzieren",
+    links: [
+      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
+      { label: "Grundstück finanzieren", href: "https://www.smava.de/baufinanzierung/grundstueck-finanzieren/" },
+      { label: "Immobiliendarlehen", href: "https://www.smava.de/baufinanzierung/immobiliendarlehen/" },
+      { label: "Vollfinanzierung", href: "https://www.smava.de/baufinanzierung/vollfinanzierung/" },
+    ],
+  },
+  {
+    title: "Ihr Wegweiser zu Krediten, Zinsen und Beratung",
+    links: [
+      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
+      { label: "Kreditzinsen", href: "https://www.smava.de/kredit/zinsen/" },
+      { label: "Kreditberatung", href: "https://www.smava.de/kredit/beratung/" },
+      { label: "Kreditglossar", href: "https://www.smava.de/kredit/glossar/" },
+    ],
+  },
+];
+
+export function TrustLinks() {
+  return (
+    <section aria-label="Weitere Kreditarten" className="bg-surface">
+      <div className="mx-auto max-w-6xl px-5 py-14">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="pr-4">
+            <h2 className="text-[26px] font-bold leading-[1.25] text-conditions">
+              Vertrauen Sie auf smava – Deutschlands bekanntes Kreditportal
+            </h2>
+            <p className="mt-5 text-[15px] leading-[1.6] text-conditions">
+              Entdecken Sie jetzt weitere Kreditarten und Vergleichsmöglichkeiten, die zu
+              Ihrem Leben, Ihren Plänen und Ihrem Budget passen.
+            </p>
+          </div>
+
+          {TRUST_CARDS.map((card) => (
+            <div key={card.title} className="rounded-sm bg-background px-6 py-6">
+              <p className="text-[15px] leading-[1.45] text-footer-text">{card.title}</p>
+              <ul className="mt-5 space-y-3">
+                {card.links.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-start gap-3 text-[15px] font-semibold text-brand-deep hover:underline"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="mt-[3px] h-4 w-4 shrink-0 text-brand"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M9 6l6 6-6 6" />
+                      </svg>
+                      <span>{l.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 space-y-5 text-[12px] leading-[1.6] text-muted-custom">
+          <p>
+            <strong className="font-bold">Sparen Sie über 35% mit smava:</strong> Vgl. der
+            eff. Jahreszinssätze neuer (lt. Bundesbank) mit den über smava vermittelten
+            Krediten 2020.{" "}
+            <a href="#faq" className="text-brand-deep hover:underline">
+              Mehr Infos
+            </a>
+            .
+          </p>
+          <p>
+            0,68 % Zinsen: 2/3 aller Kunden erhalten: Nettodarlehensbetrag 50.000,00 €, 60
+            Monate Laufzeit, 8,70 % effektiver Jahreszins, 8,37 % p.a. gebundener Sollzins,
+            60 mtl. Raten zu je 1.022,73 €, 61.363,57 € Gesamtbetrag, Vereinigte Volksbank
+            Raiffeisenbank eG, Darmstädter Str. 62, 64354 Reinheim.(§17 PAngV)
+          </p>
+          <div className="space-y-1.5">
+            <p>
+              <a href="#faq" className="text-brand-deep hover:underline">
+                * Mehr Infos
+              </a>
+            </p>
+            <p>
+              <a href="#faq" className="text-brand-deep hover:underline">
+                ** Mehr Infos
+              </a>
+            </p>
+            <p>
+              *** ARD: Morgenmagazin (02.02.2023); ZDF: Morgenmagazin (02.02.2023); NTV:
+              Telebörse (25.10.2023); RTL: Punkt 12 (04.03.2024).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type FooterCol = {
+  title: string;
+  titleHref: string;
+  links: { label: string; href: string }[];
+};
+
+const FOOTER_COLS: FooterCol[] = [
+  {
+    title: "Unternehmen",
+    titleHref: "https://www.smava.de/ueber-smava/",
+    links: [
+      { label: "Karriere", href: "https://jobs.smava.de/" },
+      { label: "Presse", href: "https://www.smava.de/presse/" },
+      { label: "Hilfe", href: "https://smava.zendesk.com/hc/de" },
+      { label: "Unsere Partner", href: "https://www.smava.de/kredit/partner/" },
+      { label: "Kontakt", href: "https://www.smava.de/kontakt/" },
+      { label: "Digital Services Act (DSA)", href: "https://www.smava.de/digital-services-act/" },
+    ],
+  },
+  {
+    title: "Kredit aufnehmen",
+    titleHref: "https://www.smava.de/kredit/",
+    links: [
+      { label: "Kreditvergleich", href: "https://www.smava.de/kreditvergleich/" },
+      { label: "Sofortkredit", href: "https://www.smava.de/kredit/sofortkredit/" },
+      { label: "Privatkredit", href: "https://www.smava.de/privatkredit/" },
+      { label: "Autokredit", href: "https://www.smava.de/autokredit/" },
+      { label: "Umschuldung", href: "https://www.smava.de/umschuldung/" },
+      { label: "Baufinanzierung", href: "https://www.smava.de/baufinanzierung/" },
+    ],
+  },
+  {
+    title: "Service",
+    titleHref: "https://www.smava.de/kredit/service/",
+    links: [
+      { label: "Kreditrechner", href: "https://www.smava.de/kredit/rechner/" },
+      { label: "Glossar", href: "https://www.smava.de/kredit/glossar/" },
+      { label: "Nachrichten", href: "https://www.smava.de/kredit/nachrichten/" },
+      { label: "Partnerprogramm", href: "https://www.smava.de/partnerprogramm/" },
+      { label: "smava Gutschein", href: "https://www.smava.de/kredit/smava-gutscheine/" },
+      { label: "Freunde werben Freunde", href: "https://smava.aklamio.com/" },
+    ],
+  },
+];
+
+const FOOTER_LEGAL = [
+  { label: "Datenschutz", href: "https://www.smava.de/datenschutz/" },
+  { label: "AGB", href: "https://www.smava.de/agb/" },
+  { label: "Impressum", href: "https://www.smava.de/impressum/" },
+  { label: "Cookies", href: "https://www.smava.de/cookies/" },
+  { label: "Widerruf", href: "https://www.smava.de/widerruf/" },
+];
+
+function ConsultingBlock() {
+  return (
+    <p className="text-[14px] leading-[1.45] text-footer-text">
+      Wir beraten Sie gerne telefonisch unter:
+      <br />
+      <a href="tel:08000009800" className="text-footer-text hover:underline">
+        0800 000 98 00
+      </a>
+      <br />
+      <br />
+      Montag - Freitag: 8:00 - 20:00 Uhr
+      <br />
+      Samstag: 10:00 - 15:00 Uhr
+    </p>
+  );
+}
+
+const SOCIALS: { label: string; href: string; path: React.ReactNode }[] = [
+  {
+    label: "Youtube",
+    href: "https://www.youtube.com/@smava.",
+    path: (
+      <path d="M26.8009 13.1728C26.8009 10.5487 24.6735 8.42126 22.0494 8.42126H9.8992C7.27511 8.42126 5.14771 10.5487 5.14771 13.1728V18.8269C5.14771 21.451 7.27511 23.5784 9.8992 23.5784H22.0494C24.6735 23.5784 26.8009 21.451 26.8009 18.8269V13.1728ZM19.6554 16.4235L14.2067 19.1191C13.9932 19.2346 13.2675 19.0801 13.2675 18.837V13.3041C13.2675 13.0579 13.9992 12.9038 14.2128 13.0253L19.4284 15.863C19.647 15.9876 19.8767 16.3039 19.6554 16.4238V16.4235Z" />
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://de.linkedin.com/company/smava",
+    path: (
+      <>
+        <path d="M6.40747 11.9855H10.6129V25.4944H6.40747V11.9855ZM8.5107 5.27246C9.85566 5.27246 10.9451 6.36354 10.9451 7.70547C10.9451 9.0474 9.85532 10.1418 8.5107 10.1418C7.16609 10.1418 6.073 9.04907 6.073 7.70547C6.073 6.36186 7.16239 5.27246 8.5107 5.27246Z" />
+        <path d="M13.2476 11.9848H17.2754V13.8325H17.3304C17.8919 12.7693 19.2617 11.6503 21.3065 11.6503C25.5577 11.6503 26.3418 14.4464 26.3418 18.0846V25.4938H22.1457V18.9262C22.1457 17.3582 22.1152 15.3437 19.9633 15.3437C17.8113 15.3437 17.4443 17.05 17.4443 18.8117V25.4938H13.2476V11.9848Z" />
+      </>
+    ),
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/smava_gmbh/",
+    path: (
+      <>
+        <path d="M21.9234 8.85455C21.2038 8.85455 20.6201 9.43821 20.6201 10.1579C20.6201 10.8775 21.2038 11.4612 21.9234 11.4612C22.6431 11.4612 23.2267 10.8775 23.2267 10.1579C23.2267 9.43821 22.6431 8.85455 21.9234 8.85455Z" />
+        <path d="M16.1295 10.5257C13.1109 10.5257 10.655 12.9815 10.655 16.0002C10.655 19.0189 13.1109 21.4747 16.1295 21.4747C19.1482 21.4747 21.6041 19.0189 21.6041 16.0002C21.6041 12.9815 19.1482 10.5257 16.1295 10.5257ZM16.1295 19.5068C14.1959 19.5068 12.6226 17.9338 12.6226 16.0002C12.6226 14.0666 14.1956 12.4936 16.1295 12.4936C18.0635 12.4936 19.6362 14.0666 19.6362 16.0002C19.6362 17.9338 18.0632 19.5068 16.1295 19.5068Z" />
+        <path d="M20.4754 27.1147H11.6004C7.91849 27.1147 4.92334 24.1195 4.92334 20.4376V11.5623C4.92334 7.88036 7.91849 4.88519 11.6004 4.88519H20.4754C24.1573 4.88519 27.1528 7.88036 27.1528 11.5623V20.4376C27.1528 24.1195 24.157 27.1147 20.4754 27.1147ZM11.6004 6.97667C9.07169 6.97667 7.01448 9.03356 7.01448 11.5623V20.4376C7.01448 22.9663 9.07135 25.0235 11.6004 25.0235H20.4754C23.0041 25.0235 25.0614 22.9667 25.0614 20.4376V11.5623C25.0614 9.03356 23.0041 6.97667 20.4754 6.97667H11.6004Z" />
+      </>
+    ),
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/people/smava/100064534726416/",
+    path: (
+      <path d="M18.135 27.3902V17.4238H21.4583L22.0906 13.301H18.135V10.6255C18.135 9.49749 18.6874 8.39802 20.4592 8.39802H22.2578V4.88804C22.2578 4.88804 20.6258 4.60931 19.0652 4.60931C15.8074 4.60931 13.678 6.58393 13.678 10.1584V13.3006H10.0569V17.4235H13.678V27.3899" />
+    ),
+  },
+  {
+    label: "X",
+    href: "https://twitter.com/smava",
+    path: (
+      <path d="M5.0259 5.60788L13.6 17.0717L4.97217 26.3924H6.91421L14.4681 18.2316L20.5713 26.3924H27.1795L18.1228 14.2837L26.1539 5.60754H24.2119L17.2554 13.1232L11.6345 5.60754H5.02624L5.0259 5.60788ZM7.8817 7.03813H10.9175L24.323 24.9624H21.2872L7.8817 7.03813Z" />
+    ),
+  },
+];
+
+export function SiteFooter() {
+  return (
+    <footer className="bg-background text-ink">
+      <div className="mx-auto max-w-[1283px]">
+        {/* Desktop columns */}
+        <div className="hidden min-h-[237px] grid-cols-[316px_264px_307px_1fr] px-[66px] pt-[21px] md:grid">
+          {FOOTER_COLS.map((col) => (
+            <nav key={col.title} aria-label={col.title}>
+              <h4 className="text-[14px] font-bold leading-[20px]">
+                <a
+                  href={col.titleHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink hover:underline"
+                >
+                  {col.title}
+                </a>
+              </h4>
+              <ul className="mt-[7px] space-y-[3px]">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[13px] leading-[20px] text-footer-text hover:underline"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+          <div>
+            <h4 className="text-[14px] font-bold leading-[20px]">
+              <a
+                href="https://www.smava.de/kredit/beratung/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ink hover:underline"
+              >
+                Kostenlose Beratung
+              </a>
+            </h4>
+            <div className="mt-[2px]">
+              <ConsultingBlock />
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile accordions */}
+        <div className="px-5 pt-4 md:hidden">
+          <Accordion type="multiple" className="w-full">
+            {FOOTER_COLS.map((col) => (
+              <AccordionItem key={col.title} value={col.title} className="border-b border-border">
+                <AccordionTrigger className="py-4 text-[15px] font-semibold text-ink hover:no-underline">
+                  {col.title}
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2.5 pb-2">
+                    <li>
+                      <a
+                        href={col.titleHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[14px] text-ink hover:underline"
+                      >
+                        {col.title}
+                      </a>
+                    </li>
+                    {col.links.map((l) => (
+                      <li key={l.label}>
+                        <a
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[13px] text-footer-text hover:underline"
+                        >
+                          {l.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+            <AccordionItem value="beratung" className="border-b border-border">
+              <AccordionTrigger className="py-4 text-[15px] font-semibold text-ink hover:no-underline">
+                Kostenlose Beratung
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="pb-2">
+                  <ConsultingBlock />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        <div className="flex flex-col items-start gap-5 border-t border-border px-5 py-6 md:grid md:h-[70px] md:grid-cols-[290px_1fr_390px] md:gap-x-[62px] md:px-[66px] md:py-0">
+          <a
+            href="https://www.smava.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-smava-logo"
+            aria-label="smava Startseite"
+          >
+            <Logo />
+          </a>
+          <div className="flex items-center gap-4 md:justify-start">
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${s.label} icon`}
+                className="grid size-8 place-items-center rounded-[4px] border border-smava-logo text-smava-logo transition-colors hover:bg-brand-soft"
+              >
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 32 32"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  {s.path}
+                </svg>
+              </a>
+            ))}
+          </div>
+          <div className="flex w-full flex-col items-start gap-3 text-left md:items-end md:gap-2 md:text-right">
+            <div className="hidden flex-wrap items-center justify-center gap-x-5 gap-y-1 md:flex md:justify-end">
+              {FOOTER_LEGAL.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[13px] leading-5 text-footer-text hover:underline"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <div className="grid w-full max-w-[270px] grid-cols-2 gap-x-12 md:hidden">
+              <div className="flex flex-col gap-2">
+                {FOOTER_LEGAL.filter((link) => ["Datenschutz", "Impressum", "Widerruf"].includes(link.label)).map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] leading-5 text-footer-text hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+              <div className="flex flex-col gap-2">
+                {FOOTER_LEGAL.filter((link) => ["AGB", "Cookies"].includes(link.label)).map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] leading-5 text-footer-text hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <p className="text-[13px] leading-5 text-footer-text">
+              © 2026 smava.de | Palisadenstraße 90 | 10243 Berlin
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+
+export function ReferralBanner() {
+  return (
+    <section aria-label="Freunde werben" className="relative bg-white">
+      <div className="hidden md:block">
+        <div className="h-[150px] bg-white" />
+        <div className="relative bg-surface">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-0 px-5">
+            <div className="relative">
+              <img
+                src={smavaHero.url}
+                alt="smava Kreditexperte mit Tablet"
+                className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
+              />
+            </div>
+            <div className="-ml-32 flex min-h-[290px] flex-col justify-center py-10">
+              <h2 className="text-[26px] font-bold leading-tight text-ink">
+                Prämie für jeden Kredit: Freunde werben!
+              </h2>
+              <p className="mt-5 max-w-[540px] text-[15px] leading-[1.7] text-muted-custom">
+                Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder
+                Auszahlung eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
+              </p>
+              <div className="mt-7">
+                <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
+                  <Link to="/antrag/schritt-1" search={{}}>Jetzt Prämie sichern</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="md:hidden">
+        <div className="flex justify-center bg-white pt-6">
+          <img
+            src={smavaHero.url}
+            alt="smava Kreditexperte mit Tablet"
+            className="h-[240px] w-auto object-contain"
+          />
+        </div>
+        <div className="-mt-[120px] bg-surface px-5 pb-10 pt-[132px] text-center">
+          <h2 className="text-[22px] font-bold leading-tight text-ink">
+            Prämie für jeden Kredit: Freunde werben!
+          </h2>
+          <p className="mt-4 text-[15px] leading-[1.7] text-muted-custom">
+            Empfehlen Sie smava Ihren Freunden. Als Dankeschön bekommen Sie nach jeder Auszahlung
+            eine Geldprämie – Dieses Angebot gilt nur für kurze Zeit!
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
+              <Link to="/antrag/schritt-1" search={{}}>Jetzt Prämie sichern</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
