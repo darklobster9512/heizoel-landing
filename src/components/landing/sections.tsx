@@ -354,25 +354,27 @@ export function PersonalDataInfo() {
             id="personal-data-title"
             className="max-w-[560px] text-[25px] font-bold leading-[1.3] md:text-[28px]"
           >
-            Wir erklären, warum wir Ihre persönlichen
-            <br className="hidden sm:block" /> Angaben benötigen
+            Heizöl günstig einkaufen
           </h2>
 
           <div className="mt-8 space-y-4 text-[16px] leading-[1.5]">
             <p>
-              Heizölpreise unterscheiden sich je nach Region teils deutlich. Nur mit Ihrer
-              <strong> Postleitzahl</strong> und der gewünschten Menge können wir die
-              <strong> bestmöglichen Angebote</strong> aus Ihrer Region ermitteln.
+              <strong>Heizöl</strong> ist neben Gas der wichtigste Energieträger – besonders in der
+              kalten Jahreszeit spielen die <strong>Heizölpreise</strong> eine große Rolle.
             </p>
             <p>
-              Für den Preisvergleich ist keine Bonitätsprüfung nötig.
-              <br className="hidden sm:block" /> Es genügen Ihre Postleitzahl, die Liefermenge und
-              die gewünschte Sorte.
+              Die Preise für Heizöl schwanken stark. Sie hängen ab vom <strong>Dollarkurs</strong>,
+              der weltweiten <strong>Ölnachfrage</strong> und der politischen Lage in den
+              ölfördernden Ländern.
             </p>
             <p>
-              Ihre Angaben werden von Klaro <strong>vertraulich</strong> behandelt
-              <br className="hidden sm:block" /> und <strong>verschlüsselt</strong> übermittelt. Der Schutz
-              Ihrer persönlichen Daten hat für uns höchste Bedeutung.
+              Deshalb lohnt es sich, das ganze Jahr über die Marktentwicklung zu beobachten und bei{" "}
+              <strong>günstigen Preisen</strong> zuzugreifen.
+            </p>
+            <p>
+              Vor einer Bestellung sollten Verbraucher die Angebote mit einem{" "}
+              <strong>Heizölrechner vergleichen</strong> – denn auch zwischen den Händlern gibt es
+              deutliche Unterschiede.
             </p>
           </div>
         </div>
