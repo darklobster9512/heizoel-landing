@@ -787,8 +787,8 @@ function BestellenPage() {
                         aria-pressed={slot?.period === "telefon"}
                         className={`flex w-full items-center gap-4 rounded-lg border px-4 py-4 text-left transition-colors ${
                           slot?.period === "telefon"
-                            ? "border-brand bg-brand/5 ring-1 ring-brand"
-                            : "border-line bg-brand/5 hover:border-brand/60"
+                            ? "border-brand bg-[#f0fdf4] ring-1 ring-brand"
+                            : "border-line bg-[#f0fdf4] hover:border-brand/60"
                         }`}
                       >
                         <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-brand text-white">
