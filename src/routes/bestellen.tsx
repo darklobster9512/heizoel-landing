@@ -251,7 +251,7 @@ function Field({
 }: {
   label: string;
   required?: boolean;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
   className?: string;
 }) {
@@ -350,61 +350,61 @@ function AddressFields({
         </Field>
       )}
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Vorname" required={withSalutationButtons} error={errors.firstName}>
+        <Field label="Vorname" required={withSalutationButtons} error={errors["firstName"]}>
           <input
             value={value.firstName}
             onChange={(e) => set({ firstName: e.target.value })}
             placeholder="Vorname"
-            className={fieldClass(!!errors.firstName)}
+            className={fieldClass(!!errors["firstName"])}
             autoComplete="given-name"
           />
         </Field>
-        <Field label="Nachname" required={withSalutationButtons} error={errors.lastName}>
+        <Field label="Nachname" required={withSalutationButtons} error={errors["lastName"]}>
           <input
             value={value.lastName}
             onChange={(e) => set({ lastName: e.target.value })}
             placeholder="Nachname"
-            className={fieldClass(!!errors.lastName)}
+            className={fieldClass(!!errors["lastName"])}
             autoComplete="family-name"
           />
         </Field>
       </div>
       <div className="grid gap-3 sm:grid-cols-[1fr_120px]">
-        <Field label="Straße" required={withSalutationButtons} error={errors.street}>
+        <Field label="Straße" required={withSalutationButtons} error={errors["street"]}>
           <input
             value={value.street}
             onChange={(e) => set({ street: e.target.value })}
             placeholder="Straße"
-            className={fieldClass(!!errors.street)}
+            className={fieldClass(!!errors["street"])}
             autoComplete="street-address"
           />
         </Field>
-        <Field label="Nr." required={withSalutationButtons} error={errors.streetNo}>
+        <Field label="Nr." required={withSalutationButtons} error={errors["streetNo"]}>
           <input
             value={value.streetNo}
             onChange={(e) => set({ streetNo: e.target.value })}
             placeholder="Nr."
-            className={fieldClass(!!errors.streetNo)}
+            className={fieldClass(!!errors["streetNo"])}
           />
         </Field>
       </div>
       <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
-        <Field label="PLZ" required={withSalutationButtons} error={errors.plz}>
+        <Field label="PLZ" required={withSalutationButtons} error={errors["plz"]}>
           <input
             value={value.plz}
             onChange={(e) => set({ plz: e.target.value.replace(/\D/g, "").slice(0, 5) })}
             placeholder="PLZ"
             inputMode="numeric"
-            className={fieldClass(!!errors.plz)}
+            className={fieldClass(!!errors["plz"])}
             autoComplete="postal-code"
           />
         </Field>
-        <Field label="Ort" required={withSalutationButtons} error={errors.city}>
+        <Field label="Ort" required={withSalutationButtons} error={errors["city"]}>
           <input
             value={value.city}
             onChange={(e) => set({ city: e.target.value })}
             placeholder="Ort"
-            className={fieldClass(!!errors.city)}
+            className={fieldClass(!!errors["city"])}
             autoComplete="address-level2"
           />
         </Field>
@@ -477,21 +477,21 @@ function BestellenPage() {
   const validate = (): boolean => {
     const next: Record<string, string> = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()))
-      next.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
-    if (phone.trim().length < 5) next.phone = "Bitte geben Sie Ihre Telefonnummer ein.";
-    if (!delivery.firstName.trim()) next.firstName = "Bitte ausfüllen.";
-    if (!delivery.lastName.trim()) next.lastName = "Bitte ausfüllen.";
-    if (!delivery.street.trim()) next.street = "Bitte ausfüllen.";
-    if (!delivery.streetNo.trim()) next.streetNo = "Bitte ausfüllen.";
-    if (!/^\d{5}$/.test(delivery.plz)) next.plz = "5-stellige PLZ eingeben.";
-    if (!delivery.city.trim()) next.city = "Bitte ausfüllen.";
+      next["email"] = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    if (phone.trim().length < 5) next["phone"] = "Bitte geben Sie Ihre Telefonnummer ein.";
+    if (!delivery.firstName.trim()) next["firstName"] = "Bitte ausfüllen.";
+    if (!delivery.lastName.trim()) next["lastName"] = "Bitte ausfüllen.";
+    if (!delivery.street.trim()) next["street"] = "Bitte ausfüllen.";
+    if (!delivery.streetNo.trim()) next["streetNo"] = "Bitte ausfüllen.";
+    if (!/^\d{5}$/.test(delivery.plz)) next["plz"] = "5-stellige PLZ eingeben.";
+    if (!delivery.city.trim()) next["city"] = "Bitte ausfüllen.";
     if (billingDifferent) {
-      if (!billing.firstName.trim()) next.b_firstName = "Bitte ausfüllen.";
-      if (!billing.lastName.trim()) next.b_lastName = "Bitte ausfüllen.";
-      if (!billing.street.trim()) next.b_street = "Bitte ausfüllen.";
-      if (!billing.streetNo.trim()) next.b_streetNo = "Bitte ausfüllen.";
-      if (!/^\d{5}$/.test(billing.plz)) next.b_plz = "5-stellige PLZ eingeben.";
-      if (!billing.city.trim()) next.b_city = "Bitte ausfüllen.";
+      if (!billing.firstName.trim()) next["b_firstName"] = "Bitte ausfüllen.";
+      if (!billing.lastName.trim()) next["b_lastName"] = "Bitte ausfüllen.";
+      if (!billing.street.trim()) next["b_street"] = "Bitte ausfüllen.";
+      if (!billing.streetNo.trim()) next["b_streetNo"] = "Bitte ausfüllen.";
+      if (!/^\d{5}$/.test(billing.plz)) next["b_plz"] = "5-stellige PLZ eingeben.";
+      if (!billing.city.trim()) next["b_city"] = "Bitte ausfüllen.";
     }
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -833,24 +833,24 @@ function BestellenPage() {
                     {/* Kontakt */}
                     <SectionCard icon={<Mail className="h-5 w-5" aria-hidden="true" />} title="Kontakt">
                       <div className="grid gap-3">
-                        <Field label="E-Mail-Adresse" required error={errors.email}>
+                        <Field label="E-Mail-Adresse" required error={errors["email"]}>
                           <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="z.B. max@mustermann.de"
-                            className={fieldClass(!!errors.email)}
+                            className={fieldClass(!!errors["email"])}
                             autoComplete="email"
                           />
                         </Field>
                         <div className="rounded-lg border border-line bg-surface p-3">
-                          <Field label="Telefonnummer" required error={errors.phone}>
+                          <Field label="Telefonnummer" required error={errors["phone"]}>
                             <input
                               type="tel"
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="z.B. 0170 1234567"
-                              className={fieldClass(!!errors.phone)}
+                              className={fieldClass(!!errors["phone"])}
                               autoComplete="tel"
                             />
                           </Field>
