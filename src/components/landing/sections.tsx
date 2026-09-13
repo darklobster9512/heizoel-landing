@@ -9,6 +9,9 @@ import bildAward from "@/assets/bild-empfehlung-2026.png.asset.json";
 import weltAward from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgvAward from "@/assets/dtgv-testsieger.png.asset.json";
 import zahlungsarten from "@/assets/zahlungsarten.webp.asset.json";
+import eKomiLogo from "@/assets/ekomi.webp.asset.json";
+import googleIcon from "@/assets/google-icon.webp.asset.json";
+import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
 
 export function SectionHead({
   eyebrow,
