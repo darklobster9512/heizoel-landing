@@ -82,7 +82,7 @@ export function RegionHero({
             <p className="mt-1 text-[12px] text-muted-custom">Stand: {todayStamp()}</p>
             <Link
               to="/preisrechner"
-              search={plz ? ({ plz } as never) : undefined}
+              search={plz ? { plz } : {}}
               className="mt-4 flex h-11 w-full items-center justify-center rounded-md bg-brand text-[14px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover"
             >
               Jetzt Preis berechnen
@@ -154,7 +154,7 @@ export function CtaRow({ label, plz }: { label: string; plz?: string }) {
     <div className="mt-6">
       <Link
         to="/preisrechner"
-        search={plz ? ({ plz } as never) : undefined}
+        search={plz ? { plz } : {}}
         className="inline-flex h-11 items-center justify-center rounded-md bg-brand px-6 text-[14px] font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover"
       >
         {label}
