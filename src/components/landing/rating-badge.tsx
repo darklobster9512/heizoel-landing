@@ -133,7 +133,7 @@ export function RatingBadge({
 
     return (
       <div className="relative flex h-9 min-w-0 flex-1 items-center justify-end overflow-hidden">
-        <div key={index} className="badge-slide-in flex items-center justify-end">
+        <div key={index} className="badge-slide-cycle flex items-center justify-end">
           {slides[index]}
         </div>
       </div>
