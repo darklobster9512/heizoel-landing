@@ -38,7 +38,13 @@ export function RatingBadge({
   }, []);
 
   return (
-    <div className={`flex items-center ${compact ? "gap-2" : "gap-4"}`}>
+    <div
+      className={
+        expanded
+          ? "grid gap-3"
+          : `flex items-center ${compact ? "gap-2" : "gap-4"}`
+      }
+    >
       <div className={`flex items-center ${compact ? "gap-1" : "gap-2"}`}>
         <img
           src={trustedShopsIcon.url}
@@ -56,7 +62,7 @@ export function RatingBadge({
         </p>
       </div>
 
-      <span className="h-7 w-px bg-line" aria-hidden="true" />
+      <span className={expanded ? "hidden" : "h-7 w-px bg-line"} aria-hidden="true" />
 
       <div className={`flex items-center ${compact ? "gap-1" : "gap-2"}`}>
         <img
@@ -72,7 +78,7 @@ export function RatingBadge({
         </div>
       </div>
 
-      <span className="h-7 w-px bg-line" aria-hidden="true" />
+      <span className={expanded ? "hidden" : "h-7 w-px bg-line"} aria-hidden="true" />
 
       <div className={`flex items-center ${compact ? "gap-1" : "gap-2"}`}>
         <img
