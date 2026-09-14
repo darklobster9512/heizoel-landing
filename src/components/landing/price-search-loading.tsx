@@ -56,17 +56,17 @@ export function PriceSearchLoading({ values }: { values: PriceSearchValues }) {
           {values.menge.toLocaleString("de-DE")} Liter
         </p>
 
-        <ul className="mt-6 space-y-3 text-left">
+        <ul className="mt-6 space-y-3 text-center">
           {STEPS.map((step, index) => (
             <li
               key={step}
-              className={`flex min-h-6 items-start gap-3 text-[14px] leading-6 transition-all duration-500 motion-reduce:transition-none ${
+              className={`inline-flex min-h-6 items-center justify-center gap-3 text-[14px] leading-6 transition-all duration-500 motion-reduce:transition-none ${
                 index < visibleSteps
                   ? "translate-y-0 opacity-100"
                   : "translate-y-2 opacity-0"
               }`}
             >
-              <CheckSquare className="mt-1 size-4 shrink-0 text-brand" strokeWidth={2.4} aria-hidden="true" />
+              <CheckSquare className="size-4 shrink-0 text-brand" strokeWidth={2.4} aria-hidden="true" />
               <span className="text-muted-custom">{step}</span>
             </li>
           ))}
