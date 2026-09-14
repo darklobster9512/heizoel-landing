@@ -29,34 +29,34 @@ function Check() {
 
 export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => void }) {
   const trustBadges = (
-    <div className="flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 md:justify-start md:gap-3">
+    <div className="flex flex-nowrap items-center justify-center gap-3 pb-1 md:justify-start">
       <img
         src={ntv.url}
         alt="ntv Gesamtsieger Heizöl-Preisvergleich 2025"
         width={124}
         height={124}
-        className="h-16 w-auto max-w-[140px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
+        className="h-16 w-auto max-w-[96px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
       />
       <img
         src={bild.url}
         alt="Bild Höchste Empfehlung 2026"
         width={330}
         height={227}
-        className="h-16 w-auto max-w-[140px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
+        className="h-16 w-auto max-w-[96px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
       />
       <img
         src={welt.url}
         alt="Die Welt Service-Champion 2025"
         width={124}
         height={154}
-        className="h-16 w-auto max-w-[140px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
+        className="h-16 w-auto max-w-[96px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
       />
       <img
         src={dtgv.url}
         alt="DtGV Testsieger Heizölportale"
         width={330}
         height={161}
-        className="h-16 w-auto max-w-[140px] shrink-0 object-contain md:h-20 md:max-w-[170px]"
+        className="hidden h-16 w-auto max-w-[140px] shrink-0 object-contain md:block md:h-20 md:max-w-[170px]"
       />
     </div>
   );
