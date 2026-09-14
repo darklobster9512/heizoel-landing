@@ -109,7 +109,6 @@ export function RatingBadge({
 }) {
   const [date, setDate] = useState("Stand 8.9.2026");
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setDate(`Stand ${formatToday()}`);
@@ -120,14 +119,16 @@ export function RatingBadge({
   useEffect(() => {
     if (!rotating) return;
     const id = window.setInterval(() => {
-      setVisible(false);
-      window.setTimeout(() => {
-        setIndex((i) => (i + 1) % 3);
-        setVisible(true);
-      }, 250);
-    }, 4000);
+      setIndex((i) => (i + 1) % 3);
+    }, 6000);
     return () => window.clearInterval(id);
   }, [rotating]);
+
+  const slideClass = (i: number) => {
+    if (i === index) return "translate-x-0";
+    if (i === (index - 1 + 3) % 3) return "translate-x-full";
+    return "-translate-x-full";
+  };
 
   if (rotating) {
     const slides = [
@@ -137,12 +138,15 @@ export function RatingBadge({
     ];
 
     return (
-      <div className="flex h-9 min-w-0 items-center justify-end overflow-hidden">
-        <div
-          className={`transition-opacity duration-[250ms] motion-reduce:transition-none ${visible ? "opacity-100" : "opacity-0"}`}
-        >
-          {slides[index]}
-        </div>
+      <div className="relative h-9 w-full min-w-0 overflow-hidden">
+        {slides.map((slide, i) => (
+          <div
+            key={slide.key}
+            className={`absolute inset-y-0 left-0 right-0 flex items-center justify-end transition-transform duration-500 ease-out motion-reduce:transition-none ${slideClass(i)}`}
+          >
+            {slide}
+          </div>
+        ))}
       </div>
     );
   }
