@@ -303,6 +303,27 @@
   display: none;
 }
 
+/* Dezente Klaro-Scrollbar ausschließlich im mobilen Vollbildmenü */
+.mobile-menu-scrollbar {
+  scrollbar-color: color-mix(in oklch, var(--brand) 20%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+.mobile-menu-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-menu-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-menu-scrollbar::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--brand) 20%, transparent);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
 
 
 

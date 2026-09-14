@@ -156,7 +156,7 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="flex h-dvh w-screen max-w-none flex-col gap-0 overflow-y-auto p-0 sm:max-w-none md:hidden"
+            className="mobile-menu-scrollbar flex h-dvh w-screen max-w-none flex-col gap-0 overflow-y-auto p-0 sm:max-w-none md:hidden"
           >
             <SheetHeader className="border-b border-line px-5 py-4 text-left">
               <SheetTitle>
