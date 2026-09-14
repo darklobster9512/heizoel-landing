@@ -1,14 +1,33 @@
-# Mobile Header-Carousel: Zwei-Wege-Slide-Animation
+# Mobiles Header-Carousel: Ein-/Aus-Slide-Animation
 
 ## Ziel
-Beim Wechsel im mobilen Header-Bewertungs-Carousel soll das aktuelle Badge nach links hinauswischen, während das nächste Badge gleichzeitig von rechts hereinwischt.
+Das mobile Header-Bewertungs-Carousel (eKomi → Google → Trusted Shops) bekommt einen zweiphasigen Wisch-Ablauf pro Badge:
 
-## Änderung
-- In `src/components/landing/rating-badge.tsx` den Karussell-Modus umbauen, sodass immer zwei Badges gerendert werden können: das aktuelle (exiting) und das nächste (entering).
-- Beim Index-Wechsel bekommt das aktuelle Badge eine Exit-Animation nach links (`translateX(-100%)`) und das neue Badge eine Enter-Animation von rechts (`translateX(100%) → translateX(0)`).
-- Intervall bleibt bei 6 Sekunden.
-- Keine Änderung am Desktop-Header oder der erweiterten mobilen Navigation.
+1. Badge gleitet **von rechts herein** in seine Position.
+2. Badge bleibt ca. 6 Sekunden sichtbar stehen.
+3. Badge gleitet **nach links hinaus** aus dem sichtbaren Bereich.
+4. Direkt danach erscheint das nächste Badge von rechts — Ablauf wiederholt sich endlos.
 
-## Dateien
-- `src/components/landing/rating-badge.tsx`
-- Ggf. `src/styles.css` für Keyframes/Utility-Klassen
+## Umsetzung
+
+### `src/styles.css`
+- Die bestehende `badge-slide-in`-Keyframe durch eine kombinierte Keyframe ersetzen, z. B. `badge-slide-cycle`, die in einer einzigen Animation beide Phasen abdeckt:
+  - 0 %: `translateX(100%)`, opacity 0 (rechts außerhalb)
+  - ca. 8 %: `translateX(0)`, opacity 1 (eingeflogen, steht)
+  - ca. 92 %: `translateX(0)`, opacity 1 (steht weiter)
+  - 100 %: `translateX(-100%)`, opacity 0 (nach links hinaus)
+- Die Animationsdauer entspricht exakt dem Wechsel-Intervall von 6 s (`animation: badge-slide-cycle 6s ease-in-out both`), sodass Aus- und Einblenden nahtlos ineinandergreifen.
+- `prefers-reduced-motion`: Animation deaktiviert, einfacher Wechsel.
+
+### `src/components/landing/rating-badge.tsx`
+- Rotating-Block bleibt strukturell wie aktuell (nur aktiver Slide mit `key={index}` gerendert), aber die Klasse `badge-slide-in` wird durch die neue `badge-slide-cycle`-Klasse ersetzt.
+- Das 6-Sekunden-Intervall bleibt unverändert.
+- Reihenfolge eKomi → Google → Trusted Shops bleibt.
+
+## Nicht geändert
+- Desktop-Header und aufgeklapptes Menü.
+- Header-Layout, Positionen von Logo und Menü-Symbol.
+
+## Verifikation
+- Playwright bei 393 px: zu mehreren Zeitpunkten (0 s, 3 s, 6 s, 12 s) prüfen, dass genau ein Badge sichtbar ist, keine Überlappung, kein horizontaler Überlauf (scrollWidth = 393).
+- Build-Log prüfen.
