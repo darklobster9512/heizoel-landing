@@ -166,17 +166,17 @@ function BestaetigungPage() {
               <p className="text-[13px] text-muted-custom">Ihre Bestellübersicht</p>
             </div>
             <dl className="divide-y divide-line text-[14px]">
-              <div className="flex items-center justify-between px-4 py-3">
+              <div className="flex flex-col items-start gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <dt className="text-muted-custom">Menge</dt>
                 <dd className="font-bold text-conditions">{fmtLiters(order.liters)} Liter</dd>
               </div>
-              <div className="flex items-center justify-between px-4 py-3">
+              <div className="flex flex-col items-start gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <dt className="text-muted-custom">Preis / 100 Liter</dt>
                 <dd className="font-bold text-conditions">{fmtEuro(order.pricePer100)} €</dd>
               </div>
-              <div className="flex items-center justify-between gap-3 px-4 py-3">
+              <div className="flex flex-col items-start gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <dt className="text-muted-custom">Liefertermin</dt>
-                <dd className="text-right font-bold text-conditions">{slotText(order)}</dd>
+                <dd className="font-bold text-conditions sm:text-right">{slotText(order)}</dd>
               </div>
               <div className="flex flex-wrap items-end justify-between gap-3 bg-surface px-4 py-4">
                 <div>

@@ -148,7 +148,7 @@ export function CustomerVoices() {
 
   return (
     <section id="bewertungen" aria-label="Kundenbewertungen" className="overflow-hidden bg-background pb-16 pt-2 scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-5">
+      <div className="mx-auto min-w-0 max-w-6xl px-5">
         <div className="text-center">
           <h2 className="text-[26px] font-bold leading-[1.3] text-conditions md:text-[32px]">
             Über 25.000 zufriedene Kunden
@@ -165,12 +165,12 @@ export function CustomerVoices() {
         <div
           ref={trackRef}
           onScroll={handleScroll}
-          className="mt-10 flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-10 flex w-full min-w-0 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {PAGES.map((page, pageIndex) => (
             <div
               key={pageIndex}
-              className="grid w-full shrink-0 snap-start grid-cols-1 gap-5 px-0.5 md:grid-cols-3"
+              className="grid min-w-full basis-full shrink-0 snap-start grid-cols-1 gap-5 px-0.5 md:grid-cols-3"
             >
               {page.map((voice) => (
                 <VoiceCard key={voice.author} voice={voice} />
