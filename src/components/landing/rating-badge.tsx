@@ -124,12 +124,6 @@ export function RatingBadge({
     return () => window.clearInterval(id);
   }, [rotating]);
 
-  const slideClass = (i: number) => {
-    if (i === index) return "translate-x-0";
-    if (i === (index - 1 + 3) % 3) return "translate-x-full";
-    return "-translate-x-full";
-  };
-
   if (rotating) {
     const slides = [
       <EkomiBlock key="ekomi" showText compact date={date} oneLine />,
@@ -138,18 +132,14 @@ export function RatingBadge({
     ];
 
     return (
-      <div className="grid h-9 min-w-0 grid-cols-1 grid-rows-1 items-center justify-items-end overflow-hidden">
-        {slides.map((slide, i) => (
-          <div
-            key={slide.key}
-            className={`col-start-1 row-start-1 flex items-center justify-end transition-transform duration-500 ease-out motion-reduce:transition-none ${slideClass(i)}`}
-          >
-            {slide}
-          </div>
-        ))}
+      <div className="relative flex h-9 min-w-0 flex-1 items-center justify-end overflow-hidden">
+        <div key={index} className="badge-slide-in flex items-center justify-end">
+          {slides[index]}
+        </div>
       </div>
     );
   }
+
 
   return (
     <div className={expanded ? "grid gap-3" : "flex items-center gap-4"}>
