@@ -255,7 +255,7 @@ function OffersPage() {
           <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
             <Logo className="h-8 w-auto" />
           </Link>
-          <span className="flex items-center gap-2 text-[15px] text-[#323232]">
+          <span className="flex items-center gap-2 text-[13px] text-[#323232] sm:text-[15px]">
             <HelpCircle className="size-[18px] text-[#5b5b5b]" />
             Hilfe und Support
           </span>
@@ -376,7 +376,7 @@ function OffersPage() {
                               </p>
                             )}
 
-                            <div className="mt-5 grid grid-cols-3 gap-3">
+                            <div className="mt-5 grid grid-cols-2 gap-3 min-[380px]:grid-cols-3">
                               <div>
                                 <p className="flex items-center gap-1 text-[17px] font-semibold text-[#323232]">
                                   <ArrowDown className="size-4 text-[#323232]" />
@@ -754,7 +754,7 @@ function FilterBar({
 
   return (
     <div className="border-t border-[#eaebec]">
-      <div className="mx-auto flex max-w-[1160px] flex-col gap-3 px-5 py-4 md:flex-row md:items-end md:px-8">
+      <div className="mx-auto grid max-w-[1160px] grid-cols-1 gap-3 px-5 py-4 sm:grid-cols-2 md:flex md:items-end md:px-8">
         <label className="relative flex h-[52px] flex-1 items-center border border-[#dcdcdc] bg-white px-3">
           <span className="absolute -top-2 left-2 bg-white px-1 text-[11px] text-[#5b5b5b]">
             Kreditbetrag
@@ -813,7 +813,7 @@ function FilterBar({
           onClick={onSearch}
           disabled={!dirty}
           aria-label="Angebote neu berechnen"
-          className={`grid h-[52px] w-[52px] shrink-0 place-items-center transition-colors ${
+          className={`grid h-[52px] w-full shrink-0 place-items-center transition-colors sm:w-[52px] ${
             dirty
               ? "cursor-pointer bg-[#39a949] text-white hover:bg-[#1b5426]"
               : "bg-[#e6e7e8] text-[#5b5b5b]"
@@ -832,7 +832,7 @@ function SkeletonCard() {
       <div className="grid grid-cols-1 md:grid-cols-[1fr_260px]">
         <div className="px-5 py-6">
           <div className="h-4 w-32 animate-pulse rounded bg-[#e6e7e8]" />
-          <div className="mt-6 grid grid-cols-3 gap-4">
+           <div className="mt-6 grid grid-cols-2 gap-4 min-[380px]:grid-cols-3">
             {[0, 1, 2].map((i) => (
               <div key={i} className="space-y-2">
                 <div className="h-3.5 w-20 animate-pulse rounded bg-[#e6e7e8]" />

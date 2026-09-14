@@ -326,7 +326,7 @@ function AddressFields({
       {withSalutationButtons ? (
         <div>
           <p className="mb-1 text-[13px] font-bold text-conditions">Anrede</p>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 gap-2 min-[360px]:grid-cols-3">
             {SALUTATIONS.map((s) => (
               <button
                 key={s}
@@ -597,7 +597,7 @@ function BestellenPage() {
     <div className="min-h-screen bg-surface font-body text-ink">
       {/* Sticky Zusammenfassung */}
       <div className="sticky top-0 z-30 border-b-2 border-b-brand bg-background">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-2.5">
+        <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5 sm:flex sm:justify-between sm:gap-4">
           <div className="min-w-0">
             <p className="truncate text-[14px] font-bold text-conditions md:text-[15px]">
               {fmtLiters(draft.liters)} L {sortLabel}
@@ -611,7 +611,7 @@ function BestellenPage() {
             <p className="text-[16px] font-bold leading-tight text-conditions md:text-[18px]">
               {fmtEuro(draft.total)} €
             </p>
-            <p className="text-[11px] uppercase tracking-wide text-muted-custom">
+            <p className="max-w-[150px] text-[10px] uppercase tracking-wide text-muted-custom sm:max-w-none sm:text-[11px]">
               {fmtEuro(draft.pricePer100)} €/100 L · inkl. MwSt.
             </p>
           </div>
@@ -624,8 +624,8 @@ function BestellenPage() {
               {step === 1 ? (
                 <>
                   {/* Vertrauenszeile */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-                    <div className="flex items-center gap-3">
+                    <div className="grid gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+                     <div className="grid grid-cols-[auto_1px_minmax(0,1fr)] items-center gap-3">
                       <div>
                         <Stars />
                         <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
@@ -956,7 +956,7 @@ function BestellenPage() {
                               role="radio"
                               aria-checked={active}
                               onClick={() => setPayment(p.id)}
-                              className={`relative flex items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors ${
+                             className={`relative grid grid-cols-[20px_36px_minmax(0,1fr)] items-center gap-2.5 rounded-lg border px-3 py-3 text-left transition-colors sm:flex sm:gap-3 ${
                                 active
                                   ? "border-brand bg-brand/5 ring-1 ring-brand"
                                   : "border-line bg-background hover:border-brand/60"
@@ -1016,7 +1016,7 @@ function BestellenPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-line px-4 py-3">
+                       <div className="grid grid-cols-2 items-center gap-2 border-t border-line px-4 py-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-x-4 sm:gap-y-2">
                         <p className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand">
                           <Lock className="h-4 w-4" aria-hidden="true" />
                           Sichere Bestellung
@@ -1024,7 +1024,7 @@ function BestellenPage() {
                         <span className="hidden h-5 w-px bg-line sm:block" />
                         <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">Geprüft &amp; sicher</p>
                         <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
-                        <p className="basis-full text-center text-[11px] text-muted-custom">Bestellung jederzeit kostenlos stornierbar</p>
+                         <p className="col-span-2 text-center text-[11px] text-muted-custom sm:basis-full">Bestellung jederzeit kostenlos stornierbar</p>
                       </div>
                     </section>
 
@@ -1075,19 +1075,19 @@ function BestellenPage() {
 
       {/* Sticky Preisleiste */}
       <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
-            <div>
+          <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5 sm:flex sm:justify-between sm:gap-4 sm:py-3">
+            <div className="min-w-0">
               <p className="text-[17px] font-bold leading-tight text-conditions">
                 {fmtEuro(draft.total)} €
               </p>
-              <p className="text-[12px] text-muted-custom">inkl. MwSt. · kostenlose Lieferung</p>
+              <p className="truncate text-[11px] text-muted-custom sm:text-[12px]">inkl. MwSt. · kostenlose Lieferung</p>
             </div>
             {step === 1 ? (
               <button
                 type="button"
                 onClick={proceed}
                 disabled={!slot}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-2.5 text-[14px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-3 sm:text-[15px]"
               >
                 Weiter
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -1096,7 +1096,7 @@ function BestellenPage() {
               <button
                 type="button"
                 onClick={submit}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-2.5 text-[14px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover sm:px-6 sm:py-3 sm:text-[15px]"
               >
                 Bestellen
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
