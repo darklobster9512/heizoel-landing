@@ -5,12 +5,22 @@ import {
   ChevronDown,
   Fuel,
   HelpCircle,
+  Menu,
   MapPin,
   Star,
   TrendingUp,
   Truck,
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Logo } from "./logo";
 import { RatingBadge } from "./rating-badge";
 
@@ -131,17 +141,118 @@ function Dropdown({
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-background shadow-header-strong">
-      <div className="mx-auto grid h-[52px] max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 md:flex md:h-16 md:justify-between">
+      <div className="mx-auto grid h-[52px] max-w-6xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-5 md:flex md:h-16 md:justify-between">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label="Menü öffnen"
+              className="-ml-2 size-9 shrink-0 text-ink md:hidden"
+            >
+              <Menu className="size-5" aria-hidden="true" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="flex h-dvh w-screen max-w-none flex-col gap-0 overflow-y-auto p-0 sm:max-w-none md:hidden"
+          >
+            <SheetHeader className="border-b border-line px-5 py-4 text-left">
+              <SheetTitle>
+                <Logo className="h-auto w-[112px] text-smava-logo" />
+                <span className="sr-only">Klaro Navigation</span>
+              </SheetTitle>
+            </SheetHeader>
+
+            <nav aria-label="Mobile Hauptnavigation" className="flex-1 px-5 py-6">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-custom">
+                  Heizölpreise
+                </p>
+                <ul className="mt-2 divide-y divide-line">
+                  {HEIZOEL_LINKS.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <li key={item.title}>
+                        <SheetClose asChild>
+                          <Link to={item.to} className="flex items-center gap-3 py-3.5">
+                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                              <Icon className="size-[18px]" aria-hidden="true" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-sm font-semibold text-ink">{item.title}</span>
+                              <span className="block text-xs text-muted-custom">{item.description}</span>
+                            </span>
+                          </Link>
+                        </SheetClose>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div className="mt-7">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-custom">
+                  Info &amp; Service
+                </p>
+                <ul className="mt-2 divide-y divide-line">
+                  {INFO_SERVICE_LINKS.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <li key={item.title}>
+                        <SheetClose asChild>
+                          <Link to={item.to} className="flex items-center gap-3 py-3.5">
+                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                              <Icon className="size-[18px]" aria-hidden="true" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-sm font-semibold text-ink">{item.title}</span>
+                              <span className="block text-xs text-muted-custom">{item.description}</span>
+                            </span>
+                          </Link>
+                        </SheetClose>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div className="mt-7 grid gap-3">
+                <SheetClose asChild>
+                  <Link
+                    to="/kontakt"
+                    className="flex h-11 items-center justify-center rounded-md border border-line text-sm font-semibold text-ink"
+                  >
+                    Kontakt &amp; Hilfe
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    to="/preisrechner"
+                    className="flex h-11 items-center justify-center rounded-md bg-brand px-5 text-sm font-semibold text-white shadow-cta"
+                  >
+                    Preis berechnen
+                  </Link>
+                </SheetClose>
+              </div>
+            </nav>
+
+            <div className="border-t border-line bg-surface px-5 py-5">
+              <RatingBadge expanded />
+            </div>
+          </SheetContent>
+        </Sheet>
+
         <Link
           to="/"
-          className="rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+          className="min-w-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
         >
           <Logo className="h-auto w-[100px] text-smava-logo md:w-[126px]" />
         </Link>
 
-        <div className="flex shrink-0 items-center gap-4 md:hidden">
+        <div className="flex shrink-0 items-center md:hidden">
           <RatingBadge compact />
-          <span className="text-xs font-medium text-brand">Menü</span>
         </div>
 
         <div className="hidden items-center gap-5 md:flex">

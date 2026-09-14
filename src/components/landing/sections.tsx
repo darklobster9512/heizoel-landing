@@ -635,7 +635,8 @@ function InfoCell({ info, label }: { info: string; label: string }) {
   );
 }
 
-const GRID = "grid grid-cols-[1fr_40px_76px_76px] gap-2 md:grid-cols-[1fr_60px_220px_220px]";
+const GRID =
+  "grid grid-cols-[minmax(0,1fr)_32px_68px_68px] gap-1 md:grid-cols-[1fr_60px_220px_220px] md:gap-2";
 
 export function HeizoelSorten() {
   return (
@@ -821,7 +822,7 @@ const FOOTER_AWARDS = [
   { src: ntvAward.url, alt: "ntv Gesamtsieger Heizöl-Preisvergleich 2025" },
   { src: bildAward.url, alt: "Bild Höchste Empfehlung 2026" },
   { src: weltAward.url, alt: "Die Welt Service-Champion 2025" },
-  { src: dtgvAward.url, alt: "DtGV Testsieger Heizölportale" },
+  { src: dtgvAward.url, alt: "DtGV Testsieger Heizölportale", mobileHidden: true },
 ];
 
 function FooterStars() {
@@ -900,19 +901,21 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <nav aria-label="Services">
-            <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
-              Services
-            </h4>
-            <FooterLinkList items={FOOTER_SERVICES} />
-          </nav>
+          <div className="grid grid-cols-2 gap-6 md:contents">
+            <nav aria-label="Services">
+              <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+                Services
+              </h4>
+              <FooterLinkList items={FOOTER_SERVICES} />
+            </nav>
 
-          <nav aria-label="Rechtliches">
-            <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
-              Rechtliches
-            </h4>
-            <FooterLinkList items={FOOTER_RECHTLICHES} />
-          </nav>
+            <nav aria-label="Rechtliches">
+              <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
+                Rechtliches
+              </h4>
+              <FooterLinkList items={FOOTER_RECHTLICHES} />
+            </nav>
+          </div>
 
           <div>
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
@@ -962,7 +965,7 @@ export function SiteFooter() {
                 key={a.alt}
                 src={a.src}
                 alt={a.alt}
-                className="h-14 w-auto max-w-[130px] object-contain md:h-16 md:max-w-[150px]"
+                className={`${a.mobileHidden ? "hidden md:block" : "block"} h-14 w-auto max-w-[96px] object-contain md:h-16 md:max-w-[150px]`}
                 loading="lazy"
               />
             ))}
@@ -1204,7 +1207,7 @@ function SeoLinkGrid({ title, children }: { title: string; children: React.React
           {title}
         </h3>
       ) : null}
-      <div className={`grid grid-cols-4 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
+      <div className={`grid grid-cols-2 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2 md:grid-cols-4`}>
         {children}
       </div>
     </div>

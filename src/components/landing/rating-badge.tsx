@@ -24,7 +24,13 @@ function formatToday() {
   });
 }
 
-export function RatingBadge({ compact = false }: { compact?: boolean }) {
+export function RatingBadge({
+  compact = false,
+  expanded = false,
+}: {
+  compact?: boolean;
+  expanded?: boolean;
+}) {
   const [date, setDate] = useState("Stand 8.9.2026");
 
   useEffect(() => {
@@ -41,7 +47,9 @@ export function RatingBadge({ compact = false }: { compact?: boolean }) {
           height={compact ? 24 : 34}
           className={compact ? "size-6 object-contain" : "size-[34px] object-contain"}
         />
-        <p className="hidden whitespace-nowrap text-[11px] font-semibold leading-tight text-hero-text xl:block">
+        <p
+          className={`${expanded ? "block" : "hidden xl:block"} whitespace-nowrap text-[11px] font-semibold leading-tight text-hero-text`}
+        >
           Trusted Shops
           <br />
           Käuferschutz
@@ -58,7 +66,7 @@ export function RatingBadge({ compact = false }: { compact?: boolean }) {
           height={compact ? 22 : 30}
           className={compact ? "size-[22px] object-contain" : "size-[30px] object-contain"}
         />
-        <div className={compact ? "hidden" : "leading-tight"}>
+        <div className={compact && !expanded ? "hidden" : "leading-tight"}>
           <p className="whitespace-nowrap text-xs font-semibold text-hero-text">4,9 / 5</p>
           <p className="whitespace-nowrap text-[10px] text-muted-custom">25.000+ Bewertungen</p>
         </div>
@@ -74,7 +82,7 @@ export function RatingBadge({ compact = false }: { compact?: boolean }) {
           height={compact ? 24 : 36}
           className={compact ? "size-6 object-contain" : "size-9 object-contain"}
         />
-        <div className={compact ? "hidden" : "hidden xl:block"}>
+        <div className={compact && !expanded ? "hidden" : expanded ? "block" : "hidden xl:block"}>
           <p className="flex items-center gap-1">
             <Stars size="size-4" className="gap-0" />
             <span className="tabular whitespace-nowrap text-sm font-semibold text-hero-text">
