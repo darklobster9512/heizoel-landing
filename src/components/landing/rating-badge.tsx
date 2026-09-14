@@ -138,11 +138,11 @@ export function RatingBadge({
     ];
 
     return (
-      <div className="relative h-9 w-full min-w-0 overflow-hidden">
+      <div className="grid h-9 min-w-0 grid-cols-1 grid-rows-1 items-center justify-items-end overflow-hidden">
         {slides.map((slide, i) => (
           <div
             key={slide.key}
-            className={`absolute inset-y-0 left-0 right-0 flex items-center justify-end transition-transform duration-500 ease-out motion-reduce:transition-none ${slideClass(i)}`}
+            className={`col-start-1 row-start-1 flex items-center justify-end transition-transform duration-500 ease-out motion-reduce:transition-none ${slideClass(i)}`}
           >
             {slide}
           </div>
