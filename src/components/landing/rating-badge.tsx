@@ -139,7 +139,7 @@ export function RatingBadge({
     return (
       <div className="flex h-9 min-w-0 items-center justify-end overflow-hidden">
         <div
-          className={`transition-opacity duration-250 motion-reduce:transition-none ${visible ? "opacity-100" : "opacity-0"}`}
+          className={`transition-opacity duration-[250ms] motion-reduce:transition-none ${visible ? "opacity-100" : "opacity-0"}`}
         >
           {slides[index]}
         </div>
