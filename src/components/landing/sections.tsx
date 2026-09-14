@@ -51,8 +51,8 @@ export function TrustBar() {
       <div className="h-[3px] w-full bg-brand" />
       <div className="mx-auto max-w-6xl px-5 py-6 md:py-8">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
+          {STATS.map((stat, index) => (
+            <div key={stat.label} className={`text-center ${index === STATS.length - 1 ? "col-span-2 md:col-span-1" : ""}`}>
               <p className="text-xl font-bold text-ink md:text-2xl">{stat.value}</p>
               <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-custom md:text-[11px]">
                 {stat.label}
@@ -635,7 +635,7 @@ function InfoCell({ info, label }: { info: string; label: string }) {
   );
 }
 
-const GRID = "grid grid-cols-[1fr_40px_76px_76px] gap-2 md:grid-cols-[1fr_60px_220px_220px]";
+const GRID = "grid grid-cols-[minmax(0,1fr)_32px_62px_62px] gap-1 md:grid-cols-[1fr_60px_220px_220px] md:gap-2";
 
 export function HeizoelSorten() {
   return (
@@ -650,7 +650,7 @@ export function HeizoelSorten() {
 
         <div className="mt-10 overflow-hidden rounded-xl border border-line bg-card shadow-sm">
           {/* Kopfzeile */}
-          <div className={`${GRID} items-end border-b border-line bg-muted/40 px-5 py-4 md:px-8 md:py-5`}>
+          <div className={`${GRID} items-end border-b border-line bg-muted/40 px-3 py-4 md:px-8 md:py-5`}>
             <div />
             <div />
             <div className="text-center">
@@ -674,7 +674,7 @@ export function HeizoelSorten() {
           {HEIZOEL_ROWS.map((row, i) => (
             <div
               key={row.label}
-              className={`${GRID} items-center px-5 py-4 md:px-8 md:py-5 ${i > 0 ? "border-t border-line" : ""}`}
+              className={`${GRID} items-center px-3 py-4 md:px-8 md:py-5 ${i > 0 ? "border-t border-line" : ""}`}
             >
               <p className="text-[13px] font-semibold leading-snug text-conditions md:text-[15px]">
                 {row.label}
@@ -1204,7 +1204,7 @@ function SeoLinkGrid({ title, children }: { title: string; children: React.React
           {title}
         </h3>
       ) : null}
-      <div className={`grid grid-cols-4 gap-x-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
+      <div className={`grid grid-cols-2 gap-x-4 md:grid-cols-4 ${title ? "mt-4" : "mt-6"} gap-y-2`}>
         {children}
       </div>
     </div>
