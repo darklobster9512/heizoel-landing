@@ -324,10 +324,10 @@
   background-clip: padding-box;
 }
 
-/* Bewertungs-Wechsler im mobilen Header: von links hereinschieben */
-@keyframes badge-slide-in-left {
+/* Bewertungs-Wechsler im mobilen Header: von rechts hereinschieben */
+@keyframes badge-slide-in-right {
   from {
-    transform: translateX(-100%);
+    transform: translateX(100%);
     opacity: 0;
   }
   to {
@@ -337,7 +337,7 @@
 }
 
 .badge-slide-in {
-  animation: badge-slide-in-left 0.5s ease-out;
+  animation: badge-slide-in-right 0.5s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
