@@ -1,11 +1,11 @@
 # Mobiles Header-Carousel: Ein-/Aus-Slide-Animation
 
 ## Ziel
-Das mobile Header-Bewertungs-Carousel (eKomi → Google → Trusted Shops) bekommt einen zweiphasigen Wisch-Ablauf pro Badge:
+Das mobile Header-Bewertungs-Carousel (eKomi → Google → Trusted Shops) bekommt einen zweiphasigen Wisch-Ablauf pro Badge — rein und raus über dieselbe (rechte) Seite:
 
 1. Badge gleitet **von rechts herein** in seine Position.
 2. Badge bleibt ca. 6 Sekunden sichtbar stehen.
-3. Badge gleitet **nach links hinaus** aus dem sichtbaren Bereich.
+3. Badge gleitet **wieder nach rechts hinaus** aus dem sichtbaren Bereich.
 4. Direkt danach erscheint das nächste Badge von rechts — Ablauf wiederholt sich endlos.
 
 ## Umsetzung
@@ -15,7 +15,7 @@ Das mobile Header-Bewertungs-Carousel (eKomi → Google → Trusted Shops) bekom
   - 0 %: `translateX(100%)`, opacity 0 (rechts außerhalb)
   - ca. 8 %: `translateX(0)`, opacity 1 (eingeflogen, steht)
   - ca. 92 %: `translateX(0)`, opacity 1 (steht weiter)
-  - 100 %: `translateX(-100%)`, opacity 0 (nach links hinaus)
+  - 100 %: `translateX(100%)`, opacity 0 (wieder nach rechts hinaus)
 - Die Animationsdauer entspricht exakt dem Wechsel-Intervall von 6 s (`animation: badge-slide-cycle 6s ease-in-out both`), sodass Aus- und Einblenden nahtlos ineinandergreifen.
 - `prefers-reduced-motion`: Animation deaktiviert, einfacher Wechsel.
 
