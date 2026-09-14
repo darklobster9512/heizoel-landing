@@ -324,24 +324,32 @@
   background-clip: padding-box;
 }
 
-/* Bewertungs-Wechsler im mobilen Header: von rechts hereinschieben */
-@keyframes badge-slide-in-right {
-  from {
+/* Bewertungs-Wechsler im mobilen Header: von rechts herein, nach rechts hinaus */
+@keyframes badge-slide-cycle {
+  0% {
     transform: translateX(100%);
     opacity: 0;
   }
-  to {
+  8% {
     transform: translateX(0);
     opacity: 1;
   }
+  92% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
-.badge-slide-in {
-  animation: badge-slide-in-right 0.5s ease-out;
+.badge-slide-cycle {
+  animation: badge-slide-cycle 6s ease-in-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .badge-slide-in {
+  .badge-slide-cycle {
     animation: none;
   }
 }
