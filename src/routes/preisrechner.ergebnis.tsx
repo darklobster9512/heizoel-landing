@@ -229,7 +229,7 @@ function ErgebnisPage() {
 
           {/* Lieferdaten */}
           <div className="mt-5 rounded-xl border border-line bg-background px-4 py-3.5 shadow-card md:px-5">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:flex sm:items-center sm:justify-between">
+            <div className="flex items-center justify-between gap-3">
               <p className="text-[14px] font-bold text-ink md:text-[15px]">
                 {plzLabel}
                 <span className="mx-2 font-normal text-muted-custom">·</span>
@@ -248,7 +248,7 @@ function ErgebnisPage() {
 
             {editing && (
               <div className="mt-3 border-t border-line pt-2.5">
-                <div className="flex flex-col items-start gap-2 border-b border-line py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">PLZ</span>
                   <div className="flex items-center gap-2">
                     <span className="text-[13px] font-bold text-ink">{plzLabel}</span>
@@ -260,7 +260,7 @@ function ErgebnisPage() {
                     </Link>
                   </div>
                 </div>
-                <div className="flex flex-col items-start gap-2 border-b border-line py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Liefermenge</span>
                   <div className="flex items-center gap-2">
                     <span className="text-[13px] font-bold text-ink">{fmtLiters(liters)} Liter</span>
@@ -272,10 +272,10 @@ function ErgebnisPage() {
                     </Link>
                   </div>
                 </div>
-                <div className="flex flex-col items-stretch gap-2 border-b border-line py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Lieferstellen</span>
                   <Select value={String(points)} onValueChange={(v) => setPoints(Number(v))}>
-                    <SelectTrigger className={`${fieldClass} h-11 w-full py-2 focus:ring-0 sm:h-auto sm:w-auto sm:min-w-[140px]`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[140px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Abladestellen wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -287,10 +287,10 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex flex-col items-stretch gap-2 border-b border-line py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Schlauch</span>
                   <Select value={hose} onValueChange={setHose}>
-                    <SelectTrigger className={`${fieldClass} h-11 w-full py-2 focus:ring-0 sm:h-auto sm:w-auto sm:min-w-[140px]`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[140px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Schlauchlänge wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -302,10 +302,10 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex flex-col items-stretch gap-2 border-b border-line py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 border-b border-line py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Tankwagen</span>
                   <Select value={truck} onValueChange={setTruck}>
-                    <SelectTrigger className={`${fieldClass} h-11 w-full py-2 focus:ring-0 sm:h-auto sm:w-auto sm:min-w-[220px]`}>
+                    <SelectTrigger className={`${fieldClass} h-auto w-auto min-w-[220px] py-2 focus:ring-0`}>
                       <SelectValue placeholder="Tankwagen wählen" />
                     </SelectTrigger>
                     <SelectContent>
@@ -317,7 +317,7 @@ function ErgebnisPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex flex-col items-start gap-1 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center justify-between gap-4 py-1.5">
                   <span className="text-[13px] font-medium text-hero-text">Frühestens lieferbar ab</span>
                   <span className="text-[14px] font-semibold text-brand">{deliveryDate || "—"}</span>
                 </div>

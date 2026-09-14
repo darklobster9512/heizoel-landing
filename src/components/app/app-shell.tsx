@@ -47,7 +47,7 @@ export function AppShell({
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1200px] px-4 py-6 md:px-6 md:py-10">
+      <main className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
         <h1 className="text-[24px] font-medium text-[#323232] md:text-[30px]">{title}</h1>
         {subtitle ? <p className="mt-1 text-[15px] text-[#5b5b5b]">{subtitle}</p> : null}
         <div className="mt-6">{children}</div>

@@ -97,7 +97,7 @@ function AdminApplicationPage() {
               ].map(([label, value]) => (
                 <div key={label} className="rounded-[8px] border border-[#e5e7eb] p-3">
                   <p className="text-[12px] text-[#5b5b5b]">{label}</p>
-                  <p className="mt-1 break-words text-[14px] text-[#323232]">{value}</p>
+                  <p className="mt-1 text-[14px] text-[#323232]">{value}</p>
                 </div>
               ))}
             </div>
@@ -113,9 +113,9 @@ function AdminApplicationPage() {
                   </p>
                   <dl className="mt-2 space-y-1.5">
                     {group.fields.map(([key, label]) => (
-                      <div key={String(key)} className="grid gap-0.5 text-[13.5px] sm:flex sm:justify-between sm:gap-4">
+                      <div key={String(key)} className="flex justify-between gap-4 text-[13.5px]">
                         <dt className="text-[#5b5b5b]">{label}</dt>
-                        <dd className="break-words text-[#323232] sm:text-right">
+                        <dd className="text-right text-[#323232]">
                           {formatValue(key, app[key])}
                         </dd>
                       </div>
@@ -180,7 +180,7 @@ function AdminApplicationPage() {
                   )}
                 </div>
 
-                <div className="flex min-h-[360px] flex-col rounded-[8px] border border-[#e5e7eb] sm:min-h-[480px]">
+                <div className="flex min-h-[480px] flex-col rounded-[8px] border border-[#e5e7eb]">
                   <div className="min-h-0 flex-1 overflow-auto rounded-t-[8px] bg-[#f5f6f7] p-4">
                     {!doc ? (
                       <p className="text-[14px] text-[#5b5b5b]">Keine Datei ausgewählt.</p>
@@ -199,7 +199,7 @@ function AdminApplicationPage() {
                       <iframe
                         src={doc.url}
                         title={doc.fileName}
-                        className="h-full min-h-[300px] w-full rounded-[6px] bg-white sm:min-h-[420px]"
+                        className="h-full min-h-[420px] w-full rounded-[6px] bg-white"
                       />
                     ) : (
                       <p className="text-[14px] text-[#5b5b5b]">

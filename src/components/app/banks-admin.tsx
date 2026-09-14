@@ -95,12 +95,12 @@ export function BanksAdmin() {
 
   return (
     <section className="bg-white p-5 shadow-sm md:p-6">
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between sm:gap-4">
+      <div className="flex items-center justify-between gap-4">
         <h2 className="text-[18px] font-medium text-[#323232]">Banken</h2>
         <button
           type="button"
           onClick={() => setForm({ ...EMPTY })}
-          className="min-h-11 bg-[#39a949] px-3 py-2 text-[13px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426] sm:px-4 sm:text-[14px]"
+          className="bg-[#39a949] px-4 py-2 text-[14px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426]"
         >
           Bank hinzufügen
         </button>
@@ -184,7 +184,7 @@ export function BanksAdmin() {
 
       {form && (
         <form
-          className="mt-6 border border-[#e5e7eb] p-4 sm:p-5"
+          className="mt-6 border border-[#e5e7eb] p-5"
           onSubmit={(e) => {
             e.preventDefault();
             save.mutate(form);
@@ -291,7 +291,7 @@ export function BanksAdmin() {
                 onChange={(e) => set("street", e.target.value)}
               />
             </Field>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-[110px_1fr]">
+            <div className="grid grid-cols-[110px_1fr] gap-3">
               <Field label="PLZ">
                 <input
                   className={inputClass}

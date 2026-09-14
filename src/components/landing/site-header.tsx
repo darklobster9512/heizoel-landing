@@ -6,7 +6,6 @@ import {
   Fuel,
   HelpCircle,
   MapPin,
-  Menu,
   Star,
   TrendingUp,
   Truck,
@@ -130,8 +129,6 @@ function Dropdown({
 }
 
 export function SiteHeader() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
   return (
     <header className="sticky top-0 z-40 bg-background shadow-header-strong">
       <div className="mx-auto grid h-[52px] max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 md:flex md:h-16 md:justify-between">
@@ -142,18 +139,9 @@ export function SiteHeader() {
           <Logo className="h-auto w-[100px] text-smava-logo md:w-[126px]" />
         </Link>
 
-        <div className="flex shrink-0 items-center gap-2 md:hidden">
+        <div className="flex shrink-0 items-center gap-4 md:hidden">
           <RatingBadge compact />
-          <button
-            type="button"
-            onClick={() => setMobileOpen((open) => !open)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
-            aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
-            className="flex size-10 shrink-0 items-center justify-center rounded-md text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-          >
-            <Menu className="size-5" aria-hidden="true" />
-          </button>
+          <span className="text-xs font-medium text-brand">Menü</span>
         </div>
 
         <div className="hidden items-center gap-5 md:flex">
@@ -167,46 +155,6 @@ export function SiteHeader() {
           </Link>
         </div>
       </div>
-
-      {mobileOpen ? (
-        <nav id="mobile-navigation" aria-label="Mobile Hauptnavigation" className="border-t border-line bg-background px-4 py-3 md:hidden">
-          <div className="grid gap-1">
-            {[...HEIZOEL_LINKS, ...INFO_SERVICE_LINKS].map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={`${item.to}-${item.title}`}
-                  to={item.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="grid min-h-12 grid-cols-[36px_minmax(0,1fr)] items-center gap-3 rounded-md px-2 py-2 hover:bg-brand/10"
-                >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
-                    <Icon className="size-[18px]" aria-hidden="true" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm font-semibold text-ink">{item.title}</span>
-                    <span className="block truncate text-xs text-muted-custom">{item.description}</span>
-                  </span>
-                </Link>
-              );
-            })}
-            <Link
-              to="/kontakt"
-              onClick={() => setMobileOpen(false)}
-              className="mt-1 flex min-h-12 items-center rounded-md px-3 text-sm font-semibold text-ink hover:bg-brand/10"
-            >
-              Kontakt &amp; Hilfe
-            </Link>
-            <Link
-              to="/preisrechner"
-              onClick={() => setMobileOpen(false)}
-              className="mt-2 flex min-h-11 items-center justify-center rounded-md bg-brand px-4 text-sm font-semibold text-white"
-            >
-              Preis berechnen
-            </Link>
-          </div>
-        </nav>
-      ) : null}
 
       <nav aria-label="Hauptnavigation" className="hidden border-y border-line bg-surface md:block">
         <div className="mx-auto flex h-12 max-w-6xl items-center gap-6 px-5">

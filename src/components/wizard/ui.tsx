@@ -95,7 +95,7 @@ export function ChoiceTiles<T extends string | number | boolean>({
   columns?: 1 | 2;
 }) {
   return (
-    <div className={cn("mt-1 grid gap-2.5", columns === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1")}>
+    <div className={cn("mt-1 grid gap-2.5", columns === 2 ? "grid-cols-2" : "grid-cols-1")}>
       {options.map((opt) => {
         const selected = value === opt.value;
         return (
@@ -554,7 +554,7 @@ export function NavButtons({
   if (withSave) {
     return (
       <div className="mt-8 space-y-2.5">
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-[170px_1fr]">
+        <div className="grid grid-cols-[170px_1fr] gap-2.5">
           <button
             type="button"
             onClick={save}
@@ -585,7 +585,7 @@ export function NavButtons({
   }
 
   return (
-    <div className="mt-8 grid grid-cols-1 gap-2.5 sm:grid-cols-[170px_1fr]">
+    <div className="mt-8 grid grid-cols-[170px_1fr] gap-2.5">
       <button
         type="button"
         onClick={goBack}
@@ -613,7 +613,7 @@ export function TrustBlock() {
   return (
     <div className="mt-8 bg-[#f4f5f6] px-6 py-8 text-center">
       <p className="text-[17px] font-bold text-[#323232]">TÜV geprüft + SCHUFA-neutral</p>
-       <div className="mt-5 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+      <div className="mt-5 flex items-center justify-center gap-6">
         <img src={tuev.url} alt="TÜV Saarland – geprüfter Datenschutz" className="h-[52px] w-auto" />
         <img src={garantie.url} alt="Günstiger geht nicht Garantie" className="h-[56px] w-auto" />
         <div>

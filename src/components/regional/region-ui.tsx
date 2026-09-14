@@ -113,8 +113,8 @@ export function PriceFacts({ extra }: { extra?: { label: string; value: string }
             facts.length === 5 ? "md:grid-cols-5" : "md:grid-cols-4"
           }`}
         >
-          {facts.map((f, index) => (
-            <div key={f.label} className={`px-2 text-center md:px-4 ${facts.length === 5 && index === 4 ? "col-span-2 md:col-span-1" : ""}`}>
+          {facts.map((f) => (
+            <div key={f.label} className="px-2 text-center md:px-4">
               <dt className="text-[11px] font-medium uppercase tracking-wide text-muted-custom">
                 {f.label}
               </dt>
@@ -179,11 +179,11 @@ export function CityGrid({ cities, title }: { cities: City[]; title: string }) {
               to="/heizoelpreise/$city"
               params={{ city: c.slug }}
               title={`Heizölpreise ${c.name}`}
-               className="min-w-0 rounded-lg border border-line bg-card px-3 py-3 transition-colors hover:border-brand md:px-4"
+              className="rounded-lg border border-line bg-card px-4 py-3 transition-colors hover:border-brand"
             >
-               <span className="flex min-w-0 items-center gap-1.5 text-[13px] font-semibold text-conditions md:text-[14px]">
-                 <MapPin className="size-3.5 shrink-0 text-brand" aria-hidden />
-                 <span className="min-w-0 break-words">{c.name}</span>
+              <span className="flex items-center gap-1.5 text-[14px] font-semibold text-conditions">
+                <MapPin className="size-3.5 text-brand" aria-hidden />
+                {c.name}
               </span>
               <span className="mt-0.5 block text-[11px] text-muted-custom">
                 {num(c.population)} Einwohner · PLZ {c.plz}

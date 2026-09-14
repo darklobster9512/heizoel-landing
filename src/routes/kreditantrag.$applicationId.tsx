@@ -122,7 +122,7 @@ function ApplicationPage() {
           <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
             <Logo className="h-8 w-auto" />
           </Link>
-          <span className="flex items-center gap-2 text-[13px] text-[#323232] sm:text-[15px]">
+          <span className="flex items-center gap-2 text-[15px] text-[#323232]">
             <HelpCircle className="size-[18px] text-[#5b5b5b]" />
             Hilfe und Support
           </span>
@@ -162,7 +162,7 @@ function ApplicationPage() {
                 }}
                 className="group mt-3 cursor-pointer rounded-[8px] border border-[#e6e7e8] bg-white outline-none transition-colors hover:border-brand focus-visible:border-brand"
               >
-                <div className="flex items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
+                <div className="flex items-center gap-4 px-6 py-5">
                   <div className="min-w-0 flex-1">
                     {logo ? (
                       <img
@@ -225,7 +225,7 @@ function ApplicationPage() {
                       type="button"
                       disabled={disabled}
                       onClick={() => !disabled && setTab(key)}
-                      className={`-mb-px min-w-0 flex flex-col items-center gap-2 border-b-2 px-1 pb-3 pt-2 text-[10px] tracking-normal sm:text-[13px] sm:tracking-[0.6px] ${
+                      className={`-mb-px flex flex-col items-center gap-2 border-b-2 pb-3 pt-2 text-[13px] tracking-[0.6px] ${
                         disabled
                           ? "cursor-default border-transparent text-[#c0c0c0]"
                           : tab === key

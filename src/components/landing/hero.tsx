@@ -63,15 +63,15 @@ export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => vo
 
   return (
     <section id="top" className="relative bg-surface">
-      <div className="relative mx-auto grid min-w-0 max-w-6xl items-start gap-6 overflow-hidden px-5 pb-[53px] pt-[29px] md:gap-10 md:overflow-visible md:py-12 lg:grid-cols-[1fr_510px] lg:py-14">
-        <div className="min-w-0">
+      <div className="relative mx-auto grid max-w-6xl items-start gap-6 px-5 pb-[53px] pt-[29px] md:gap-10 md:py-12 lg:grid-cols-[1fr_510px] lg:py-14">
+        <div>
           <div className="mb-3 md:mb-4">
             <span className="inline-flex items-center rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white md:text-sm">
               Nr. 1 Heizöl-Preisvergleich in Deutschland
             </span>
           </div>
 
-          <div className="grid min-w-0 grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
+          <div className="grid grid-cols-[minmax(0,7fr)_minmax(68px,3fr)] items-center gap-3 md:block">
             <h1 className="min-w-0 max-w-[14ch] font-hero text-[28px] font-medium leading-[1.3] tracking-normal text-hero-text md:max-w-[13ch] md:text-[52px] md:font-bold md:leading-[1.12] md:tracking-tight">
               Günstiges Heizöl -{" "}
               <span>garantiert!</span>
@@ -111,7 +111,7 @@ export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => vo
           <div className="mt-10 hidden md:block">{trustBadges}</div>
         </div>
 
-        <div id="rechner" className="relative min-w-0 scroll-mt-24">
+        <div id="rechner" className="relative scroll-mt-24">
           <img
             src={guarantee.url}
             alt="Günstiger-geht-nicht-Garantie"

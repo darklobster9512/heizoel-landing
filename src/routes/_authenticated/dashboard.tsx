@@ -49,7 +49,7 @@ function DashboardPage() {
           { label: "Beste Kondition", value: "4,29 % eff." },
           { label: "Angefragtes Volumen", value: "47.500 €" },
         ].map((kpi) => (
-          <div key={kpi.label} className="bg-white p-4 shadow-sm sm:p-5">
+          <div key={kpi.label} className="bg-white p-5 shadow-sm">
             <p className="text-[13px] text-[#5b5b5b]">{kpi.label}</p>
             <p className="mt-1 text-[24px] font-medium text-[#323232]">{kpi.value}</p>
           </div>
@@ -61,12 +61,12 @@ function DashboardPage() {
         <ul className="mt-4 space-y-4">
           {requests.map((r) => (
             <li key={r.id} className="border border-[#e5e7eb] p-4">
-               <div className="grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
-                <div className="min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
                   <p className="text-[15px] font-medium text-[#323232]">
                     {r.purpose} · {r.amount}
                   </p>
-                  <p className="break-words text-[13px] text-[#5b5b5b]">
+                  <p className="text-[13px] text-[#5b5b5b]">
                     {r.id} · {r.term} · mtl. {r.rate}
                   </p>
                 </div>
