@@ -44,7 +44,7 @@ export function PriceSearchLoading({ values }: { values: PriceSearchValues }) {
       aria-live="polite"
       aria-busy="true"
     >
-      <div className="w-full max-w-[330px] -translate-y-8 text-center md:-translate-y-10">
+      <div className="w-full max-w-[330px] text-center">
         <div className="mx-auto size-12 animate-spin rounded-full border-[3px] border-line border-b-brand" aria-hidden="true" />
 
         <h1 className="mt-5 text-[17px] font-semibold text-hero-text">
