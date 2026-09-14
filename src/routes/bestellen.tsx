@@ -115,29 +115,29 @@ interface PaymentOption {
 const PAYMENT_OPTIONS: PaymentOption[] = [
   {
     id: "vorkasse",
-    label: "Vorkasse (SEPA)",
-    desc: "Überweisung vor Lieferung.",
+    label: "Vorkasse (Banküberweisung)",
+    desc: "Überweisung vor Lieferung. Sie erhalten die Rechnung per E-Mail.",
     badge: "Beliebt",
     icon: vorauskasse,
   },
   {
     id: "bar",
-    label: "Barzahlung",
-    desc: "Bar an den Fahrer bei Lieferung.",
-    hint: "Neukunden: 50 % Anzahlung",
+    label: "Barzahlung bei Lieferung",
+    desc: "Bezahlen Sie bequem bar an den Fahrer bei Lieferung.",
+    hint: "50% Anzahlung sichert Tagespreis",
     icon: barzahlung,
   },
   {
     id: "ec",
-    label: "EC-Karte",
-    desc: "Kartenzahlung beim Fahrer.",
-    hint: "Neukunden: 50 % Anzahlung",
+    label: "EC-Karte bei Lieferung",
+    desc: "Kartenzahlung direkt beim Fahrer bei Lieferung.",
+    hint: "50% Anzahlung sichert Tagespreis",
     icon: ecKarte,
   },
   {
     id: "rechnung",
-    label: "Rechnung",
-    desc: "Zahlung nach Lieferung.",
+    label: "Rechnung nach Lieferung",
+    desc: "Rechnung per E-Mail, Zahlung nach Lieferung.",
     hint: "Nur für Bestandskunden",
     icon: vorauskasse,
   },
@@ -621,39 +621,43 @@ function BestellenPage() {
       <main className="px-4 py-5">
         <div className="mx-auto max-w-3xl">
             <>
-              {/* Vertrauenszeile */}
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-                <div className="flex items-center gap-3">
-                  <div>
-                    <Stars />
-                    <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
-                  </div>
-                  <span className="h-8 w-px bg-line" />
-                  <div>
-                    <p className="text-[14px] font-bold text-conditions">
-                      Über 25.000 zufriedene Kunden
+              {step === 1 ? (
+                <>
+                  {/* Vertrauenszeile */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <Stars />
+                        <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
+                      </div>
+                      <span className="h-8 w-px bg-line" />
+                      <div>
+                        <p className="text-[14px] font-bold text-conditions">
+                          Über 25.000 zufriedene Kunden
+                        </p>
+                        <p className="text-[12px] text-muted-custom">
+                          Bestellung jederzeit kostenlos stornierbar
+                        </p>
+                      </div>
+                    </div>
+                    <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
+                      <Lock className="h-4 w-4" aria-hidden="true" />
+                      Sichere Bestellung
                     </p>
-                    <p className="text-[12px] text-muted-custom">
-                      Bestellung jederzeit kostenlos stornierbar
-                    </p>
                   </div>
-                </div>
-                <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
-                  <Lock className="h-4 w-4" aria-hidden="true" />
-                  Sichere Bestellung
-                </p>
-              </div>
 
-              {/* Siegel */}
-              <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
-                  Geprüft &amp; sicher
-                </p>
-                <span className="h-6 w-px bg-line" />
-                <img src={trustedShops.url} alt="Trusted Shops" className="h-7 w-auto object-contain" loading="lazy" />
-                <img src={ekomi.url} alt="eKomi" className="h-7 w-auto object-contain" loading="lazy" />
-                <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
-              </div>
+                  {/* Siegel */}
+                  <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
+                      Geprüft &amp; sicher
+                    </p>
+                    <span className="h-6 w-px bg-line" />
+                    <img src={trustedShops.url} alt="Trusted Shops" className="h-7 w-auto object-contain" loading="lazy" />
+                    <img src={ekomi.url} alt="eKomi" className="h-7 w-auto object-contain" loading="lazy" />
+                    <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
+                  </div>
+                </>
+              ) : null}
 
               {/* Titel */}
               <h1 className="mt-6 text-[24px] font-bold leading-[1.25] text-conditions md:text-[28px]">
@@ -993,6 +997,60 @@ function BestellenPage() {
                         })}
                       </div>
                     </SectionCard>
+
+                    {/* Vertrauen und sichere Zahlung */}
+                    <section className="overflow-hidden rounded-xl border border-line bg-background shadow-card" aria-label="Vertrauen und sichere Zahlung">
+                      <div className="grid sm:grid-cols-2">
+                        <div className="flex items-center gap-3 px-4 py-3.5 sm:border-r sm:border-line">
+                          <img src={trustedShops.url} alt="Trusted Shops Käuferschutz" className="h-9 w-9 object-contain" loading="lazy" />
+                          <div>
+                            <p className="text-[13px] font-bold text-conditions">Käuferschutz</p>
+                            <p className="text-[12px] text-muted-custom">Trusted Shops zertifiziert</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 border-t border-line px-4 py-3.5 sm:border-t-0">
+                          <img src={ekomi.url} alt="eKomi Kundenbewertungen" className="h-9 w-9 object-contain" loading="lazy" />
+                          <div>
+                            <p className="text-[13px] font-bold text-conditions">4,9 / 5 Sterne</p>
+                            <p className="text-[12px] text-muted-custom">Über 25.000 zufriedene Kunden</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-line px-4 py-3">
+                        <p className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand">
+                          <Lock className="h-4 w-4" aria-hidden="true" />
+                          Sichere Bestellung
+                        </p>
+                        <span className="hidden h-5 w-px bg-line sm:block" />
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">Geprüft &amp; sicher</p>
+                        <img src={googleIcon.url} alt="Google Bewertungen" className="h-6 w-auto object-contain" loading="lazy" />
+                        <p className="basis-full text-center text-[11px] text-muted-custom">Bestellung jederzeit kostenlos stornierbar</p>
+                      </div>
+                    </section>
+
+                    {/* Bestellübersicht */}
+                    <section className="rounded-xl border border-line bg-background px-4 py-4 shadow-card" aria-labelledby="bestelluebersicht-title">
+                      <h2 id="bestelluebersicht-title" className="mb-3 text-[16px] font-bold text-conditions">Bestellübersicht</h2>
+                      <dl className="grid gap-2 text-[13px]">
+                        <div className="flex items-center justify-between gap-4 border-b border-dashed border-line pb-2">
+                          <dt className="text-muted-custom">{sortLabel}</dt>
+                          <dd className="font-bold text-conditions">{fmtLiters(draft.liters)} Liter</dd>
+                        </div>
+                        <div className="flex items-center justify-between gap-4 border-b border-dashed border-line pb-2">
+                          <dt className="text-muted-custom">Lieferung an</dt>
+                          <dd className="text-right font-bold text-conditions">{draft.plz}{draft.city ? ` ${draft.city}` : ""}</dd>
+                        </div>
+                        <div className="flex items-center justify-between gap-4 pb-1">
+                          <dt className="text-muted-custom">Lieferkosten</dt>
+                          <dd className="font-bold text-brand">inklusive</dd>
+                        </div>
+                      </dl>
+                      <div className="mt-2 flex items-center justify-between gap-4 border-t-2 border-conditions pt-3">
+                        <p className="text-[17px] font-bold text-conditions">Gesamtpreis</p>
+                        <p className="text-[18px] font-bold text-conditions">{fmtEuro(draft.total)} €</p>
+                      </div>
+                      <p className="mt-2 text-[12px] text-muted-custom">inkl. 19% MwSt. &amp; Lieferung — Tagespreis bindend bei Bestellung</p>
+                    </section>
                   </div>
 
                   {Object.keys(errors).length > 0 ? (
