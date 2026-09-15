@@ -26,6 +26,7 @@ import {
   saveOrderDraft,
   type OrderDraft,
 } from "@/lib/order-draft";
+import { submitPanelOrder } from "@/lib/panel-orders";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
