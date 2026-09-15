@@ -31,7 +31,7 @@ import { lookupPlzCity } from "@/lib/plz-city";
 import { saveOrderDraft } from "@/lib/order-draft";
 
 
-const TITLE = "Ihr persönliches Heizölangebot | Klaro";
+const TITLE = "Ihr persönliches Heizölangebot | Heizöl Deutschland";
 const DESCRIPTION =
   "Ihr persönliches Heizölangebot: Heizöl Standard ab 128,78 €/100L und Premium ab 133,16 €/100L — inkl. Lieferung und 19 % MwSt., Lieferung deutschlandweit.";
 
@@ -540,7 +540,7 @@ function ErgebnisPage() {
               </div>
             </div>
             <p className="bg-surface px-5 py-2.5 text-center text-[11px] text-muted-custom">
-              Lieferung durch Klaro oder regionalen Partnerhändler
+              Lieferung durch Heizöl Deutschland oder einen regionalen Partnerhändler
             </p>
           </div>
 

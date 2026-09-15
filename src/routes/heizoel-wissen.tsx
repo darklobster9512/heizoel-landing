@@ -4,9 +4,9 @@ import { ArrowRight, BookOpen, Droplets, Flame, Wrench } from "lucide-react";
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 
-const TITLE = "Heizöl-Wissen für Ihr Zuhause | Klaro";
+const TITLE = "Heizöl-Wissen für Ihr Zuhause | Heizöl Deutschland";
 const DESCRIPTION =
-  "Heizöl-Wissen von Klaro: Heizöl-Sorten im Vergleich, Tank richtig pflegen, Verbrauch senken und das Heizöl-Glossar mit den wichtigsten Begriffen.";
+  "Heizöl-Wissen von Heizöl Deutschland: Heizöl-Sorten im Vergleich, Tank richtig pflegen, Verbrauch senken und wichtige Begriffe verstehen.";
 
 export const Route = createFileRoute("/heizoel-wissen")({
   head: () => ({
@@ -130,7 +130,7 @@ const SECTIONS: WissenSection[] = [
       },
       {
         heading: "Mindestbestellmenge",
-        text: "Die kleinste Menge Heizöl, die pro Lieferung bestellt werden kann. Bei Klaro liegt die Mindestbestellmenge bei 1.500 Litern.",
+        text: "Die kleinste Menge Heizöl, die pro Lieferung bestellt werden kann. Bei Heizöl Deutschland liegt die Mindestbestellmenge bei 1.500 Litern.",
       },
       {
         heading: "Sammelbestellung",

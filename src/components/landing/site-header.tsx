@@ -161,7 +161,7 @@ export function SiteHeader() {
             <SheetHeader className="border-b border-line px-5 py-4 text-left">
               <SheetTitle>
                 <Logo className="h-auto w-[112px] text-smava-logo" />
-                <span className="sr-only">Klaro Navigation</span>
+                <span className="sr-only">Heizöl Deutschland Navigation</span>
               </SheetTitle>
             </SheetHeader>
 

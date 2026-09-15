@@ -35,7 +35,7 @@ export const Route = createFileRoute("/heizoelpreise/$city")({
       return { meta: [{ title: "Ort nicht gefunden" }, { name: "robots", content: "noindex" }] };
     }
     const { city, state } = loaderData;
-    const title = `Heizölpreise ${city.name} – ab ${euro(PRICE_PER_100)} €/100 L | Klaro`;
+    const title = `Heizölpreise ${city.name} – ab ${euro(PRICE_PER_100)} €/100 L | Heizöl Deutschland`;
     const description = `Heizölpreis ${city.name} (${state.name}) heute ab ${euro(PRICE_PER_100)} € pro 100 Liter, ${num(SAMPLE_LITERS)} Liter ca. ${euro(sampleTotal())} €. Lieferung in ${DELIVERY_DAYS} Werktagen, PLZ ${city.plz}.`;
     const url = `/heizoelpreise/${params.city}`;
     return {

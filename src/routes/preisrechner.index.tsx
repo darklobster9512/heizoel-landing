@@ -20,9 +20,9 @@ import {
 } from "lucide-react";
 
 const DESCRIPTION =
-  "Heizölpreis sofort berechnen mit Klaro: Aktuelle Preise ab 128,78 €/100L, kostenlose Lieferung und Festpreisgarantie. In 3 Schritten zum günstigen Heizöl.";
+  "Heizölpreis sofort berechnen mit Heizöl Deutschland: Aktuelle Preise, kostenlose Lieferung und Festpreisgarantie.";
 
-const TITLE = "Heizölpreis berechnen — Klaro";
+const TITLE = "Heizölpreis berechnen — Heizöl Deutschland";
 
 export const Route = createFileRoute("/preisrechner/")({
   validateSearch: z.object({ plz: z.string().regex(/^\d{5}$/).optional() }),
@@ -288,16 +288,16 @@ function PreisrechnerPage() {
               </div>
             </div>
 
-            {/* Warum Klaro — direkt an die Hero-Card angedockt */}
+            {/* Vorteile — direkt an die Hero-Card angedockt */}
             <div
               className="rounded-xl border-t border-line bg-background px-4 py-7 min-[390px]:px-6 md:px-10 md:py-10"
-              aria-labelledby="why-klaro-title"
+                aria-labelledby="why-brand-title"
             >
               <h2
-                id="why-klaro-title"
+                id="why-brand-title"
                 className="text-center text-lg font-semibold leading-snug text-conditions md:text-xl"
               >
-                Warum bei Klaro bestellen?
+                Warum bei Heizöl Deutschland bestellen?
               </h2>
               <div className="mt-6 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {ADVANTAGES.map((a, i) => {
@@ -340,7 +340,7 @@ function PreisrechnerPage() {
                   Heizölpreise heute — aktueller Tagespreis ab 128,78 €/100L
                 </h3>
                 <p className="mt-2">
-                  Der Heizölpreis heute liegt bei Klaro ab{" "}
+                  Der Heizölpreis heute liegt bei Heizöl Deutschland ab{" "}
                   <strong>128,78 €/100L</strong> (Stand: 13.09.2026, 12:15 Uhr).
                   Heizölpreise werden in Deutschland traditionell pro 100 Liter
                   angegeben — das ist die übliche Bestellmenge und macht den
@@ -358,7 +358,7 @@ function PreisrechnerPage() {
                   Heizöl kaufen — direkt vom Händler ab 128,78 €/100L
                 </h3>
                 <p className="mt-2">
-                  Wer Heizöl kaufen möchte, profitiert bei Klaro von Direktpreisen
+                  Wer Heizöl kaufen möchte, profitiert bei Heizöl Deutschland von Direktpreisen
                   ohne Zwischenhändler-Aufschläge. Über{" "}
                   <strong>500 zertifizierte Partnerhändler</strong> liefern
                   deutschlandweit zu garantierten Festpreisen. Im Vergleich zum
@@ -380,7 +380,7 @@ function PreisrechnerPage() {
                 <p className="mt-2">
                   Der Heizölpreis pro Liter liegt heute bei ca.{" "}
                   <strong>1,29 €/Liter</strong> (entspricht 128,78 €/100L). In der
-                  Praxis wird Heizöl bei Klaro ab einer Mindestbestellmenge von{" "}
+                  Praxis wird Heizöl bei Heizöl Deutschland ab einer Mindestbestellmenge von{" "}
                   <strong>1.500 Litern</strong> verkauft — deshalb ist die Angabe
                   €/100L der Standard im deutschen Heizöl-Markt. Wer wissen
                   möchte, wie der Heizölpreis pro Liter kalkuliert wird, sollte
@@ -397,7 +397,7 @@ function PreisrechnerPage() {
                   Heizöl bestellen — in 3 Schritten zum besten Preis
                 </h3>
                 <p className="mt-2">
-                  Beim Heizöl online bestellen mit Klaro durchlaufen Sie 3
+                  Beim Heizöl online bestellen mit Heizöl Deutschland durchlaufen Sie 3
                   einfache Schritte: (1){" "}
                   <strong>PLZ und Liefermenge eingeben</strong> — sofort sehen
                   Sie die Heizölpreise für Ihre Region in €/100L. (2){" "}

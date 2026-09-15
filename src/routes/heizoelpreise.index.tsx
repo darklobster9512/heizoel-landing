@@ -19,7 +19,7 @@ import {
   todayStamp,
 } from "@/data/regions";
 
-const TITLE = "Heizölpreise nach Bundesland & Stadt – aktuell | Klaro";
+const TITLE = "Heizölpreise nach Bundesland & Stadt | Heizöl Deutschland";
 const DESCRIPTION =
   "Aktuelle Heizölpreise für alle 16 Bundesländer und über 700 Städte: ab 128,78 €/100 L, kostenlose Lieferung in 7 Werktagen und Festpreisgarantie.";
 
@@ -116,7 +116,7 @@ function OverviewPage() {
               heading: "Heizöl bestellen: Ablauf, Menge und Zahlung",
               paragraphs: [
                 `Die Mindestbestellmenge beträgt ${num(MIN_LITERS)} Liter, größere Mengen senken den Preis pro 100 Liter. Die Bestellung erfolgt in drei Schritten: Postleitzahl und Menge eingeben, Heizölsorte wählen, Zahlungsart und Wunschtermin festlegen.`,
-                `Bezahlt wird per Vorkasse, EC-Karte oder bar bei Lieferung; Bestandskunden können auf Rechnung bestellen. Über ${REVIEW_COUNT} Kunden bewerten Klaro mit ${REVIEW_SCORE}/5 Sternen.`,
+                `Bezahlt wird per Vorkasse, EC-Karte oder bar bei Lieferung; Bestandskunden können auf Rechnung bestellen. Über ${REVIEW_COUNT} Kunden bewerten Heizöl Deutschland mit ${REVIEW_SCORE}/5 Sternen.`,
               ],
             },
           ]}

@@ -24,9 +24,9 @@ import {
 
 
 const DESCRIPTION =
-  "Klaro – Heizöl-Preisvergleich für Deutschland: Preise von über 300 Händlern aus Ihrer Region vergleichen und Heizöl günstig online bestellen. Kostenlos und unverbindlich.";
+  "Heizöl Deutschland – Heizöl-Preisvergleich: Preise von über 300 Händlern aus Ihrer Region vergleichen und Heizöl günstig online bestellen.";
 
-const TITLE = "Klaro — Heizöl-Preisvergleich für Deutschland";
+const TITLE = "Heizöl Deutschland — Heizöl-Preisvergleich";
 
 export const Route = createFileRoute("/")({
   head: () => ({

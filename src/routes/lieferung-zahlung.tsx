@@ -14,7 +14,7 @@ import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
 import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
 import lieferfristAsset from "@/assets/lieferfrist.png.asset.json";
 
-const TITLE = "Lieferung & Zahlung | Klaro";
+const TITLE = "Lieferung & Zahlung | Heizöl Deutschland";
 const DESCRIPTION =
   "Alle Informationen zu Lieferzeiten, Zahlungsarten und Liefermodalitäten: ca. 7 Werktage deutschlandweit, Barzahlung, EC-Karte oder Vorauskasse — alles ohne Aufpreis.";
 
@@ -163,7 +163,7 @@ function LieferungZahlungPage() {
               </ul>
               <p className="mt-6 text-[14px] leading-[1.7] text-muted-custom md:text-[15px]">
                 Weitere Informationen zu Lieferung &amp; Zahlung erhalten Sie auf unserer{" "}
-                <a href="#" className="font-semibold text-brand hover:underline">
+                <a href="/faq" className="font-semibold text-brand hover:underline">
                   Hilfeseite
                 </a>
                 .

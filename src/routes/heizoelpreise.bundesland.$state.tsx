@@ -35,7 +35,7 @@ export const Route = createFileRoute("/heizoelpreise/bundesland/$state")({
     if (!state) {
       return { meta: [{ title: "Bundesland nicht gefunden" }, { name: "robots", content: "noindex" }] };
     }
-    const title = `Heizölpreise ${state.name} heute – ab ${euro(PRICE_PER_100)} €/100 L | Klaro`;
+    const title = `Heizölpreise ${state.name} – ab ${euro(PRICE_PER_100)} €/100 L | Heizöl Deutschland`;
     const description = `Aktueller Heizölpreis in ${state.name}: ab ${euro(PRICE_PER_100)} € pro 100 Liter, ${num(SAMPLE_LITERS)} Liter ca. ${euro(sampleTotal())} €. Kostenlose Lieferung in ${DELIVERY_DAYS} Werktagen.`;
     const url = `/heizoelpreise/bundesland/${params.state}`;
     return {
