@@ -10,7 +10,7 @@ import {
 } from "@/components/landing/price-search-loading";
 import { SiteFooter, STEPS } from "@/components/landing/sections";
 import { Logo } from "@/components/landing/logo";
-import guarantee from "@/assets/guarantee.png.asset.json";
+const guarantee = { url: "/img/guarantee.png" };
 import {
   BadgePercent,
   Handshake,

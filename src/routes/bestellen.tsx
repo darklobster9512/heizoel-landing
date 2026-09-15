@@ -27,12 +27,12 @@ import {
   type OrderDraft,
 } from "@/lib/order-draft";
 import { submitPanelOrder } from "@/lib/panel-orders";
-import ekomi from "@/assets/ekomi.webp.asset.json";
-import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
-import googleIcon from "@/assets/google-icon.webp.asset.json";
-import vorauskasse from "@/assets/vorauskasse.png.asset.json";
-import barzahlung from "@/assets/barzahlung.png.asset.json";
-import ecKarte from "@/assets/ec-karte.png.asset.json";
+const ekomi = { url: "/img/ekomi.webp" };
+const trustedShops = { url: "/img/trusted-shops-icon.png" };
+const googleIcon = { url: "/img/google-icon.webp" };
+const vorauskasse = { url: "/img/vorauskasse.png" };
+const barzahlung = { url: "/img/barzahlung.png" };
+const ecKarte = { url: "/img/ec-karte.png" };
 
 const TITLE = "Bestellung — Wunschtermin wählen | Heizöl Deutschland";
 const DESCRIPTION =

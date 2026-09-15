@@ -4,16 +4,16 @@ import { Check, Info, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
-import ntvAward from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
-import bildAward from "@/assets/bild-empfehlung-2026.png.asset.json";
-import weltAward from "@/assets/die-welt-service-champion-2025.png.asset.json";
-import dtgvAward from "@/assets/dtgv-testsieger.png.asset.json";
-import barzahlungAsset from "@/assets/barzahlung.png.asset.json";
-import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
-import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
-import eKomiLogo from "@/assets/ekomi.webp.asset.json";
-import googleIcon from "@/assets/google-icon.webp.asset.json";
-import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
+const ntvAward = { url: "/img/ntv-gesamtsieger-heizoel24-2025.png" };
+const bildAward = { url: "/img/bild-empfehlung-2026.png" };
+const weltAward = { url: "/img/die-welt-service-champion-2025.png" };
+const dtgvAward = { url: "/img/dtgv-testsieger.png" };
+const barzahlungAsset = { url: "/img/barzahlung.png" };
+const vorauskasseAsset = { url: "/img/vorauskasse.png" };
+const ecKarteAsset = { url: "/img/ec-karte.png" };
+const eKomiLogo = { url: "/img/ekomi.webp" };
+const googleIcon = { url: "/img/google-icon.webp" };
+const trustedShopsIcon = { url: "/img/trusted-shops-icon.png" };
 
 export function SectionHead({
   eyebrow,
@@ -35,7 +35,7 @@ export function SectionHead({
   );
 }
 
-import heizoelHero from "@/assets/heizoel-hero.webp.asset.json";
+const heizoelHero = { url: "/img/heizoel-hero.webp" };
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
@@ -113,15 +113,15 @@ export function ConditionsBox({ mobileOnly = false }: { mobileOnly?: boolean }) 
 }
 
 
-import freeInquiry from "@/assets/free-inquiry.svg.asset.json";
-import getOffers from "@/assets/get-offers.svg.asset.json";
-import closeApplication from "@/assets/close-application.svg.asset.json";
-import coupleOnCouch from "@/assets/couple-on-couch.webp.asset.json";
-import offerList from "@/assets/heizoel-offer-list.png.asset.json";
-import interestIcon from "@/assets/interest.svg.asset.json";
-import neutralIcon from "@/assets/neutral.svg.asset.json";
-import freeIcon from "@/assets/free.svg.asset.json";
-import dataSafetyIcon from "@/assets/data-safety.svg.asset.json";
+const freeInquiry = { url: "/img/free-inquiry.svg" };
+const getOffers = { url: "/img/get-offers.svg" };
+const closeApplication = { url: "/img/close-application.svg" };
+const coupleOnCouch = { url: "/img/couple-on-couch.webp" };
+const offerList = { url: "/img/heizoel-offer-list.png" };
+const interestIcon = { url: "/img/interest.svg" };
+const neutralIcon = { url: "/img/neutral.svg" };
+const freeIcon = { url: "/img/free.svg" };
+const dataSafetyIcon = { url: "/img/data-safety.svg" };
 
 export const STEPS = [
   {
@@ -363,8 +363,8 @@ function Mark({ yes }: { yes: boolean }) {
   );
 }
 
-import dropGreen from "@/assets/drop-green.png.asset.json";
-import dropBrown from "@/assets/drop-brown.png.asset.json";
+const dropGreen = { url: "/img/drop-green.png" };
+const dropBrown = { url: "/img/drop-brown.png" };
 
 function InfoCell({ info, label }: { info: string; label: string }) {
   const [open, setOpen] = useState(false);

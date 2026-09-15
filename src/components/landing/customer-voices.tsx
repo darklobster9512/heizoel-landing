@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import eKomiLogo from "@/assets/ekomi.webp.asset.json";
-import avatarAsset from "@/assets/avatar.svg.asset.json";
-import googleIcon from "@/assets/google-icon.webp.asset.json";
-import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
+const eKomiLogo = { url: "/img/ekomi.webp" };
+const avatarAsset = { url: "/img/avatar.svg" };
+const googleIcon = { url: "/img/google-icon.webp" };
+const trustedShopsIcon = { url: "/img/trusted-shops-icon.png" };
 
 type Voice = {
   text: string;
