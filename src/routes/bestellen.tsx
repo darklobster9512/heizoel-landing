@@ -456,6 +456,8 @@ function BestellenPage() {
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState("vorkasse");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const d = loadOrderDraft();
