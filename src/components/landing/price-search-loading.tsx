@@ -78,7 +78,7 @@ export function PriceSearchLoading({ values }: { values: PriceSearchValues }) {
           }`}
         >
           <div className="flex justify-center">
-            <RatingBadge compact />
+            <RatingBadge compact cycle={false} />
           </div>
         </div>
       </div>

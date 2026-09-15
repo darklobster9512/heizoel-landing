@@ -103,9 +103,11 @@ function EkomiBlock({
 export function RatingBadge({
   compact = false,
   expanded = false,
+  cycle = true,
 }: {
   compact?: boolean;
   expanded?: boolean;
+  cycle?: boolean;
 }) {
   const [date, setDate] = useState("Stand 8.9.2026");
   const [index, setIndex] = useState(0);
@@ -114,7 +116,7 @@ export function RatingBadge({
     setDate(`Stand ${formatToday()}`);
   }, []);
 
-  const rotating = compact && !expanded;
+  const rotating = compact && !expanded && cycle;
 
   useEffect(() => {
     if (!rotating) return;
@@ -139,6 +141,16 @@ export function RatingBadge({
       </div>
     );
   }
+
+  if (compact && !expanded) {
+    return (
+      <div className="flex items-center justify-center">
+        <EkomiBlock showText compact date={date} oneLine />
+      </div>
+    );
+  }
+
+
 
 
   return (
