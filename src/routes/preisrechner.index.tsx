@@ -276,8 +276,8 @@ function PreisrechnerPage() {
                   <img
                     src={guarantee.url}
                     alt="Günstiger-geht-nicht-Garantie"
-                    width={88}
-                    height={88}
+                    width={1031}
+                    height={1058}
                     className="pointer-events-none absolute right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
                   />
                   <OfferCard bordered={false} initialPlz={plz} onSearch={setSearchValues} />
