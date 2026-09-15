@@ -135,7 +135,7 @@ function BestaetigungPage() {
             <p className="mt-1.5 text-[14px] text-muted-custom">
               Vielen Dank für Ihre Heizölbestellung.
             </p>
-            <p className="mt-3 inline-flex rounded-full border border-line bg-background px-4 py-1.5 text-[13px] text-muted-custom shadow-card">
+            <p className="mt-3 inline-flex max-w-full flex-wrap justify-center rounded-full border border-line bg-background px-4 py-1.5 text-[13px] text-muted-custom shadow-card">
               Bestellnr.&nbsp;<span className="font-bold text-conditions">#{order.orderNo}</span>
             </p>
           </div>
@@ -230,7 +230,7 @@ function BestaetigungPage() {
             <p className="border-b border-line px-4 py-3 text-center text-[14px] font-bold text-conditions">
               Preis ist bindend bei Bestellung. Es entstehen keine weiteren Kosten!
             </p>
-            <div className="flex items-center justify-center gap-5 px-4 py-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 px-4 py-4 sm:gap-5">
               <img src={ekomi.url} alt="eKomi Siegel" className="h-9 w-auto object-contain" />
               <img
                 src={trustedShops.url}

@@ -78,7 +78,7 @@ function Step17() {
                   : "border-[#dcdcdc] bg-white text-[#323232] hover:bg-[#f7f7f7]",
               )}
             >
-              <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-3">
                 <span
                   className={cn(
                     "relative flex size-5 shrink-0 items-center justify-center rounded-full border-2",
@@ -89,7 +89,7 @@ function Step17() {
                     <span className="size-2.5 rounded-full bg-brand" />
                   )}
                 </span>
-                {s.value}
+                <span className="min-w-0 break-words">{s.value}</span>
               </div>
               <s.icon className="size-5 shrink-0 text-brand" />
             </button>
@@ -98,11 +98,11 @@ function Step17() {
       </div>
 
       <div className="mt-8 space-y-2.5">
-        <div className="grid grid-cols-[150px_1fr] gap-2.5">
+        <div className="grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-[minmax(0,150px)_minmax(0,1fr)]">
           <button
             type="button"
             onClick={save}
-            className="flex h-[42px] items-center justify-center gap-2 border border-brand bg-white text-[15px] font-semibold text-brand transition-colors hover:bg-[#eff8f1]"
+            className="flex h-[46px] items-center justify-center gap-2 border border-brand bg-white text-[15px] font-semibold text-brand transition-colors hover:bg-[#eff8f1]"
           >
             <Save className="size-4" /> Speichern
           </button>
@@ -113,7 +113,7 @@ function Step17() {
                 (e) => console.error("nav", e),
               )
             }
-            className="flex h-[42px] items-center justify-center gap-2 bg-brand text-[16px] font-semibold text-white transition-colors duration-300 hover:bg-brand-hover"
+            className="flex h-[46px] items-center justify-center gap-2 bg-brand text-[16px] font-semibold text-white transition-colors duration-300 hover:bg-brand-hover"
           >
             Weiter <ArrowRight className="size-4" />
           </button>

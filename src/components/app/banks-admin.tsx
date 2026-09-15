@@ -95,12 +95,12 @@ export function BanksAdmin() {
 
   return (
     <section className="bg-white p-5 shadow-sm md:p-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col items-start gap-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between">
         <h2 className="text-[18px] font-medium text-[#323232]">Banken</h2>
         <button
           type="button"
           onClick={() => setForm({ ...EMPTY })}
-          className="bg-[#39a949] px-4 py-2 text-[14px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426]"
+          className="min-h-11 bg-[#39a949] px-4 py-2 text-[14px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426]"
         >
           Bank hinzufügen
         </button>
@@ -184,7 +184,7 @@ export function BanksAdmin() {
 
       {form && (
         <form
-          className="mt-6 border border-[#e5e7eb] p-5"
+           className="mt-6 border border-[#e5e7eb] p-4 sm:p-5"
           onSubmit={(e) => {
             e.preventDefault();
             save.mutate(form);
@@ -291,7 +291,7 @@ export function BanksAdmin() {
                 onChange={(e) => set("street", e.target.value)}
               />
             </Field>
-            <div className="grid grid-cols-[110px_1fr] gap-3">
+            <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-[110px_minmax(0,1fr)]">
               <Field label="PLZ">
                 <input
                   className={inputClass}
@@ -358,18 +358,18 @@ export function BanksAdmin() {
             />
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3">
+          <div className="mt-5 grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 sm:flex sm:flex-wrap sm:items-center">
             <button
               type="submit"
               disabled={save.isPending}
-              className="bg-[#39a949] px-5 py-2 text-[14px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426] disabled:opacity-60"
+              className="min-h-11 bg-[#39a949] px-5 py-2 text-[14px] font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1b5426] disabled:opacity-60"
             >
               {save.isPending ? "Speichern …" : "Speichern"}
             </button>
             <button
               type="button"
               onClick={() => setForm(null)}
-              className="border border-[#dcdcdc] px-5 py-2 text-[14px] text-[#323232]"
+              className="min-h-11 border border-[#dcdcdc] px-5 py-2 text-[14px] text-[#323232]"
             >
               Abbrechen
             </button>
@@ -379,7 +379,7 @@ export function BanksAdmin() {
                 onClick={() => {
                   if (window.confirm(`„${form.name}“ wirklich löschen?`)) del.mutate(form.id!);
                 }}
-                className="ml-auto text-[13px] font-medium text-[#e02b2b] hover:underline"
+                className="min-h-11 text-left text-[13px] font-medium text-[#e02b2b] hover:underline sm:ml-auto"
               >
                 Bank löschen
               </button>

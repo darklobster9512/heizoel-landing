@@ -95,9 +95,9 @@ function AdminApplicationPage() {
                 ],
                 ["Versicherung", app.selected_insurance ?? "—"],
               ].map(([label, value]) => (
-                <div key={label} className="rounded-[8px] border border-[#e5e7eb] p-3">
+              <div key={label} className="min-w-0 rounded-[8px] border border-[#e5e7eb] p-3">
                   <p className="text-[12px] text-[#5b5b5b]">{label}</p>
-                  <p className="mt-1 text-[14px] text-[#323232]">{value}</p>
+                  <p className="mt-1 break-words text-[14px] text-[#323232]">{value}</p>
                 </div>
               ))}
             </div>
@@ -113,9 +113,9 @@ function AdminApplicationPage() {
                   </p>
                   <dl className="mt-2 space-y-1.5">
                     {group.fields.map(([key, label]) => (
-                      <div key={String(key)} className="flex justify-between gap-4 text-[13.5px]">
+                      <div key={String(key)} className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 text-[13.5px]">
                         <dt className="text-[#5b5b5b]">{label}</dt>
-                        <dd className="text-right text-[#323232]">
+                        <dd className="break-words text-right text-[#323232]">
                           {formatValue(key, app[key])}
                         </dd>
                       </div>
@@ -130,7 +130,7 @@ function AdminApplicationPage() {
                 <p className="text-[13px] font-semibold uppercase tracking-wide text-[#5b5b5b]">
                   Nebentätigkeiten &amp; bestehende Kredite
                 </p>
-                <pre className="mt-2 overflow-x-auto bg-[#f7f7f7] p-3 text-[12px] text-[#323232]">
+                <pre className="mt-2 whitespace-pre-wrap break-all bg-[#f7f7f7] p-3 text-[12px] text-[#323232]">
                   {JSON.stringify({ side_jobs: app.side_jobs, loans: app.loans }, null, 2)}
                 </pre>
               </div>
@@ -180,7 +180,7 @@ function AdminApplicationPage() {
                   )}
                 </div>
 
-                <div className="flex min-h-[480px] flex-col rounded-[8px] border border-[#e5e7eb]">
+                <div className="flex min-h-[300px] flex-col rounded-[8px] border border-[#e5e7eb] md:min-h-[480px]">
                   <div className="min-h-0 flex-1 overflow-auto rounded-t-[8px] bg-[#f5f6f7] p-4">
                     {!doc ? (
                       <p className="text-[14px] text-[#5b5b5b]">Keine Datei ausgewählt.</p>
@@ -199,7 +199,7 @@ function AdminApplicationPage() {
                       <iframe
                         src={doc.url}
                         title={doc.fileName}
-                        className="h-full min-h-[420px] w-full rounded-[6px] bg-white"
+                        className="h-full min-h-[260px] w-full rounded-[6px] bg-white md:min-h-[420px]"
                       />
                     ) : (
                       <p className="text-[14px] text-[#5b5b5b]">
@@ -218,14 +218,14 @@ function AdminApplicationPage() {
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[13px] font-medium text-[#39a949] hover:underline"
+                        className="inline-flex min-h-11 items-center text-[13px] font-medium text-[#39a949] hover:underline"
                       >
                         In neuem Tab öffnen
                       </a>
                       <a
                         href={doc.url}
                         download={doc.fileName}
-                        className="text-[13px] font-medium text-[#39a949] hover:underline"
+                        className="inline-flex min-h-11 items-center text-[13px] font-medium text-[#39a949] hover:underline"
                       >
                         Herunterladen
                       </a>

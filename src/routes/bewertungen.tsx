@@ -144,7 +144,7 @@ function BewertungenPage() {
 
           {/* Kennzahlen-Band */}
           <div className="bg-background">
-            <dl className="mx-auto grid w-full grid-cols-2 gap-y-8 px-5 py-8 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line md:py-10">
+            <dl className="mx-auto grid w-full grid-cols-1 gap-y-6 px-5 py-8 min-[360px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-5 md:divide-x md:divide-line md:py-10">
               {STATS.map((stat) => (
                 <div key={stat.label} className="px-4 text-center md:px-6">
                   <dd className="text-[24px] font-bold leading-tight text-conditions md:text-[28px]">
@@ -212,7 +212,7 @@ function BewertungenPage() {
                   key={review.name}
                   className="rounded-xl border border-line bg-card p-5 shadow-sm md:p-6"
                 >
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
                     <h3 className="text-[15px] font-bold text-ink">{review.name}</h3>
                     <Stars />
                   </div>

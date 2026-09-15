@@ -60,13 +60,13 @@ function DashboardPage() {
         <h2 className="text-[18px] font-medium text-[#323232]">Meine Kreditanfragen</h2>
         <ul className="mt-4 space-y-4">
           {requests.map((r) => (
-            <li key={r.id} className="border border-[#e5e7eb] p-4">
+            <li key={r.id} className="min-w-0 border border-[#e5e7eb] p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[15px] font-medium text-[#323232]">
                     {r.purpose} · {r.amount}
                   </p>
-                  <p className="text-[13px] text-[#5b5b5b]">
+                  <p className="break-words text-[13px] text-[#5b5b5b]">
                     {r.id} · {r.term} · mtl. {r.rate}
                   </p>
                 </div>

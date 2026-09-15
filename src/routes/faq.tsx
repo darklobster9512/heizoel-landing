@@ -465,7 +465,7 @@ function FaqPage() {
 
         {/* Schnellnavigation */}
         <section className="bg-background" aria-label="Themen">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-5 py-8 md:grid-cols-5 md:gap-4">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-3 px-5 py-8 min-[360px]:grid-cols-2 md:grid-cols-5 md:gap-4">
             {SECTIONS.filter((s) => s.id !== "sonstiges").map((section) => (
               <a
                 key={section.id}
@@ -543,7 +543,7 @@ function FaqPage() {
               </div>
               <a
                 href="mailto:service@klaro.de"
-                className="mt-4 inline-flex shrink-0 items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 md:mt-0"
+                className="mt-4 inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 sm:w-auto md:mt-0"
               >
                 <Mail className="h-4 w-4 text-white" aria-hidden="true" />
                 Kontakt aufnehmen
