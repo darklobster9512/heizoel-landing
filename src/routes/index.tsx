@@ -24,9 +24,9 @@ import {
 
 
 const DESCRIPTION =
-  "Heizöl Deutschland – Heizöl-Preisvergleich: Preise von über 300 Händlern aus Ihrer Region vergleichen und Heizöl günstig online bestellen.";
+  "Heizölpreise aus über 300 Händlern vergleichen und Heizöl deutschlandweit günstig online bestellen. Tagesaktuelle Preise, sichere Lieferung, 4,9/5 Sterne.";
 
-const TITLE = "Heizöl Deutschland — Heizöl-Preisvergleich";
+const TITLE = "Heizöl bestellen & Heizölpreise vergleichen | Heizöl DE";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,9 +36,40 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Heizöl Deutschland",
+          legalName: "Demovero GmbH",
+          url: "/",
+          logo: "/apple-touch-icon.png",
+          image: "/apple-touch-icon.png",
+          email: "info@heizoel-deutschland.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Kurfürstendamm 97-98",
+            postalCode: "10709",
+            addressLocality: "Berlin",
+            addressCountry: "DE",
+          },
+          areaServed: "DE",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            bestRating: "5",
+            reviewCount: "25000",
+          },
+        }),
+      },
     ],
   }),
   component: Index,
