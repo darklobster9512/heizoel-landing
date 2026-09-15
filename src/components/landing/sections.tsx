@@ -35,7 +35,7 @@ export function SectionHead({
   );
 }
 
-import smavaHero from "@/assets/smava-hero.webp.asset.json";
+import heizoelHero from "@/assets/heizoel-hero.webp.asset.json";
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
@@ -782,7 +782,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-0 px-5">
             <div className="relative">
               <img
-                src={smavaHero.url}
+                src={heizoelHero.url}
                  alt="Beraterin von Heizöl Deutschland mit Tablet"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
@@ -810,7 +810,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
       <div className="md:hidden">
         <div className={`flex justify-center bg-white ${compact ? "pt-2" : "pt-6"}`}>
           <img
-            src={smavaHero.url}
+            src={heizoelHero.url}
              alt="Beraterin von Heizöl Deutschland mit Tablet"
             className="h-[240px] w-auto object-contain"
           />
