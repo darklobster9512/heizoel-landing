@@ -117,7 +117,7 @@ export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => vo
             alt="Günstiger-geht-nicht-Garantie"
             width={1031}
             height={1058}
-            className="pointer-events-none absolute -right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
+            className="pointer-events-none absolute -right-2 -top-8 z-10 hidden size-[86px] object-contain drop-shadow-sm md:block"
           />
           <OfferCard mobileTrust={trustBadges} onSearch={onSearch} />
         </div>
