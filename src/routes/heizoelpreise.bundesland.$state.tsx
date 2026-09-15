@@ -33,7 +33,8 @@ export const Route = createFileRoute("/heizoelpreise/bundesland/$state")({
   head: ({ params, loaderData }) => {
     const state = loaderData?.state;
     if (!state) {
-      return { meta: [{ title: "Bundesland nicht gefunden" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Bundesland nicht gefunden" }, { name: "robots", content: "noindex, nofollow" },
+      { name: "googlebot", content: "noindex, nofollow" }] };
     }
     const title = `Heizölpreise ${state.name} – ab ${euro(PRICE_PER_100)} €/100 L | Heizöl Deutschland`;
     const description = `Aktueller Heizölpreis in ${state.name}: ab ${euro(PRICE_PER_100)} € pro 100 Liter, ${num(SAMPLE_LITERS)} Liter ca. ${euro(sampleTotal())} €. Kostenlose Lieferung in ${DELIVERY_DAYS} Werktagen.`;

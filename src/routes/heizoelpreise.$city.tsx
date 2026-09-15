@@ -32,7 +32,8 @@ export const Route = createFileRoute("/heizoelpreise/$city")({
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Ort nicht gefunden" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Ort nicht gefunden" }, { name: "robots", content: "noindex, nofollow" },
+      { name: "googlebot", content: "noindex, nofollow" }] };
     }
     const { city, state } = loaderData;
     const title = `Heizölpreise ${city.name} – ab ${euro(PRICE_PER_100)} €/100 L | Heizöl Deutschland`;
