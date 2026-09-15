@@ -35,12 +35,12 @@ import garantie from "@/assets/garantie.svg.asset.json";
 export const Route = createFileRoute("/angebote")({
   head: () => ({
     meta: [
-      { title: "Ihre Kreditangebote – smava" },
+      { title: "Ihre Angebote — Heizöl Deutschland" },
       {
         name: "description",
         content: "Ihre persönlichen Kreditangebote im Vergleich – kostenlos und SCHUFA-neutral.",
       },
-      { property: "og:title", content: "Ihre Kreditangebote – smava" },
+       { property: "og:title", content: "Ihre Angebote — Heizöl Deutschland" },
       {
         property: "og:description",
         content: "Ihre persönlichen Kreditangebote im Vergleich – kostenlos und SCHUFA-neutral.",
@@ -261,7 +261,7 @@ function OffersPage() {
     <div className="flex min-h-screen flex-col bg-[#f4f5f6]">
       <header className="sticky top-0 z-20 bg-white shadow-header-strong">
         <div className="mx-auto grid min-h-[60px] max-w-[1160px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:h-[68px] md:justify-between md:px-8 md:py-0">
-          <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
+          <Link to="/" aria-label="Heizöl Deutschland Startseite" className="text-ink">
             <Logo className="h-8 w-auto" />
           </Link>
           <span className="flex shrink-0 items-center gap-1.5 text-[13px] text-[#323232] min-[390px]:gap-2 min-[390px]:text-[15px]">

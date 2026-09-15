@@ -632,11 +632,11 @@ export function TrustBlock() {
 /* Schlanker Wizard-Footer                                             */
 /* ------------------------------------------------------------------ */
 const LEGAL = [
-  { label: "Datenschutz", href: "https://www.smava.de/datenschutz/" },
-  { label: "AGB", href: "https://www.smava.de/agb/" },
-  { label: "Impressum", href: "https://www.smava.de/impressum/" },
-  { label: "Cookies", href: "https://www.smava.de/cookies/" },
-  { label: "Widerruf", href: "https://www.smava.de/widerruf/" },
+  { label: "Datenschutz", href: "/datenschutz" },
+  { label: "AGB", href: "/agb" },
+  { label: "Impressum", href: "/impressum" },
+  { label: "Cookies", href: "/cookie-einstellungen" },
+  { label: "Widerruf", href: "/widerruf" },
 ];
 
 const SOCIALS: { label: string; href: string; path: ReactNode }[] = [
@@ -688,47 +688,23 @@ export function WizardFooter() {
   return (
     <footer className="border-t border-border bg-white">
       <div className="mx-auto flex max-w-[1100px] flex-col items-start gap-5 px-5 py-6 md:flex-row md:items-center md:justify-between md:px-8">
-        <a
-          href="https://www.smava.de/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="smava Startseite"
-          className="text-smava-logo"
-        >
+        <Link to="/" aria-label="Heizöl Deutschland Startseite" className="text-ink">
           <Logo />
-        </a>
-        <div className="flex flex-wrap items-center gap-3">
-          {SOCIALS.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${s.label} icon`}
-              className="grid size-8 place-items-center rounded-[4px] border border-smava-logo text-smava-logo transition-colors hover:bg-[#eff8f1]"
-            >
-              <svg width="30" height="30" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-                {s.path}
-              </svg>
-            </a>
-          ))}
-        </div>
+        </Link>
         <div className="flex flex-col items-start gap-2 text-left md:items-end md:text-right">
           <div className="flex flex-wrap gap-x-5 gap-y-1 md:justify-end">
             {LEGAL.map((l) => (
-              <a
+              <Link
                 key={l.label}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                to={l.href}
                 className="text-[13px] leading-5 text-footer-text hover:underline"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </div>
           <p className="text-[13px] leading-5 text-footer-text">
-            © 2026 smava.de | Palisadenstraße 90 | 10243 Berlin
+            © 2026 Demovero GmbH | Kurfürstendamm 97–98 | 10709 Berlin
           </p>
         </div>
       </div>

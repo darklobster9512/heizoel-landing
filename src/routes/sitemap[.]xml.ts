@@ -12,6 +12,11 @@ const STATIC_PATHS = [
   "/faq",
   "/kontakt",
   "/heizoel-wissen",
+  "/impressum",
+  "/datenschutz",
+  "/agb",
+  "/widerruf",
+  "/cookie-einstellungen",
 ];
 
 function buildSitemap(origin: string) {

@@ -47,7 +47,7 @@ const STATS = [
 
 export function TrustBar() {
   return (
-    <section aria-label="Klaro in Zahlen" className="bg-background">
+    <section aria-label="Heizöl Deutschland in Zahlen" className="bg-background">
       <div className="h-[3px] w-full bg-brand" />
       <div className="mx-auto max-w-6xl px-5 py-6 md:py-8">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
@@ -446,7 +446,7 @@ export function MatchingOffers() {
             id="matching-offers-title"
             className="text-center text-[25px] font-bold leading-[1.25] text-conditions md:text-[28px]"
           >
-            Mit Klaro zum günstigsten Heizölpreis
+             Mit Heizöl Deutschland zum günstigsten Heizölpreis
           </h2>
 
           <ul className="mt-8 grid gap-x-[72px] gap-y-8 sm:grid-cols-2 md:-ml-[94px] md:w-[calc(100%+94px)]">
@@ -753,7 +753,7 @@ export function TrustLinks() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="pr-4">
             <h2 className="text-[26px] font-bold leading-[1.25] text-conditions">
-              Vertrauen Sie auf Klaro – Ihr Heizöl-Preisvergleich
+              Vertrauen Sie auf Heizöl Deutschland – Ihr Heizöl-Preisvergleich
             </h2>
             <p className="mt-5 text-[15px] leading-[1.6] text-conditions">
               Entdecken Sie jetzt weitere Themen und Vergleichsmöglichkeiten rund um
@@ -811,11 +811,11 @@ const FOOTER_SERVICES = [
 ];
 
 const FOOTER_RECHTLICHES = [
-  { label: "AGB", href: "#" },
-  { label: "Impressum", href: "#" },
-  { label: "Datenschutz", href: "#" },
-  { label: "Cookie-Einstellungen", href: "#" },
-  { label: "Widerruf", href: "#" },
+  { label: "AGB", href: "/agb" },
+  { label: "Impressum", href: "/impressum" },
+  { label: "Datenschutz", href: "/datenschutz" },
+  { label: "Cookie-Einstellungen", href: "/cookie-einstellungen" },
+  { label: "Widerruf", href: "/widerruf" },
 ];
 
 const FOOTER_AWARDS = [
@@ -872,9 +872,9 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1283px] px-5 py-10 md:px-[66px] md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.25fr_0.9fr_0.9fr_1.15fr] md:gap-10">
           <div>
-            <a href="#top" aria-label="Klaro Startseite" className="inline-block text-smava-logo">
+            <Link to="/" aria-label="Heizöl Deutschland Startseite" className="inline-block text-ink">
               <Logo />
-            </a>
+            </Link>
             <p className="mt-3 max-w-[280px] text-[13px] leading-[1.5] text-footer-text">
               Heizöl online günstig bestellen. Tagesaktuelle Preise, deutschlandweite Lieferung,
               über 25.000 zufriedene Kunden.
@@ -974,17 +974,17 @@ export function SiteFooter() {
       </div>
 
       <div className="mx-auto flex max-w-[1283px] flex-col gap-2 px-5 py-4 text-[12px] text-footer-text md:flex-row md:items-center md:justify-between md:px-[66px]">
-        <p>© 2026 Klaro GmbH | Heizöl online günstig bestellen</p>
+        <p>© 2026 Demovero GmbH | heizoel-deutschland.com</p>
         <div className="flex gap-5">
-          <a href="#" className="hover:underline">
+          <Link to="/impressum" className="hover:underline">
             Impressum
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="/datenschutz" className="hover:underline">
             Datenschutz
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="/agb" className="hover:underline">
             AGB
-          </a>
+          </Link>
         </div>
       </div>
       </footer>
@@ -1003,7 +1003,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
             <div className="relative">
               <img
                 src={smavaHero.url}
-                alt="Klaro Beraterin mit Tablet"
+                 alt="Beraterin von Heizöl Deutschland mit Tablet"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
             </div>
@@ -1031,7 +1031,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
         <div className={`flex justify-center bg-white ${compact ? "pt-2" : "pt-6"}`}>
           <img
             src={smavaHero.url}
-            alt="Klaro Beraterin mit Tablet"
+             alt="Beraterin von Heizöl Deutschland mit Tablet"
             className="h-[240px] w-auto object-contain"
           />
         </div>
@@ -1068,7 +1068,7 @@ export function HeizoelServiceIntro() {
         </h2>
         <div className="mx-auto mt-8 max-w-[920px] space-y-5 text-[16px] leading-[1.65] text-conditions">
           <p>
-            klaro.de ist Deutschlands führender Online-Service für günstige Heizölpreise. Seit{" "}
+            heizoel-deutschland.com ist ein Online-Service für günstige Heizölpreise. Seit{" "}
             <strong>2014</strong> können Kunden bei uns Heizöl online kaufen — einfach, schnell und zum garantiert
             besten Preis. Unser Preisrechner vergleicht automatisch die Heizölpreise heute von über{" "}
             <strong>500 zertifizierten Partnerhändlern</strong> deutschlandweit und findet den optimalen
@@ -1091,7 +1091,7 @@ export function HeizoelServiceIntro() {
           <p>
             Flexible Zahlungsarten ohne Aufpreis: Barzahlung, EC-Karte, Rechnung oder Vorauskasse. Standard-Lieferzeit
             ca. <strong>7 Werktage</strong>. Bei Verspätung erhalten Sie <strong>50€ Entschädigung</strong>.{" "}
-            klaro.de — Ihr vertrauenswürdiger Partner für günstiges Heizöl in ganz Deutschland.
+            heizoel-deutschland.com — Ihr Partner für günstiges Heizöl in ganz Deutschland.
           </p>
         </div>
       </div>

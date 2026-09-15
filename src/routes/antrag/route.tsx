@@ -32,11 +32,15 @@ export const Route = createFileRoute("/antrag")({
   validateSearch,
   head: () => ({
     meta: [
-      { title: "smava Kreditanfrage – Jetzt Kreditangebote berechnen" },
+      { title: "Anfrage — Heizöl Deutschland" },
       {
         name: "description",
         content:
-          "Kostenlose smava Kreditanfrage: In wenigen Schritten Angaben machen und passende Kreditangebote von über 20 Banken erhalten – 100 % SCHUFA-neutral und kostenlos.",
+          "Anfrage bei Heizöl Deutschland: Angaben sicher und bequem online erfassen.",
+      { property: "og:title", content: "Anfrage — Heizöl Deutschland" },
+      { property: "og:description", content: "Angaben sicher und bequem online erfassen." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       },
     ],
   }),
@@ -50,7 +54,7 @@ function WizardLayout() {
       <div className="flex min-h-screen flex-col bg-white">
         <header className="sticky top-0 z-20 border-b border-border bg-white shadow-header-strong">
           <div className="mx-auto flex h-14 max-w-[1100px] items-center px-5 md:px-8">
-            <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
+            <Link to="/" aria-label="Heizöl Deutschland Startseite" className="text-ink">
               <Logo className="h-8 w-auto" />
             </Link>
           </div>
