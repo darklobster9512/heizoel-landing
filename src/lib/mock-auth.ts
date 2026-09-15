@@ -15,7 +15,8 @@ export type MockSession = {
   createdAt: string;
 };
 
-const KEY = "klaro-demo-session";
+const KEY = "heizoel-deutschland-demo-session";
+const SESSION_EVENT = "heizoel-deutschland-demo-session";
 
 function roleFor(email: string): AppRole {
   return email.trim().toLowerCase().startsWith("admin@") ? "admin" : "user";
@@ -37,7 +38,7 @@ function persist(session: MockSession | null) {
   if (typeof window === "undefined") return;
   if (session) window.localStorage.setItem(KEY, JSON.stringify(session));
   else window.localStorage.removeItem(KEY);
-  window.dispatchEvent(new Event("klaro-demo-session"));
+  window.dispatchEvent(new Event(SESSION_EVENT));
 }
 
 export async function signIn(email: string, _password: string): Promise<MockSession> {
@@ -78,10 +79,10 @@ export function useSession(): { session: MockSession | null; ready: boolean } {
     const read = () => setSession(getSession());
     read();
     setReady(true);
-    window.addEventListener("klaro-demo-session", read);
+    window.addEventListener(SESSION_EVENT, read);
     window.addEventListener("storage", read);
     return () => {
-      window.removeEventListener("klaro-demo-session", read);
+      window.removeEventListener(SESSION_EVENT, read);
       window.removeEventListener("storage", read);
     };
   }, []);
