@@ -117,7 +117,7 @@ const freeInquiry = { url: "/img/free-inquiry.svg" };
 const getOffers = { url: "/img/get-offers.svg" };
 const closeApplication = { url: "/img/close-application.svg" };
 const coupleOnCouch = { url: "/img/couple-on-couch.webp" };
-const offerList = { url: "/img/heizoel-offer-list.png" };
+const offerList = { url: "/img/heizoel-offer-list.webp" };
 const interestIcon = { url: "/img/interest.svg" };
 const neutralIcon = { url: "/img/neutral.svg" };
 const freeIcon = { url: "/img/free.svg" };
@@ -784,6 +784,8 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
               <img
                 src={heizoelHero.url}
                  alt="Beraterin von Heizöl Deutschland mit Tablet"
+                loading="lazy"
+                decoding="async"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
             </div>
@@ -812,6 +814,8 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           <img
             src={heizoelHero.url}
              alt="Beraterin von Heizöl Deutschland mit Tablet"
+            loading="lazy"
+            decoding="async"
             className="h-[240px] w-auto object-contain"
           />
         </div>

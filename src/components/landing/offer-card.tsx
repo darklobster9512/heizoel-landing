@@ -1,15 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Check, Shield } from "lucide-react";
 
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import type { PriceSearchValues } from "./price-search-loading";
 
 const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -101,25 +91,34 @@ export function OfferCard({
             Abladestellen
           </label>
 
-          <Select
-            value={String(deliveryPoints)}
-            onValueChange={(value) => setDeliveryPoints(Number(value))}
-          >
-            <SelectTrigger id="delivery-points" className={selectTriggerClass}>
-              <SelectValue placeholder="Abladestellen wählen" />
-            </SelectTrigger>
-            <SelectContent>
+          <div className="relative">
+            <select
+              id="delivery-points"
+              value={String(deliveryPoints)}
+              onChange={(e) => setDeliveryPoints(Number(e.target.value))}
+              className={`${selectTriggerClass} appearance-none pr-9`}
+            >
               {DELIVERY_POINTS.map((n) => (
-                <SelectItem key={n} value={String(n)}>
+                <option key={n} value={String(n)}>
                   {n}
-                </SelectItem>
+                </option>
               ))}
-            </SelectContent>
-          </Select>
+            </select>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-hero-text/60"
+            >
+              <path d="M5 8l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
         </div>
       </div>
 
-      <Button
+      <button
         type="button"
         disabled={!/^\d{5}$/.test(plz) || quantity < 1500 || quantity > 32000}
         onClick={() =>
@@ -129,19 +128,23 @@ export function OfferCard({
             abladestellen: deliveryPoints,
           })
         }
-        className="mt-4 inline-flex h-[46px] w-full items-center justify-center rounded-[4px] bg-brand px-5 py-0 text-xs font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mt-7 md:shadow-none md:text-[15px]"
+        className="mt-4 inline-flex h-[46px] w-full items-center justify-center rounded-[4px] bg-brand px-5 py-0 text-xs font-semibold text-white shadow-cta transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:pointer-events-none disabled:opacity-50 md:mt-7 md:shadow-none md:text-[15px]"
       >
         Jetzt Heizölpreise vergleichen
-      </Button>
+      </button>
 
       <div className="mt-3 flex flex-nowrap items-center justify-center gap-2 text-[11px] text-hero-text/70 md:mt-4 md:text-xs">
         <span className="inline-flex items-center gap-1">
-          <Shield className="size-3.5 shrink-0" />
-          100% sicher & kostenlos
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3.5 shrink-0">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          100% sicher &amp; kostenlos
         </span>
         <span className="text-muted/60" aria-hidden="true">•</span>
         <span className="inline-flex items-center gap-1">
-          <Check className="size-3.5 shrink-0" />
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="size-3.5 shrink-0">
+            <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           Keine versteckten Kosten
         </span>
       </div>
