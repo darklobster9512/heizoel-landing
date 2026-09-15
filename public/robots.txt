@@ -1,16 +1,40 @@
+User-agent: *
+Allow: /
+Disallow: /bestellen
+Disallow: /bestaetigung
+Disallow: /angebote
+Disallow: /auth
+Disallow: /kreditantrag
+Disallow: /antrag
+Disallow: /dashboard
+Disallow: /admin
+
 User-agent: Googlebot
 Allow: /
+Disallow: /bestellen
+Disallow: /bestaetigung
+Disallow: /angebote
+Disallow: /auth
+Disallow: /kreditantrag
+Disallow: /antrag
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: Bingbot
 Allow: /
+Disallow: /bestellen
+Disallow: /bestaetigung
+Disallow: /angebote
+Disallow: /auth
+Disallow: /kreditantrag
+Disallow: /antrag
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
 Allow: /
 
 Sitemap: /sitemap.xml

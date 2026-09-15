@@ -18,27 +18,67 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const TITLE = "Häufig gestellte Fragen | Heizöl Deutschland";
+import { breadcrumb, faqPage, jsonLd, organization, pageMeta, webPage } from "@/lib/seo";
+
+const TITLE = "Heizöl FAQ: Bestellung, Lieferung, Preise & Zahlung";
 const DESCRIPTION =
-  "Antworten auf alle Fragen rund um Heizöl: Qualität und Sorten, Bestellung ab 1.500 Litern, Lieferung in ca. 7 Werktagen, Preise und Zahlungsarten.";
+  "Antworten auf alle Fragen rund um Heizöl: Qualität und Sorten, Bestellung ab 1.500 Litern, Lieferung in ca. 7 Werktagen, Preise, Zahlarten und Abladestellen.";
+const URL = "/faq";
+
+const FAQ_LD = [
+  {
+    q: "Ab welcher Menge kann ich Heizöl bestellen?",
+    a: "Heizöl können Sie ab 1.500 Litern bestellen, maximal 5.000 Liter pro Bestellung. Die Menge wählen Sie im Preisrechner selbst.",
+  },
+  {
+    q: "Wie lange dauert die Heizöllieferung?",
+    a: "Die Lieferung erfolgt deutschlandweit in der Regel innerhalb von etwa 7 Werktagen. Den gewünschten Liefertag und Vormittag oder Nachmittag legen Sie bei der Bestellung fest.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen Standard-Heizöl und Premium-Heizöl?",
+    a: "Standard-Heizöl EL entspricht der DIN 51603-1. Premium-Heizöl enthält zusätzliche Additive, die Verbrennung, Lagerstabilität und Schutz von Tank und Brenner verbessern.",
+  },
+  {
+    q: "Welche Zahlungsarten sind möglich?",
+    a: "Sie zahlen per Vorkasse, in bar bei Lieferung, mit EC-Karte bei Lieferung oder als Bestandskunde auf Rechnung. Alle Zahlungsarten sind ohne Aufpreis.",
+  },
+  {
+    q: "Ist die Lieferung im Heizölpreis enthalten?",
+    a: "Ja. Der angezeigte Preis pro 100 Liter enthält die Lieferung sowie die gesetzliche Mehrwertsteuer.",
+  },
+  {
+    q: "Wie finde ich den aktuellen Heizölpreis für meine Postleitzahl?",
+    a: "Geben Sie im Preisrechner Ihre Postleitzahl und die gewünschte Menge ein. Sie erhalten den tagesaktuellen Preis für Ihre Region inklusive Lieferung.",
+  },
+  {
+    q: "Welche Schlauchlänge benötigt der Tankwagen?",
+    a: "Standard sind 40 Meter. Ist der Tank weiter entfernt, können Sie 60 oder 80 Meter Schlauch auswählen.",
+  },
+  {
+    q: "Kann ich mehrere Abladestellen angeben?",
+    a: "Ja, Sie können bei der Preisabfrage angeben, auf wie viele Abladestellen die Menge verteilt werden soll.",
+  },
+];
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/faq" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Häufige Fragen", item: URL },
+        ]),
+        faqPage(FAQ_LD),
+      ),
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
   }),
   component: FaqPage,
 });
+
 
 type FaqItem = { q: string; a: ReactNode };
 type FaqSection = {

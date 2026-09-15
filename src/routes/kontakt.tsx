@@ -20,27 +20,55 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-const TITLE = "Kontakt & Hilfe | Heizöl Deutschland";
+import {
+  POSTAL_ADDRESS,
+  SITE_EMAIL,
+  SITE_NAME,
+  SITE_PHONE,
+  breadcrumb,
+  jsonLd,
+  organization,
+  pageMeta,
+  webPage,
+} from "@/lib/seo";
+
+const TITLE = "Kontakt & Hilfe — Heizöl Deutschland Kundenservice";
 const DESCRIPTION =
-  "Kontaktieren Sie Heizöl Deutschland per E-Mail oder über unser Kontaktformular für Fragen zu Heizölpreisen und Bestellungen.";
+  "Kontakt zum Kundenservice von Heizöl Deutschland: Kontaktformular, E-Mail und Telefon für Fragen zu Heizölpreisen, Lieferterminen und Bestellungen.";
+const URL = "/kontakt";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/kontakt" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION, type: "ContactPage" }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Kontakt & Hilfe", item: URL },
+        ]),
+        {
+          "@type": "LocalBusiness",
+          name: SITE_NAME,
+          email: SITE_EMAIL,
+          telephone: SITE_PHONE,
+          address: POSTAL_ADDRESS,
+          url: "/",
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            opens: "08:00",
+            closes: "18:00",
+          },
+        },
+      ),
     ],
-    links: [{ rel: "canonical", href: "/kontakt" }],
   }),
   component: KontaktPage,
 });
+
 
 type ContactItem = {
   icon: typeof Phone;

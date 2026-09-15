@@ -4,27 +4,37 @@ import { ArrowRight, BookOpen, Droplets, Flame, Wrench } from "lucide-react";
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 
-const TITLE = "Heizöl-Wissen für Ihr Zuhause | Heizöl Deutschland";
+import { article, breadcrumb, jsonLd, organization, pageMeta, webPage } from "@/lib/seo";
+
+const TITLE = "Heizöl-Wissen: Sorten, Tankpflege & Verbrauch senken";
 const DESCRIPTION =
-  "Heizöl-Wissen von Heizöl Deutschland: Heizöl-Sorten im Vergleich, Tank richtig pflegen, Verbrauch senken und wichtige Begriffe verstehen.";
+  "Heizöl-Ratgeber: Standard und Premium im Vergleich, Heizöltank richtig pflegen, Verbrauch senken, Lagerung und wichtige Fachbegriffe verständlich erklärt.";
+const URL = "/heizoel-wissen";
 
 export const Route = createFileRoute("/heizoel-wissen")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/heizoel-wissen" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL, ogType: "article" }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION }),
+        article({
+          url: URL,
+          headline: "Heizöl-Wissen: Sorten, Tankpflege und Verbrauch",
+          description: DESCRIPTION,
+          section: "Heizöl-Ratgeber",
+        }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Heizöl-Wissen", item: URL },
+        ]),
+      ),
     ],
-    links: [{ rel: "canonical", href: "/heizoel-wissen" }],
   }),
   component: HeizoelWissenPage,
 });
+
 
 type WissenSection = {
   id: string;

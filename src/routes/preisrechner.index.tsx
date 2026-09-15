@@ -19,29 +19,38 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-const DESCRIPTION =
-  "Heizölpreis sofort berechnen mit Heizöl Deutschland: Aktuelle Preise, kostenlose Lieferung und Festpreisgarantie.";
+import { breadcrumb, jsonLd, organization, pageMeta, service, webPage } from "@/lib/seo";
 
-const TITLE = "Heizölpreis berechnen — Heizöl Deutschland";
+const DESCRIPTION =
+  "Heizölpreis für Ihre Postleitzahl in Sekunden berechnen: tagesaktuelle Preise pro 100 Liter, Lieferung inklusive, Standard und Premium im direkten Vergleich.";
+
+const TITLE = "Heizölpreis berechnen — Heizölrechner für Ihre PLZ";
+const URL = "/preisrechner";
 
 export const Route = createFileRoute("/preisrechner/")({
   validateSearch: z.object({ plz: z.string().regex(/^\d{5}$/).optional() }),
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/preisrechner" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Preisrechner", item: URL },
+        ]),
+        service({
+          name: "Heizölpreis-Rechner",
+          description: DESCRIPTION,
+          url: URL,
+        }),
+      ),
     ],
-    links: [{ rel: "canonical", href: "/preisrechner" }],
   }),
   component: PreisrechnerPage,
 });
+
 
 const ADVANTAGES = [
   {

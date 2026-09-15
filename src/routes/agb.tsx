@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { COMPANY, CompanyAddress, ContactLinks, LegalPage } from "@/components/legal/legal-page";
+import { legalJsonLd } from "@/lib/seo";
 
 const TITLE = "Allgemeine Geschäftsbedingungen | Heizöl Deutschland";
 const DESCRIPTION = "AGB für Heizölbestellungen über heizoel-deutschland.com: Vertragsschluss, Preise, Lieferung, Zahlung, Gewährleistung und Verbraucherrechte.";
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/agb")({
     { title: TITLE }, { name: "description", content: DESCRIPTION }, { property: "og:title", content: TITLE },
     { property: "og:description", content: DESCRIPTION }, { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-  ], links: [{ rel: "canonical", href: "/agb" }] }),
+  ], links: [{ rel: "canonical", href: "/agb" }], scripts: [legalJsonLd("/agb", TITLE, DESCRIPTION)] }),
   component: AgbPage,
 });
 

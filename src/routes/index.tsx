@@ -21,6 +21,8 @@ import {
   TrustBar,
   TrustLinks,
 } from "@/components/landing/sections";
+import { jsonLd, organization, pageMeta, service, webPage, website } from "@/lib/seo";
+
 
 
 const DESCRIPTION =
@@ -30,50 +32,25 @@ const TITLE = "Heizöl bestellen & Heizölpreise vergleichen | Heizöl DE";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-    ],
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: "/" }),
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Heizöl Deutschland",
-          legalName: "Demovero GmbH",
-          url: "/",
-          logo: "/apple-touch-icon.png",
-          image: "/apple-touch-icon.png",
-          email: "info@heizoel-deutschland.com",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Kurfürstendamm 97-98",
-            postalCode: "10709",
-            addressLocality: "Berlin",
-            addressCountry: "DE",
-          },
-          areaServed: "DE",
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            bestRating: "5",
-            reviewCount: "25000",
-          },
+      jsonLd(
+        organization(),
+        website(),
+        webPage({ url: "/", name: TITLE, description: DESCRIPTION }),
+        service({
+          name: "Heizöl online bestellen",
+          description:
+            "Heizölpreise vergleichen und Heizöl deutschlandweit ab 1.500 Litern online bestellen, Lieferung inklusive.",
+          url: "/preisrechner",
         }),
-      },
+      ),
     ],
   }),
   component: Index,
 });
+
 
 function Index() {
   const [searchValues, setSearchValues] = useState<PriceSearchValues | null>(null);

@@ -17,7 +17,8 @@ export const Route = createFileRoute("/antrag/schritt-18")({
   head: () => ({
     meta: [
       { title: "Schritt 18: Bankverbindung — Heizöl Deutschland" },
-      { name: "robots", content: "noindex" },
+      { name: "robots", content: "noindex, nofollow" },
+      { name: "googlebot", content: "noindex, nofollow" },
     ],
   }),
   component: Step18,
