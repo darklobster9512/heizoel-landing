@@ -172,16 +172,16 @@ function LiveOrders() {
           .join(" ")}
       />
       <div key={orderKey} className="animate-fade-in relative px-4 py-3.5">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-sm text-conditions">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="relative flex size-2">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:flex sm:items-center sm:justify-between">
+          <p className="flex min-w-0 items-start gap-1.5 text-sm leading-5 text-conditions">
+              <span className="relative mt-1.5 flex size-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
                 <span className="relative inline-flex size-2 rounded-full bg-brand" />
               </span>
-              Bestellung aus <span className="font-bold text-ink">{order.city}</span>{" "}
-              ({order.plz})
-            </span>
+              <span className="min-w-0 break-words">
+                Bestellung aus <span className="font-bold text-ink">{order.city}</span>{" "}
+                <span className="whitespace-nowrap">({order.plz})</span>
+              </span>
           </p>
           <Logo className="h-auto w-[60px] shrink-0 text-smava-logo" />
         </div>
