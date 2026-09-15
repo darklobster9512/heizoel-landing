@@ -173,7 +173,7 @@ export function legalJsonLd(url: string, name: string, description: string) {
     webPage({ url, name, description }),
     breadcrumb([
       { name: "Startseite", item: "/" },
-      { name: name.split(/[|—]/)[0].trim(), item: url },
+      { name: (name.split(/[|—]/)[0] ?? name).trim(), item: url },
     ]),
   );
 }
