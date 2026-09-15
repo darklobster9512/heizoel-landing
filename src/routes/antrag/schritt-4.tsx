@@ -4,7 +4,7 @@ import { useWizard } from "@/lib/wizard-store";
 import { NavButtons, ProgressBar, SelectField, TrustBlock, WhyInfo } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-4")({
-  head: () => ({ meta: [{ title: "Schritt 4: Haushalt – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 4: Haushalt — Heizöl Deutschland" }] }),
   component: Step4,
 });
 

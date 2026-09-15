@@ -13,7 +13,7 @@ import {
 } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-14")({
-  head: () => ({ meta: [{ title: "Schritt 14: Arbeitsverhältnis – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 14: Arbeitsverhältnis — Heizöl Deutschland" }] }),
   component: Step14,
 });
 
@@ -65,7 +65,7 @@ function Step14() {
           id="arbeitgeber"
           label="Name Arbeitgeber"
           placeholder="z.B. Mustermann GmbH"
-          hint="Die Angabe dient der Bank zum Abgleich mit Ihrem Einkommensnachweis. Ihr Arbeitgeber wird über Ihre Kreditabsichten zu keinem Zeitpunkt von smava informiert."
+          hint="Die Angabe dient der Bank zum Abgleich mit Ihrem Einkommensnachweis. Ihr Arbeitgeber wird über Ihre Anfrage nicht informiert."
           value={data.employer ?? ""}
           onChange={(v) => update({ employer: v })}
         />

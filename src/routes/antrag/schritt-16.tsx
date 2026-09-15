@@ -17,7 +17,7 @@ import einfacherschutz from "@/assets/einfacherschutz.svg.asset.json";
 
 export const Route = createFileRoute("/antrag/schritt-16")({
   head: () => ({
-    meta: [{ title: "Schritt 16: Restschuldversicherung – smava Kreditanfrage" }],
+    meta: [{ title: "Schritt 16: Restschuldversicherung — Heizöl Deutschland" }],
   }),
   component: Step16,
 });
