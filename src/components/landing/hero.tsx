@@ -2,7 +2,7 @@ import ntv from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
 import bild from "@/assets/bild-empfehlung-2026.png.asset.json";
 import welt from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgv from "@/assets/dtgv-testsieger.png.asset.json";
-import guarantee from "@/assets/guarantee.svg.asset.json";
+import guarantee from "@/assets/guarantee.png.asset.json";
 import { OfferCard } from "./offer-card";
 import type { PriceSearchValues } from "./price-search-loading";
 
