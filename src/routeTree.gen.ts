@@ -25,6 +25,7 @@ import { Route as HeizoelWissenRouteImport } from './routes/heizoel-wissen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LieferungZahlungRouteImport } from './routes/lieferung-zahlung'
+import { Route as SitemapBundeslaenderDotxmlRouteImport } from './routes/sitemap-bundeslaender[.]xml'
 import { Route as SitemapSeitenDotxmlRouteImport } from './routes/sitemap-seiten[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as WiderrufRouteImport } from './routes/widerruf'
@@ -136,6 +137,12 @@ const LieferungZahlungRoute = LieferungZahlungRouteImport.update({
   path: '/lieferung-zahlung',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapBundeslaenderDotxmlRoute =
+  SitemapBundeslaenderDotxmlRouteImport.update({
+    id: '/sitemap-bundeslaender.xml',
+    path: '/sitemap-bundeslaender.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapSeitenDotxmlRoute = SitemapSeitenDotxmlRouteImport.update({
   id: '/sitemap-seiten.xml',
   path: '/sitemap-seiten.xml',
@@ -311,6 +318,7 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
@@ -359,6 +367,7 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
@@ -409,6 +418,7 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
+  '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
@@ -459,6 +469,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
     | '/sitemap.xml'
     | '/widerruf'
@@ -507,6 +518,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
     | '/sitemap.xml'
     | '/widerruf'
@@ -556,6 +568,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
+    | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
     | '/sitemap.xml'
     | '/widerruf'
@@ -606,6 +619,7 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
+  SitemapBundeslaenderDotxmlRoute: typeof SitemapBundeslaenderDotxmlRoute
   SitemapSeitenDotxmlRoute: typeof SitemapSeitenDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WiderrufRoute: typeof WiderrufRoute
@@ -729,6 +743,13 @@ declare module '@tanstack/react-router' {
       path: '/lieferung-zahlung'
       fullPath: '/lieferung-zahlung'
       preLoaderRoute: typeof LieferungZahlungRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-bundeslaender.xml': {
+      id: '/sitemap-bundeslaender.xml'
+      path: '/sitemap-bundeslaender.xml'
+      fullPath: '/sitemap-bundeslaender.xml'
+      preLoaderRoute: typeof SitemapBundeslaenderDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap-seiten.xml': {
@@ -1041,6 +1062,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
+  SitemapBundeslaenderDotxmlRoute: SitemapBundeslaenderDotxmlRoute,
   SitemapSeitenDotxmlRoute: SitemapSeitenDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WiderrufRoute: WiderrufRoute,
