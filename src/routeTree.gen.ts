@@ -27,6 +27,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LieferungZahlungRouteImport } from './routes/lieferung-zahlung'
 import { Route as SitemapBundeslaenderDotxmlRouteImport } from './routes/sitemap-bundeslaender[.]xml'
 import { Route as SitemapSeitenDotxmlRouteImport } from './routes/sitemap-seiten[.]xml'
+import { Route as SitemapStaedteDotxmlRouteImport } from './routes/sitemap-staedte[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as WiderrufRouteImport } from './routes/widerruf'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -146,6 +147,11 @@ const SitemapBundeslaenderDotxmlRoute =
 const SitemapSeitenDotxmlRoute = SitemapSeitenDotxmlRouteImport.update({
   id: '/sitemap-seiten.xml',
   path: '/sitemap-seiten.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapStaedteDotxmlRoute = SitemapStaedteDotxmlRouteImport.update({
+  id: '/sitemap-staedte.xml',
+  path: '/sitemap-staedte.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -320,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
+  '/sitemap-staedte.xml': typeof SitemapStaedteDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -369,6 +376,7 @@ export interface FileRoutesByTo {
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
+  '/sitemap-staedte.xml': typeof SitemapStaedteDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -420,6 +428,7 @@ export interface FileRoutesById {
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap-bundeslaender.xml': typeof SitemapBundeslaenderDotxmlRoute
   '/sitemap-seiten.xml': typeof SitemapSeitenDotxmlRoute
+  '/sitemap-staedte.xml': typeof SitemapStaedteDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/widerruf': typeof WiderrufRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -471,6 +480,7 @@ export interface FileRouteTypes {
     | '/lieferung-zahlung'
     | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
+    | '/sitemap-staedte.xml'
     | '/sitemap.xml'
     | '/widerruf'
     | '/admin'
@@ -520,6 +530,7 @@ export interface FileRouteTypes {
     | '/lieferung-zahlung'
     | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
+    | '/sitemap-staedte.xml'
     | '/sitemap.xml'
     | '/widerruf'
     | '/admin'
@@ -570,6 +581,7 @@ export interface FileRouteTypes {
     | '/lieferung-zahlung'
     | '/sitemap-bundeslaender.xml'
     | '/sitemap-seiten.xml'
+    | '/sitemap-staedte.xml'
     | '/sitemap.xml'
     | '/widerruf'
     | '/_authenticated/admin'
@@ -621,6 +633,7 @@ export interface RootRouteChildren {
   LieferungZahlungRoute: typeof LieferungZahlungRoute
   SitemapBundeslaenderDotxmlRoute: typeof SitemapBundeslaenderDotxmlRoute
   SitemapSeitenDotxmlRoute: typeof SitemapSeitenDotxmlRoute
+  SitemapStaedteDotxmlRoute: typeof SitemapStaedteDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WiderrufRoute: typeof WiderrufRoute
   HeizoelpreiseCityRoute: typeof HeizoelpreiseCityRoute
@@ -757,6 +770,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap-seiten.xml'
       fullPath: '/sitemap-seiten.xml'
       preLoaderRoute: typeof SitemapSeitenDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-staedte.xml': {
+      id: '/sitemap-staedte.xml'
+      path: '/sitemap-staedte.xml'
+      fullPath: '/sitemap-staedte.xml'
+      preLoaderRoute: typeof SitemapStaedteDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1064,6 +1084,7 @@ const rootRouteChildren: RootRouteChildren = {
   LieferungZahlungRoute: LieferungZahlungRoute,
   SitemapBundeslaenderDotxmlRoute: SitemapBundeslaenderDotxmlRoute,
   SitemapSeitenDotxmlRoute: SitemapSeitenDotxmlRoute,
+  SitemapStaedteDotxmlRoute: SitemapStaedteDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WiderrufRoute: WiderrufRoute,
   HeizoelpreiseCityRoute: HeizoelpreiseCityRoute,
