@@ -4,7 +4,7 @@ import { Check, Info, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./logo";
-const ntvAward = { url: "/img/ntv-gesamtsieger-heizoel24-2025.png" };
+const ntvAward = { url: "/img/ntv-gesamtsieger-2025.png" };
 const bildAward = { url: "/img/bild-empfehlung-2026.png" };
 const weltAward = { url: "/img/die-welt-service-champion-2025.png" };
 const dtgvAward = { url: "/img/dtgv-testsieger.png" };
