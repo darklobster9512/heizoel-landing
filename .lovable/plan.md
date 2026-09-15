@@ -1,36 +1,36 @@
-# Bestellungen an das Heizöl-Panel übergeben
+# Bestellungen an die Panel-Funktion "create-order" senden
 
-Beim Abschluss der Bestellung auf `/bestellen` wird die Bestellung künftig direkt an das Panel-Projekt "heizöl-panel" gemeldet und landet dort in der Bestellübersicht (inkl. Telegram-Benachrichtigung, die das Panel selbst auslöst). Die Zuordnung erfolgt über die Branding-Kennung `6e0ae941-5466-4946-afaf-7d44edf6da04`.
+Beim Abschluss der Bestellung auf `/bestellen` wird die Bestellung direkt an die Bestellfunktion des Panel-Projekts geschickt. Sie landet dort in der Bestellübersicht und löst die Telegram-Benachrichtigung aus. Die Zuordnung läuft über die Branding-Kennung `6e0ae941-5466-4946-afaf-7d44edf6da04`.
+
+Adresse der Funktion: `https://fdlhjoxmxryquecocwjv.supabase.co/functions/v1/create-order` (geprüft: erreichbar, erlaubt Aufrufe von unserer Domain, keine Anmeldedaten nötig).
 
 ## Ablauf für den Kunden
 
 1. Kunde füllt Schritt 2 aus und klickt auf "Jetzt kostenpflichtig bestellen".
-2. Der Button zeigt kurz "Bestellung wird übermittelt ..." und ist währenddessen gesperrt (kein Doppelklick möglich).
-3. Bei Erfolg: Weiterleitung auf `/bestaetigung` — dort wird die echte Bestellnummer aus dem Panel angezeigt, nicht mehr eine zufällig erzeugte.
-4. Bei Problemen (Panel nicht erreichbar, Netzwerkfehler): freundlicher Hinweis oberhalb des Buttons mit der Bitte, es erneut zu versuchen, plus Telefonnummer als Alternative. Die eingegebenen Daten bleiben erhalten.
+2. Der Button zeigt kurz "Bestellung wird übermittelt ..." und ist gesperrt (kein Doppelklick).
+3. Bei Erfolg: Weiterleitung auf `/bestaetigung` — dort steht die echte Bestellnummer aus dem Panel statt einer zufällig erzeugten.
+4. Bei Problemen: freundlicher roter Hinweis über dem Button mit Bitte, es erneut zu versuchen, plus Telefonnummer als Alternative. Alle Eingaben bleiben erhalten.
 
-Es ändert sich optisch nichts weiter — Layout, Schritte, Preisleiste und Bestätigungsseite bleiben wie sie sind.
+Optisch ändert sich sonst nichts — Schritte, Preisleiste und Bestätigungsseite bleiben wie sie sind.
 
 ## Technische Umsetzung
 
 - Neue Datei `src/lib/panel-orders.ts`:
-  - Konstanten `PANEL_ORDERS_URL` (`https://project--485f594a-9180-4077-adda-eb24ffaadc89.lovable.app/api/public/orders`) und `BRANDING_ID = "6e0ae941-5466-4946-afaf-7d44edf6da04"`.
-  - `submitPanelOrder(payload)`: `POST` als JSON, Antwort `{ ok, orderNumber, orderId }` bzw. `{ ok: false, error }`; wirft bei Fehler eine Fehlermeldung, die die UI anzeigen kann.
-  - Mapper von `OrderDraft` + Formularstand auf das erwartete Schema des Panel-Endpunkts: `brandingId`, `variant`, `liters`, `deliveryPoints` (aus `points`), `hose`, `truck`, `pricePer100`, `total`, `earliestDate`, `slotDate`, `slotPeriod` (`vormittag` | `nachmittag` | `telefon`), `email`, `phone`, `deliveryAddress` / `billingAddress` (salutation, company, firstName, lastName, street, streetNo, plz, city), `notes`, `paymentMethod`, `placedAt`.
+  - `PANEL_ORDER_ENDPOINT = "https://fdlhjoxmxryquecocwjv.supabase.co/functions/v1/create-order"`, `BRANDING_ID = "6e0ae941-5466-4946-afaf-7d44edf6da04"`.
+  - `submitPanelOrder(payload)`: `POST` als JSON, erwartet `{ ok: true, orderNumber, orderId }`; bei `{ ok: false, error }` oder Netzwerkfehler wird eine anzeigbare Fehlermeldung geworfen.
+  - Mapper von `OrderDraft` + Formularstand auf das Schema der Panel-Funktion: `brandingId`, `variant`, `liters`, `deliveryPoints` (aus `points`), `hose`, `truck`, `pricePer100`, `total`, `earliestDate`, `slotDate`, `slotPeriod` (`vormittag` | `nachmittag` | `telefon`), `email`, `phone`, `deliveryAddress` / `billingAddress` (salutation, company, firstName, lastName, street, streetNo, plz, city), `notes`, `paymentMethod`, `placedAt`.
 - `src/routes/bestellen.tsx`:
   - `submit` wird `async`; neue States `submitting` und `submitError`.
-  - Bestellnummer kommt aus der Antwort (`orderNumber`) und wird in `saveOrderConfirmation` als `orderNo` gespeichert; die lokale Zufalls-Nummer entfällt.
+  - Bestellnummer kommt aus der Antwort und wird als `orderNo` in `saveOrderConfirmation` gespeichert; die lokale Zufallsnummer entfällt.
   - Weiterleitung auf `/bestaetigung` erst nach erfolgreicher Antwort.
-  - Button (Desktop-Card und sticky Leiste) zeigt Ladezustand, `disabled` während der Übertragung; Fehlermeldung als dezenter roter Hinweis.
-- Der Endpunkt liegt unter `/api/public/*` des Panels und erlaubt CORS für alle Ursprünge — es sind keine Schlüssel oder Anmeldedaten in diesem Projekt nötig.
+  - Button in Desktop-Karte und sticky Leiste: Ladezustand + `disabled` während der Übertragung.
+- Der Aufruf erfolgt direkt aus dem Browser (die Funktion erlaubt CORS für alle Ursprünge); kein Schlüssel und keine Kopie der Panel-Logik in diesem Projekt.
 
-## Zur Rückfrage: welche Funktion des Panels genutzt wird
+## Prüfung
 
-Im Panel-Projekt gibt es keine separaten Supabase-Edge-Functions — der Ordner `supabase/` enthält nur Migrationen. Die Bestellannahme läuft dort über die serverseitige Funktion `src/routes/api/public/orders.ts`. Sie ist genau die Schnittstelle, die Bestellungen prüft, in die Tabelle `orders` schreibt, die Bestellnummer erzeugt und die Telegram-Benachrichtigung auslöst.
-
-Die einzige "Konstante" ist die Adresse dieser Funktion — also wohin die Bestellung geschickt wird — plus die Branding-Kennung. Kein Schlüssel, kein Passwort, keine Kopie der Panel-Logik in dieses Projekt.
+- Einmaliger Testaufruf mit unvollständigen Daten, um das erwartete Feldschema der Funktion gegen unsere Zuordnung zu bestätigen; danach eine echte Testbestellung per Browser bis `/bestaetigung`, inklusive Kontrolle der zurückgegebenen Bestellnummer.
 
 ## Hinweise
 
-- Der Panel-Endpunkt prüft die Branding-Kennung serverseitig; falls die Kennung dort nicht existiert, kommt "Unbekannte Branding-ID" zurück und wird als Fehlermeldung angezeigt.
-- Läuft die Übertragung, aber das Panel ist noch nicht veröffentlicht, kann die Adresse in `src/lib/panel-orders.ts` an einer Stelle auf die Vorschau-Adresse umgestellt werden.
+- Die Funktion prüft die Branding-Kennung selbst; ist sie dort unbekannt, erscheint die Meldung als Fehlerhinweis im Formular.
+- Testbestellungen erscheinen echt in der Panel-Übersicht und lösen die Telegram-Nachricht aus.
