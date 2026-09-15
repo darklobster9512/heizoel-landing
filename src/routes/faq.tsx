@@ -18,7 +18,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const TITLE = "Häufig gestellte Fragen zu Heizöl | Klaro";
+const TITLE = "Häufig gestellte Fragen | Heizöl Deutschland";
 const DESCRIPTION =
   "Antworten auf alle Fragen rund um Heizöl: Qualität und Sorten, Bestellung ab 1.500 Litern, Lieferung in ca. 7 Werktagen, Preise und Zahlungsarten.";
 
@@ -78,7 +78,7 @@ const SECTIONS: FaqSection[] = [
           <>
             <P>
               Die Qualität aller in Deutschland in den Handel gebrachten Heizölsorten ist streng in
-              der DIN 51603-1 geregelt. Bei Klaro erhalten Sie ausschließlich Heizöle nach DIN
+              der DIN 51603-1 geregelt. Bei Heizöl Deutschland erhalten Sie ausschließlich Heizöle nach DIN
               51603-1. Lediglich für Bio-Heizöl gibt es eine eigene Norm.
             </P>
             <P>
@@ -112,7 +112,7 @@ const SECTIONS: FaqSection[] = [
         a: (
           <>
             <P>
-              Bei Klaro erhalten Sie ausschließlich Marken-Heizöl der bekannten großen
+              Bei Heizöl Deutschland erhalten Sie ausschließlich Marken-Heizöl der bekannten großen
               Ölgesellschaften wie Aral, Esso, OMV, Shell oder Total.
             </P>
             <P>
@@ -142,7 +142,7 @@ const SECTIONS: FaqSection[] = [
     icon: Calculator,
     items: [
       {
-        q: "Wie funktioniert eine Heizölbestellung bei Klaro?",
+        q: "Wie funktioniert eine Heizölbestellung bei Heizöl Deutschland?",
         a: (
           <>
             <P>
@@ -196,7 +196,7 @@ const SECTIONS: FaqSection[] = [
         q: "Ihr Firmensitz ist weit von unserem Wohnort entfernt. Wie funktioniert die Lieferung?",
         a: (
           <P>
-            Klaro arbeitet mit über 500 regionalen Heizölhändlern in ganz Deutschland zusammen.
+            Heizöl Deutschland arbeitet mit über 500 regionalen Heizölhändlern in ganz Deutschland zusammen.
             Geliefert wird immer von einem Händler aus Ihrer Region — dadurch bleiben Lieferwege kurz
             und Preise günstig.
           </P>
@@ -334,7 +334,7 @@ const SECTIONS: FaqSection[] = [
         q: "Warum verlangt der gleiche Händler am Telefon mehr?",
         a: (
           <P>
-            Telefonische Bestellungen sind für Händler deutlich aufwendiger. Über Klaro erhält der
+            Telefonische Bestellungen sind für Händler deutlich aufwendiger. Über Heizöl Deutschland erhält der
             Händler die Bestellung vollständig digital und kalkuliert deshalb mit geringerer Marge.
           </P>
         ),
@@ -542,7 +542,7 @@ function FaqPage() {
                 </p>
               </div>
               <a
-                href="mailto:service@klaro.de"
+                href="mailto:info@heizoel-deutschland.com"
                 className="mt-4 inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 sm:w-auto md:mt-0"
               >
                 <Mail className="h-4 w-4 text-white" aria-hidden="true" />
