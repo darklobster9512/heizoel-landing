@@ -37,11 +37,11 @@ export const Route = createFileRoute("/antrag")({
         name: "description",
         content:
           "Anfrage bei Heizöl Deutschland: Angaben sicher und bequem online erfassen.",
+      },
       { property: "og:title", content: "Anfrage — Heizöl Deutschland" },
       { property: "og:description", content: "Angaben sicher und bequem online erfassen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      },
     ],
   }),
   component: WizardLayout,
