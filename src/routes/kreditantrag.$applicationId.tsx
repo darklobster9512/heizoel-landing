@@ -106,6 +106,15 @@ function ApplicationPage() {
   const [tab, setTab] = useState<"dokumente" | "signatur" | "auszahlung">("dokumente");
   const [detailsOpen, setDetailsOpen] = useState(false);
 
+  useEffect(() => {
+    if (!detailsOpen || window.matchMedia("(min-width: 1024px)").matches) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [detailsOpen]);
+
   const submit = useMutation({
     mutationFn: () => submitApplicationDocuments({ applicationId }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["application", applicationId] }),
@@ -118,11 +127,11 @@ function ApplicationPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#f4f5f6]">
       <header className="sticky top-0 z-20 bg-white shadow-header-strong">
-        <div className="mx-auto flex h-[58px] max-w-[1240px] items-center justify-between px-5 md:px-8">
+        <div className="mx-auto grid min-h-[58px] max-w-[1240px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:h-[58px] md:justify-between md:px-8 md:py-0">
           <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
             <Logo className="h-8 w-auto" />
           </Link>
-          <span className="flex items-center gap-2 text-[15px] text-[#323232]">
+          <span className="flex shrink-0 items-center gap-1.5 text-[13px] text-[#323232] min-[390px]:gap-2 min-[390px]:text-[15px]">
             <HelpCircle className="size-[18px] text-[#5b5b5b]" />
             Hilfe und Support
           </span>
@@ -162,7 +171,7 @@ function ApplicationPage() {
                 }}
                 className="group mt-3 cursor-pointer rounded-[8px] border border-[#e6e7e8] bg-white outline-none transition-colors hover:border-brand focus-visible:border-brand"
               >
-                <div className="flex items-center gap-4 px-6 py-5">
+                <div className="flex items-center gap-3 px-4 py-5 sm:gap-4 sm:px-6">
                   <div className="min-w-0 flex-1">
                     {logo ? (
                       <img
@@ -180,7 +189,7 @@ function ApplicationPage() {
                       </p>
                     )}
 
-                    <div className="mt-5 grid grid-cols-2 gap-y-4 sm:grid-cols-4">
+                    <div className="mt-5 grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-4">
                       <Fact value={formatEuro(app.amount)} label="Kreditbetrag" />
                       <Fact value={`${app.termMonths ?? "—"}`} label="Monate" />
                       <Fact
@@ -202,7 +211,7 @@ function ApplicationPage() {
               </div>
 
               {/* Letzter Schritt */}
-              <div className="mt-6 rounded-[8px] bg-white px-6 pb-8 pt-7 md:px-10">
+              <div className="mt-6 rounded-[8px] bg-white px-4 pb-8 pt-6 sm:px-6 sm:pt-7 md:px-10">
                 <h1 className="text-[22px] font-bold leading-[1.3] text-[#323232]">
                   Letzter Schritt und Ihr Geld ist auf dem Weg
                 </h1>
@@ -466,7 +475,7 @@ function ApplicationDetailsPanel({
   return (
     <aside
       aria-label="Kreditdetails"
-      className="fixed inset-y-0 right-0 z-40 flex w-full flex-col bg-white sm:w-[440px] lg:top-[58px]"
+      className="fixed inset-x-0 bottom-0 top-[58px] z-40 flex w-full flex-col bg-white sm:left-auto sm:w-[440px] lg:top-[58px]"
     >
       <div className="relative flex h-[56px] shrink-0 items-center justify-center border-b border-[#e6e7e8] px-5">
         <button
@@ -496,7 +505,7 @@ function ApplicationDetailsPanel({
       <div className="flex-1 overflow-y-auto">
         {tab === "info" ? (
           <>
-            <div className="border-b border-[#dfe3e6] px-7 py-5 text-[14px] text-[#323232]">
+             <div className="border-b border-[#dfe3e6] px-4 py-5 text-[14px] text-[#323232] sm:px-7">
               <strong className="font-bold">Auszahlung</strong>{" "}
               {bank?.payoutDays === 0 ? "sofort" : `in ${bank?.payoutDays ?? 5} Tagen`}
             </div>
@@ -540,7 +549,7 @@ function ApplicationDetailsPanel({
             </DetailSection>
           </>
         ) : (
-          <dl className="divide-y divide-[#e6e7e8] px-7 py-3">
+           <dl className="divide-y divide-[#e6e7e8] px-4 py-3 sm:px-7">
             <DetailCostRow label="Kreditbetrag" value={formatEuro(app.amount)} />
             <DetailCostRow label="Laufzeit" value={`${app.termMonths ?? "—"} Monate`} />
             <DetailCostRow
@@ -580,7 +589,7 @@ function DetailTab({ active, onClick, children }: { active: boolean; onClick: ()
 
 function DetailSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-b border-[#dfe3e6] px-7 py-5">
+    <section className="border-b border-[#dfe3e6] px-4 py-5 sm:px-7">
       <h2 className="text-[14px] font-bold text-[#323232]">{title}</h2>
       <div className="mt-4 space-y-4">{children}</div>
     </section>
@@ -625,7 +634,7 @@ function ActionLink({
   return (
     <button
       type="button"
-      className={`inline-flex cursor-pointer items-center gap-2 text-[14px] ${
+      className={`inline-flex min-h-11 cursor-pointer items-center gap-2 text-[14px] ${
         green ? "text-brand" : "text-[#323232]"
       }`}
     >
@@ -701,7 +710,7 @@ function UploadSection({
   }
 
   return (
-    <section className="rounded-[4px] bg-[#f7f8f8] px-5 pt-4">
+    <section className="rounded-[4px] bg-[#f7f8f8] px-3 pt-4 sm:px-5">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -736,7 +745,7 @@ function UploadSection({
               setDragOver(false);
               handleFiles(e.dataTransfer.files);
             }}
-            className={`mt-4 flex flex-col items-center justify-center gap-4 border border-dashed px-5 py-10 text-center transition-colors ${
+            className={`mt-4 flex flex-col items-center justify-center gap-4 border border-dashed px-3 py-7 text-center transition-colors sm:px-5 sm:py-10 ${
               dragOver ? "border-brand bg-[#eff8f1]" : "border-[#c9cacb]"
             }`}
           >
@@ -795,7 +804,7 @@ function UploadSection({
                     type="button"
                     aria-label={`${doc.fileName} entfernen`}
                     onClick={() => remove.mutate(doc.id)}
-                    className="cursor-pointer text-[#9a9a9a] transition-colors hover:text-[#e02b2b]"
+                    className="grid size-11 shrink-0 cursor-pointer place-items-center text-[#9a9a9a] transition-colors hover:text-[#e02b2b]"
                   >
                     <Trash2 className="size-4" />
                   </button>

@@ -78,7 +78,7 @@ function AdminPage() {
             ))}
           </div>
 
-          <div className="mt-6 flex gap-2 border-b border-[#e5e7eb]">
+          <div className="mobile-tabs-scrollbar mt-6 flex max-w-full gap-1 overflow-x-auto border-b border-[#e5e7eb]">
             {(
               [
                 ["users", "Nutzer"],
@@ -91,7 +91,7 @@ function AdminPage() {
                 key={key}
                 type="button"
                 onClick={() => setTab(key)}
-                className={`-mb-px border-b-2 px-4 py-2 text-[14px] transition-colors ${
+                className={`-mb-px min-h-11 shrink-0 whitespace-nowrap border-b-2 px-3 py-2 text-[14px] transition-colors sm:px-4 ${
                   tab === key
                     ? "border-[#39a949] font-medium text-[#323232]"
                     : "border-transparent text-[#5b5b5b] hover:text-[#323232]"

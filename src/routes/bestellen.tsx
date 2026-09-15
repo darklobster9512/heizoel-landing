@@ -597,7 +597,7 @@ function BestellenPage() {
     <div className="min-h-screen bg-surface font-body text-ink">
       {/* Sticky Zusammenfassung */}
       <div className="sticky top-0 z-30 border-b-2 border-b-brand bg-background">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-2.5">
+        <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5">
           <div className="min-w-0">
             <p className="truncate text-[14px] font-bold text-conditions md:text-[15px]">
               {fmtLiters(draft.liters)} L {sortLabel}
@@ -624,8 +624,8 @@ function BestellenPage() {
               {step === 1 ? (
                 <>
                   {/* Vertrauenszeile */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col items-start gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between">
+                    <div className="flex min-w-0 items-center gap-3">
                       <div>
                         <Stars />
                         <p className="text-[14px] font-bold text-conditions">4,9 / 5</p>
@@ -640,14 +640,14 @@ function BestellenPage() {
                         </p>
                       </div>
                     </div>
-                    <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
+                    <p className="inline-flex min-h-11 items-center gap-1.5 text-[13px] font-semibold text-brand">
                       <Lock className="h-4 w-4" aria-hidden="true" />
                       Sichere Bestellung
                     </p>
                   </div>
 
                   {/* Siegel */}
-                  <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-line bg-background px-4 py-3 shadow-card">
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-3 rounded-xl border border-line bg-background px-4 py-3 shadow-card sm:gap-4">
                     <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-custom">
                       Geprüft &amp; sicher
                     </p>
@@ -956,7 +956,7 @@ function BestellenPage() {
                               role="radio"
                               aria-checked={active}
                               onClick={() => setPayment(p.id)}
-                              className={`relative flex items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors ${
+                              className={`relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors min-[390px]:grid-cols-[auto_auto_minmax(0,1fr)] ${
                                 active
                                   ? "border-brand bg-brand/5 ring-1 ring-brand"
                                   : "border-line bg-background hover:border-brand/60"
@@ -973,10 +973,10 @@ function BestellenPage() {
                               <img
                                 src={p.icon.url}
                                 alt=""
-                                className="h-9 w-auto shrink-0 object-contain"
+                                className="h-8 w-auto shrink-0 object-contain min-[390px]:h-9"
                                 loading="lazy"
                               />
-                              <span className="min-w-0 flex-1">
+                               <span className="col-span-2 min-w-0 min-[390px]:col-span-1">
                                 <span className="block text-[14px] font-bold text-conditions">
                                   {p.label}
                                 </span>
@@ -1032,15 +1032,15 @@ function BestellenPage() {
                     <section className="rounded-xl border border-line bg-background px-4 py-4 shadow-card" aria-labelledby="bestelluebersicht-title">
                       <h2 id="bestelluebersicht-title" className="mb-3 text-[16px] font-bold text-conditions">Bestellübersicht</h2>
                       <dl className="grid gap-2 text-[13px]">
-                        <div className="flex items-center justify-between gap-4 border-b border-dashed border-line pb-2">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-dashed border-line pb-2">
                           <dt className="text-muted-custom">{sortLabel}</dt>
                           <dd className="font-bold text-conditions">{fmtLiters(draft.liters)} Liter</dd>
                         </div>
-                        <div className="flex items-center justify-between gap-4 border-b border-dashed border-line pb-2">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-dashed border-line pb-2">
                           <dt className="text-muted-custom">Lieferung an</dt>
                           <dd className="text-right font-bold text-conditions">{draft.plz}{draft.city ? ` ${draft.city}` : ""}</dd>
                         </div>
-                        <div className="flex items-center justify-between gap-4 pb-1">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 pb-1">
                           <dt className="text-muted-custom">Lieferkosten</dt>
                           <dd className="font-bold text-brand">inklusive</dd>
                         </div>
@@ -1074,8 +1074,8 @@ function BestellenPage() {
       </main>
 
       {/* Sticky Preisleiste */}
-      <div className="sticky bottom-0 z-30 border-t border-line bg-background shadow-header-strong">
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
+      <div className="sticky bottom-0 z-30 border-t border-line bg-background pb-[env(safe-area-inset-bottom)] shadow-header-strong focus-within:relative">
+          <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3">
             <div>
               <p className="text-[17px] font-bold leading-tight text-conditions">
                 {fmtEuro(draft.total)} €
@@ -1087,7 +1087,7 @@ function BestellenPage() {
                 type="button"
                 onClick={proceed}
                 disabled={!slot}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50 sm:px-6"
               >
                 Weiter
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -1096,7 +1096,7 @@ function BestellenPage() {
               <button
                 type="button"
                 onClick={submit}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover sm:px-6"
               >
                 Bestellen
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />

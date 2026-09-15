@@ -104,6 +104,15 @@ function OffersPage() {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  useEffect(() => {
+    if (!selectedId || window.matchMedia("(min-width: 768px)").matches) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [selectedId]);
+
 
   const [amount, setAmount] = useState(10000);
   const [term, setTerm] = useState(84);
@@ -251,11 +260,11 @@ function OffersPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#f4f5f6]">
       <header className="sticky top-0 z-20 bg-white shadow-header-strong">
-        <div className="mx-auto flex h-[68px] max-w-[1160px] items-center justify-between px-5 md:px-8">
+        <div className="mx-auto grid min-h-[60px] max-w-[1160px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:h-[68px] md:justify-between md:px-8 md:py-0">
           <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
             <Logo className="h-8 w-auto" />
           </Link>
-          <span className="flex items-center gap-2 text-[15px] text-[#323232]">
+          <span className="flex shrink-0 items-center gap-1.5 text-[13px] text-[#323232] min-[390px]:gap-2 min-[390px]:text-[15px]">
             <HelpCircle className="size-[18px] text-[#5b5b5b]" />
             Hilfe und Support
           </span>
@@ -376,7 +385,7 @@ function OffersPage() {
                               </p>
                             )}
 
-                            <div className="mt-5 grid grid-cols-3 gap-3">
+                            <div className="mt-5 grid grid-cols-1 gap-3 min-[360px]:grid-cols-3">
                               <div>
                                 <p className="flex items-center gap-1 text-[17px] font-semibold text-[#323232]">
                                   <ArrowDown className="size-4 text-[#323232]" />
@@ -452,19 +461,27 @@ function OffersPage() {
             </div>
 
             {selected && (
-              <div className="w-full border-[#e6e7e8] bg-white md:fixed md:bottom-0 md:right-0 md:top-[152px] md:z-30 md:w-[475px] md:overflow-y-auto md:border-l">
-                <OfferDetailsPanel
-                  key={selected.bank.id}
-                  bank={selected.bank}
-                  onClose={() => setSelectedId(null)}
-                  onApply={() => void goToApplication(selected)}
-                  amount={searchAmount}
-                  term={searchTerm}
-                  effRate={selected.effRate}
-                  rate={selected.rate}
-                  insurance={searchInsurance}
+              <>
+                <button
+                  type="button"
+                  aria-label="Angebotsdetails schließen"
+                  onClick={() => setSelectedId(null)}
+                  className="fixed inset-0 z-40 bg-foreground/30 md:hidden"
                 />
-              </div>
+                <div className="fixed inset-x-0 bottom-0 z-50 h-[88dvh] w-full overflow-hidden rounded-t-xl border border-[#e6e7e8] bg-white shadow-xl md:bottom-0 md:left-auto md:right-0 md:top-[152px] md:z-30 md:h-auto md:w-[475px] md:rounded-none md:border-y-0 md:border-r-0 md:border-l md:shadow-none">
+                  <OfferDetailsPanel
+                    key={selected.bank.id}
+                    bank={selected.bank}
+                    onClose={() => setSelectedId(null)}
+                    onApply={() => void goToApplication(selected)}
+                    amount={searchAmount}
+                    term={searchTerm}
+                    effRate={selected.effRate}
+                    rate={selected.rate}
+                    insurance={searchInsurance}
+                  />
+                </div>
+              </>
             )}
 
           </div>
@@ -522,12 +539,12 @@ function OfferDetailsPanel({
         aria-label="Angebotsdetails"
         className="flex h-full w-full flex-col bg-white"
       >
-        <div className="flex items-center gap-3 px-4 py-3">
+         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 py-3">
           <button
             type="button"
             onClick={onClose}
             aria-label="Schließen"
-            className="grid size-8 shrink-0 place-items-center border border-[#dcdcdc] text-[#5b5b5b] transition-colors hover:bg-[#f4f5f6]"
+            className="grid size-11 shrink-0 place-items-center border border-[#dcdcdc] text-[#5b5b5b] transition-colors hover:bg-[#f4f5f6]"
           >
             <X className="size-4" />
           </button>
@@ -548,7 +565,7 @@ function OfferDetailsPanel({
           <button
             type="button"
             onClick={onApply}
-            className="relative m-0 ml-auto box-border inline-flex min-w-16 cursor-pointer select-none appearance-none items-center justify-center rounded-[2px] border-0 bg-[rgb(57,169,73)] px-[50px] py-4 align-middle text-[14px] font-medium leading-[22px] text-white no-underline outline-0 hover:bg-brand-hover"
+            className="relative m-0 ml-auto box-border inline-flex min-w-0 cursor-pointer select-none appearance-none items-center justify-center rounded-[2px] border-0 bg-[rgb(57,169,73)] px-4 py-3 align-middle text-[14px] font-medium leading-[22px] text-white no-underline outline-0 hover:bg-brand-hover sm:px-[50px] sm:py-4"
             style={{
               WebkitTapHighlightColor: "transparent",
               boxShadow:
@@ -585,7 +602,7 @@ function OfferDetailsPanel({
           ))}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           {tab === "info" ? (
             <>
               <p className="border-b border-[#e6e7e8] pb-4 text-[15px] text-[#323232]">
@@ -754,7 +771,7 @@ function FilterBar({
 
   return (
     <div className="border-t border-[#eaebec]">
-      <div className="mx-auto flex max-w-[1160px] flex-col gap-3 px-5 py-4 md:flex-row md:items-end md:px-8">
+      <div className="mx-auto grid max-w-[1160px] grid-cols-1 gap-3 px-4 py-4 min-[390px]:grid-cols-2 md:flex md:items-end md:px-8">
         <label className="relative flex h-[52px] flex-1 items-center border border-[#dcdcdc] bg-white px-3">
           <span className="absolute -top-2 left-2 bg-white px-1 text-[11px] text-[#5b5b5b]">
             Kreditbetrag
@@ -813,7 +830,7 @@ function FilterBar({
           onClick={onSearch}
           disabled={!dirty}
           aria-label="Angebote neu berechnen"
-          className={`grid h-[52px] w-[52px] shrink-0 place-items-center transition-colors ${
+          className={`grid h-[52px] w-full shrink-0 place-items-center transition-colors min-[390px]:col-span-2 md:w-[52px] ${
             dirty
               ? "cursor-pointer bg-[#39a949] text-white hover:bg-[#1b5426]"
               : "bg-[#e6e7e8] text-[#5b5b5b]"
@@ -832,7 +849,7 @@ function SkeletonCard() {
       <div className="grid grid-cols-1 md:grid-cols-[1fr_260px]">
         <div className="px-5 py-6">
           <div className="h-4 w-32 animate-pulse rounded bg-[#e6e7e8]" />
-          <div className="mt-6 grid grid-cols-3 gap-4">
+           <div className="mt-6 grid grid-cols-1 gap-4 min-[360px]:grid-cols-3">
             {[0, 1, 2].map((i) => (
               <div key={i} className="space-y-2">
                 <div className="h-3.5 w-20 animate-pulse rounded bg-[#e6e7e8]" />

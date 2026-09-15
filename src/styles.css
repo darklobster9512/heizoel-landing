@@ -324,6 +324,25 @@
   background-clip: padding-box;
 }
 
+/* Schmale, unaufdringliche Scrollleiste für mobile Tabreihen. */
+.mobile-tabs-scrollbar {
+  scrollbar-color: color-mix(in oklch, var(--brand) 35%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+.mobile-tabs-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.mobile-tabs-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-tabs-scrollbar::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--brand) 35%, transparent);
+  border-radius: 999px;
+}
+
 /* Bewertungs-Wechsler im mobilen Header: von rechts herein, nach rechts hinaus */
 @keyframes badge-slide-cycle {
   0% {
