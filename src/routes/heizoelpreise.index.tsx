@@ -60,7 +60,7 @@ function OverviewPage() {
       <SiteHeader />
       <main>
         <section className="border-b-[3px] border-b-brand bg-surface">
-          <div className="mx-auto max-w-6xl px-5 py-8 md:py-12">
+          <div className="mx-auto max-w-6xl px-4 py-7 sm:px-5 md:py-12">
             <Breadcrumbs items={[{ label: "Startseite", to: "/" }, { label: "Heizölpreise" }]} />
             <h1 className="mt-4 text-[26px] font-semibold leading-[1.2] text-ink md:text-[36px]">
               Heizölpreise nach Bundesland und Stadt

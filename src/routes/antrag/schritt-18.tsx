@@ -88,7 +88,7 @@ function Step18() {
       <p className="mt-6 text-[14px] text-[#323232]">
         Bankverbindung zur Kreditauszahlung
       </p>
-      <div className="mt-1.5 grid grid-cols-2 gap-2.5">
+      <div className="mt-1.5 grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-2">
         <BankTile
           label="IBAN"
           active={type === "iban"}

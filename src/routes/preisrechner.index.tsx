@@ -246,7 +246,7 @@ function PreisrechnerPage() {
       <main>
         {/* Hero / Rechner + Schritte */}
         <section className="relative bg-surface">
-          <div className="mx-auto max-w-5xl px-5 py-10 md:py-16">
+          <div className="mx-auto max-w-5xl px-4 py-8 sm:px-5 md:py-16">
             <div className="mb-8 text-center">
               <div className="mb-3 md:mb-4">
                 <span className="inline-flex items-center rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white md:text-sm">
@@ -272,7 +272,7 @@ function PreisrechnerPage() {
 
             <div className="rounded-xl border border-line bg-background shadow-card">
               <div className="grid lg:grid-cols-2">
-                <div className="relative p-6 md:p-10">
+                <div className="relative p-4 min-[390px]:p-6 md:p-10">
                   <img
                     src={guarantee.url}
                     alt="Günstiger-geht-nicht-Garantie"
@@ -282,7 +282,7 @@ function PreisrechnerPage() {
                   />
                   <OfferCard bordered={false} initialPlz={plz} onSearch={setSearchValues} />
                 </div>
-                <div className="rounded-b-xl border-t border-line bg-surface/50 p-6 md:p-10 lg:rounded-bl-none lg:rounded-r-xl lg:border-t-0 lg:border-l">
+                <div className="rounded-b-xl border-t border-line bg-surface/50 p-4 min-[390px]:p-6 md:p-10 lg:rounded-bl-none lg:rounded-r-xl lg:border-t-0 lg:border-l">
                   <CompactSteps />
                 </div>
               </div>
@@ -290,7 +290,7 @@ function PreisrechnerPage() {
 
             {/* Warum Klaro — direkt an die Hero-Card angedockt */}
             <div
-              className="rounded-xl border-t border-line bg-background px-6 py-8 md:px-10 md:py-10"
+              className="rounded-xl border-t border-line bg-background px-4 py-7 min-[390px]:px-6 md:px-10 md:py-10"
               aria-labelledby="why-klaro-title"
             >
               <h2
@@ -299,14 +299,14 @@ function PreisrechnerPage() {
               >
                 Warum bei Klaro bestellen?
               </h2>
-              <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+              <div className="mt-6 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {ADVANTAGES.map((a, i) => {
                   const Icon = a.icon;
                   const isLast = i === ADVANTAGES.length - 1;
                   return (
                     <div
                       key={a.title}
-                      className={`text-center ${isLast ? "col-span-2 md:col-span-1" : ""}`}
+                      className={`text-center ${isLast ? "min-[360px]:col-span-2 md:col-span-1" : ""}`}
                     >
                       <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
                         <Icon className="h-4 w-4" strokeWidth={2.2} />

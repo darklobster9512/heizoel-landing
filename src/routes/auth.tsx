@@ -91,9 +91,9 @@ function AuthPage() {
         </div>
       </header>
 
-      <main className="flex flex-1 items-start justify-center px-4 py-10 md:py-16">
+      <main className="flex flex-1 items-start justify-center px-4 py-6 sm:py-10 md:py-16">
         <div className="w-full max-w-[440px]">
-          <div className="bg-white p-6 shadow-sm md:p-8">
+          <div className="bg-white p-5 shadow-sm min-[390px]:p-6 md:p-8">
             <h1 className="text-center text-[24px] font-medium text-[#323232] md:text-[28px]">
               {mode === "login" ? "In Ihrem Konto anmelden" : "Kostenlos registrieren"}
             </h1>

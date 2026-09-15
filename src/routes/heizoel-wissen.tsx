@@ -166,7 +166,7 @@ function HeizoelWissenPage() {
               className={`scroll-mt-24 ${index % 2 === 0 ? "bg-background" : "bg-surface"}`}
             >
               <div className="mx-auto max-w-4xl px-5 py-12 md:py-16">
-                <div className="flex items-center gap-3">
+                <div className="flex items-start gap-3">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
