@@ -26,6 +26,7 @@ import {
   saveOrderDraft,
   type OrderDraft,
 } from "@/lib/order-draft";
+import { submitPanelOrder } from "@/lib/panel-orders";
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 import googleIcon from "@/assets/google-icon.webp.asset.json";
@@ -456,6 +457,8 @@ function BestellenPage() {
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState("vorkasse");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const d = loadOrderDraft();
@@ -535,23 +538,47 @@ function BestellenPage() {
     return true;
   };
 
-  const submit = () => {
+  const submit = async () => {
+    if (submitting) return;
     if (!validate() || !draft) return;
     const now = new Date();
-    const orderNo = `${String(now.getDate()).padStart(2, "0")}${String(now.getMonth() + 1).padStart(2, "0")}-${Math.floor(10000 + Math.random() * 89999)}`;
-    saveOrderConfirmation({
-      ...draft,
-      ...(slot ? { slot } : {}),
-      orderNo,
-      email: email.trim(),
-      phone: phone.trim(),
-      delivery,
-      ...(billingDifferent ? { billing } : {}),
-      notes,
-      payment,
-      placedAt: now.toISOString(),
-    });
-    void navigate({ to: "/bestaetigung" });
+    const placedAt = now.toISOString();
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      const result = await submitPanelOrder({
+        draft,
+        slot: slot ?? undefined,
+        email,
+        phone,
+        delivery,
+        billing: billingDifferent ? billing : undefined,
+        notes,
+        payment,
+        placedAt,
+      });
+      saveOrderConfirmation({
+        ...draft,
+        ...(slot ? { slot } : {}),
+        orderNo: result.orderNumber,
+        email: email.trim(),
+        phone: phone.trim(),
+        delivery,
+        ...(billingDifferent ? { billing } : {}),
+        notes,
+        payment,
+        placedAt,
+      });
+      void navigate({ to: "/bestaetigung" });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
+      );
+      setSubmitting(false);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
   };
 
 
@@ -1060,13 +1087,20 @@ function BestellenPage() {
                     </p>
                   ) : null}
 
+                  {submitError ? (
+                    <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[13px] font-semibold text-red-600">
+                      {submitError} Alternativ erreichen Sie uns telefonisch unter 030 1234567.
+                    </p>
+                  ) : null}
+
                   <button
                     type="button"
-                    onClick={submit}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                    onClick={() => void submit()}
+                    disabled={submitting}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    Jetzt verbindlich bestellen
-                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                    {submitting ? "Bestellung wird übermittelt ..." : "Jetzt verbindlich bestellen"}
+                    {submitting ? null : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
                   </button>
                 </>
               )}
@@ -1096,11 +1130,12 @@ function BestellenPage() {
             ) : (
               <button
                 type="button"
-                onClick={submit}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover sm:px-6"
+                onClick={() => void submit()}
+                disabled={submitting}
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-70 sm:px-6"
               >
-                Bestellen
-                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                {submitting ? "Wird gesendet ..." : "Bestellen"}
+                {submitting ? null : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
               </button>
             )}
           </div>
