@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LegalPage } from "@/components/legal/legal-page";
+import { legalJsonLd } from "@/lib/seo";
+
 
 const TITLE = "Cookie-Einstellungen | Heizöl Deutschland";
 const DESCRIPTION = "Informationen zu Cookies und lokalen Speicherungen auf heizoel-deutschland.com sowie Hinweise zur Verwaltung im Browser.";
