@@ -72,7 +72,7 @@
   --color-line: var(--line);
   --color-surface: var(--surface);
   --color-conditions: var(--conditions-text);
-  --color-smava-logo: var(--smava-logo);
+  --color-brand-logo: var(--brand-logo);
   --color-footer-text: var(--footer-text);
   --color-header-phone: var(--header-phone);
   --color-hero-text: var(--hero-text);
@@ -108,7 +108,7 @@
   --brand-hover: oklch(0.396399 0.095521 147.144);
   --line: oklch(0.92 0.004 250);
   --conditions-text: oklch(0.35 0 0);
-  --smava-logo: oklch(0.650134 0.168644 145.705);
+  --brand-logo: oklch(0.650134 0.168644 145.705);
   --footer-text: #323232;
   --header-phone: #5b5b5b;
   --hero-text: #323232;
@@ -163,7 +163,7 @@
   --brand-hover: oklch(0.396399 0.095521 147.144);
   --line: oklch(0.28 0.015 250);
   --conditions-text: oklch(0.88 0.002 250);
-  --smava-logo: oklch(0.650134 0.168644 145.705);
+  --brand-logo: oklch(0.650134 0.168644 145.705);
   --footer-text: #323232;
   --header-phone: #5b5b5b;
   --hero-text: #f0f0f0;
