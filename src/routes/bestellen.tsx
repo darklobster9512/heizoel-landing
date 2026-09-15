@@ -1087,13 +1087,20 @@ function BestellenPage() {
                     </p>
                   ) : null}
 
+                  {submitError ? (
+                    <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[13px] font-semibold text-red-600">
+                      {submitError} Alternativ erreichen Sie uns telefonisch unter 030 1234567.
+                    </p>
+                  ) : null}
+
                   <button
                     type="button"
-                    onClick={submit}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover"
+                    onClick={() => void submit()}
+                    disabled={submitting}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-4 text-[16px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    Jetzt verbindlich bestellen
-                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                    {submitting ? "Bestellung wird übermittelt ..." : "Jetzt verbindlich bestellen"}
+                    {submitting ? null : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
                   </button>
                 </>
               )}
