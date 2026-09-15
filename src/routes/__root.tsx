@@ -18,23 +18,37 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="text-7xl font-bold text-foreground">404</p>
+        <h1 className="mt-4 text-xl font-semibold text-foreground">Seite nicht gefunden</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          Diese Seite existiert nicht oder wurde verschoben. Berechnen Sie stattdessen direkt Ihren
+          aktuellen Heizölpreis oder wählen Sie Ihre Region.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
           <Link
-            to="/"
+            to="/preisrechner"
             className="inline-flex items-center justify-center rounded-[4px] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            Heizölpreis berechnen
+          </Link>
+          <Link
+            to="/heizoelpreise"
+            className="inline-flex items-center justify-center rounded-[4px] border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Heizölpreise nach Region
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-[4px] border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Zur Startseite
           </Link>
         </div>
       </div>
     </div>
   );
 }
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
