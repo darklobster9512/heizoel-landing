@@ -1,6 +1,6 @@
-import ekomi from "@/assets/ekomi.webp.asset.json";
-import googleIcon from "@/assets/google-icon.webp.asset.json";
-import trustedShopsIcon from "@/assets/trusted-shops-icon.png.asset.json";
+const ekomi = { url: "/img/ekomi.webp" };
+const googleIcon = { url: "/img/google-icon.webp" };
+const trustedShopsIcon = { url: "/img/trusted-shops-icon.png" };
 import { useEffect, useState } from "react";
 
 function Stars({ className = "", size = "size-4" }: { className?: string; size?: string }) {

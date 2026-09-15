@@ -9,10 +9,10 @@ import {
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
-import barzahlungAsset from "@/assets/barzahlung.png.asset.json";
-import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
-import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
-import lieferfristAsset from "@/assets/lieferfrist.png.asset.json";
+const barzahlungAsset = { url: "/img/barzahlung.png" };
+const vorauskasseAsset = { url: "/img/vorauskasse.png" };
+const ecKarteAsset = { url: "/img/ec-karte.png" };
+const lieferfristAsset = { url: "/img/lieferfrist.png" };
 
 import {
   breadcrumb,

@@ -22,11 +22,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import ekomi from "@/assets/ekomi.webp.asset.json";
-import vorauskasse from "@/assets/vorauskasse.png.asset.json";
-import barzahlung from "@/assets/barzahlung.png.asset.json";
-import ecKarte from "@/assets/ec-karte.png.asset.json";
-import dropGreen from "@/assets/drop-green.png.asset.json";
+const ekomi = { url: "/img/ekomi.webp" };
+const vorauskasse = { url: "/img/vorauskasse.png" };
+const barzahlung = { url: "/img/barzahlung.png" };
+const ecKarte = { url: "/img/ec-karte.png" };
+const dropGreen = { url: "/img/drop-green.png" };
 import { lookupPlzCity } from "@/lib/plz-city";
 import { saveOrderDraft } from "@/lib/order-draft";
 

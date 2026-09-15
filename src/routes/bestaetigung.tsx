@@ -5,8 +5,8 @@ import { Check, CheckCircle2, Mail, MapPin, Phone, ThumbsUp } from "lucide-react
 import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/sections";
 import { loadOrderConfirmation, type OrderConfirmation } from "@/lib/order-draft";
-import ekomi from "@/assets/ekomi.webp.asset.json";
-import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
+const ekomi = { url: "/img/ekomi.webp" };
+const trustedShops = { url: "/img/trusted-shops-icon.png" };
 
 const TITLE = "Bestellung eingegangen | Heizöl Deutschland";
 const DESCRIPTION = "Ihre Heizölbestellung ist bei uns eingegangen. Vielen Dank für Ihren Auftrag.";
