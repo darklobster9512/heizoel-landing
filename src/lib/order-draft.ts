@@ -17,7 +17,7 @@ export type OrderDraft = {
   };
 };
 
-const KEY = "klaro.order.v1";
+const KEY = "heizoel-deutschland.order.v1";
 
 export function saveOrderDraft(draft: OrderDraft): void {
   try {
@@ -61,7 +61,7 @@ export type OrderConfirmation = OrderDraft & {
   placedAt: string;
 };
 
-const CONFIRM_KEY = "klaro.order.confirmed.v1";
+const CONFIRM_KEY = "heizoel-deutschland.order.confirmed.v1";
 
 export function saveOrderConfirmation(data: OrderConfirmation): void {
   try {
