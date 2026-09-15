@@ -9,10 +9,10 @@ import { getMyAccount } from "@/lib/auth.functions";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Mein Kundenbereich — smava" },
-      { name: "description", content: "Übersicht über Ihre Kreditanfragen und Ihr smava Konto." },
-      { property: "og:title", content: "Mein Kundenbereich — smava" },
-      { property: "og:description", content: "Übersicht über Ihre Kreditanfragen und Ihr smava Konto." },
+      { title: "Mein Kundenbereich — Heizöl Deutschland" },
+      { name: "description", content: "Übersicht über Ihre Anfragen bei Heizöl Deutschland." },
+      { property: "og:title", content: "Mein Kundenbereich — Heizöl Deutschland" },
+      { property: "og:description", content: "Übersicht über Ihre Anfragen bei Heizöl Deutschland." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },

@@ -9,9 +9,9 @@ import { GROUPS, formatBytes, formatValue } from "@/lib/application-fields";
 export const Route = createFileRoute("/_authenticated/admin/antrag/$applicationId")({
   head: () => ({
     meta: [
-      { title: "Antragsdetails — smava" },
+      { title: "Antragsdetails — Heizöl Deutschland" },
       { name: "description", content: "Alle Angaben und Dokumente einer Kreditanfrage." },
-      { property: "og:title", content: "Antragsdetails — smava" },
+      { property: "og:title", content: "Antragsdetails — Heizöl Deutschland" },
       { property: "og:description", content: "Alle Angaben und Dokumente einer Kreditanfrage." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

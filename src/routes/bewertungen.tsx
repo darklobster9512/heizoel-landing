@@ -4,9 +4,9 @@ import { Award, BadgeCheck, Lock, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
 
-const TITLE = "Kundenbewertungen | Klaro";
+const TITLE = "Kundenbewertungen | Heizöl Deutschland";
 const DESCRIPTION =
-  "Über 25.000 zufriedene Kunden bewerten Klaro mit 4,9 von 5 Sternen. Lesen Sie echte Erfahrungen zu Preisen, Lieferung und Service beim Heizöl-Kauf.";
+  "Über 25.000 zufriedene Kunden bewerten Heizöl Deutschland mit 4,9 von 5 Sternen. Lesen Sie Erfahrungen zu Preisen, Lieferung und Service.";
 
 export const Route = createFileRoute("/bewertungen")({
   head: () => ({
@@ -35,7 +35,7 @@ const STATS = [
 const REVIEWS = [
   {
     name: "Sabine Krüger",
-    text: "Bestelle inzwischen zum dritten Mal über Klaro. Der Preis war jedes Mal spürbar günstiger als bei meinem örtlichen Händler, und die Lieferung kam immer zum vereinbarten Termin.",
+    text: "Bestelle inzwischen zum dritten Mal über Heizöl Deutschland. Der Preis war jedes Mal spürbar günstiger als bei meinem örtlichen Händler, und die Lieferung kam immer zum vereinbarten Termin.",
   },
   {
     name: "Thomas Meier",
@@ -55,7 +55,7 @@ const REVIEWS = [
   },
   {
     name: "Andreas Becker",
-    text: "Als Handwerker bin ich auf verlässliche Lieferungen angewiesen. Klaro hat bisher jeden Termin gehalten, und der Festpreis gibt mir Planungssicherheit.",
+    text: "Als Handwerker bin ich auf verlässliche Lieferungen angewiesen. Heizöl Deutschland hat bisher jeden Termin gehalten, und der Festpreis gibt mir Planungssicherheit.",
   },
   {
     name: "Monika Lang",

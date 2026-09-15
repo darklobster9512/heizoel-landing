@@ -11,17 +11,22 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AgbRouteImport } from './routes/agb'
 import { Route as AngeboteRouteImport } from './routes/angebote'
 import { Route as AntragRouteRouteImport } from './routes/antrag/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BestaetigungRouteImport } from './routes/bestaetigung'
 import { Route as BestellenRouteImport } from './routes/bestellen'
 import { Route as BewertungenRouteImport } from './routes/bewertungen'
+import { Route as CookieEinstellungenRouteImport } from './routes/cookie-einstellungen'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HeizoelWissenRouteImport } from './routes/heizoel-wissen'
+import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LieferungZahlungRouteImport } from './routes/lieferung-zahlung'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as WiderrufRouteImport } from './routes/widerruf'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AntragFertigRouteImport } from './routes/antrag/fertig'
@@ -60,6 +65,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgbRoute = AgbRouteImport.update({
+  id: '/agb',
+  path: '/agb',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AngeboteRoute = AngeboteRouteImport.update({
   id: '/angebote',
   path: '/angebote',
@@ -90,6 +100,16 @@ const BewertungenRoute = BewertungenRouteImport.update({
   path: '/bewertungen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookieEinstellungenRoute = CookieEinstellungenRouteImport.update({
+  id: '/cookie-einstellungen',
+  path: '/cookie-einstellungen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -98,6 +118,11 @@ const FaqRoute = FaqRouteImport.update({
 const HeizoelWissenRoute = HeizoelWissenRouteImport.update({
   id: '/heizoel-wissen',
   path: '/heizoel-wissen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontaktRoute = KontaktRouteImport.update({
@@ -113,6 +138,11 @@ const LieferungZahlungRoute = LieferungZahlungRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WiderrufRoute = WiderrufRouteImport.update({
+  id: '/widerruf',
+  path: '/widerruf',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -262,16 +292,21 @@ const AuthenticatedAdminAntragApplicationIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/antrag': typeof AntragRouteRouteWithChildren
+  '/agb': typeof AgbRoute
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
   '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
+  '/cookie-einstellungen': typeof CookieEinstellungenRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/widerruf': typeof WiderrufRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -304,16 +339,21 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/antrag': typeof AntragRouteRouteWithChildren
+  '/agb': typeof AgbRoute
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
   '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
+  '/cookie-einstellungen': typeof CookieEinstellungenRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/widerruf': typeof WiderrufRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -348,16 +388,21 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/antrag': typeof AntragRouteRouteWithChildren
+  '/agb': typeof AgbRoute
   '/angebote': typeof AngeboteRoute
   '/auth': typeof AuthRoute
   '/bestaetigung': typeof BestaetigungRoute
   '/bestellen': typeof BestellenRoute
   '/bewertungen': typeof BewertungenRoute
+  '/cookie-einstellungen': typeof CookieEinstellungenRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/heizoel-wissen': typeof HeizoelWissenRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/lieferung-zahlung': typeof LieferungZahlungRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/widerruf': typeof WiderrufRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/antrag/fertig': typeof AntragFertigRoute
@@ -392,16 +437,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/antrag'
+    | '/agb'
     | '/angebote'
     | '/auth'
     | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
+    | '/cookie-einstellungen'
+    | '/datenschutz'
     | '/faq'
     | '/heizoel-wissen'
+    | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
     | '/sitemap.xml'
+    | '/widerruf'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -434,16 +484,21 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/antrag'
+    | '/agb'
     | '/angebote'
     | '/auth'
     | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
+    | '/cookie-einstellungen'
+    | '/datenschutz'
     | '/faq'
     | '/heizoel-wissen'
+    | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
     | '/sitemap.xml'
+    | '/widerruf'
     | '/admin'
     | '/dashboard'
     | '/antrag/fertig'
@@ -477,16 +532,21 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/antrag'
+    | '/agb'
     | '/angebote'
     | '/auth'
     | '/bestaetigung'
     | '/bestellen'
     | '/bewertungen'
+    | '/cookie-einstellungen'
+    | '/datenschutz'
     | '/faq'
     | '/heizoel-wissen'
+    | '/impressum'
     | '/kontakt'
     | '/lieferung-zahlung'
     | '/sitemap.xml'
+    | '/widerruf'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/antrag/fertig'
@@ -521,16 +581,21 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AntragRouteRoute: typeof AntragRouteRouteWithChildren
+  AgbRoute: typeof AgbRoute
   AngeboteRoute: typeof AngeboteRoute
   AuthRoute: typeof AuthRoute
   BestaetigungRoute: typeof BestaetigungRoute
   BestellenRoute: typeof BestellenRoute
   BewertungenRoute: typeof BewertungenRoute
+  CookieEinstellungenRoute: typeof CookieEinstellungenRoute
+  DatenschutzRoute: typeof DatenschutzRoute
   FaqRoute: typeof FaqRoute
   HeizoelWissenRoute: typeof HeizoelWissenRoute
+  ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LieferungZahlungRoute: typeof LieferungZahlungRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WiderrufRoute: typeof WiderrufRoute
   HeizoelpreiseCityRoute: typeof HeizoelpreiseCityRoute
   KreditantragApplicationIdRoute: typeof KreditantragApplicationIdRoute
   PreisrechnerErgebnisRoute: typeof PreisrechnerErgebnisRoute
@@ -553,6 +618,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agb': {
+      id: '/agb'
+      path: '/agb'
+      fullPath: '/agb'
+      preLoaderRoute: typeof AgbRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/angebote': {
@@ -597,6 +669,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BewertungenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookie-einstellungen': {
+      id: '/cookie-einstellungen'
+      path: '/cookie-einstellungen'
+      fullPath: '/cookie-einstellungen'
+      preLoaderRoute: typeof CookieEinstellungenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -609,6 +695,13 @@ declare module '@tanstack/react-router' {
       path: '/heizoel-wissen'
       fullPath: '/heizoel-wissen'
       preLoaderRoute: typeof HeizoelWissenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontakt': {
@@ -630,6 +723,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/widerruf': {
+      id: '/widerruf'
+      path: '/widerruf'
+      fullPath: '/widerruf'
+      preLoaderRoute: typeof WiderrufRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -908,16 +1008,21 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AntragRouteRoute: AntragRouteRouteWithChildren,
+  AgbRoute: AgbRoute,
   AngeboteRoute: AngeboteRoute,
   AuthRoute: AuthRoute,
   BestaetigungRoute: BestaetigungRoute,
   BestellenRoute: BestellenRoute,
   BewertungenRoute: BewertungenRoute,
+  CookieEinstellungenRoute: CookieEinstellungenRoute,
+  DatenschutzRoute: DatenschutzRoute,
   FaqRoute: FaqRoute,
   HeizoelWissenRoute: HeizoelWissenRoute,
+  ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LieferungZahlungRoute: LieferungZahlungRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WiderrufRoute: WiderrufRoute,
   HeizoelpreiseCityRoute: HeizoelpreiseCityRoute,
   KreditantragApplicationIdRoute: KreditantragApplicationIdRoute,
   PreisrechnerErgebnisRoute: PreisrechnerErgebnisRoute,

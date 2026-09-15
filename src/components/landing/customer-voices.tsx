@@ -27,7 +27,7 @@ const VOICES: Voice[] = [
     author: "Jessica Meyer",
   },
   {
-    text: "Alles online erledigt, ohne Telefonate. Beim nächsten Tanken bestelle ich wieder über Klaro.",
+    text: "Alles online erledigt, ohne Telefonate. Beim nächsten Tanken bestelle ich wieder über Heizöl Deutschland.",
     author: "Renate Hoffmann",
   },
   {
@@ -67,7 +67,7 @@ const VOICES: Voice[] = [
     author: "Frank Müller",
   },
   {
-    text: "Alles lief reibungslos von der Anfrage bis zur Lieferung. Daumen hoch für Klaro.",
+    text: "Alles lief reibungslos von der Anfrage bis zur Lieferung. Daumen hoch für Heizöl Deutschland.",
     author: "Birgit Keller",
   },
 ];

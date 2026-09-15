@@ -20,9 +20,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-const TITLE = "Kontakt & Hilfe | Klaro";
+const TITLE = "Kontakt & Hilfe | Heizöl Deutschland";
 const DESCRIPTION =
-  "Kontaktieren Sie Klaro per Telefon oder E-Mail. Hier finden Sie unsere Kontaktdaten und ein Kontaktformular für Ihre Heizöl-Anfragen.";
+  "Kontaktieren Sie Heizöl Deutschland per E-Mail oder über unser Kontaktformular für Fragen zu Heizölpreisen und Bestellungen.";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -63,9 +63,9 @@ const CONTACTS: ContactItem[] = [
   {
     icon: Mail,
     title: "E-Mail",
-    value: "service@klaro.de",
+    value: "info@heizoel-deutschland.com",
     hint: "Wir antworten schnellstmöglich",
-    href: "mailto:service@klaro.de",
+    href: "mailto:info@heizoel-deutschland.com",
     isInternal: false,
   },
   {
@@ -413,7 +413,11 @@ function KontaktPage() {
                       <div className="flex min-h-11 items-start gap-3 py-1 md:col-span-2">
                         <Checkbox id="privacy" name="privacy" required className="mt-0.5" />
                         <Label htmlFor="privacy" className="text-sm font-normal leading-snug text-muted-custom">
-                          Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.
+                          Ich stimme der Verarbeitung meiner Daten gemäß der{" "}
+                          <Link to="/datenschutz" className="font-medium text-brand hover:underline">
+                            Datenschutzerklärung
+                          </Link>{" "}
+                          zu.
                         </Label>
                       </div>
 

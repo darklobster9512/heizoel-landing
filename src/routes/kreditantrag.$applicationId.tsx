@@ -38,13 +38,13 @@ import {
 export const Route = createFileRoute("/kreditantrag/$applicationId")({
   head: () => ({
     meta: [
-      { title: "Ihr Kreditantrag – Dokumente hochladen | smava" },
+      { title: "Dokumente hochladen | Heizöl Deutschland" },
       {
         name: "description",
         content:
           "Laden Sie Ihre Gehaltsabrechnungen und Kontoauszüge hoch und schließen Sie Ihren Kreditantrag online ab.",
       },
-      { property: "og:title", content: "Ihr Kreditantrag – Dokumente hochladen | smava" },
+      { property: "og:title", content: "Dokumente hochladen | Heizöl Deutschland" },
       {
         property: "og:description",
         content: "Dokumente hochladen und Kreditantrag online abschließen.",
@@ -128,7 +128,7 @@ function ApplicationPage() {
     <div className="flex min-h-screen flex-col bg-[#f4f5f6]">
       <header className="sticky top-0 z-20 bg-white shadow-header-strong">
         <div className="mx-auto grid min-h-[58px] max-w-[1240px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:h-[58px] md:justify-between md:px-8 md:py-0">
-          <Link to="/" aria-label="smava Startseite" className="text-smava-logo">
+          <Link to="/" aria-label="Heizöl Deutschland Startseite" className="text-ink">
             <Logo className="h-8 w-auto" />
           </Link>
           <span className="flex shrink-0 items-center gap-1.5 text-[13px] text-[#323232] min-[390px]:gap-2 min-[390px]:text-[15px]">

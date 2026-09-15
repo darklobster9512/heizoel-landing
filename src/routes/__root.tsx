@@ -79,14 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "smava — Kreditvergleich" },
-      { name: "description", content: "Unabhängiger Kreditvergleich für Deutschland. Transparent, kostenlos und ohne versteckte Kosten." },
-      { name: "author", content: "smava" },
-      { property: "og:title", content: "smava — Kreditvergleich" },
-      { property: "og:description", content: "Unabhängiger Kreditvergleich für Deutschland. Transparent, kostenlos und ohne versteckte Kosten." },
+      { title: "Heizöl Deutschland — Heizöl online bestellen" },
+      { name: "description", content: "Heizölpreise vergleichen und Heizöl deutschlandweit online bestellen." },
+      { name: "author", content: "Demovero GmbH" },
+      { property: "og:title", content: "Heizöl Deutschland" },
+      { property: "og:description", content: "Heizölpreise vergleichen und Heizöl deutschlandweit online bestellen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@smava" },
     ],
     links: [
       {
@@ -120,7 +119,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <HeadContent />
       </head>

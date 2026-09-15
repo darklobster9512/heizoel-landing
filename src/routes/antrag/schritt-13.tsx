@@ -10,7 +10,7 @@ import {
 } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-13")({
-  head: () => ({ meta: [{ title: "Schritt 13: Aktuelle Wohnanschrift – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 13: Aktuelle Wohnanschrift — Heizöl Deutschland" }] }),
   component: Step13,
 });
 

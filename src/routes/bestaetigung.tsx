@@ -8,7 +8,7 @@ import { loadOrderConfirmation, type OrderConfirmation } from "@/lib/order-draft
 import ekomi from "@/assets/ekomi.webp.asset.json";
 import trustedShops from "@/assets/trusted-shops-icon.png.asset.json";
 
-const TITLE = "Bestellung eingegangen | Klaro";
+const TITLE = "Bestellung eingegangen | Heizöl Deutschland";
 const DESCRIPTION = "Ihre Heizölbestellung ist bei uns eingegangen. Vielen Dank für Ihren Auftrag.";
 
 export const Route = createFileRoute("/bestaetigung")({

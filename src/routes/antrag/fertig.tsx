@@ -6,7 +6,14 @@ import { TrustBlock } from "@/components/wizard/ui";
 import schufaneutral from "@/assets/schufaneutral.svg.asset.json";
 
 export const Route = createFileRoute("/antrag/fertig")({
-  head: () => ({ meta: [{ title: "Anfrage erhalten – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [
+    { title: "Anfrage erhalten — Heizöl Deutschland" },
+    { name: "description", content: "Ihre Anfrage bei Heizöl Deutschland ist eingegangen." },
+    { property: "og:title", content: "Anfrage erhalten — Heizöl Deutschland" },
+    { property: "og:description", content: "Ihre Anfrage bei Heizöl Deutschland ist eingegangen." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: DonePage,
 });
 

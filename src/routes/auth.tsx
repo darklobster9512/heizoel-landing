@@ -12,16 +12,16 @@ import { getSession, signIn, signUp } from "@/lib/mock-auth";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Login & Registrierung — smava Kundenbereich" },
+       { title: "Login & Registrierung — Heizöl Deutschland" },
       {
         name: "description",
         content:
-          "Melden Sie sich im smava Kundenbereich an oder registrieren Sie sich kostenlos, um Ihre Kreditanfragen zu verwalten.",
+           "Melden Sie sich im Kundenbereich von Heizöl Deutschland an oder registrieren Sie sich kostenlos.",
       },
-      { property: "og:title", content: "Login & Registrierung — smava Kundenbereich" },
+       { property: "og:title", content: "Login & Registrierung — Heizöl Deutschland" },
       {
         property: "og:description",
-        content: "Melden Sie sich im smava Kundenbereich an oder registrieren Sie sich kostenlos.",
+         content: "Melden Sie sich bei Heizöl Deutschland an oder registrieren Sie sich kostenlos.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

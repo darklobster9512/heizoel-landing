@@ -14,7 +14,7 @@ import {
 } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-15")({
-  head: () => ({ meta: [{ title: "Schritt 15: Bestehende Kredite – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 15: Bestehende Kredite — Heizöl Deutschland" }] }),
   component: Step15,
 });
 

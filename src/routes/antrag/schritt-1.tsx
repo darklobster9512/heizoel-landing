@@ -5,7 +5,7 @@ import { useWizard } from "@/lib/wizard-store";
 import { ChoiceTiles, NavButtons, NoteBox, ProgressBar, TrustBlock } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-1")({
-  head: () => ({ meta: [{ title: "Schritt 1: Anzahl Kreditnehmer – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 1: Anzahl Kreditnehmer — Heizöl Deutschland" }] }),
   component: Step1,
 });
 
@@ -29,7 +29,7 @@ function Step1() {
       </div>
 
       <p className="mt-3 text-[14px] leading-[1.6] text-[#5b5b5b]">
-        Um die besten Kreditangebote für Sie zu ermitteln, benötigt smava einige Informationen zu
+        Um die besten Angebote für Sie zu ermitteln, benötigt Heizöl Deutschland einige Informationen zu
         Ihrer Person und Ihrer finanziellen Situation.
       </p>
 

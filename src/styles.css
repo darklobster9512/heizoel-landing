@@ -303,7 +303,7 @@
   display: none;
 }
 
-/* Dezente Klaro-Scrollbar ausschließlich im mobilen Vollbildmenü */
+/* Dezente Marken-Scrollbar ausschließlich im mobilen Vollbildmenü */
 .mobile-menu-scrollbar {
   scrollbar-color: color-mix(in oklch, var(--brand) 20%, transparent) transparent;
   scrollbar-width: thin;

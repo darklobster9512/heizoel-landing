@@ -10,9 +10,9 @@ import { getMyAccount, listAllUsers } from "@/lib/auth.functions";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin-Panel — smava" },
+      { title: "Admin-Panel — Heizöl Deutschland" },
       { name: "description", content: "Interne Verwaltung von Nutzern und Kreditanfragen." },
-      { property: "og:title", content: "Admin-Panel — smava" },
+      { property: "og:title", content: "Admin-Panel — Heizöl Deutschland" },
       { property: "og:description", content: "Interne Verwaltung von Nutzern und Kreditanfragen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

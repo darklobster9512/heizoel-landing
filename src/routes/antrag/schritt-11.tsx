@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { useWizard } from "@/lib/wizard-store";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-11")({
-  head: () => ({ meta: [{ title: "Schritt 11: Kontaktdaten – smava Kreditanfrage" }] }),
+  head: () => ({ meta: [{ title: "Schritt 11: Kontaktdaten — Heizöl Deutschland" }] }),
   component: Step11,
 });
 
@@ -81,7 +81,7 @@ function Step11() {
         <TextField
           id="email2"
           label="E-Mail"
-          focusHint="An diese E-Mail Adresse werden alle wichtigen Anträge, Unterlagen zu Abschlüssen und Vergleichen geschickt. Bitte stellen Sie sicher, dass Sie die richtige E-Mail-Adresse angeben und überprüfen Sie diese gegebenenfalls noch einmal. Eine korrekte E-Mail-Adresse wird für die Bereitstellung aller Dienstleistungen von smava benötigt."
+          focusHint="An diese E-Mail-Adresse werden wichtige Unterlagen geschickt. Bitte prüfen Sie die Schreibweise sorgfältig."
           type="email"
           placeholder="z.B. max.muster@gmail.com"
           value={data.email ?? ""}
@@ -91,32 +91,13 @@ function Step11() {
 
       <p className="mt-5 text-[12.5px] leading-[1.6] text-[#5b5b5b]">
         Mit Klick auf den "Weiter"-Button akzeptiere ich die{" "}
-        <a
-          href="https://www.smava.de/agb/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand hover:underline"
-        >
+        <Link to="/agb" className="text-brand hover:underline">
           AGB
-        </a>{" "}
-        und erteile smava einen kostenlosen Kreditvergleichsauftrag. Ich habe die{" "}
-        <a
-          href="https://www.smava.de/pflichtinformationen/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand hover:underline"
-        >
-          Pflichtinformationen
-        </a>{" "}
-        und die{" "}
-        <a
-          href="https://www.smava.de/datenschutz/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand hover:underline"
-        >
+        </Link>{" "}
+        und beauftrage Heizöl Deutschland mit der Bearbeitung meiner Anfrage. Ich habe die{" "}
+        <Link to="/datenschutz" className="text-brand hover:underline">
           Datenschutzhinweise
-        </a>{" "}
+        </Link>{" "}
         erhalten.
       </p>
 
@@ -125,16 +106,11 @@ function Step11() {
           checked={data.marketingConsent ?? false}
           onChange={(v) => update({ marketingConsent: v })}
         >
-          Ich möchte zudem über günstige Kreditangebote und Services von smava informiert werden und
-          willige ein, dass smava meine Angaben zur Kontaktaufnahme nutzt. Ich kann meine{" "}
-          <a
-            href="https://www.smava.de/datenschutz/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand hover:underline"
-          >
+          Ich möchte zudem über Angebote und Services von Heizöl Deutschland informiert werden und
+          willige in die Nutzung meiner Angaben zur Kontaktaufnahme ein. Ich kann meine{" "}
+          <Link to="/datenschutz" className="text-brand hover:underline">
             freiwillige Einwilligung
-          </a>{" "}
+          </Link>{" "}
           jederzeit mit Wirkung für die Zukunft widerrufen.
         </CheckboxRow>
       </div>
@@ -142,8 +118,8 @@ function Step11() {
       <NavButtons backTo="/antrag/schritt-10" nextTo="/antrag/schritt-12" />
 
       <p className="mt-6 text-[12.5px] leading-[1.6] text-[#5b5b5b]">
-        smava versendet Informationen und Umfragen zu unserer Dienstleistung unter Verwendung
-        elektronischer Post. Dem Erhalt kann ich jederzeit per E-Mail an info@smava.de
+        Heizöl Deutschland versendet Informationen und Umfragen per E-Mail. Dem Erhalt kann ich
+        jederzeit per E-Mail an info@heizoel-deutschland.com
         widersprechen.
       </p>
 
