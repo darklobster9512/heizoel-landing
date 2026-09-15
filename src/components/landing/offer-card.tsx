@@ -1,15 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Check, Shield } from "lucide-react";
 
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import type { PriceSearchValues } from "./price-search-loading";
 
 const DELIVERY_POINTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
