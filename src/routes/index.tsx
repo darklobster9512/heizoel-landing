@@ -21,6 +21,8 @@ import {
   TrustBar,
   TrustLinks,
 } from "@/components/landing/sections";
+import { jsonLd, organization, pageMeta, service, webPage, website } from "@/lib/seo";
+
 
 
 const DESCRIPTION =
