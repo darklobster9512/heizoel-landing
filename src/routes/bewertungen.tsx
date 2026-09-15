@@ -3,26 +3,46 @@ import { Award, BadgeCheck, Lock, ShieldCheck } from "lucide-react";
 
 import { SiteHeader } from "@/components/landing/site-header";
 import { ReferralBanner, SiteFooter } from "@/components/landing/sections";
+import {
+  AGGREGATE_RATING,
+  ORG_ID,
+  SITE_NAME,
+  breadcrumb,
+  jsonLd,
+  organization,
+  pageMeta,
+  webPage,
+} from "@/lib/seo";
 
-const TITLE = "Kundenbewertungen | Heizöl Deutschland";
+const TITLE = "Kundenbewertungen: 4,9/5 aus 25.000+ Bewertungen";
 const DESCRIPTION =
-  "Über 25.000 zufriedene Kunden bewerten Heizöl Deutschland mit 4,9 von 5 Sternen. Lesen Sie Erfahrungen zu Preisen, Lieferung und Service.";
+  "Über 25.000 zufriedene Kunden bewerten Heizöl Deutschland mit 4,9 von 5 Sternen. Lesen Sie Erfahrungen zu Heizölpreisen, Lieferung und Service.";
+const URL = "/bewertungen";
 
 export const Route = createFileRoute("/bewertungen")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Kundenbewertungen", item: URL },
+        ]),
+        {
+          "@type": "Product",
+          name: `Heizöllieferung von ${SITE_NAME}`,
+          brand: { "@id": ORG_ID },
+          aggregateRating: AGGREGATE_RATING,
+        },
+      ),
     ],
   }),
   component: BewertungenPage,
 });
+
 
 const STATS = [
   { value: "25.000", label: "Kunden" },

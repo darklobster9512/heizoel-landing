@@ -14,25 +14,43 @@ import vorauskasseAsset from "@/assets/vorauskasse.png.asset.json";
 import ecKarteAsset from "@/assets/ec-karte.png.asset.json";
 import lieferfristAsset from "@/assets/lieferfrist.png.asset.json";
 
-const TITLE = "Lieferung & Zahlung | Heizöl Deutschland";
+import {
+  breadcrumb,
+  jsonLd,
+  organization,
+  pageMeta,
+  service,
+  webPage,
+} from "@/lib/seo";
+
+const TITLE = "Heizöl Lieferung & Zahlung: Ablauf, Fristen, Zahlarten";
 const DESCRIPTION =
-  "Alle Informationen zu Lieferzeiten, Zahlungsarten und Liefermodalitäten: ca. 7 Werktage deutschlandweit, Barzahlung, EC-Karte oder Vorauskasse — alles ohne Aufpreis.";
+  "Heizöl-Lieferung in ca. 7 Werktagen deutschlandweit: Ablauf am Liefertag, Schlauchlängen, Abladestellen und Zahlung per Vorkasse, Bar oder EC-Karte ohne Aufpreis.";
+const URL = "/lieferung-zahlung";
 
 export const Route = createFileRoute("/lieferung-zahlung")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+    meta: pageMeta({ title: TITLE, description: DESCRIPTION, url: URL }),
+    links: [{ rel: "canonical", href: URL }],
+    scripts: [
+      jsonLd(
+        organization(),
+        webPage({ url: URL, name: TITLE, description: DESCRIPTION }),
+        breadcrumb([
+          { name: "Startseite", item: "/" },
+          { name: "Lieferung & Zahlung", item: URL },
+        ]),
+        service({
+          name: "Heizöllieferung deutschlandweit",
+          description: DESCRIPTION,
+          url: URL,
+        }),
+      ),
     ],
   }),
   component: LieferungZahlungPage,
 });
+
 
 const USPS = [
   {
