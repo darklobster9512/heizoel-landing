@@ -35,7 +35,7 @@ export function SectionHead({
   );
 }
 
-import smavaHero from "@/assets/smava-hero.webp.asset.json";
+import heizoelHero from "@/assets/heizoel-hero.webp.asset.json";
 
 const STATS = [
   { value: "25.429", label: "ZUFRIEDENE KUNDEN" },
@@ -112,178 +112,6 @@ export function ConditionsBox({ mobileOnly = false }: { mobileOnly?: boolean }) 
   );
 }
 
-
-const LOAN_TYPES = [
-  { title: "Ratenkredit", rate: "ab 3,89 %", text: "Für alles, was gerade ansteht — frei verwendbar." },
-  { title: "Autokredit", rate: "ab 3,89 %", text: "Barzahlerrabatt beim Händler sichern." },
-  { title: "Umschuldung", rate: "ab 4,29 %", text: "Teure Altkredite und Dispo ablösen." },
-  { title: "Modernisierung", rate: "ab 4,09 %", text: "Sanieren, renovieren, energetisch aufwerten." },
-  { title: "Baufinanzierung", rate: "ab 3,15 %", text: "Kauf, Neubau oder Anschlussfinanzierung." },
-  { title: "Gewerbekredit", rate: "ab 5,20 %", text: "Betriebsmittel und Investitionen für Selbstständige." },
-];
-
-export function LoanTypes() {
-  return (
-    <section id="kreditarten" className="border-y border-line bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <SectionHead eyebrow="Kreditarten" title="Für jeden Zweck der passende Kredit" />
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {LOAN_TYPES.map((l) => (
-            <li
-              key={l.title}
-              className="rounded-xl border border-line bg-surface p-5 transition-colors hover:border-brand"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="text-base font-semibold text-ink">{l.title}</h3>
-                <span className="tabular font-mono text-sm font-semibold text-brand-deep">
-                  {l.rate}
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-custom">{l.text}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-const COMPARE = [
-  { label: "Bestes Angebot über Heizöl Deutschland", value: 3.89, width: "26%", highlight: true },
-  { label: "Durchschnitt unserer Bankpartner", value: 6.4, width: "45%" },
-  { label: "Typisches Filialbank-Angebot", value: 8.9, width: "62%" },
-  { label: "Dispositionskredit", value: 12.5, width: "88%" },
-];
-
-export function RateComparison() {
-  return (
-    <section className="border-b border-line bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[0.85fr_1.15fr]">
-        <SectionHead
-          eyebrow="Zinsvergleich"
-          title="Der Unterschied zur Hausbank ist selten klein"
-          intro="Beispielwerte für 25.000 € über 60 Monate. Ihr Zinssatz hängt von Bonität und Laufzeit ab."
-        />
-        <ul className="space-y-5">
-          {COMPARE.map((c) => (
-            <li key={c.label}>
-              <div className="flex items-baseline justify-between text-sm">
-                <span className="text-ink">{c.label}</span>
-                <span className="tabular font-mono font-semibold text-ink">
-                  {c.value.toLocaleString("de-DE", { minimumFractionDigits: 2 })} %
-                </span>
-              </div>
-              <div className="mt-2 h-2.5 w-full rounded-full bg-secondary">
-                <div
-                  className={`h-full rounded-full ${c.highlight ? "bg-brand" : "bg-muted-custom/35"}`}
-                  style={{ width: c.width }}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-const RATES = [
-  { type: "Ratenkredit", rate: "3,89 – 12,90 %", term: "12 – 120 Monate", amount: "1.000 – 100.000 €" },
-  { type: "Autokredit", rate: "3,89 – 9,90 %", term: "12 – 96 Monate", amount: "2.500 – 80.000 €" },
-  { type: "Umschuldung", rate: "4,29 – 11,50 %", term: "24 – 120 Monate", amount: "5.000 – 100.000 €" },
-  { type: "Modernisierungskredit", rate: "4,09 – 10,40 %", term: "24 – 120 Monate", amount: "5.000 – 100.000 €" },
-  { type: "Kredit für Selbstständige", rate: "5,20 – 14,90 %", term: "12 – 84 Monate", amount: "2.500 – 60.000 €" },
-];
-
-export function RatesTable() {
-  return (
-    <section id="konditionen" className="scroll-mt-20 border-b border-line bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHead
-          eyebrow="Konditionen"
-          title="Zinsübersicht nach Kreditart"
-          intro="Beispielhafte Spannen unserer Bankpartner. Ihr persönlicher Zinssatz hängt von Bonität, Laufzeit und Verwendungszweck ab."
-        />
-
-        <div className="mt-10 overflow-x-auto rounded-xl border border-line bg-background">
-          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
-            <caption className="sr-only">Zinsspannen, Laufzeiten und Betragsrahmen je Kreditart</caption>
-            <thead>
-              <tr className="border-b border-line bg-secondary/60">
-                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Kreditart</th>
-                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">eff. Jahreszins</th>
-                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Laufzeit</th>
-                <th scope="col" className="px-5 py-3.5 font-medium text-muted-custom">Betragsrahmen</th>
-              </tr>
-            </thead>
-            <tbody>
-              {RATES.map((r) => (
-                <tr key={r.type} className="border-b border-line last:border-0">
-                  <th scope="row" className="px-5 py-4 font-medium text-ink">{r.type}</th>
-                  <td className="tabular px-5 py-4 font-mono font-medium text-brand-deep">{r.rate}</td>
-                  <td className="tabular px-5 py-4 text-muted-custom">{r.term}</td>
-                  <td className="tabular px-5 py-4 text-muted-custom">{r.amount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-4 text-xs text-muted-custom">
-          Stand der Beispielwerte: laufend aktualisiert. Angaben ohne Gewähr, kein Angebot im
-          Rechtssinne.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-const ADVANTAGES = [
-  {
-    title: "31 Bankpartner in einer Abfrage",
-    text: "Eine Anfrage, ein Score, alle erreichbaren Angebote — statt fünf einzelner Anträge.",
-  },
-  {
-    title: "SCHUFA-neutrale Konditionsanfrage",
-    text: "Der Vergleich hinterlässt keine Spur in Ihrem SCHUFA-Score.",
-  },
-  {
-    title: "Keine Gebühren, keine Provision von Ihnen",
-    text: "Wir werden von den Banken vergütet. Für Sie ist der Vergleich kostenfrei.",
-  },
-  {
-    title: "Vollständig digitaler Abschluss",
-    text: "Identifikation per Video oder Bank-Login, Signatur online, Papier entfällt.",
-  },
-  {
-    title: "Persönliche Beratung aus Deutschland",
-    text: "Zertifizierte Kreditberater, erreichbar Mo–Fr von 8 bis 20 Uhr.",
-  },
-  {
-    title: "Transparente Gesamtkosten",
-    text: "Effektivzins, Restschuldversicherung und Gesamtbetrag immer vollständig ausgewiesen.",
-  },
-];
-
-export function Advantages() {
-  return (
-    <section id="vorteile" className="scroll-mt-20 border-b border-line bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHead
-          eyebrow="Warum Heizöl Deutschland"
-          title="Ein Vergleich, der auch der Prüfung standhält"
-        />
-        <ul className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-          {ADVANTAGES.map((a) => (
-            <li key={a.title} className="border-t border-line pt-5">
-              <h3 className="text-base font-semibold text-ink">{a.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-custom">{a.text}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
 
 import freeInquiry from "@/assets/free-inquiry.svg.asset.json";
 import getOffers from "@/assets/get-offers.svg.asset.json";
@@ -471,7 +299,7 @@ export function MatchingOffers() {
 
           <div className="mt-10 flex justify-center md:mt-8">
             <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Jetzt Heizölpreise vergleichen</Link>
+              <Link to="/preisrechner">Jetzt Heizölpreise vergleichen</Link>
             </Button>
           </div>
         </div>
@@ -481,54 +309,6 @@ export function MatchingOffers() {
 }
 
 
-const VOICES = [
-  {
-    quote:
-      "Drei Angebote innerhalb einer Stunde, das beste lag 1,4 Prozentpunkte unter dem meiner Hausbank.",
-    name: "Martin K.",
-    role: "Umschuldung, 32.000 €",
-  },
-  {
-    quote:
-      "Klare Zahlen, keine Lockangebote. Der ausgewiesene Effektivzins war am Ende auch der im Vertrag.",
-    name: "Sabine R.",
-    role: "Autokredit, 18.500 €",
-  },
-  {
-    quote:
-      "Als Selbstständige war es sonst mühsam. Hier hatte ich in zwei Tagen eine Zusage.",
-    name: "Elena T.",
-    role: "Betriebsmittel, 45.000 €",
-  },
-];
-
-export function Testimonials() {
-  return (
-    <section className="border-b border-line bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHead
-          eyebrow="Kundenstimmen"
-          title="4,8 von 5 Sternen aus 2.318 Bewertungen"
-        />
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {VOICES.map((v) => (
-            <li key={v.name} className="rounded-xl border border-line bg-background p-6">
-              <p className="font-mono text-xs tracking-[0.2em] text-brand-deep" aria-label="5 von 5 Sternen">
-                ★★★★★
-              </p>
-              <blockquote className="mt-4 text-sm leading-relaxed text-ink">
-                „{v.quote}“
-              </blockquote>
-              <footer className="mt-5 border-t border-line pt-4 text-xs text-muted-custom">
-                <span className="font-medium text-ink">{v.name}</span> · {v.role}
-              </footer>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
 
 const HEIZOEL_ROWS: { label: string; info: string; standard: boolean; premium: boolean }[] = [
   {
@@ -1002,7 +782,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-0 px-5">
             <div className="relative">
               <img
-                src={smavaHero.url}
+                src={heizoelHero.url}
                  alt="Beraterin von Heizöl Deutschland mit Tablet"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
@@ -1016,7 +796,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-                  <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
+                  <Link to="/preisrechner">Heizölpreis berechnen</Link>
                 </Button>
               </div>
               <p className="mt-4 max-w-[540px] text-[13px] leading-[1.6] text-muted-custom/70">
@@ -1030,7 +810,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
       <div className="md:hidden">
         <div className={`flex justify-center bg-white ${compact ? "pt-2" : "pt-6"}`}>
           <img
-            src={smavaHero.url}
+            src={heizoelHero.url}
              alt="Beraterin von Heizöl Deutschland mit Tablet"
             className="h-[240px] w-auto object-contain"
           />
@@ -1044,7 +824,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           </p>
           <div className="mt-6 flex justify-center">
             <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
+              <Link to="/preisrechner">Heizölpreis berechnen</Link>
             </Button>
           </div>
           <p className="mt-4 px-2 text-[13px] leading-[1.6] text-muted-custom/70">

@@ -160,7 +160,7 @@ export function SiteHeader() {
           >
             <SheetHeader className="border-b border-line px-5 py-4 text-left">
               <SheetTitle>
-                <Logo className="h-auto w-[134px] text-smava-logo" />
+                <Logo className="h-auto w-[134px] text-brand-logo" />
                 <span className="sr-only">Heizöl Deutschland Navigation</span>
               </SheetTitle>
             </SheetHeader>
@@ -248,7 +248,7 @@ export function SiteHeader() {
           to="/"
           className="min-w-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
         >
-          <Logo className="h-auto w-[104px] text-smava-logo md:w-[152px]" />
+          <Logo className="h-auto w-[104px] text-brand-logo md:w-[152px]" />
         </Link>
 
         <div className="flex shrink-0 items-center md:hidden">

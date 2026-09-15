@@ -192,7 +192,7 @@ function LiveOrders() {
                 <span className="whitespace-nowrap">({order.plz})</span>
               </span>
           </p>
-          <Logo className="h-auto w-[60px] shrink-0 text-smava-logo" />
+          <Logo className="h-auto w-[60px] shrink-0 text-brand-logo" />
         </div>
         <p className="mt-1 text-sm text-ink">
           {order.liters.toLocaleString("de-DE")} Liter —{" "}
