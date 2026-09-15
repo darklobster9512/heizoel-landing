@@ -535,23 +535,47 @@ function BestellenPage() {
     return true;
   };
 
-  const submit = () => {
+  const submit = async () => {
+    if (submitting) return;
     if (!validate() || !draft) return;
     const now = new Date();
-    const orderNo = `${String(now.getDate()).padStart(2, "0")}${String(now.getMonth() + 1).padStart(2, "0")}-${Math.floor(10000 + Math.random() * 89999)}`;
-    saveOrderConfirmation({
-      ...draft,
-      ...(slot ? { slot } : {}),
-      orderNo,
-      email: email.trim(),
-      phone: phone.trim(),
-      delivery,
-      ...(billingDifferent ? { billing } : {}),
-      notes,
-      payment,
-      placedAt: now.toISOString(),
-    });
-    void navigate({ to: "/bestaetigung" });
+    const placedAt = now.toISOString();
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      const result = await submitPanelOrder({
+        draft,
+        slot: slot ?? undefined,
+        email,
+        phone,
+        delivery,
+        billing: billingDifferent ? billing : undefined,
+        notes,
+        payment,
+        placedAt,
+      });
+      saveOrderConfirmation({
+        ...draft,
+        ...(slot ? { slot } : {}),
+        orderNo: result.orderNumber,
+        email: email.trim(),
+        phone: phone.trim(),
+        delivery,
+        ...(billingDifferent ? { billing } : {}),
+        notes,
+        payment,
+        placedAt,
+      });
+      void navigate({ to: "/bestaetigung" });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
+      );
+      setSubmitting(false);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
   };
 
 
