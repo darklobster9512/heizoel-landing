@@ -156,7 +156,7 @@ function CityPage() {
               {num(city.population)} Einwohnern. Eine Übersicht aller Orte mit Heizöl-Lieferung
               finden Sie auf der Landesseite.
             </p>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
               <Link
                 to="/heizoelpreise/bundesland/$state"
                 params={{ state: state.slug }}
@@ -164,7 +164,26 @@ function CityPage() {
               >
                 Alle Heizölpreise in {state.name} ansehen
               </Link>
+              <Link
+                to="/heizoel-wissen"
+                className="text-[13px] font-medium text-brand underline underline-offset-2"
+              >
+                Heizöl-Wissen: Sorten &amp; Tankpflege
+              </Link>
+              <Link
+                to="/lieferung-zahlung"
+                className="text-[13px] font-medium text-brand underline underline-offset-2"
+              >
+                Lieferung &amp; Zahlung im Detail
+              </Link>
+              <Link
+                to="/faq"
+                className="text-[13px] font-medium text-brand underline underline-offset-2"
+              >
+                Häufige Fragen zur Heizölbestellung
+              </Link>
             </div>
+
             <CtaRow label={`Heizölpreis für ${city.name} berechnen`} plz={city.plz} />
           </div>
         </section>
