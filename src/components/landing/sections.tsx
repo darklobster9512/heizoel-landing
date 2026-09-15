@@ -299,7 +299,7 @@ export function MatchingOffers() {
 
           <div className="mt-10 flex justify-center md:mt-8">
             <Button asChild className="h-12 w-full max-w-[298px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Jetzt Heizölpreise vergleichen</Link>
+              <Link to="/preisrechner">Jetzt Heizölpreise vergleichen</Link>
             </Button>
           </div>
         </div>
@@ -796,7 +796,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
               </p>
               <div className="mt-7">
                 <Button asChild className="h-12 w-full max-w-[250px] text-[13px] font-bold !text-white shadow-md">
-                  <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
+                  <Link to="/preisrechner">Heizölpreis berechnen</Link>
                 </Button>
               </div>
               <p className="mt-4 max-w-[540px] text-[13px] leading-[1.6] text-muted-custom/70">
@@ -824,7 +824,7 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           </p>
           <div className="mt-6 flex justify-center">
             <Button asChild className="h-12 w-full max-w-[280px] text-[13px] font-bold !text-white shadow-md">
-              <Link to="/antrag/schritt-1" search={{}}>Heizölpreis berechnen</Link>
+              <Link to="/preisrechner">Heizölpreis berechnen</Link>
             </Button>
           </div>
           <p className="mt-4 px-2 text-[13px] leading-[1.6] text-muted-custom/70">
