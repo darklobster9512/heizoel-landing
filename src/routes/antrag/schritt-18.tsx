@@ -16,7 +16,7 @@ import tuevSiegel from "@/assets/tuev-siegel.svg.asset.json";
 export const Route = createFileRoute("/antrag/schritt-18")({
   head: () => ({
     meta: [
-      { title: "Schritt 18: Bankverbindung – smava Kreditanfrage" },
+      { title: "Schritt 18: Bankverbindung — Heizöl Deutschland" },
       { name: "robots", content: "noindex" },
     ],
   }),

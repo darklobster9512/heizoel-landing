@@ -20,7 +20,7 @@ import { TrustBlock } from "@/components/wizard/ui";
 
 export const Route = createFileRoute("/antrag/schritt-17")({
   head: () => ({
-    meta: [{ title: "Schritt 17: Woher kennen Sie uns? – smava Kreditanfrage" }],
+    meta: [{ title: "Schritt 17: Woher kennen Sie uns? — Heizöl Deutschland" }],
   }),
   component: Step17,
 });
@@ -56,7 +56,7 @@ function Step17() {
       </h1>
 
       <p className="mt-1 text-[15px] text-[#323232]">
-        Wie sind Sie auf smava aufmerksam geworden?
+        Wie sind Sie auf Heizöl Deutschland aufmerksam geworden?
       </p>
       <p className="mt-1 text-[13px] text-[#5b5b5b]">Optional</p>
 

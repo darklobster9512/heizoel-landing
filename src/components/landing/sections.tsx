@@ -149,7 +149,7 @@ export function LoanTypes() {
 }
 
 const COMPARE = [
-  { label: "Bestes Angebot über smava", value: 3.89, width: "26%", highlight: true },
+  { label: "Bestes Angebot über Heizöl Deutschland", value: 3.89, width: "26%", highlight: true },
   { label: "Durchschnitt unserer Bankpartner", value: 6.4, width: "45%" },
   { label: "Typisches Filialbank-Angebot", value: 8.9, width: "62%" },
   { label: "Dispositionskredit", value: 12.5, width: "88%" },
@@ -269,7 +269,7 @@ export function Advantages() {
     <section id="vorteile" className="scroll-mt-20 border-b border-line bg-background">
       <div className="mx-auto max-w-6xl px-5 py-20">
         <SectionHead
-          eyebrow="Warum smava"
+          eyebrow="Warum Heizöl Deutschland"
           title="Ein Vergleich, der auch der Prüfung standhält"
         />
         <ul className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
