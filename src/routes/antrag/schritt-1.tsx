@@ -17,14 +17,14 @@ function Step1() {
     <div className="mx-auto w-full max-w-[590px] px-5 pt-6 md:pt-10">
       <ProgressBar percent={9} />
 
-      <div className="mt-6 flex items-start justify-between gap-4">
+      <div className="mt-6 flex flex-col-reverse items-start gap-4 min-[390px]:flex-row min-[390px]:justify-between">
         <h1 className="text-[22px] font-bold leading-[1.3] text-[#323232]">
           Ihr verlässlicher Kreditüberblick von über 20 Banken
         </h1>
         <img
           src={schufaneutral.url}
           alt="100 % SCHUFA-neutral"
-          className="h-[74px] w-auto shrink-0"
+          className="h-14 w-auto shrink-0 min-[390px]:h-[74px]"
         />
       </div>
 

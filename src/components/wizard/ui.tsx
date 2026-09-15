@@ -95,7 +95,7 @@ export function ChoiceTiles<T extends string | number | boolean>({
   columns?: 1 | 2;
 }) {
   return (
-    <div className={cn("mt-1 grid gap-2.5", columns === 2 ? "grid-cols-2" : "grid-cols-1")}>
+    <div className={cn("mt-1 grid gap-2.5", columns === 2 ? "grid-cols-1 min-[360px]:grid-cols-2" : "grid-cols-1")}>
       {options.map((opt) => {
         const selected = value === opt.value;
         return (
@@ -105,7 +105,7 @@ export function ChoiceTiles<T extends string | number | boolean>({
             onClick={() => onChange(opt.value)}
             aria-pressed={selected}
             className={cn(
-              "flex h-[50px] items-center gap-3 border px-4 text-left text-[15px] transition-colors",
+              "flex min-h-[50px] min-w-0 items-center gap-3 border px-4 py-2 text-left text-[15px] transition-colors",
               selected
                 ? "border-brand bg-[#eff8f1] text-[#323232]"
                 : "border-[#c9c9c9] bg-white text-[#323232] hover:bg-[#f7f7f7]",
@@ -119,7 +119,7 @@ export function ChoiceTiles<T extends string | number | boolean>({
             >
               {selected ? <span className="size-2 rounded-full bg-brand" /> : null}
             </span>
-            {opt.label}
+            <span className="min-w-0 break-words">{opt.label}</span>
           </button>
         );
       })}
@@ -149,7 +149,7 @@ export function CounterField({
         disabled={value <= min}
         onClick={() => onChange(Math.max(min, value - 1))}
         className={cn(
-          "grid size-[38px] place-items-center border transition-colors",
+          "grid size-11 place-items-center border transition-colors",
           value <= min
             ? "border-[#dcdcdc] bg-[#f0f0f0] text-[#5b5b5b] disabled:opacity-50"
             : "border-brand bg-brand text-white hover:bg-brand-hover",
@@ -166,7 +166,7 @@ export function CounterField({
         disabled={value >= max}
         onClick={() => onChange(Math.min(max, value + 1))}
         className={cn(
-          "grid size-[38px] place-items-center text-white transition-colors",
+          "grid size-11 place-items-center text-white transition-colors",
           value >= max ? "bg-[#dcdcdc]" : "bg-brand hover:bg-brand-hover",
         )}
       >
@@ -554,7 +554,7 @@ export function NavButtons({
   if (withSave) {
     return (
       <div className="mt-8 space-y-2.5">
-        <div className="grid grid-cols-[170px_1fr] gap-2.5">
+        <div className="grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-[minmax(0,170px)_minmax(0,1fr)]">
           <button
             type="button"
             onClick={save}
@@ -585,7 +585,7 @@ export function NavButtons({
   }
 
   return (
-    <div className="mt-8 grid grid-cols-[170px_1fr] gap-2.5">
+    <div className="mt-8 grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-[minmax(0,170px)_minmax(0,1fr)]">
       <button
         type="button"
         onClick={goBack}
@@ -611,9 +611,9 @@ export function NavButtons({
 /* ------------------------------------------------------------------ */
 export function TrustBlock() {
   return (
-    <div className="mt-8 bg-[#f4f5f6] px-6 py-8 text-center">
+    <div className="mt-8 bg-[#f4f5f6] px-4 py-7 text-center sm:px-6 sm:py-8">
       <p className="text-[17px] font-bold text-[#323232]">TÜV geprüft + SCHUFA-neutral</p>
-      <div className="mt-5 flex items-center justify-center gap-6">
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
         <img src={tuev.url} alt="TÜV Saarland – geprüfter Datenschutz" className="h-[52px] w-auto" />
         <img src={garantie.url} alt="Günstiger geht nicht Garantie" className="h-[56px] w-auto" />
         <div>
@@ -697,7 +697,7 @@ export function WizardFooter() {
         >
           <Logo />
         </a>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {SOCIALS.map((s) => (
             <a
               key={s.label}

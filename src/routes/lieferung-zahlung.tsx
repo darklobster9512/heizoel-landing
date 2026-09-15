@@ -118,7 +118,7 @@ function LieferungZahlungPage() {
 
         {/* USP-Kacheln */}
         <section className="bg-background" aria-label="Ihre Vorteile">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-10 md:grid-cols-4 md:gap-6 md:py-12">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-5 py-10 min-[380px]:grid-cols-2 md:grid-cols-4 md:gap-6 md:py-12">
             {USPS.map((usp) => (
               <div
                 key={usp.title}
@@ -226,7 +226,7 @@ function LieferungZahlungPage() {
                     src={method.image}
                     alt={method.alt}
                     loading="lazy"
-                    className="h-20 w-auto shrink-0 self-start object-contain md:h-24"
+                    className="h-20 max-w-full self-center object-contain md:h-24 md:shrink-0 md:self-start"
                   />
                   <div>
                     <h3 className="text-[17px] font-bold text-conditions">{method.title}</h3>

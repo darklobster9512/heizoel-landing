@@ -149,7 +149,7 @@ export function SiteHeader() {
               variant="ghost"
               size="icon"
               aria-label="Menü öffnen"
-              className="-ml-2 size-9 shrink-0 text-ink md:hidden"
+              className="-ml-2 size-11 shrink-0 text-ink md:hidden"
             >
               <Menu className="size-5" aria-hidden="true" />
             </Button>
@@ -176,7 +176,7 @@ export function SiteHeader() {
                     return (
                       <li key={item.title}>
                         <SheetClose asChild>
-                          <Link to={item.to} className="flex items-center gap-3 py-3.5">
+                          <Link to={item.to} className="flex min-h-12 items-center gap-3 py-3.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
                             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
                               <Icon className="size-[18px]" aria-hidden="true" />
                             </span>

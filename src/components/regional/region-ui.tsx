@@ -59,7 +59,7 @@ export function RegionHero({
 }) {
   return (
     <section className="border-b-[3px] border-b-brand bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-8 md:py-12">
+      <div className="mx-auto max-w-6xl px-4 py-7 sm:px-5 md:py-12">
         <Breadcrumbs items={crumbs} />
         <div className="mt-4 grid gap-6 md:grid-cols-[1fr_320px] md:items-center">
           <div>
@@ -71,7 +71,7 @@ export function RegionHero({
             </p>
           </div>
 
-          <div className="rounded-xl border border-line bg-background p-5 shadow-card">
+          <div className="w-full rounded-xl border border-line bg-background p-4 shadow-card sm:p-5 md:max-w-[320px]">
             <p className="text-[12px] font-medium uppercase tracking-wide text-muted-custom">
               Aktueller Heizölpreis
             </p>
@@ -87,7 +87,7 @@ export function RegionHero({
             >
               Jetzt Preis berechnen
             </Link>
-            <p className="mt-2 text-center text-[11px] text-muted-custom">
+            <p className="mt-2 text-center text-[11px] leading-relaxed text-muted-custom">
               Kostenlos & unverbindlich · Lieferung in {DELIVERY_DAYS} Werktagen
             </p>
           </div>
@@ -107,14 +107,14 @@ export function PriceFacts({ extra }: { extra?: { label: string; value: string }
   ];
   return (
     <section aria-label="Preisübersicht" className="bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-8">
+       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-5">
         <dl
-          className={`grid grid-cols-2 gap-4 md:divide-x md:divide-line ${
+          className={`grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 md:divide-x md:divide-line ${
             facts.length === 5 ? "md:grid-cols-5" : "md:grid-cols-4"
           }`}
         >
           {facts.map((f) => (
-            <div key={f.label} className="px-2 text-center md:px-4">
+            <div key={f.label} className="rounded-md border border-line px-2 py-3 text-center md:rounded-none md:border-0 md:px-4 md:py-0">
               <dt className="text-[11px] font-medium uppercase tracking-wide text-muted-custom">
                 {f.label}
               </dt>
@@ -172,17 +172,17 @@ export function CityGrid({ cities, title }: { cities: City[]; title: string }) {
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-10 md:py-14">
         <h2 className="text-[20px] font-semibold leading-[1.3] text-ink md:text-[26px]">{title}</h2>
-        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="mt-6 grid grid-cols-1 gap-3 min-[390px]:grid-cols-2 md:grid-cols-4">
           {cities.map((c) => (
             <Link
               key={c.slug}
               to="/heizoelpreise/$city"
               params={{ city: c.slug }}
               title={`Heizölpreise ${c.name}`}
-              className="rounded-lg border border-line bg-card px-4 py-3 transition-colors hover:border-brand"
+              className="min-w-0 rounded-lg border border-line bg-card px-4 py-3 transition-colors hover:border-brand"
             >
-              <span className="flex items-center gap-1.5 text-[14px] font-semibold text-conditions">
-                <MapPin className="size-3.5 text-brand" aria-hidden />
+              <span className="flex min-w-0 items-start gap-1.5 break-words text-[14px] font-semibold text-conditions">
+                <MapPin className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden />
                 {c.name}
               </span>
               <span className="mt-0.5 block text-[11px] text-muted-custom">
@@ -201,7 +201,7 @@ export function CityLinkList({ cities, title }: { cities: City[]; title: string 
     <section className="bg-surface">
       <div className="mx-auto max-w-6xl px-5 py-10 md:py-14">
         <h2 className="text-[20px] font-semibold leading-[1.3] text-ink md:text-[24px]">{title}</h2>
-        <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-4">
+        <div className="mt-5 grid grid-cols-1 gap-x-4 gap-y-2 min-[390px]:grid-cols-2 md:grid-cols-4">
           {cities.map((c) => (
             <Link
               key={c.slug}

@@ -242,7 +242,7 @@ function KontaktPage() {
                   <div className="grid gap-2">
                     <Label htmlFor="topic">Anliegen</Label>
                     <Select value={selectedTopic} onValueChange={setSelectedTopic} required>
-                      <SelectTrigger id="topic" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                      <SelectTrigger id="topic" className="h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
                         <SelectValue placeholder="Bitte wählen Sie Ihr Anliegen" />
                       </SelectTrigger>
                       <SelectContent>
@@ -318,7 +318,7 @@ function KontaktPage() {
                         <div className="grid gap-2">
                           <Label htmlFor="calc-locations">Anzahl der Lieferstellen</Label>
                           <Select value={calcLocations} onValueChange={setCalcLocations} required>
-                            <SelectTrigger id="calc-locations" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                            <SelectTrigger id="calc-locations" className="h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
                               <SelectValue placeholder="Bitte wählen" />
                             </SelectTrigger>
                             <SelectContent>
@@ -346,7 +346,7 @@ function KontaktPage() {
                       <div className="grid gap-2">
                         <Label htmlFor="salutation">Anrede</Label>
                         <Select name="salutation" required>
-                          <SelectTrigger id="salutation" className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
+                          <SelectTrigger id="salutation" className="h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-ring">
                             <SelectValue placeholder="Bitte wählen" />
                           </SelectTrigger>
                           <SelectContent>
@@ -410,7 +410,7 @@ function KontaktPage() {
                         />
                       </div>
 
-                      <div className="flex items-start gap-3 md:col-span-2">
+                      <div className="flex min-h-11 items-start gap-3 py-1 md:col-span-2">
                         <Checkbox id="privacy" name="privacy" required className="mt-0.5" />
                         <Label htmlFor="privacy" className="text-sm font-normal leading-snug text-muted-custom">
                           Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.
