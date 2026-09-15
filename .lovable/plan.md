@@ -24,6 +24,12 @@ Es ändert sich optisch nichts weiter — Layout, Schritte, Preisleiste und Best
   - Button (Desktop-Card und sticky Leiste) zeigt Ladezustand, `disabled` während der Übertragung; Fehlermeldung als dezenter roter Hinweis.
 - Der Endpunkt liegt unter `/api/public/*` des Panels und erlaubt CORS für alle Ursprünge — es sind keine Schlüssel oder Anmeldedaten in diesem Projekt nötig.
 
+## Zur Rückfrage: welche Funktion des Panels genutzt wird
+
+Im Panel-Projekt gibt es keine separaten Supabase-Edge-Functions — der Ordner `supabase/` enthält nur Migrationen. Die Bestellannahme läuft dort über die serverseitige Funktion `src/routes/api/public/orders.ts`. Sie ist genau die Schnittstelle, die Bestellungen prüft, in die Tabelle `orders` schreibt, die Bestellnummer erzeugt und die Telegram-Benachrichtigung auslöst.
+
+Die einzige "Konstante" ist die Adresse dieser Funktion — also wohin die Bestellung geschickt wird — plus die Branding-Kennung. Kein Schlüssel, kein Passwort, keine Kopie der Panel-Logik in dieses Projekt.
+
 ## Hinweise
 
 - Der Panel-Endpunkt prüft die Branding-Kennung serverseitig; falls die Kennung dort nicht existiert, kommt "Unbekannte Branding-ID" zurück und wird als Fehlermeldung angezeigt.
