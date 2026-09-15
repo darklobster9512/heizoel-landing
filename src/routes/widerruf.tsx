@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { COMPANY, CompanyAddress, ContactLinks, LegalPage } from "@/components/legal/legal-page";
+import { legalJsonLd } from "@/lib/seo";
 
 const TITLE = "Widerrufsbelehrung | Heizöl Deutschland";
 const DESCRIPTION = "Informationen zum Widerrufsrecht bei Heizölbestellungen über heizoel-deutschland.com sowie Muster-Widerrufsformular.";
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/widerruf")({
     { title: TITLE }, { name: "description", content: DESCRIPTION }, { property: "og:title", content: TITLE },
     { property: "og:description", content: DESCRIPTION }, { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-  ], links: [{ rel: "canonical", href: "/widerruf" }] }),
+  ], links: [{ rel: "canonical", href: "/widerruf" }], scripts: [legalJsonLd("/widerruf", TITLE, DESCRIPTION)] }),
   component: WiderrufPage,
 });
 

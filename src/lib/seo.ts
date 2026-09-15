@@ -165,3 +165,15 @@ export const NOINDEX_META = [
   { name: "robots", content: "noindex, nofollow" },
   { name: "googlebot", content: "noindex, nofollow" },
 ];
+
+/** Head-Script für Rechtstextseiten: Unternehmen, Seite und Brotkrümelpfad. */
+export function legalJsonLd(url: string, name: string, description: string) {
+  return jsonLd(
+    organization(),
+    webPage({ url, name, description }),
+    breadcrumb([
+      { name: "Startseite", item: "/" },
+      { name: name.split(/[|—]/)[0].trim(), item: url },
+    ]),
+  );
+}

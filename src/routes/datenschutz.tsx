@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { COMPANY, CompanyAddress, ContactLinks, LegalPage } from "@/components/legal/legal-page";
+import { legalJsonLd } from "@/lib/seo";
 
 const TITLE = "Datenschutzerklärung | Heizöl Deutschland";
 const DESCRIPTION = "Datenschutzerklärung von Heizöl Deutschland: Informationen zur Verarbeitung personenbezogener Daten bei Preisvergleich, Bestellung und Kontakt.";
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/datenschutz")({
     { title: TITLE }, { name: "description", content: DESCRIPTION }, { property: "og:title", content: TITLE },
     { property: "og:description", content: DESCRIPTION }, { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-  ], links: [{ rel: "canonical", href: "/datenschutz" }] }),
+  ], links: [{ rel: "canonical", href: "/datenschutz" }], scripts: [legalJsonLd("/datenschutz", TITLE, DESCRIPTION)] }),
   component: DatenschutzPage,
 });
 

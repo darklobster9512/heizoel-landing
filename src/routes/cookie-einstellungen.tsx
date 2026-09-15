@@ -9,7 +9,7 @@ export const Route = createFileRoute("/cookie-einstellungen")({
     { title: TITLE }, { name: "description", content: DESCRIPTION }, { property: "og:title", content: TITLE },
     { property: "og:description", content: DESCRIPTION }, { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-  ], links: [{ rel: "canonical", href: "/cookie-einstellungen" }] }),
+  ], links: [{ rel: "canonical", href: "/cookie-einstellungen" }], scripts: [legalJsonLd("/cookie-einstellungen", TITLE, DESCRIPTION)] }),
   component: CookiePage,
 });
 
