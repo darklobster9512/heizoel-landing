@@ -35,7 +35,7 @@ export function CookieConsent() {
     window.setTimeout(() => {
       setDecided(value);
       setVisible(false);
-gt    }, 300);
+    }, 300);
   };
 
   if (decided) return null;
