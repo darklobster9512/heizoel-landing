@@ -1130,11 +1130,12 @@ function BestellenPage() {
             ) : (
               <button
                 type="button"
-                onClick={submit}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover sm:px-6"
+                onClick={() => void submit()}
+                disabled={submitting}
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 py-3 text-[15px] font-bold text-white shadow-cta transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-70 sm:px-6"
               >
-                Bestellen
-                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                {submitting ? "Wird gesendet ..." : "Bestellen"}
+                {submitting ? null : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
               </button>
             )}
           </div>
