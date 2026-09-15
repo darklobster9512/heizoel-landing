@@ -102,7 +102,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Heizölpreise aus über 300 Händlern vergleichen und Heizöl deutschlandweit günstig online bestellen. Tagesaktuelle Preise, sichere Lieferung, 4,9/5 Sterne.",
       },
       { name: "author", content: "Demovero GmbH" },
-      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "publisher", content: "Demovero GmbH" },
+      { name: "language", content: "de-DE" },
+      { httpEquiv: "content-language", content: "de-DE" },
+      { name: "geo.region", content: "DE" },
+      {
+        name: "robots",
+        content:
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      {
+        name: "googlebot",
+        content:
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+
       { property: "og:site_name", content: "Heizöl Deutschland" },
       { property: "og:locale", content: "de_DE" },
       { property: "og:title", content: "Heizöl bestellen & Heizölpreise vergleichen | Heizöl DE" },
