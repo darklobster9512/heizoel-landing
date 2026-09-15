@@ -784,6 +784,8 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
               <img
                 src={heizoelHero.url}
                  alt="Beraterin von Heizöl Deutschland mit Tablet"
+                loading="lazy"
+                decoding="async"
                 className="absolute bottom-0 left-[40px] h-[350px] w-auto object-contain object-bottom"
               />
             </div>
@@ -812,6 +814,8 @@ export function ReferralBanner({ compact = false }: { compact?: boolean }) {
           <img
             src={heizoelHero.url}
              alt="Beraterin von Heizöl Deutschland mit Tablet"
+            loading="lazy"
+            decoding="async"
             className="h-[240px] w-auto object-contain"
           />
         </div>
