@@ -2,7 +2,7 @@ import ntv from "@/assets/ntv-gesamtsieger-heizoel24-2025.png.asset.json";
 import bild from "@/assets/bild-empfehlung-2026.png.asset.json";
 import welt from "@/assets/die-welt-service-champion-2025.png.asset.json";
 import dtgv from "@/assets/dtgv-testsieger.png.asset.json";
-import guarantee from "@/assets/guarantee.svg.asset.json";
+import guarantee from "@/assets/guarantee.png.asset.json";
 import { OfferCard } from "./offer-card";
 import type { PriceSearchValues } from "./price-search-loading";
 
@@ -80,8 +80,8 @@ export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => vo
             <img
               src={guarantee.url}
               alt="Günstiger-geht-nicht-Garantie"
-              width={88}
-              height={88}
+              width={1031}
+              height={1058}
               className="mx-auto size-[82px] object-contain md:hidden"
             />
           </div>
@@ -115,8 +115,8 @@ export function Hero({ onSearch }: { onSearch: (values: PriceSearchValues) => vo
           <img
             src={guarantee.url}
             alt="Günstiger-geht-nicht-Garantie"
-            width={88}
-            height={88}
+            width={1031}
+            height={1058}
             className="pointer-events-none absolute -right-2 -top-8 z-10 hidden size-[86px] drop-shadow-sm md:block"
           />
           <OfferCard mobileTrust={trustBadges} onSearch={onSearch} />
