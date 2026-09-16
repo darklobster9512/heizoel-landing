@@ -196,6 +196,7 @@ function ErgebnisPage() {
   const navigate = useNavigate();
 
   const goToOrder = () => {
+    trackPixelEvent("Lead", { content_name: "ZurBestellung" });
     saveOrderDraft({
       plz,
       city,
