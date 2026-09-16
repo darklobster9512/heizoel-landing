@@ -29,6 +29,7 @@ const ecKarte = { url: "/img/ec-karte.png" };
 const dropGreen = { url: "/img/drop-green.png" };
 import { lookupPlzCity } from "@/lib/plz-city";
 import { saveOrderDraft } from "@/lib/order-draft";
+import { trackPixelEvent } from "@/lib/meta-pixel";
 
 
 const TITLE = "Ihr persönliches Heizölangebot | Heizöl Deutschland";
