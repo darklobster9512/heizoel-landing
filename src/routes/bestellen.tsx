@@ -141,13 +141,6 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     icon: ecKarte,
   },
   {
-    id: "rechnung",
-    label: "Rechnung nach Lieferung",
-    desc: "Rechnung per E-Mail, Zahlung nach Lieferung.",
-    hint: "Nur für Bestandskunden",
-    icon: vorauskasse,
-  },
-  {
     id: "klarna",
     label: "Klarna Sofortüberweisung",
     desc: "Sofort per Online-Banking bezahlen – sicher über Klarna.",
