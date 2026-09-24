@@ -143,6 +143,12 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     hint: "Nur für Bestandskunden",
     icon: vorauskasse,
   },
+  {
+    id: "klarna",
+    label: "Klarna Sofortüberweisung",
+    desc: "Sofort per Online-Banking bezahlen – sicher über Klarna.",
+    icon: { url: "/img/klarna.svg" },
+  },
 ];
 
 interface AddressForm {
