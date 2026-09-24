@@ -544,14 +544,51 @@ function BestellenPage() {
     return true;
   };
 
+  const openKlarnaPopup = (url: string) => {
+    const w = window.open(url, "klarna", "width=600,height=860");
+    popupRef.current = w;
+    setPopupBlocked(!w);
+    return w;
+  };
+
+  const cancelKlarna = () => {
+    klarnaAbortRef.current?.abort();
+    try {
+      popupRef.current?.close();
+    } catch {
+      /* ignore */
+    }
+  };
+
   const submit = async () => {
     if (submitting) return;
     if (!validate() || !draft) return;
-    const now = new Date();
-    const placedAt = now.toISOString();
     setSubmitError(null);
     setSubmitting(true);
+    let klarnaRef = "";
     try {
+      if (payment === "klarna") {
+        // Popup synchron beim Klick öffnen (sonst blockiert der Browser)
+        const popup = openKlarnaPopup("about:blank");
+        const session = await createKlarnaSession({ totalEuro: draft.total, email });
+        klarnaUrlRef.current = session.checkoutUrl;
+        if (popup && !popup.closed) popup.location.href = session.checkoutUrl;
+        else openKlarnaPopup(session.checkoutUrl);
+        const controller = new AbortController();
+        klarnaAbortRef.current = controller;
+        setKlarnaWaiting(true);
+        await waitForKlarnaPayment(session, () => popupRef.current, controller.signal);
+        try {
+          popupRef.current?.close();
+        } catch {
+          /* ignore */
+        }
+        klarnaRef = session.sessionId;
+      }
+      const placedAt = new Date().toISOString();
+      const orderNotes = klarnaRef
+        ? `${notes.trim() ? `${notes.trim()}\n` : ""}Klarna Sofortüberweisung bezahlt (Sitzung ${klarnaRef})`
+        : notes;
       const result = await submitPanelOrder({
         draft,
         slot: slot ?? undefined,
@@ -559,7 +596,7 @@ function BestellenPage() {
         phone,
         delivery,
         billing: billingDifferent ? billing : undefined,
-        notes,
+        notes: orderNotes,
         payment,
         placedAt,
       });
