@@ -1,15 +1,16 @@
-# Klarna-Popup: normales Popup-Fenster statt großes Fenster
+# Klarna Kreditkarte & Rechnung: gleiches Popup wie Sofortüberweisung
 
-## Ausgangslage
-Auf `/bestellen` öffnet der Klarna-Checkout ein Browser-Fenster (`window.open`) mit 600 × 860 px. Auf dem Bildschirm des Nutzers erscheint dieses Fenster riesig/fast full width — es soll stattdessen „ganz normal wie ein Popup" aussehen. Die Abdunkelung der Seite (Warte-Dialog „Zahlung wird in Klarna abgeschlossen …") bleibt unverändert bestehen.
+## Ursache (geprüft)
+In `src/routes/bestellen.tsx` (Funktion `submit`) wird das Klarna-Popup nur bei `payment === "klarna"` geöffnet. `klarna-cc` und `klarna-rechnung` überspringen diesen Block und senden die Bestellung sofort ans Panel. Gleiches gilt für das Warte-Popup und das Schließen bei Fehlern.
 
-## Änderungen (nur `src/routes/bestellen.tsx`)
+## Änderung
+Alle Stellen auf den vorhandenen Helper `isKlarna(payment)` umstellen, damit alle drei Klarna-Arten 1:1 dieselbe Logik haben:
+- Zeile 591: `if (isKlarna(payment))` – Popup öffnen, Sitzung erstellen, auf „bezahlt“ warten, erst dann Bestellung senden.
+- Zeile 611: Notiz nutzt `KLARNA_LABELS[payment]` statt fest „Klarna Sofortüberweisung“ (z. B. „Klarna Kreditkarte bezahlt (Sitzung …)“).
+- Zeile 638: Popup bei Fehler für alle Klarna-Arten schließen.
+- Zeile 1189: Warte-Popup für alle Klarna-Arten anzeigen.
 
-- Zwei Stellen mit `window.open(url, "klarna", "width=600,height=860")` (Zeile 569 `openKlarnaPopup` und Zeile 1206 „Klarna-Fenster erneut öffnen") auf eine kompakte Popup-Größe umstellen:
-  - ca. 480 × 680 px, per Screen-Koordinaten (`left`/`top`) mittig auf dem Bildschirm positioniert.
-  - Kleiner gemeinsamer Helper (z. B. `openKlarnaWindow(url)`), damit beide Stellen identisch öffnen — auch wenn der Screen kleiner als das Popup ist, greift die Browser-Standardgröße.
-- Der Warte-Dialog (dunkler Fullscreen-Hintergrund + Karte max-w-sm) bleibt wie er ist — Abdunkelung ist gewünscht.
+Ans Panel geht weiterhin `klarna`, `klarna-cc` bzw. `klarna-rechnung`.
 
-## Verifikation
-- `bunx tsgo --noEmit`
-- Playwright auf `/bestellen`: Klarna-Zahlungsart wählen, absenden → Popup öffnet sich kompakt und mittig, Warte-Dialog mit Abdunkelung erscheint weiterhin; Screenshot-Kontrolle.
+## Prüfung
+Typecheck und Build; Browser-Test ohne echte Bestellung: Auswahl Kreditkarte/Rechnung öffnet das Klarna-Popup statt direkt abzuschicken.
