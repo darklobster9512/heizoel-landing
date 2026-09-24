@@ -14,7 +14,12 @@ export default defineConfig({
   },
   vite: {
     server: {
-      allowedHosts: ["heizoel-deutschland.com", "www.heizoel-deutschland.com"],
+      allowedHosts: [
+        "heizoel-deutschland.com",
+        "www.heizoel-deutschland.com",
+        "heizoel-deutschland.de",
+        "www.heizoel-deutschland.de",
+      ],
     },
   },
 });
