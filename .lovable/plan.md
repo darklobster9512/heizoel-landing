@@ -1,41 +1,22 @@
-# Klarna-Zahlungsstart zuverlässig reparieren
+# Klarna-Logo auf /bestellen tauschen + Flackern beheben
 
-## Bestätigter Befund
+## Ziel
+Das rosa Klarna-Schriftzug-Bild (Upload `klarnaa.webp`, 1920×808 px) ersetzt das bisherige selbstgebaute `klarna.svg` in der Zahlungsmethode „Klarna Sofortüberweisung". Das Bild liegt künftig im `public`-Ordner und ist beim Anzeigen der Seite bereits geladen, damit es nicht erst nachträglich einblendet (Flackern).
 
-Der Shop sendet die Anfrage korrekt an:
-`POST https://klarna.secure-pay.app/api/public/session-create`
+## Umsetzung
 
-Die aktuelle Live-Antwort des Plugins ist HTTP 500:
-`Node.js detected but native WebSocket not found.`
+1. **Bild in den public-Ordner**
+   - Upload auf eine sinnvolle Icon-Größe verkleinern (480 × 202 px, WebP, ~5–10 KB) und als `public/img/klarna.webp` speichern.
+   - Alte Datei `public/img/klarna.svg` löschen.
 
-Der zuvor fehlende Service-Key wird damit nicht mehr beanstandet. Der neue Fehler entsteht im Klarna-Plugin beim Aufbau des Datenbankzugriffs: Die dort eingesetzte Datenbank-Bibliothek versucht in der veröffentlichten Serverumgebung eine nicht verfügbare WebSocket-Verbindung zu initialisieren. Deshalb wird keine Zahlungssitzung erstellt und das leere Popup vom Shop wieder geschlossen.
+2. **Referenz umstellen**
+   - `src/routes/bestellen.tsx`: in der Zahlungsarten-Liste bei `id: "klarna"` die Icon-URL von `/img/klarna.svg` auf `/img/klarna.webp` ändern.
+   - Prüfen, ob `klarna.svg` noch an anderen Stellen referenziert wird (aktuell nur diese eine Stelle).
 
-## Umsetzung im Projekt „klarna-plugin“
+3. **Flackern vermeiden — Logo vor Seitenanzeige laden**
+   - Im `head()` der `/bestellen`-Route einen Preload-Hinweis ergänzen: `<link rel="preload" as="image" href="/img/klarna.webp" />` — der Browser lädt das Bild sofort mit dem HTML, bevor die Seite gerendert wird.
+   - Am Icon-`<img>` feste Breite/Höhe setzen (passend zum bestehenden Layout der Zahlungs-Icons), damit es beim Laden keine Größenverschiebung gibt.
 
-1. **Datenbankzugriff Worker-kompatibel machen**
-   - Den aktuellen Admin-Client in den öffentlichen Zahlungs-Endpunkten durch einen reinen HTTPS/REST-Zugriff ersetzen.
-   - `SUPABASE_URL` und `SUPABASE_SERVICE_ROLE_KEY` weiterhin ausschließlich serverseitig auslesen.
-   - Keine WebSocket-, Realtime- oder Node-spezifische Verbindung initialisieren.
-
-2. **Alle betroffenen Zahlungs-Endpunkte gemeinsam korrigieren**
-   - Sitzung anlegen: `/api/public/session-create`
-   - Sitzung abfragen: `/api/public/session-get`
-   - Zahlungsereignisse speichern und Status aktualisieren: `/api/public/session-event`
-   - Einheitliche, aussagekräftige Fehlerantworten beibehalten, ohne Schlüssel oder Kundendaten offenzulegen.
-
-3. **Vollständige Bestelldaten erhalten**
-   - Betrag in Cent
-   - Kunden-E-Mail
-   - Shop-Domain `heizoel-deutschland.com`
-   - Shop-Logo-URL
-   - Sitzungs-ID und Zahlungsstatus
-
-4. **Live-Ablauf prüfen**
-   - Neue Sitzung direkt gegen `klarna.secure-pay.app` erzeugen und eine gültige `session_id` sowie `checkout_url` bestätigen.
-   - Auf `/bestellen` Klarna auswählen und prüfen, dass das Popup geöffnet bleibt.
-   - Erfolgreiche Zahlung simulieren/abschließen, den Status `paid` prüfen und erst danach die Heizölbestellung auslösen.
-   - Fehler-, Abbruch- und Popup-blockiert-Fälle kontrollieren; dabei darf keine Bestellung vor erfolgreicher Zahlung entstehen.
-
-## Zuständigkeit
-
-Die Korrektur muss im Projekt **„klarna-plugin“** erfolgen und danach auf `klarna.secure-pay.app` veröffentlicht werden. Im Heizöl-Shop ist für diesen konkreten 500-Fehler keine Änderung erforderlich.
+4. **Prüfung**
+   - Typecheck (`tsgo`) und Build-Log kontrollieren.
+   - Playwright-Kurztest auf `/bestellen`: Klarna-Karte zeigt neues Logo sofort ohne Nachladen (kein Flackern), Netzwerk zeigt das Bild früh im Ladevorgang; Sichtkontrolle Desktop + Mobil.
