@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   CalendarDays,
   Check,
@@ -27,6 +27,7 @@ import {
   type OrderDraft,
 } from "@/lib/order-draft";
 import { submitPanelOrder } from "@/lib/panel-orders";
+import { createKlarnaSession, KlarnaAbortError, waitForKlarnaPayment } from "@/lib/klarna-pay";
 const ekomi = { url: "/img/ekomi.webp" };
 const trustedShops = { url: "/img/trusted-shops-icon.png" };
 const googleIcon = { url: "/img/google-icon.webp" };
@@ -465,6 +466,11 @@ function BestellenPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [klarnaWaiting, setKlarnaWaiting] = useState(false);
+  const [popupBlocked, setPopupBlocked] = useState(false);
+  const popupRef = useRef<Window | null>(null);
+  const klarnaAbortRef = useRef<AbortController | null>(null);
+  const klarnaUrlRef = useRef<string>("");
 
   useEffect(() => {
     const d = loadOrderDraft();
@@ -614,13 +620,26 @@ function BestellenPage() {
       });
       void navigate({ to: "/bestaetigung" });
     } catch (error) {
+      if (payment === "klarna" && !klarnaRef) {
+        try {
+          popupRef.current?.close();
+        } catch {
+          /* ignore */
+        }
+      }
       setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
+        error instanceof KlarnaAbortError
+          ? `${error.message} Es wurde keine Bestellung angelegt – Ihre Eingaben bleiben erhalten.`
+          : error instanceof Error
+            ? error.message
+            : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
       );
       setSubmitting(false);
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    } finally {
+      setKlarnaWaiting(false);
+      setPopupBlocked(false);
+      klarnaAbortRef.current = null;
     }
   };
 
