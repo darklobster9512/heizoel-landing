@@ -153,7 +153,26 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     desc: "Sofort per Online-Banking bezahlen – sicher über Klarna.",
     icon: { url: "/img/klarna.webp" },
   },
+  {
+    id: "klarna-cc",
+    label: "Kreditkarte",
+    desc: "Sichere Zahlung per Kreditkarte – abgewickelt über Klarna.",
+    icon: { url: "/img/klarna.webp" },
+  },
+  {
+    id: "klarna-rechnung",
+    label: "Rechnung – in 30 Tagen bezahlen",
+    desc: "Bequem später zahlen – abgewickelt über Klarna.",
+    icon: { url: "/img/klarna.webp" },
+  },
 ];
+
+const KLARNA_LABELS: Record<string, string> = {
+  klarna: "Klarna Sofortüberweisung",
+  "klarna-cc": "Klarna Kreditkarte",
+  "klarna-rechnung": "Klarna Rechnung (30 Tage)",
+};
+const isKlarna = (p: string) => p in KLARNA_LABELS;
 
 interface AddressForm {
   salutation: Salutation;
