@@ -1167,7 +1167,7 @@ function BestellenPage() {
 
                   {submitError ? (
                     <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[13px] font-semibold text-red-600">
-                      {submitError} Alternativ erreichen Sie uns telefonisch unter 030 1234567.
+                      {submitError}
                     </p>
                   ) : null}
 
