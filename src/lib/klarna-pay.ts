@@ -79,7 +79,7 @@ export async function waitForKlarnaPayment(
     const status = await getKlarnaStatus(session);
     if (status === "paid") return;
     const popup = getPopup();
-    if (!popup || popup.closed) {
+    if (popup && popup.closed) {
       closedSince ??= Date.now();
       if (Date.now() - closedSince > 6000) {
         throw new KlarnaAbortError("Die Zahlung wurde nicht abgeschlossen.");
