@@ -588,7 +588,7 @@ function BestellenPage() {
     setSubmitting(true);
     let klarnaRef = "";
     try {
-      if (payment === "klarna") {
+      if (isKlarna(payment)) {
         // Popup synchron beim Klick öffnen (sonst blockiert der Browser)
         const popup = openKlarnaPopup("about:blank");
         const session = await createKlarnaSession({ totalEuro: draft.total, email });
@@ -608,7 +608,7 @@ function BestellenPage() {
       }
       const placedAt = new Date().toISOString();
       const orderNotes = klarnaRef
-        ? `${notes.trim() ? `${notes.trim()}\n` : ""}Klarna Sofortüberweisung bezahlt (Sitzung ${klarnaRef})`
+        ? `${notes.trim() ? `${notes.trim()}\n` : ""}${KLARNA_LABELS[payment]} bezahlt (Sitzung ${klarnaRef})`
         : notes;
       const result = await submitPanelOrder({
         draft,
@@ -635,7 +635,7 @@ function BestellenPage() {
       });
       void navigate({ to: "/bestaetigung" });
     } catch (error) {
-      if (payment === "klarna" && !klarnaRef) {
+      if (isKlarna(payment) && !klarnaRef) {
         try {
           popupRef.current?.close();
         } catch {
@@ -1186,7 +1186,7 @@ function BestellenPage() {
         </div>
       </main>
 
-      {klarnaWaiting || (submitting && payment === "klarna") ? (
+      {klarnaWaiting || (submitting && isKlarna(payment)) ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-conditions/50 px-4" role="dialog" aria-modal="true" aria-labelledby="klarna-wait-title">
           <div className="w-full max-w-sm rounded-xl border border-line bg-background px-6 py-7 text-center shadow-card">
             <img src="/img/klarna.webp" alt="Klarna" className="mx-auto h-10 w-auto" />
