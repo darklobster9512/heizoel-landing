@@ -53,7 +53,10 @@ export const Route = createFileRoute("/bestellen")({
       { name: "robots", content: "noindex, nofollow" },
       { name: "googlebot", content: "noindex, nofollow" },
     ],
-    links: [{ rel: "canonical", href: "/bestellen" }],
+    links: [
+      { rel: "canonical", href: "/bestellen" },
+      { rel: "preload", as: "image", href: "/img/klarna.webp" },
+    ],
   }),
   component: BestellenPage,
 });
@@ -148,7 +151,7 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     id: "klarna",
     label: "Klarna Sofortüberweisung",
     desc: "Sofort per Online-Banking bezahlen – sicher über Klarna.",
-    icon: { url: "/img/klarna.svg" },
+    icon: { url: "/img/klarna.webp" },
   },
 ];
 
@@ -1064,7 +1067,8 @@ function BestellenPage() {
                                 src={p.icon.url}
                                 alt=""
                                 className="h-8 w-auto shrink-0 object-contain min-[390px]:h-9"
-                                loading="lazy"
+                                loading="eager"
+                                decoding="async"
                               />
                                <span className="col-span-2 min-w-0 min-[390px]:col-span-1">
                                 <span className="block text-[14px] font-bold text-conditions">
@@ -1173,7 +1177,7 @@ function BestellenPage() {
       {klarnaWaiting || (submitting && payment === "klarna") ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-conditions/50 px-4" role="dialog" aria-modal="true" aria-labelledby="klarna-wait-title">
           <div className="w-full max-w-sm rounded-xl border border-line bg-background px-6 py-7 text-center shadow-card">
-            <img src="/img/klarna.svg" alt="Klarna" className="mx-auto h-10 w-auto" />
+            <img src="/img/klarna.webp" alt="Klarna" className="mx-auto h-10 w-auto" />
             <h2 id="klarna-wait-title" className="mt-4 text-[17px] font-bold text-conditions">
               Zahlung wird in Klarna abgeschlossen …
             </h2>
