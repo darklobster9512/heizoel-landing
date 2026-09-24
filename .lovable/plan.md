@@ -1,18 +1,15 @@
-# Klarna-Wartepopup: Fullscreen-Overlay → normales Popup
+# Klarna-Popup: normales Popup-Fenster statt großes Fenster
 
 ## Ausgangslage
-Auf `/bestellen` erscheint beim Klarna-Checkout das Dialog-Fenster „Zahlung wird in Klarna abgeschlossen …" als Fullscreen-Overlay (`fixed inset-0` mit abgedunkeltem Hintergrund über die gesamte Seite). Der Nutzer möchte stattdessen ein normales, kompaktes Popup.
+Auf `/bestellen` öffnet der Klarna-Checkout ein Browser-Fenster (`window.open`) mit 600 × 860 px. Auf dem Bildschirm des Nutzers erscheint dieses Fenster riesig/fast full width — es soll stattdessen „ganz normal wie ein Popup" aussehen. Die Abdunkelung der Seite (Warte-Dialog „Zahlung wird in Klarna abgeschlossen …") bleibt unverändert bestehen.
 
-## Änderung (nur `src/routes/bestellen.tsx`, Block ab Zeile 1189)
+## Änderungen (nur `src/routes/bestellen.tsx`)
 
-- Fullscreen-Overlay entfernen: kein `fixed inset-0` mit Seiten abdunkeln mehr.
-- Stattdessen ein kleines, fixiertes Dialog-Popup mittig auf der Seite:
-  - Kompakte Karte (ca. 300–320 px breit, `rounded-xl`, Schatten, dünner Rahmen — passend zum bisherigen Stil).
-  - Dezenter, kaum sichtbarer Schimmer statt der dunklen Vollflächen-Abdunkelung (damit klar ist, dass die Seite gesperrt ist, ohne „full width"-Optik).
-  - Inhalt bleibt gleich: Klarna-Logo, Titel, Hinweistext, Buttons „Klarna-Fenster erneut öffnen" (bzw. „Klarna öffnen" bei Popup-Blocker) und „Abbrechen".
-- Buttons gestaucht (etwas kompaktere Abstände/Padding), damit alles in die kleinere Karte passt.
-- `role="dialog"`, `aria-modal`, `aria-labelledby` bleiben erhalten; Logik (Popup-Blocker, cancelKlarna, Anzeige-Bedingung) unverändert.
+- Zwei Stellen mit `window.open(url, "klarna", "width=600,height=860")` (Zeile 569 `openKlarnaPopup` und Zeile 1206 „Klarna-Fenster erneut öffnen") auf eine kompakte Popup-Größe umstellen:
+  - ca. 480 × 680 px, per Screen-Koordinaten (`left`/`top`) mittig auf dem Bildschirm positioniert.
+  - Kleiner gemeinsamer Helper (z. B. `openKlarnaWindow(url)`), damit beide Stellen identisch öffnen — auch wenn der Screen kleiner als das Popup ist, greift die Browser-Standardgröße.
+- Der Warte-Dialog (dunkler Fullscreen-Hintergrund + Karte max-w-sm) bleibt wie er ist — Abdunkelung ist gewünscht.
 
 ## Verifikation
 - `bunx tsgo --noEmit`
-- Playwright: `/bestellen` aufrufen, Klarna-Zahlungsart wählen und Bestellung absenden lassen (Popup-Blocker-Umweg: Dialog erscheint auch ohne echten Klarna-Server über den Blocker-Pfad) — prüfen, dass das Popup klein und mittig erscheint und die Seite drumherum normal sichtbar bleibt. Screenshot-Kontrolle.
+- Playwright auf `/bestellen`: Klarna-Zahlungsart wählen, absenden → Popup öffnet sich kompakt und mittig, Warte-Dialog mit Abdunkelung erscheint weiterhin; Screenshot-Kontrolle.
