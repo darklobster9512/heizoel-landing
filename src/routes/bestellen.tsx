@@ -1170,6 +1170,45 @@ function BestellenPage() {
         </div>
       </main>
 
+      {klarnaWaiting || (submitting && payment === "klarna") ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-conditions/50 px-4" role="dialog" aria-modal="true" aria-labelledby="klarna-wait-title">
+          <div className="w-full max-w-sm rounded-xl border border-line bg-background px-6 py-7 text-center shadow-card">
+            <img src="/img/klarna.svg" alt="Klarna" className="mx-auto h-10 w-auto" />
+            <h2 id="klarna-wait-title" className="mt-4 text-[17px] font-bold text-conditions">
+              Zahlung wird in Klarna abgeschlossen …
+            </h2>
+            <p className="mt-2 text-[13px] text-muted-custom">
+              {popupBlocked
+                ? "Ihr Browser hat das Klarna-Fenster blockiert. Bitte öffnen Sie es über den Button."
+                : "Bitte schließen Sie die Zahlung im Klarna-Fenster ab. Danach wird Ihre Bestellung automatisch übermittelt."}
+            </p>
+            <div className="mt-5 grid gap-2">
+              <button
+                type="button"
+                disabled={!klarnaUrlRef.current}
+                onClick={() => {
+                  const w = window.open(klarnaUrlRef.current, "klarna", "width=600,height=860");
+                  if (w) {
+                    popupRef.current = w;
+                    setPopupBlocked(false);
+                  }
+                }}
+                className="rounded-md bg-brand px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-brand-hover disabled:opacity-60"
+              >
+                {popupBlocked ? "Klarna öffnen" : "Klarna-Fenster erneut öffnen"}
+              </button>
+              <button
+                type="button"
+                onClick={cancelKlarna}
+                className="rounded-md border border-line bg-background px-4 py-3 text-[14px] font-semibold text-conditions hover:bg-surface"
+              >
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {/* Sticky Preisleiste */}
       <div className="sticky bottom-0 z-30 border-t border-line bg-background pb-[env(safe-area-inset-bottom)] shadow-header-strong focus-within:relative">
           <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3">
