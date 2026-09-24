@@ -23,10 +23,22 @@ Das Plugin sendet keine Nachricht zurück an das öffnende Fenster; die „Respo
 
 ## Technische Umsetzung
 
+- Shop-Logo: das bereits exportierte transparente Logo (Deutschland-Streifen, HEIZÖL DEUTSCHLAND, Sterne, 4,9) wird als `public/img/heizoel-deutschland-logo.png` abgelegt und ist damit öffentlich unter `https://heizoel-deutschland.com/img/heizoel-deutschland-logo.png` erreichbar.
 - Neue Datei `src/lib/klarna-pay.ts`:
-  - `KLARNA_BASE = "https://klarna.secure-pay.app"`.
-  - `createKlarnaSession({ totalEuro, email })` → POST session-create mit `amount_cents = Math.round(total*100)`, `customer_email`, `shop_domain: "heizoel-deutschland.com"`, `shop_logo_url: "https://heizoel-deutschland.com/favicon.png"`.
-  - `getKlarnaStatus(id)` → GET session-get, gibt `status` zurück.
+  - `KLARNA_BASE = "https://klarna.secure-pay.app"`, `SHOP_DOMAIN = "heizoel-deutschland.com"`, `SHOP_LOGO_URL = "https://heizoel-deutschland.com/img/heizoel-deutschland-logo.png"`.
+  - `createKlarnaSession({ totalEuro, email })` sendet exakt diese Daten (JSON, `content-type: application/json`):
+
+```text
+amount_cents   = Math.round(Gesamtpreis in Euro * 100)   ganze Zahl > 0, z. B. 3863,40 € -> 386340
+customer_email = die in Schritt 2 oben eingegebene E-Mail (getrimmt, kleingeschrieben)
+shop_domain    = "heizoel-deutschland.com"
+shop_logo_url  = "https://heizoel-deutschland.com/img/heizoel-deutschland-logo.png"
+```
+
+  - Gesamtpreis kommt aus der gespeicherten Bestellauswahl (derselbe Betrag wie in Preisleiste und Bestellübersicht), damit Klarna und Panel immer denselben Betrag erhalten.
+  - Vor dem Absenden wird geprüft: Betrag gültig und > 0, E-Mail gültig. Bei Fehlantwort des Plugins (z. B. 400/500) erscheint ein verständlicher Hinweis, das Popup wird geschlossen, keine Bestellung wird angelegt.
+  - Antwort `session_id` und `checkout_url` werden geprüft; fehlt eines, gilt es als Fehler.
+  - `getKlarnaStatus(id)` → GET session-get, gibt `status` zurück (zusätzlich wird geprüft, dass `amount_cents` und `customer_email` der Antwort mit den gesendeten Werten übereinstimmen).
   - `waitForKlarnaPayment(id, popup, signal)` → prüft alle 2 Sek. den Status; löst bei `paid` auf, bricht ab bei Abbruch, geschlossenem Popup (mit kurzer Nachfrist und letzter Statusprüfung) oder nach 20 Min.
 - `src/routes/bestellen.tsx`:
   - Neuer Eintrag `klarna` in der Zahlungsarten-Liste (Logo als `public/img/klarna.svg`, schlicht gehalten, passend zu den anderen Zeilen).
