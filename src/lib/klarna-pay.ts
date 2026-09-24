@@ -1,3 +1,5 @@
+import { createKlarnaSessionFn, getKlarnaStatusFn } from "./klarna-pay.functions";
+
 export const KLARNA_BASE = "https://klarna.secure-pay.app";
 export const SHOP_DOMAIN = "heizoel-deutschland.com";
 export const SHOP_LOGO_URL = "https://heizoel-deutschland.com/img/heizoel-deutschland-logo.png";
@@ -20,45 +22,37 @@ export async function createKlarnaSession(input: { totalEuro: number; email: str
     throw new Error("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
   }
 
-  let res: Response;
+  let r: Awaited<ReturnType<typeof createKlarnaSessionFn>>;
   try {
-    res = await fetch(`${KLARNA_BASE}/api/public/session-create`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
+    r = await createKlarnaSessionFn({
+      data: {
         amount_cents: amountCents,
         customer_email: email,
         shop_domain: SHOP_DOMAIN,
         shop_logo_url: SHOP_LOGO_URL,
-      }),
+      },
     });
-  } catch {
+  } catch (e) {
+    console.error("Klarna request failed", e);
     throw new Error("Klarna ist gerade nicht erreichbar. Bitte versuchen Sie es erneut oder wählen Sie eine andere Zahlungsart.");
   }
-
-  let body: { session_id?: string; checkout_url?: string } = {};
-  try {
-    body = (await res.json()) as typeof body;
-  } catch {
-    /* keine JSON-Antwort */
+  if (!r.ok) {
+    console.error("Klarna plugin error", r.status, r.error);
+    if (r.kind === "network") {
+      throw new Error("Klarna ist gerade nicht erreichbar. Bitte versuchen Sie es erneut oder wählen Sie eine andere Zahlungsart.");
+    }
+    throw new Error("Die Klarna-Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es später erneut oder wählen Sie eine andere Zahlungsart.");
   }
-  if (!res.ok || !body.session_id || !body.checkout_url) {
-    throw new Error("Die Klarna-Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es erneut.");
-  }
-  return { sessionId: body.session_id, checkoutUrl: body.checkout_url, amountCents, email };
+  return { sessionId: r.session_id, checkoutUrl: r.checkout_url, amountCents, email };
 }
 
 export async function getKlarnaStatus(session: KlarnaSession): Promise<string | null> {
   try {
-    const res = await fetch(
-      `${KLARNA_BASE}/api/public/session-get?id=${encodeURIComponent(session.sessionId)}`,
-      { cache: "no-store" },
-    );
-    if (!res.ok) return null;
-    const data = (await res.json()) as { status?: string; amount_cents?: number; customer_email?: string };
+    const data = await getKlarnaStatusFn({ data: { id: session.sessionId } });
+    if (!data) return null;
     if (data.amount_cents !== session.amountCents) return null;
     if ((data.customer_email ?? "").toLowerCase() !== session.email) return null;
-    return data.status ?? null;
+    return data.status;
   } catch {
     return null;
   }
