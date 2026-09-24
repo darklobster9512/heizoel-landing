@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   CalendarDays,
   Check,
@@ -27,6 +27,7 @@ import {
   type OrderDraft,
 } from "@/lib/order-draft";
 import { submitPanelOrder } from "@/lib/panel-orders";
+import { createKlarnaSession, KlarnaAbortError, waitForKlarnaPayment } from "@/lib/klarna-pay";
 const ekomi = { url: "/img/ekomi.webp" };
 const trustedShops = { url: "/img/trusted-shops-icon.png" };
 const googleIcon = { url: "/img/google-icon.webp" };
@@ -142,6 +143,12 @@ const PAYMENT_OPTIONS: PaymentOption[] = [
     desc: "Rechnung per E-Mail, Zahlung nach Lieferung.",
     hint: "Nur für Bestandskunden",
     icon: vorauskasse,
+  },
+  {
+    id: "klarna",
+    label: "Klarna Sofortüberweisung",
+    desc: "Sofort per Online-Banking bezahlen – sicher über Klarna.",
+    icon: { url: "/img/klarna.svg" },
   },
 ];
 
@@ -459,6 +466,11 @@ function BestellenPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [klarnaWaiting, setKlarnaWaiting] = useState(false);
+  const [popupBlocked, setPopupBlocked] = useState(false);
+  const popupRef = useRef<Window | null>(null);
+  const klarnaAbortRef = useRef<AbortController | null>(null);
+  const klarnaUrlRef = useRef<string>("");
 
   useEffect(() => {
     const d = loadOrderDraft();
@@ -538,14 +550,51 @@ function BestellenPage() {
     return true;
   };
 
+  const openKlarnaPopup = (url: string) => {
+    const w = window.open(url, "klarna", "width=600,height=860");
+    popupRef.current = w;
+    setPopupBlocked(!w);
+    return w;
+  };
+
+  const cancelKlarna = () => {
+    klarnaAbortRef.current?.abort();
+    try {
+      popupRef.current?.close();
+    } catch {
+      /* ignore */
+    }
+  };
+
   const submit = async () => {
     if (submitting) return;
     if (!validate() || !draft) return;
-    const now = new Date();
-    const placedAt = now.toISOString();
     setSubmitError(null);
     setSubmitting(true);
+    let klarnaRef = "";
     try {
+      if (payment === "klarna") {
+        // Popup synchron beim Klick öffnen (sonst blockiert der Browser)
+        const popup = openKlarnaPopup("about:blank");
+        const session = await createKlarnaSession({ totalEuro: draft.total, email });
+        klarnaUrlRef.current = session.checkoutUrl;
+        if (popup && !popup.closed) popup.location.href = session.checkoutUrl;
+        else openKlarnaPopup(session.checkoutUrl);
+        const controller = new AbortController();
+        klarnaAbortRef.current = controller;
+        setKlarnaWaiting(true);
+        await waitForKlarnaPayment(session, () => popupRef.current, controller.signal);
+        try {
+          popupRef.current?.close();
+        } catch {
+          /* ignore */
+        }
+        klarnaRef = session.sessionId;
+      }
+      const placedAt = new Date().toISOString();
+      const orderNotes = klarnaRef
+        ? `${notes.trim() ? `${notes.trim()}\n` : ""}Klarna Sofortüberweisung bezahlt (Sitzung ${klarnaRef})`
+        : notes;
       const result = await submitPanelOrder({
         draft,
         slot: slot ?? undefined,
@@ -553,7 +602,7 @@ function BestellenPage() {
         phone,
         delivery,
         billing: billingDifferent ? billing : undefined,
-        notes,
+        notes: orderNotes,
         payment,
         placedAt,
       });
@@ -571,13 +620,26 @@ function BestellenPage() {
       });
       void navigate({ to: "/bestaetigung" });
     } catch (error) {
+      if (payment === "klarna" && !klarnaRef) {
+        try {
+          popupRef.current?.close();
+        } catch {
+          /* ignore */
+        }
+      }
       setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
+        error instanceof KlarnaAbortError
+          ? `${error.message} Es wurde keine Bestellung angelegt – Ihre Eingaben bleiben erhalten.`
+          : error instanceof Error
+            ? error.message
+            : "Die Bestellung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
       );
       setSubmitting(false);
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    } finally {
+      setKlarnaWaiting(false);
+      setPopupBlocked(false);
+      klarnaAbortRef.current = null;
     }
   };
 
@@ -1107,6 +1169,45 @@ function BestellenPage() {
             </>
         </div>
       </main>
+
+      {klarnaWaiting || (submitting && payment === "klarna") ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-conditions/50 px-4" role="dialog" aria-modal="true" aria-labelledby="klarna-wait-title">
+          <div className="w-full max-w-sm rounded-xl border border-line bg-background px-6 py-7 text-center shadow-card">
+            <img src="/img/klarna.svg" alt="Klarna" className="mx-auto h-10 w-auto" />
+            <h2 id="klarna-wait-title" className="mt-4 text-[17px] font-bold text-conditions">
+              Zahlung wird in Klarna abgeschlossen …
+            </h2>
+            <p className="mt-2 text-[13px] text-muted-custom">
+              {popupBlocked
+                ? "Ihr Browser hat das Klarna-Fenster blockiert. Bitte öffnen Sie es über den Button."
+                : "Bitte schließen Sie die Zahlung im Klarna-Fenster ab. Danach wird Ihre Bestellung automatisch übermittelt."}
+            </p>
+            <div className="mt-5 grid gap-2">
+              <button
+                type="button"
+                disabled={!klarnaUrlRef.current}
+                onClick={() => {
+                  const w = window.open(klarnaUrlRef.current, "klarna", "width=600,height=860");
+                  if (w) {
+                    popupRef.current = w;
+                    setPopupBlocked(false);
+                  }
+                }}
+                className="rounded-md bg-brand px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-brand-hover disabled:opacity-60"
+              >
+                {popupBlocked ? "Klarna öffnen" : "Klarna-Fenster erneut öffnen"}
+              </button>
+              <button
+                type="button"
+                onClick={cancelKlarna}
+                className="rounded-md border border-line bg-background px-4 py-3 text-[14px] font-semibold text-conditions hover:bg-surface"
+              >
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {/* Sticky Preisleiste */}
       <div className="sticky bottom-0 z-30 border-t border-line bg-background pb-[env(safe-area-inset-bottom)] shadow-header-strong focus-within:relative">
