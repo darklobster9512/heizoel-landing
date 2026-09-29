@@ -1052,7 +1052,7 @@ function BestellenPage() {
                       title="Zahlungsmethode"
                     >
                       <div className="grid gap-3" role="radiogroup" aria-label="Zahlungsmethode">
-                        {PAYMENT_OPTIONS.map((p) => {
+                        {PAYMENT_OPTIONS.filter((p) => !isKlarna(p.id)).map((p) => {
                           const active = payment === p.id;
                           return (
                             <button
