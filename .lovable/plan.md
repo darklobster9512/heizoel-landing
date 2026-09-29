@@ -1,14 +1,16 @@
-# Klarna-Popup startet nicht – Ursache und nächste Schritte
+# 3 Klarna-Zahlungsarten auf /bestellen ausblenden (im Code behalten)
 
-## Ursache (gerade live getestet)
-- Anfrage „Zahlung starten" an klarna.secure-pay.app: **Fehler 522** („Server antwortet nicht" – die Domain erreicht den Plugin-Server nicht).
-- Startseite des Plugins: **Fehler 403** (Zugriff verweigert).
-- Der Shop schickt die Anfrage korrekt; der Fehler liegt an der Domain bzw. dem Plugin-Server, nicht am Shop.
+## Ziel
+Die drei Klarna-Optionen (Sofortüberweisung, Kreditkarte, Rechnung in 30 Tagen) erscheinen nicht mehr in der Zahlungsmethoden-Auswahl. Der Code bleibt vollständig erhalten, sodass sie später durch eine einzige Änderung wieder eingeblendet werden können.
 
-## Was du tun musst (im Plugin-Projekt / bei der Domain)
-1. Im Klarna-Plugin-Projekt prüfen, ob es veröffentlicht ist und die eigene Domain klarna.secure-pay.app dort als „aktiv/verbunden" angezeigt wird.
-2. DNS-Einträge der Domain prüfen (wie in den Domain-Einstellungen des Plugins angegeben); falls ein Proxy (z. B. Cloudflare) davor sitzt, dort auf „nur DNS" stellen.
-3. Danach Bescheid geben – ich teste erneut.
+## Änderung (nur `src/routes/bestellen.tsx`)
+- In der Zahlungsarten-Liste (Zeile 1055) statt `PAYMENT_OPTIONS.map(...)` die sichtbaren Einträge filtern: `PAYMENT_OPTIONS.filter(p => !isKlarna(p.id)).map(...)`.
+- `PAYMENT_OPTIONS`, `KLARNA_LABELS` und `isKlarna` bleiben unverändert im Code — die gesamte Klarna-Logik (Popup, Sitzung, Warten auf „bezahlt", Übertragung ans Panel als `klarna` / `klarna-cc` / `klarna-rechnung`) bleibt funktionsfähig.
+- Standardauswahl ist bereits „Vorkasse" — es gibt keinen Zustand, in dem eine ausgeblendete Klarna-Art versehentlich ausgewählt sein könnte.
 
-## Optional im Shop
-- Wenn du mir die direkte Plugin-Adresse (…lovable.app) nennst, stelle ich den Shop darauf um, bis die Domain wieder läuft. Technisch: nur `BASE` in `src/lib/klarna-pay.functions.ts` ändern.
+## Prüfung
+- Typecheck (tsgo) und Build fehlerfrei.
+- Playwright: `/bestellen` Schritt 2 zeigt nur noch Vorkasse, Barzahlung, EC-Karte — keine Klarna-Karten, keine Konsolenfehler.
+
+## Wieder einschalten
+Später genügt es, den `.filter(p => !isKlarna(p.id))`-Aufruf zu entfernen — alle drei Zahlungsarten erscheinen dann wieder mit vollständigem Popup-Ablauf.
